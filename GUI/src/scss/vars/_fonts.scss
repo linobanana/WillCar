@@ -1,0 +1,131 @@
+@import './colors';
+@import './sizes';
+
+$app-font: Roboto, sans-serif;
+
+$default-font-size: 0.8rem;
+$mat-display-4-font-size: 4rem;
+$mat-display-3-font-size: 3.5rem;
+$mat-display-2-font-size: 3rem;
+$mat-display-1-font-size: 2.5rem;
+$mat-headline-font-size: 2rem;
+$mat-title-font-size: 1.5rem;
+$mat-subheading-2-font-size: 1rem;
+$mat-subheading-1-font-size: 0.86rem;
+$mat-body-2-font-size: 0.83rem;
+$mat-body-1-font-size: $default-font-size;
+$mat-caption-font-size: 0.75rem;
+
+$default-font-weight: 400;
+
+$mat-display-4-font: 300 $mat-display-4-font-size $app-font;
+$mat-display-3-font: $default-font-weight $mat-display-3-font-size $app-font;
+$mat-display-2-font: $default-font-weight $mat-display-2-font-size $app-font;
+$mat-display-1-font: $default-font-weight $mat-display-1-font-size $app-font;
+$mat-headline-font: $default-font-weight $mat-headline-font-size $app-font;
+$mat-title-font: $default-font-weight $mat-title-font-size $app-font;
+$mat-subheading-2-font: 500 $mat-subheading-2-font-size $app-font;
+$mat-subheading-1-font: $default-font-weight $mat-subheading-1-font-size $app-font;
+$mat-body-2-font: $default-font-weight $mat-body-2-font-size $app-font;
+$mat-body-1-font: $default-font-weight $mat-body-1-font-size $app-font;
+$mat-caption-font: $default-font-weight $mat-caption-font-size $app-font;
+
+$advanced-kpi-card-value: 300 1.7rem $app-font;
+$kpi-value: 300 1.6rem $app-font;
+$kpi-total-value-font: 300 $mat-headline-font-size $app-font;
+$overline: 300 0.65rem $app-font;
+
+/* Typefase colors */
+$body1-color: $dark-gray;
+$body2-color: $black;
+$caption-color: $dark-gray;
+$overline-color: $dark-gray;
+
+@mixin font-smoothing {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+@mixin truncated {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+// https://material.angular.io/guide/typography
+$custom-typography: mat-typography-config(
+	$font-family: '"Roboto", sans-serif',
+	$display-4: mat-typography-level($mat-display-4-font-size, $mat-display-4-font-size, 300),
+	$display-3: mat-typography-level($mat-display-3-font-size, $mat-display-3-font-size, 400),
+	$display-2: mat-typography-level($mat-display-2-font-size, $mat-display-2-font-size * 1.07, 400),
+	$display-1: mat-typography-level($mat-display-1-font-size, $mat-display-1-font-size * 1.18, 400),
+	$headline: mat-typography-level($mat-headline-font-size, $mat-headline-font-size * 1.33, 400),
+	$title: mat-typography-level($default-font-size, $default-font-size * 1.6, 400),
+	$subheading-2: mat-typography-level($mat-subheading-2-font-size, $mat-subheading-2-font-size * 1.75, 400),
+	$subheading-1: mat-typography-level($mat-subheading-1-font-size, $mat-subheading-1-font-size * 1.6, 400),
+	$body-2: mat-typography-level($mat-body-2-font-size, $mat-body-2-font-size * 1.7, 400),
+	$body-1: mat-typography-level($mat-body-1-font-size, $mat-body-1-font-size * 1.43, 400),
+	$caption: mat-typography-level($mat-caption-font-size, $mat-caption-font-size * 1.67, 400),
+	$button: mat-typography-level($default-font-size, 2rem, $default-font-weight)
+);
+
+%card-title {
+	@include truncated();
+	box-sizing: border-box;
+	color: $dark-gray;
+	font: $mat-subheading-1-font;
+	font-weight: 500;
+	height: $card-title-height;
+	max-width: 100%;
+	overflow: hidden;
+	padding: 0.25rem 0.25rem 0;
+	text-transform: uppercase;
+}
+
+%kpi-total-value {
+	color: $black;
+	font: $kpi-total-value-font;
+}
+
+%body1 {
+	color: $body1-color;
+	font: $mat-body-1-font;
+}
+
+%body2 {
+	color: $body2-color;
+	font: $mat-body-2-font;
+}
+
+%caption {
+	color: $caption-color;
+	font: $mat-caption-font;
+}
+
+%headline {
+	color: $black;
+	font: $mat-headline-font;
+}
+
+%subheading-2 {
+	color: $black;
+	font: $mat-subheading-2-font;
+}
+
+%subheading-1 {
+	color: $dark-blue;
+	font: $mat-subheading-1-font;
+}
+
+%modal-title {
+	@include truncated();
+	color: $dark-gray;
+	font: $mat-subheading-1-font;
+	font-weight: 500;
+	text-align: left;
+	text-transform: uppercase;
+}
+
+%table-header {
+	font: $mat-body-2-font;
+	font-weight: 500;
+}

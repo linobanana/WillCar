@@ -1,0 +1,88 @@
+@import '../vars/colors';
+
+$spinner-height: 105px;
+$spinner-width: 105px;
+$spinner-animation-time: 2000ms;
+
+.app-loading {
+	background: $primary;
+	height: 100%;
+	left: 0;
+	opacity: 0;
+	position: fixed;
+	top: 0;
+	transition: z-index 0.5s step-end, opacity 0.5s ease-in-out;
+	width: 100%;
+	z-index: -1;
+}
+
+app-root:empty + .app-loading {
+	opacity: 1;
+	z-index: 1000;
+}
+
+app-root + .app-loading .semipolar-spinner {
+	display: none;
+}
+
+app-root:empty + .app-loading .semipolar-spinner {
+	color: $white;
+	display: block;
+	font-size: 3rem;
+	left: calc(50% - #{$spinner-width / 2});
+	position: absolute;
+	text-align: center;
+	top: calc(50% - #{$spinner-height / 2});
+	transform: translate(0, -50%);
+	width: 100%;
+}
+
+.semipolar-spinner,
+.semipolar-spinner * {
+	box-sizing: border-box;
+}
+
+.semipolar-spinner {
+	height: $spinner-height;
+	position: relative;
+	width: $spinner-width;
+}
+
+.semipolar-spinner .ring {
+	animation: semipolar-spinner-animation $spinner-animation-time infinite;
+	border: $spinner-height * 0.05 solid transparent;
+	border-left-color: $white;
+	border-radius: 50%;
+	border-top-color: $white;
+	position: absolute;
+}
+
+@mixin ring-behavior($animation-time-coef, $ring-height-width-coef, $ring-left-top-coef, $ring-z-index) {
+	animation-delay: $spinner-animation-time * $animation-time-coef;
+	height: $spinner-height * $ring-height-width-coef;
+	left: $spinner-width * $ring-left-top-coef;
+	top: $spinner-height * $ring-left-top-coef;
+	width: $spinner-width * $ring-height-width-coef;
+	z-index: $ring-z-index;
+}
+
+$rings-count: 5;
+
+.semipolar-spinner {
+	@for $i from 1 through $rings-count {
+		.ring:nth-child(#{$i}) {
+			@include ring-behavior(
+				($rings-count - $i) * 0.1,
+				1 - ($i - 1) * 0.2,
+				($i - 1) * 0.1,
+				$rings-count - $i + 1
+			);
+		}
+	}
+}
+
+@keyframes semipolar-spinner-animation {
+	50% {
+		transform: rotate(360deg) scale(0.7);
+	}
+}

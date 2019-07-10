@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'GUI';
+export class AppComponent implements OnInit {
+  isAppReady = false;
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.isAppReady = true;
+    }, 2000);
+  }
 }

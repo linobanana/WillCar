@@ -1,0 +1,163 @@
+// adfree Colors
+@import '~@angular/material/theming';
+@import 'google-material-colors';
+@include mat-core();
+
+$adfree-primary-settings: (
+	50: #e3e8ec,
+	100: #b8c6cf,
+	200: #89a0af,
+	300: #5a7a8e,
+	400: #365e76,
+	500: #13415e,
+	600: #113b56,
+	700: #0e324c,
+	800: #0b2a42,
+	900: #061c31,
+	A100: #6aaeff,
+	A200: #3792ff,
+	A400: #0476ff,
+	A700: #006aea,
+	contrast: (
+		50: $black-87-opacity,
+		100: $black-87-opacity,
+		200: $black-87-opacity,
+		300: $black-87-opacity,
+		400: $black-87-opacity,
+		500: white,
+		600: white,
+		700: white,
+		800: $white-87-opacity,
+		900: $white-87-opacity,
+		A100: $black-87-opacity,
+		A200: white,
+		A400: white,
+		A700: white
+	)
+);
+$adfree-accent-settings: (
+	50: #f0fae4,
+	100: #d8f2bc,
+	200: #bfe990,
+	300: #a5e063,
+	400: #91da41,
+	500: #7ed320,
+	600: #76ce1c,
+	700: #6bc818,
+	800: #61c213,
+	900: #4eb70b,
+	A100: #edffe4,
+	A200: #cbffb1,
+	A400: #aaff7e,
+	A700: #99ff64,
+	contrast: (
+		50: $black-87-opacity,
+		100: $black-87-opacity,
+		200: $black-87-opacity,
+		300: $black-87-opacity,
+		400: $black-87-opacity,
+		500: white,
+		600: white,
+		700: white,
+		800: $white-87-opacity,
+		900: $white-87-opacity,
+		A100: $black-87-opacity,
+		A200: white,
+		A400: white,
+		A700: white
+	)
+);
+$adfree-warn-settings: (
+	50: #fce8e5,
+	100: #f7c7be,
+	200: #f2a193,
+	300: #ec7b67,
+	400: #e85f47,
+	500: #e44326,
+	600: #e13d22,
+	700: #dd341c,
+	800: #d92c17,
+	900: #d11e0d,
+	A100: #fffdfd,
+	A200: #ffcdca,
+	A400: #ff9e97,
+	A700: #ff867e,
+	contrast: (
+		50: $black-87-opacity,
+		100: $black-87-opacity,
+		200: $black-87-opacity,
+		300: $black-87-opacity,
+		400: $black-87-opacity,
+		500: white,
+		600: white,
+		700: white,
+		800: $white-87-opacity,
+		900: $white-87-opacity,
+		A100: $black-87-opacity,
+		A200: white,
+		A400: white,
+		A700: white
+	)
+);
+// adfree primary settings
+$adfree-app-primary-palette: $adfree-primary-settings;
+$adfree-app-primary-default: 500;
+$adfree-app-primary-lighter: 300;
+$adfree-app-primary-darker: 900;
+// adfree accent settings
+$adfree-app-accent-palette: $adfree-accent-settings;
+$adfree-app-accent-default: 500;
+$adfree-app-accent-lighter: 300;
+$adfree-app-accent-darker: 900;
+// adfree warn settings
+$adfree-app-warn-palette: $adfree-warn-settings;
+$adfree-app-warn-default: 500;
+$adfree-app-warn-lighter: 300;
+$adfree-app-warn-darker: 900;
+$adfree-app-primary: mat-palette(
+	$adfree-app-primary-palette,
+	$adfree-app-primary-default,
+	$adfree-app-primary-lighter,
+	$adfree-app-primary-darker
+);
+$adfree-app-accent: mat-palette(
+	$adfree-app-accent-palette,
+	$adfree-app-accent-default,
+	$adfree-app-accent-lighter,
+	$adfree-app-accent-darker
+);
+$adfree-app-warn: mat-palette(
+	$adfree-app-warn-palette,
+	$adfree-app-warn-default,
+	$adfree-app-warn-lighter,
+	$adfree-app-warn-darker
+);
+$adfree-app-theme: mat-light-theme($adfree-app-primary, $adfree-app-accent, $adfree-app-warn);
+@include angular-material-theme($adfree-app-theme);
+
+$primary: map-get($adfree-app-primary-palette, $adfree-app-primary-default);
+$accent: map-get($adfree-app-accent-palette, $adfree-app-accent-default);
+$warn: map-get($adfree-app-warn-palette, $adfree-app-warn-default);
+$primary-lighter: map-get($adfree-app-primary-palette, $adfree-app-primary-lighter);
+$accent-lighter: map-get($adfree-app-accent-palette, $adfree-app-accent-lighter);
+$warn-lighter: map-get($adfree-app-warn-palette, $adfree-app-warn-lighter);
+$primary-darker: map-get($adfree-app-primary-palette, $adfree-app-primary-darker);
+$accent-darker: map-get($adfree-app-accent-palette, $adfree-app-accent-darker);
+$warn-darker: map-get($adfree-app-warn-palette, $adfree-app-warn-darker);
+$secondary-color: $mdc-blue-600;
+$disabled-color: rgba(0, 0, 0, 0.12);
+$primary-text-color: rgba(35, 36, 37, 0.6);
+$light-gray: #b0bec5;
+$light-grayish-blue: #cfd8dc;
+$gray: #607d8b;
+$dark-gray: #455a64;
+$white: #fff;
+$black: #000;
+$red: #ff1744;
+$green: #00c853;
+$blue: #1565c0;
+$dark-blue: #0d47a1;
+$main-background-color: #f7f7fc;
+$top-filters-background: $main-background-color;
+$vertical-line-default-color: #eceff1;
+

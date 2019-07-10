@@ -1,0 +1,75 @@
+@import 'libraries';
+@import 'vars/colors';
+@import 'core/app-loading';
+@import 'vars/fonts';
+@import 'vars/decorations';
+@import 'vars/sizes';
+@import 'theme';
+@import 'material-overwrites/overwrites';
+
+@include mat-core($custom-typography);
+
+* {
+	@include font-smoothing();
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	overflow: hidden;
+	padding: 0;
+	width: 100%;
+}
+
+.willcar-body {
+	background: $main-background-color;
+
+	> .highcharts-tooltip-container {
+		z-index: 1001; // cdk-overlay-container's z-index + 1
+	}
+
+	.loading-bg {
+		height: 100%;
+		width: 100%;
+	}
+
+	.select-panel-under-select {
+		margin-top: 2.5rem;
+		width: 100% !important;
+	}
+
+	/deep/ {
+		$circle-radius: 15px;
+
+		.mat-radio-container {
+			height: $circle-radius;
+			width: $circle-radius;
+		}
+
+		.mat-radio-outer-circle {
+			height: $circle-radius;
+			width: $circle-radius;
+		}
+
+		.mat-radio-inner-circle {
+			height: $circle-radius;
+			width: $circle-radius;
+		}
+
+		.mat-radio-button .mat-radio-ripple {
+			height: $circle-radius * 2;
+			left: calc(50% - #{$circle-radius});
+			top: calc(50% - #{$circle-radius});
+			width: $circle-radius * 2;
+		}
+
+		.mat-button,
+		.mat-raised-button {
+			text-transform: uppercase;
+		}
+	}
+}

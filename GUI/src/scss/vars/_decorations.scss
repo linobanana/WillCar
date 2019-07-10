@@ -1,0 +1,24 @@
+@import './colors';
+@import './sizes';
+/* Blocks (containers) decorations */
+$container-box-shadow: 0 0.05rem 0.2rem 0 #dbdbe6;
+$table-border-color: rgba(0, 0, 0, 0.5);
+
+%adfree-container {
+	background-color: $white;
+	border-radius: 0.15rem;
+	box-shadow: $container-box-shadow;
+	box-sizing: border-box;
+	padding: 1rem;
+}
+
+@mixin tooltip-grid($num-rows) {
+	column-gap: 0.2rem;
+	display: grid;
+	grid-auto-flow: column;
+	grid-template-rows: repeat($num-rows, 1fr);
+}
+
+@mixin full-page-height($additional-offset: 0rem) {
+	height: calc(100vh - #{$top-panel-height} - #{$additional-offset});
+}
