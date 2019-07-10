@@ -42,7 +42,7 @@ body {
 		width: 100% !important;
 	}
 
-	/deep/ {
+	::ng-deep {
 		$circle-radius: 15px;
 
 		.mat-radio-container {
