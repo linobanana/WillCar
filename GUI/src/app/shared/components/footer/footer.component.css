@@ -1,0 +1,13 @@
+footer {
+  width: 100%;
+  height: 4rem;
+  background: linear-gradient(184deg, rgba(164,179,87,1) 0%, rgba(40,97,65,1) 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+p {
+  color: floralwhite;
+  font-size: 1.6em;
+}
