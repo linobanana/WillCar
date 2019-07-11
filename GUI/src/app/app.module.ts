@@ -5,14 +5,14 @@ import { AppComponent } from './app.component';
 import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
-import {routes} from "./app.routes";
-import {MainModule} from "./pages/main/main.module";
+import {routes} from './app.routes';
+import {MainModule} from './pages/main/main.module';
 import { HeaderComponent } from './shared/components/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
     CommonModule,
