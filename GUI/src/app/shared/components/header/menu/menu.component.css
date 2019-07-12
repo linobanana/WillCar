@@ -1,0 +1,16 @@
+.profile-button {
+  min-width: 100px;
+  line-height: 52px;
+}
+
+.profile-icon {
+  height: 45px;
+  width: 45px;
+  font-size: 45px;
+  color: whitesmoke;
+}
+
+.menu-item {
+  display: inline-block;
+  font-size: 1.4em;
+}
