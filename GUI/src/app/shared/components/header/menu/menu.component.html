@@ -1,4 +1,4 @@
-<button mat-button [matMenuTriggerFor]="beforeMenu"><mat-icon>account_circle</mat-icon><mat-icon>keyboard_arrow_down</mat-icon></button>
+<button class="profile-button" mat-button [matMenuTriggerFor]="beforeMenu"><mat-icon class="profile-icon">account_circle</mat-icon><mat-icon class="profile-icon">keyboard_arrow_down</mat-icon></button>
 <mat-menu #beforeMenu="matMenu" xPosition="before">
-  <button mat-menu-item *ngFor="let tab of tabs">{{tab}}</button>
+  <button class="menu-item" mat-menu-item *ngFor="let tab of tabs">{{tab}}</button>
 </mat-menu>

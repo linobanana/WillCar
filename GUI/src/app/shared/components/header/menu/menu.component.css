@@ -1,18 +1,16 @@
-button[mat-button] {
+.profile-button {
   min-width: 100px;
   line-height: 52px;
 }
 
-.mat-icon {
+.profile-icon {
   height: 45px;
   width: 45px;
-}
-.material-icons {
   font-size: 45px;
   color: whitesmoke;
 }
 
-.mat-menu-item {
+.menu-item {
   display: inline-block;
   font-size: 1.4em;
 }

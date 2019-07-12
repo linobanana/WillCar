@@ -1,15 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 import {routes} from "./app.routes";
-import { MainModule } from "./pages/main/main.module";
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatNativeDateModule} from '@angular/material';
+import {MainModule} from "./pages/main/main.module";
 import {HeaderModule} from './shared/components/header/header.module';
 import {FooterModule} from './shared/components/footer/footer.module';
 
@@ -22,13 +19,9 @@ import {FooterModule} from './shared/components/footer/footer.module';
   imports: [
     CommonModule,
     BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    MatNativeDateModule,
     HttpClientModule,
     RouterModule.forRoot(routes, {useHash: true}),
     MainModule,
-    ReactiveFormsModule,
     HeaderModule,
     FooterModule
   ],
