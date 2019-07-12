@@ -22,6 +22,11 @@ public class DriverController {
         return driverRepository.findAll();
     }
 
+    @GetMapping("/{id}")
+    public Driver getById(final @PathVariable Long id) {
+        return driverRepository.findById(id).orElseThrow(RuntimeException::new);
+    }
+
     @GetMapping("/first-name/{firstName}")
     public List<Driver> getByFirstName(final @PathVariable String firstName) {
         return driverRepository.findAllByFirstName(firstName);
