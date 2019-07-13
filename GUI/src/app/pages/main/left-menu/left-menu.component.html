@@ -1,4 +1,26 @@
-<p>left-menu works!</p>
-<div class="ngx-timepicker-field-example">
-  <ngx-timepicker-field [controlOnly]="true"></ngx-timepicker-field>
-</div>
+<body>
+<form [formGroup]="LeftMenuInfo" (ngSubmit)="onSubmit()">
+  <div class="ngx-timepicker-field-example">
+    <ngx-timepicker-field formControlName = "time" [controlOnly]="true"></ngx-timepicker-field>
+  </div>
+  <mat-form-field>
+    <input matInput formControlName = "date" [matDatepicker]="picker" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <br>
+  <div formGroupName="adress">
+  <mat-form-field >
+    <input matInput formControlName = "start" placeholder="Start point">
+  </mat-form-field>
+  <br>
+  <mat-form-field >
+    <input matInput formControlName = "end"  placeholder="End point">
+  </mat-form-field>
+  </div>
+  <br>
+  <mat-checkbox formControlName = "near">Nearly search</mat-checkbox>
+  <br>
+  <button class="search" mat-button>Pick up a route</button>
+</form>
+</body>
