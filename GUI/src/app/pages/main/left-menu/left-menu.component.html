@@ -1,5 +1,8 @@
 <body>
-<form [formGroup]="LeftMenuInfo" (ngSubmit)="onSubmit()">
+<br>
+<br>
+<br>
+<form class ="leftMenu" [formGroup]="LeftMenuInfo" (ngSubmit)="onSubmit()">
   <div class="ngx-timepicker-field-example">
     <ngx-timepicker-field formControlName = "time" [controlOnly]="true"></ngx-timepicker-field>
   </div>
@@ -8,19 +11,22 @@
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
+  <div class="errorFormDate" *ngIf="!(date.errors == null)">
+    {{date.errors.forbiddenDate.value}}
+  </div>
   <br>
   <div formGroupName="adress">
   <mat-form-field >
-    <input matInput formControlName = "start" placeholder="Start point">
+    <input matInput formControlName = "start" placeholder="Start point" required>
   </mat-form-field>
   <br>
   <mat-form-field >
-    <input matInput formControlName = "end"  placeholder="End point">
+    <input matInput formControlName = "end"  placeholder="End point" required>
   </mat-form-field>
   </div>
   <br>
   <mat-checkbox formControlName = "near">Nearly search</mat-checkbox>
   <br>
-  <button class="search" mat-button>Pick up a route</button>
+  <button type="submit" [disabled]="LeftMenuInfo.invalid" class="search" mat-button>Pick up a route</button>
 </form>
 </body>

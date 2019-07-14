@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, ValidatorFn} from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
+import {Time} from "@angular/common";
+import {$} from "protractor";
+import {match} from "minimatch";
 
 @Component({
   selector: 'app-left-menu',
@@ -13,11 +17,11 @@ export class LeftMenuComponent {
     this.setDefaultDate();
   }
   LeftMenuInfo = this.fb.group({
-                date: [''],
+                date: ['', forbiddenDateValidator(new RegExp('^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$'))],
                 time: [''],
           adress: this.fb.group({
-                start: [''],
-                end: ['']}),
+                start: ['', Validators.required],
+                end: ['', Validators.required]}),
                 near: []
    });
    setDefaultDate() {
@@ -36,4 +40,19 @@ export class LeftMenuComponent {
     // TODO: Use EventEmitter with form value
     console.log(this.LeftMenuInfo.value);
   }
+  get date() { return this.LeftMenuInfo.get('date'); }
 }
+export function forbiddenDateValidator(date: RegExp): ValidatorFn {
+  return (control: FormControl): { [key: string]: any } | null => {
+    const temp = new Date(control.value);
+    let buf: string;
+    buf = temp.toLocaleDateString();
+    const forbidden: boolean = !(date.test(buf));
+    if (control.value === null) {
+      return {forbiddenDate: {value: 'There is a mistake in this date!'}};
+    } else {
+      return forbidden ? {forbiddenDate: {value: 'Not close date:' + buf}} : null;
+    }
+  };
+}
+
