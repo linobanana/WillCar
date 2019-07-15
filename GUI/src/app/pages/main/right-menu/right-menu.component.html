@@ -1,0 +1,33 @@
+<form class ="rightMenu" [formGroup]="RightMenuInfo" (ngSubmit)="onSubmit()">
+  <div class="rmContainer">
+    <div class="ngx-timepicker-field-example" class="inputs">
+    <ngx-timepicker-field formControlName = "time" [controlOnly]="true" ></ngx-timepicker-field>
+  </div>
+    <mat-form-field class="inputs">
+    <input matInput formControlName = "date" [matDatepicker]="picker" placeholder="Choose a date" required>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+    <div *ngIf="!(date.errors == null)" class="errorFormDate inputs">
+    {{date.errors.forbiddenDate.value}}
+  </div>
+  <div formGroupName="adress">
+    <mat-form-field class="inputs">
+      <input matInput formControlName = "start" placeholder="Start point" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="inputs">
+      <input matInput formControlName = "end"  placeholder="End point" required>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="inputs">
+      <input matInput type="number" formControlName = "numberOfSeats" placeholder="Number of seats" required>
+    </mat-form-field>
+  </div>
+  <div class="errorFormNumber" *ngIf="!(numberOfSeats.errors == null)">
+    {{numberOfSeats.errors.forbiddenDate.value}}
+  </div>
+  <button type="submit" [disabled]="RightMenuInfo.invalid" class="search" mat-button>Create route</button>
+  </div>
+</form>

@@ -5,44 +5,43 @@ import { Validators } from '@angular/forms';
 import { REG_DATE} from '../../../shared/constants/common';
 
 @Component({
-  selector: 'app-left-menu',
-  templateUrl: './left-menu.component.html',
-  styleUrls: ['./left-menu.component.scss']
+  selector: 'app-right-menu',
+  templateUrl: './right-menu.component.html',
+  styleUrls: ['./right-menu.component.scss']
 })
-export class LeftMenuComponent implements OnInit {
-  LeftMenuInfo: FormGroup;
-
+export class RightMenuComponent implements OnInit {
+  RightMenuInfo: FormGroup;
   constructor(private fb: FormBuilder) {
-    this.LeftMenuInfo = this.fb.group({
+    this.RightMenuInfo = this.fb.group({
       date: ['', {
-        validators: forbiddenDateValidator(new RegExp(REG_DATE)),
+        validators: [forbiddenDateValidator(new RegExp(REG_DATE)), Validators.required],
         updateOn: 'blur'
       }],
       time: [''],
       adress: this.fb.group({
         start: ['', Validators.required],
         end: ['', Validators.required]}),
-      near: []
+      numberOfSeats: ['', [negativeNumberValidator(), Validators.required]]
     });
   }
-
   ngOnInit() {
-    this.LeftMenuInfo.setValue({
+    this.RightMenuInfo.setValue({
         date: new Date('01.01.2019'),
         time: '8:00 am',
         adress: {
           start: 'Купревича',
           end: 'пр-т Победителей',
         },
-        near: ''
+        numberOfSeats: '1'
       }
     );
   }
   onSubmit() {
     // TODO: Use EventEmitter with form value
-    console.log(this.LeftMenuInfo.value);
+    console.log(this.RightMenuInfo.value);
   }
-  get date() { return this.LeftMenuInfo.get('date'); }
+  get date() { return this.RightMenuInfo.get('date'); }
+  get numberOfSeats() {return this.RightMenuInfo.get('numberOfSeats'); }
 }
 export function forbiddenDateValidator(date: RegExp): ValidatorFn {
   return (control: FormControl): { [key: string]: any } | null => {
@@ -57,4 +56,20 @@ export function forbiddenDateValidator(date: RegExp): ValidatorFn {
     }
   };
 }
-
+export function negativeNumberValidator(): ValidatorFn {
+  return (control: FormControl): { [key: string]: any } | null => {
+    if (control.value !== null) {
+      const temp = control.value;
+      if (temp === undefined || temp === 0) {
+        return {forbiddenDate: {value: 'U should provide at least one seat!'}};
+      } else {
+        if (temp < 0) {
+          return {forbiddenDate: {value: 'Number of seats cannot be negative!'}};
+        }
+        return null;
+      }
+    } else {
+      return {forbiddenDate: {value: 'U should provide at least one seat!'}};
+    }
+  };
+}
