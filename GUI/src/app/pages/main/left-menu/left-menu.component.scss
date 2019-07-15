@@ -1,13 +1,33 @@
 .search
 {
   background:green;
+  width: 20%;
 }
 .leftMenu
 {
+  width: 50%;
   margin-top:3rem;
-  margin-left:3rem;
+
+  ::ng-deep {
+    ngx-timepicker-field {
+      .ngx-timepicker-control__input {
+        background-color: #f7f7fc;
+      }
+    }
+  }
 }
 .errorFormDate
 {
   background: red;
 }
+
+.lmContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputs {
+  width: 30%;
+}
+
+
