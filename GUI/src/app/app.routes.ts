@@ -1,5 +1,5 @@
-import {Routes} from "@angular/router";
-import {MainRoutes} from "./pages/main/main.routes";
+import {Routes} from '@angular/router';
+import {MainRoutes} from './pages/main/main.routes';
 
 export const routes: Routes = [
   {
