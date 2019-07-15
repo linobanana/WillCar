@@ -1,0 +1,40 @@
+.form-control:focus {
+  box-shadow: inset 0 1rem 1rem rgba(0, 0, 0, 0.075), 0 0 0.5rem rgba(0, 105, 105, 0.6);
+  width: 100%;
+  padding: 1rem;
+  margin: 1rem 0;
+  display: inline-block;
+  border: 0.125rem solid #006969;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+}
+.profile {
+  width: 12rem;
+  height: 15rem;
+  border-radius: 1rem;
+}
+.profile-info{
+  background: linear-gradient(to right,#4CAF50,#4CAF90);
+  text-align: center;
+  color: #fff;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 3rem;
+}
+.info{
+  text-align: left;
+  color: #353c4e;
+  text-transform: uppercase;
+  padding: 2rem;
+  width: 30rem;
+}
+.temp-two{
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+.temp-two h2{
+  padding-right: 1rem;
+  margin: 0;
+}
+
