@@ -5,7 +5,6 @@ import com.exadel.carpoolfree.model.Drive;
 import com.exadel.carpoolfree.repository.DriveRepository;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -19,22 +18,21 @@ public class DriveController {
 
     //Is it need to return absolutely all drives?
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public Drive findById(final @PathVariable Long id) {
         return driveRepository.findById(id).get();
     }
 
-    @GetMapping("{startTime}")
-    public List<Drive> findAllByStartTime(final @PathVariable LocalDateTime startTime) {
+
+    @GetMapping("/startTime/{startTime}")
+    public List<Drive> findAllByStartTime(final @PathVariable String startTime) {
         return driveRepository.findAllByStartTime(startTime);
     }
 
-    @GetMapping("{startPoint}")
+    @GetMapping("/startPoint/{startPoint}")
     public List<Drive> findAllByStartPoint(final @PathVariable Double startPoint) {
         return driveRepository.findAllByStartPoint(startPoint);
     }
-
-//    GetMapping("{startPoint}") ?
 
 
     @PostMapping()
@@ -42,7 +40,7 @@ public class DriveController {
         return driveRepository.save(drive);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public boolean delete(final @PathVariable Long id) {
         driveRepository.deleteById(id);
         return true;

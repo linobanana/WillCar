@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +21,10 @@ public class Drive {
     private Long id;
 
     @Column(name = "start_time")
-    private LocalDateTime startTime;
+    private String startTime;
 
     @Column(name = "end_time")
-    private LocalDateTime endTime;
+    private String endTime;
 
     @Column(name = "free_place_count")
     private int freePlaceCount;
@@ -47,4 +46,7 @@ public class Drive {
             orphanRemoval = true
     )
     private List<PassengerDrive> passengers = new ArrayList<>();
+
+    @OneToMany()
+    private List<Message> messages = new ArrayList<>();
 }

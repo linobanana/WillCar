@@ -17,12 +17,18 @@ public class MessageController {
         this.messageRepository = messageRepository;
     }
 
-    @GetMapping()
-    public List<Message> getAllMessages() {
-        return messageRepository.findAll();
+    @GetMapping("/{id}")
+    public Message getById(final @PathVariable Long id) {
+        return messageRepository.findById(id).get();
     }
 
-    @GetMapping("/{driveId}")
+    @GetMapping()
+    public List<Message> getAllMessages() {
+        List<Message> msgs = messageRepository.findAll();
+        return msgs;
+    }
+
+    @GetMapping("/drive/{driveId}")
     public List<Message> findAllByDriveId(final @PathVariable Long driveId) {
         return messageRepository.findAllByDriveId(driveId);
     }
@@ -32,7 +38,7 @@ public class MessageController {
         return messageRepository.save(message);
     }
 
-    @DeleteMapping("/id")
+    @DeleteMapping("/{id}")
     public boolean delete(@PathVariable Long id) {
         messageRepository.deleteById(id);
         return true;

@@ -19,9 +19,9 @@ public class PathController {
         return pathRepository.getCoordinatesById(id);
     }
 
-    @GetMapping("/{start}")
-    public String getCoordinatesByStartPoint(final @PathVariable Double start) {
-        return pathRepository.getCoordinatesByStartPoint(start);
+    @GetMapping("/startPoint/{startPoint}")
+    public String getCoordinatesByStartPoint(final @PathVariable Double startPoint) {
+        return pathRepository.getCoordinatesByStartPoint(startPoint);
     }
 
     @PostMapping()
@@ -29,7 +29,7 @@ public class PathController {
         return pathRepository.save(coordinates);
     }
 
-    @DeleteMapping("/id")
+    @DeleteMapping("/{id}")
     public boolean delete(@PathVariable Long id) {
         pathRepository.deleteById(id);
         return true;
