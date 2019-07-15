@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, ValidatorFn} from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { REG_DATE} from '../../../shared/constants/common';
 
 @Component({
   selector: 'app-left-menu',
@@ -13,7 +14,10 @@ export class LeftMenuComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {
     this.LeftMenuInfo = this.fb.group({
-      date: ['', forbiddenDateValidator(new RegExp('^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$'))],
+      date: ['', {
+        validators: forbiddenDateValidator(new RegExp(REG_DATE)),
+        updateOn: 'blur'
+      }],
       time: [''],
       adress: this.fb.group({
         start: ['', Validators.required],
