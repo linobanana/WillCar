@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, ValidatorFn} from '@angular/forms';
+import {FormControl, FormGroup, ValidatorFn} from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 
@@ -9,17 +9,19 @@ import { Validators } from '@angular/forms';
   styleUrls: ['./left-menu.component.scss']
 })
 export class LeftMenuComponent implements OnInit {
+  LeftMenuInfo: FormGroup;
+
   constructor(private fb: FormBuilder) {
-    this.ngOnInit();
+    this.LeftMenuInfo = this.fb.group({
+      date: ['', forbiddenDateValidator(new RegExp('^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$'))],
+      time: [''],
+      adress: this.fb.group({
+        start: ['', Validators.required],
+        end: ['', Validators.required]}),
+      near: []
+    });
   }
-  LeftMenuInfo = this.fb.group({
-                date: ['', forbiddenDateValidator(new RegExp('^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$'))],
-                time: [''],
-          adress: this.fb.group({
-                start: ['', Validators.required],
-                end: ['', Validators.required]}),
-                near: []
-   });
+
   ngOnInit() {
     this.LeftMenuInfo.setValue({
         date: new Date('01.01.2019'),
