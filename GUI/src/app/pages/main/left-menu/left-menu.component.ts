@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
-import {FormControl, FormGroup, ValidatorFn} from '@angular/forms';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import {FormControl, ValidatorFn} from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import {Time} from "@angular/common";
-import {$} from "protractor";
-import {match} from "minimatch";
 
 @Component({
   selector: 'app-left-menu',
@@ -14,7 +10,7 @@ import {match} from "minimatch";
 })
 export class LeftMenuComponent {
   constructor(private fb: FormBuilder) {
-    this.setDefaultDate();
+    this.setDefaultInfoLeftMenu();
   }
   LeftMenuInfo = this.fb.group({
                 date: ['', forbiddenDateValidator(new RegExp('^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$'))],
@@ -24,7 +20,7 @@ export class LeftMenuComponent {
                 end: ['', Validators.required]}),
                 near: []
    });
-   setDefaultDate() {
+   setDefaultInfoLeftMenu() {
      this.LeftMenuInfo.setValue({
        date: new Date('01.01.2019'),
        time: '8:00 am',

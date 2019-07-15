@@ -8,8 +8,10 @@ import {NgxMaterialTimepickerModule} from "ngx-material-timepicker";
 import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {MatNativeDateModule} from "@angular/material";
 import {BrowserModule} from '@angular/platform-browser';
-import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
-import {MaterialModule} from "./material-module";
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
+// import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
+// import { RightMenuComponent } from './right-menu/right-menu.component';
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import {MaterialModule} from "./material-module";
     BrowserModule,
     MatNativeDateModule,
     FormsModule,
-    MaterialModule
+    MatDatepickerModule,
+    MatInputModule
   ],
   providers: [],
   declarations: [LeftMenuComponent, MainComponent],
