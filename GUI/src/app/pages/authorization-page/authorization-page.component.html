@@ -1,0 +1,15 @@
+  <div class="form-container">
+    <form class="authorization-form" [formGroup]="authorizationForm" (ngSubmit)="onSubmit()">
+      <h2 class="form-label">User Authorization</h2>
+      <br>
+      <input type="text" id="login-field" placeholder="Login" formControlName="login" />
+      <br>
+      <br>
+      <input type="password" id="password-field" placeholder="Password" formControlName="password" />
+      <br>
+      <button type="submit" [disabled]="!authorizationForm.valid" class="submit-button">Submit</button>
+    </form>
+  </div>
+
+
+

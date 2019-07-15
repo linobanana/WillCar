@@ -6,13 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent {
-  tabs = [
-    'Profile',
-    'My messages',
-    'My bookings',
-    'Proposed trips',
-    'Exit'
-  ]
+
 }
 
 
