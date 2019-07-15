@@ -1,4 +1,3 @@
-<body>
 <form class ="leftMenu" [formGroup]="LeftMenuInfo" (ngSubmit)="onSubmit()">
   <div class="ngx-timepicker-field-example">
     <ngx-timepicker-field formControlName = "time" [controlOnly]="true"></ngx-timepicker-field>
@@ -22,4 +21,3 @@
   <mat-checkbox formControlName = "near">Nearly search</mat-checkbox>
   <button type="submit" [disabled]="LeftMenuInfo.invalid" class="search" mat-button>Pick up a route</button>
 </form>
-</body>
