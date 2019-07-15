@@ -10,11 +10,11 @@ import {MainModule} from "./pages/main/main.module";
 import {HeaderModule} from './shared/components/header/header.module';
 import {FooterModule} from './shared/components/footer/footer.module';
 
-
+import {ProfileModule} from "./pages/profile/profile.module";
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +23,8 @@ import {FooterModule} from './shared/components/footer/footer.module';
     RouterModule.forRoot(routes, {useHash: true}),
     MainModule,
     HeaderModule,
-    FooterModule
+    FooterModule,
+    ProfileModule
   ],
   providers: [],
   bootstrap: [AppComponent]
