@@ -23,9 +23,9 @@ public class CarController {
         this.carRepository = carRepository;
     }
 
-    @GetMapping()
-    public List<Car> getAllCars() {
-        return carRepository.findAll();
+    @GetMapping("/userId/{userId}")
+    public List<Car> getAllCars(@PathVariable Long userId) {
+        return carRepository.findAllByUserId(userId);
     }
 
     @PostMapping()
