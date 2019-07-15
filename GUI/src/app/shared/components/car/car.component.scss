@@ -1,0 +1,19 @@
+.car h1{
+  margin: 0;
+}
+.car{
+  text-align: left;
+  color: #353c4e;
+  text-transform: uppercase;
+  padding: 2rem;
+}
+.temp{
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  height: 2.5rem;
+}
+.temp h2{
+  padding-right: 1rem;
+  margin: 0;
+}
