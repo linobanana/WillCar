@@ -13,4 +13,18 @@
 .menu-item {
   display: inline-block;
   font-size: 1.4em;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.menu-icon {
+  float: right;
+  padding-top: 10px;
+  margin-right: 0;
+  color: rgba(0, 0, 0, 0.26);
+}
+
+@media screen and (max-width: 414px) {
+  .profile-icon:first-child {
+    display: none;
+  }
 }

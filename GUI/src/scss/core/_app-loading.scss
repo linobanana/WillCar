@@ -5,7 +5,7 @@ $spinner-width: 105px;
 $spinner-animation-time: 2000ms;
 
 .app-loading {
-	background: $primary;
+  background: linear-gradient(to right, #093637, #44A08D);
 	height: 100%;
 	left: 0;
 	opacity: 0;
