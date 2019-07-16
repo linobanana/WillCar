@@ -61,5 +61,7 @@ public class Drive {
     @OneToMany()
     private List<Message> messages = new ArrayList<>();
 
+    private List<RatedPassenger> marksDriverToPassengers = new ArrayList<>();
 
+    private RatedDriver markPassengerToDriver;
 }

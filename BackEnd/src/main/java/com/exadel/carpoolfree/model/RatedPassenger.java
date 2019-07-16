@@ -18,8 +18,8 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "driver_rating")
-public class DriverRating {
+@Table(name = "passenger_rating")
+public class RatedPassenger {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,11 +27,13 @@ public class DriverRating {
     @Column(name = "mark")
     private short mark;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "drive_id")
     private Drive drive;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "passenger_id")
     private User user;
 }
+
+
