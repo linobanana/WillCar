@@ -3,12 +3,18 @@ package com.exadel.carpoolfree.controller;
 
 import com.exadel.carpoolfree.model.Message;
 import com.exadel.carpoolfree.repository.MessageRepository;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/chat")
+@RequestMapping("api/messages")
 public class MessageController {
 
     private final MessageRepository messageRepository;
@@ -22,12 +28,6 @@ public class MessageController {
         return messageRepository.findById(id).get();
     }
 
-    @GetMapping()
-    public List<Message> getAllMessages() {
-        List<Message> msgs = messageRepository.findAll();
-        return msgs;
-    }
-
     @GetMapping("/drive/{driveId}")
     public List<Message> findAllByDriveId(final @PathVariable Long driveId) {
         return messageRepository.findAllByDriveId(driveId);
@@ -39,8 +39,7 @@ public class MessageController {
     }
 
     @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         messageRepository.deleteById(id);
-        return true;
     }
 }
