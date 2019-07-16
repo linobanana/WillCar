@@ -31,11 +31,11 @@ public class Drive {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "time_start")
-    private LocalDateTime timeStart;
+    @Column(name = "start_time")
+    private LocalDateTime startTime;
 
-    @Column(name = "time_end")
-    private LocalDateTime timeEnd;
+    @Column(name = "end_time")
+    private LocalDateTime endTime;
 
     @Column(name = "free_place_count")
     private int freePlaceCount;
@@ -48,10 +48,16 @@ public class Drive {
     @JoinColumn(name = "path")
     private Path path;
 
+    @Column(name = "start_point")
+    private Double startPoint;
+
     @OneToMany(
             mappedBy = "drive",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     private List<PassengerDrive> passengers = new ArrayList<>();
+
+    @OneToMany()
+    private List<Message> messages = new ArrayList<>();
 }

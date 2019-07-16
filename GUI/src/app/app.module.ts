@@ -14,12 +14,11 @@ import {ConfirmationModule} from './shared/components/success-confirmation/succe
 import {BookingConfirmationModule} from './shared/components/booking-confirmation/booking-confirmation.module';
 
 
-
+import {ProfileModule} from "./pages/profile/profile.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-
   ],
   imports: [
     CommonModule,
@@ -32,6 +31,8 @@ import {BookingConfirmationModule} from './shared/components/booking-confirmatio
     AuthorizationPageModule,
     ConfirmationModule,
     BookingConfirmationModule
+    FooterModule,
+    ProfileModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,7 +3,7 @@
   background:green;
   width: 20%;
 }
-.leftMenu
+.rightMenu
 {
   width: 50%;
   margin-top:3rem;
@@ -16,12 +16,12 @@
     }
   }
 }
-.errorFormDate
+.errorFormDate, .errorFormNumber
 {
   background: red;
 }
 
-.lmContainer {
+.rmContainer {
   display: flex;
   flex-direction: column;
 }
@@ -29,5 +29,3 @@
 .inputs {
   width: 30%;
 }
-
-
