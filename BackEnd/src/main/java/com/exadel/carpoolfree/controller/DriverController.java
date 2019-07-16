@@ -10,7 +10,6 @@ import java.util.List;
 @RequestMapping("api/driver")
 public class DriverController {
 
-
     private final DriverRepository driverRepository;
 
     public DriverController(DriverRepository driverRepository) {

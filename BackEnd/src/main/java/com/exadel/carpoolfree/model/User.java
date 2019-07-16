@@ -74,4 +74,8 @@ public class User {
     )
     private List<PassengerDrive> drives = new ArrayList<>();
 
+    private List<PassengerRating> marksDriverToPassengers = new ArrayList<>();
+
+    private DriverRating markPassengerToDriver;
+
 }
