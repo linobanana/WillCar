@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,6 +34,9 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
     @Column
     private String email;
 
@@ -41,6 +45,9 @@ public class User {
 
     @Column
     private String password;
+
+    @Column(name = "pref_communication")
+    private String prefCommunication;
 
     @Column
     private int role;
@@ -52,15 +59,17 @@ public class User {
     private Long passengerRating;
 
     @OneToMany(
-            mappedBy = "user",
+            mappedBy = "userId",
             cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
             orphanRemoval = true
     )
-    private List<Car> cars;
+    private List<Car> cars = new ArrayList<>();
 
     @OneToMany(
             mappedBy = "passenger",
             cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
             orphanRemoval = true
     )
     private List<PassengerDrive> drives = new ArrayList<>();
