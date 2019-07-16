@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/car")
+@RequestMapping("/api/car")
 public class CarController {
 
     private final CarRepository carRepository;
