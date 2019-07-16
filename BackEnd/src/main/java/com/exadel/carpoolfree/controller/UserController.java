@@ -39,7 +39,7 @@ public class UserController {
                     user1.setPrefCommunication(user.getPrefCommunication());
                     return userRepository.save(user1);
                 })
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow((() -> new RuntimeException("User not found")));
     }
 
     @DeleteMapping("/{id}")
