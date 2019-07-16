@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AUTHORIZATION_LABEL} from '../../shared/constants/authorization';
 
 @Component({
   selector: 'app-authorization-page',
@@ -7,10 +8,16 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./authorization-page.component.css']
 })
 export class AuthorizationPageComponent {
-  authorizationForm = new FormGroup({
-    login: new FormControl("", Validators.required),
-    password: new FormControl("", Validators.required)
-  })
+  authorizationLabels = AUTHORIZATION_LABEL;
+
+  authorizationForm: FormGroup;
+
+  constructor(private fb: FormBuilder) { this.authorizationForm = this.fb.group({
+    login: [''],
+    password: ['']
+  });
+  }
+
   onSubmit() {
     alert("good job");
   }
