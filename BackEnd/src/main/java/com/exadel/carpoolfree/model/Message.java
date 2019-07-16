@@ -20,7 +20,7 @@ public class Message {
     @Column(name = "message")
     private String message;
     @Column(name = "drive_id")
-    private String driveId;
+    private Long driveId;
     @Column(name = "time")
     private String time;
 
