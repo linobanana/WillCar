@@ -7,9 +7,7 @@ import {USER} from "../../mocks/user.mocks";
 export class UserService {
   private _user: User;
   private _userSubject: BehaviorSubject<User> = new BehaviorSubject(null);
-
-
-  constructor(){
+  constructor() {
     setTimeout(() => {
       this.user = USER;
     }, 1000);
@@ -19,11 +17,11 @@ export class UserService {
     return this._userSubject.asObservable();
   }
 
-  get user(){
+  get user() {
     return this._user;
   }
 
-  set user (user: User) {
+  set user(user: User) {
     this._user = user;
     this._userSubject.next(this.user);
   }
