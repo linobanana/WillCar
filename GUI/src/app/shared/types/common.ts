@@ -6,6 +6,8 @@ export class Car {
   color: string;
 }
 export class User {
+  login: string;
+  password: string;
   name: string;
   telNumber: string;
   email: string;
