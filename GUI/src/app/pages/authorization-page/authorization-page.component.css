@@ -39,6 +39,7 @@
   border-bottom: 2px solid #0da09c;
   padding-bottom: 4%;
   font-weight: bold;
+  margin-bottom: 10%;
 }
 
 #login-field,
@@ -50,6 +51,7 @@
   padding-left: 10px;
   font-family: 'Titillium Web', sans-serif;
   width: 90%;
+  margin-bottom: 10%;
 }
 
 .submit-button {
