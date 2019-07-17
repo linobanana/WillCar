@@ -1,11 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject, Observable, Subscription} from 'rxjs';
 import {Car, User} from '../../shared/types/common';
-import {OPTIONS, USER} from '../../shared/mocks/user.mocks';
+import {OPTIONS} from '../../shared/mocks/user.mocks';
 import {clone} from 'ramda';
 import {UserService} from "../../shared/components/user/user.service";
-
-
 
 @Component({
   selector: 'profile-component',
