@@ -1,3 +1,5 @@
+import {Time} from "@angular/common";
+
 export class Car {
   model: string;
   number: string;
@@ -14,3 +16,10 @@ export class User {
   rating: number;
   photoUrl: string;
 }
+export class Trip {
+  date: Date;
+  startPoint: string;
+  endPoint: string;
+  driverCallNumber: string;
+}
+

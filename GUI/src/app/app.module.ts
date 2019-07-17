@@ -12,7 +12,9 @@ import {FooterModule} from './shared/components/footer/footer.module';
 import {AuthorizationPageModule} from './pages/authorization-page/authorization-page.module';
 import {ConfirmationModule} from './shared/components/success-confirmation/success-confirmation.module';
 import {BookingConfirmationModule} from './shared/components/booking-confirmation/booking-confirmation.module';
-import {ProfileModule} from './pages/profile/profile.module';
+import {ProfileModule} from "./pages/profile/profile.module";
+import {MyBookingsModule} from "./pages/my-bookings/my-bookings.module";
+import {MyProposedModule} from "./pages/my-proposed/my-proposed.module";
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import {ProfileModule} from './pages/profile/profile.module';
     ConfirmationModule,
     BookingConfirmationModule,
     FooterModule,
-    ProfileModule
+    ProfileModule,
+    MyBookingsModule,
+    MyProposedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
