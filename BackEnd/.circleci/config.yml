@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: williamyeh/ansible:debian9
+    steps:
+      - checkout
+      - run:
+          name: Greeting
+          command: echo Hello, world.
+      - run:
+          name: Print the Current Time
+          command: date
+      - run:
+          name: Ansible ping
+          command: ansible-playbook -i "localhost," -c local ping.yml

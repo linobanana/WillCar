@@ -5,8 +5,8 @@ import {UserModule} from '../../shared/components/user/user.module';
 import {MatButtonModule, MatIconModule} from '@angular/material';
 import {CarModule} from '../../shared/components/car/car.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CarFormModule} from "../../shared/components/car-form/car-form.module";
-import {UserService} from "../../shared/components/user/user.service";
+import {CarFormModule} from '../../shared/components/car-form/car-form.module';
+import {UserService} from '../../shared/components/user/user.service';
 
 @NgModule({
   imports: [
