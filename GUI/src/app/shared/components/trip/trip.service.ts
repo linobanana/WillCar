@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Trip} from "../../types/common";
 import {BehaviorSubject, Observable} from "rxjs";
 import {TEST_TRIP} from "../../constants/trip";
+import {clone} from 'ramda';
 
 @Injectable()
 export class TripService {
@@ -20,15 +21,18 @@ export class TripService {
   get trips(): Trip[] {
     return this._trips;
   }
-
   set trips(trips: Trip[]) {
     this._trips = trips;
     this._tripsSubject.next(this.trips);
   }
-
   cancelTrip(trip: Trip): void {
     const index: number = this.trips.indexOf(trip);
-    this.trips.splice(index,1 );
+    const tempTrips: Trip[] = clone(this.trips);
+    tempTrips.splice(index,1 );
+    this.trips = tempTrips;
+  }
+  addTrip(trip: Trip): void {
+    this.trips = this.trips.concat(trip);
   }
 }
 
