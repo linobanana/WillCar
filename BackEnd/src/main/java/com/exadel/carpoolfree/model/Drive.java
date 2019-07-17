@@ -44,7 +44,7 @@ public class Drive {
     @JoinColumn(name = "driver_id")
     private User driver;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "path")
     private Path path;
 
