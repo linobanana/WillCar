@@ -11,15 +11,16 @@ import {FooterModule} from './shared/components/footer/footer.module';
 import {AuthorizationPageModule} from './pages/authorization-page/authorization-page.module';
 import {ConfirmationModule} from './shared/components/success-confirmation/success-confirmation.module';
 import {BookingConfirmationModule} from './shared/components/booking-confirmation/booking-confirmation.module';
-import {MyBookingsModule} from './pages/my-bookings/my-bookings.module';
-import {MyProposedModule} from './pages/my-proposed/my-proposed.module';
-import {ProfileModule} from './pages/profile/profile.module';
+import {MyBookingsModule} from './pages/personal-area/my-bookings/my-bookings.module';
+import {MyProposedModule} from './pages/personal-area/my-proposed/my-proposed.module';
+import {ProfileModule} from './pages/personal-area/profile/profile.module';
 import {ProfileMenuModule} from './shared/components/profile-menu/profile-menu.module';
+import {PersonalAreaModule} from './pages/personal-area/personal-area.module';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +37,8 @@ import {ProfileMenuModule} from './shared/components/profile-menu/profile-menu.m
     ProfileModule,
     ProfileMenuModule,
     MyBookingsModule,
-    MyProposedModule
+    MyProposedModule,
+    PersonalAreaModule
   ],
   providers: [],
   bootstrap: [AppComponent]

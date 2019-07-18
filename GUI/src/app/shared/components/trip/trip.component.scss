@@ -1,0 +1,72 @@
+.trips-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.my-bookings {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 2em;
+  color: #376061;
+  margin: 5% 5% 0 5%;
+  padding-bottom: 2%;
+  border-bottom: 1px solid #376061;
+  text-align: center;
+}
+
+.upcoming {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 1.5em;
+  color: #ff844c;
+  margin: 5% 5% 0 5%;
+  padding-bottom: 2%;
+  text-align: center;
+}
+
+.route-shot {
+  max-width: 300px;
+  margin-right: 2%;
+  margin-top: 2%;
+  border: 2px solid #ff844c;
+}
+
+.trip {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.field {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 1.3em;
+  color: #376061;
+}
+
+.cancel-button {
+  margin-top: 10%;
+}
+
+.archive {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 1.5em;
+  color: #ff844c;
+  margin: 5% 5% 0 5%;
+  padding-bottom: 2%;
+  text-align: center;
+}
+
+@media screen and (max-width: 414px) {
+  .route-shot {
+    max-width: 200px;
+    margin-right: 1%;
+    margin-top: 1%;
+    border: 1px solid #ff844c;
+  }
+  .field {
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 1em;
+    color: #376061;
+  }
+}
+
+

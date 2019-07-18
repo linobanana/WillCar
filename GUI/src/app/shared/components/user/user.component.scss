@@ -22,6 +22,8 @@
   padding: 1% 4%;
   flex-grow: 1;
   align-self: flex-start;
+  height: auto;
+  font-family: 'Titillium Web', sans-serif;
 }
 
 .personal-data h1 {
@@ -35,7 +37,7 @@
 }
 
 .data-table {
-  font-size: 1.6rem;
+  font-size: 1.6em;
   line-height: 1.1;
   width: 100%;
 }
@@ -54,9 +56,29 @@
   width: 35%;
 }
 
+.material-icons {
+  font-size: 30px;
+  color: #ffda13;
+}
+
+.photo-container h2 {
+  font-size: 1.5em;
+}
+
+
+
 @media screen and (max-width: 1100px) {
   .personal-data {
     margin: 0;
+  }
+  .photo {
+    max-width: 240px;
+  }
+  .data-table {
+    font-size: 0.9em;
+  }
+  .form-control {
+    width: 50%;
   }
 }
 

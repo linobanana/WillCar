@@ -1,0 +1,16 @@
+.personal-area-container {
+  position: absolute;
+  top: 16%;
+  bottom: 5%;
+  margin: 1% 15%;
+  width: 70%;
+  background: #eeeeee;
+  overflow-y: scroll;
+}
+
+@media screen and (max-width: 414px) {
+  .personal-area-container {
+    margin: 1% 5%;
+    width: 90%;
+  }
+}

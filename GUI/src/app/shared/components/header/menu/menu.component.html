@@ -9,8 +9,6 @@
   </button>
   <mat-menu #beforeMenu="matMenu" xPosition="before">
     <button class="menu-item" (click)="goToProfile()" mat-menu-item>
-      Profile
-    <button class="menu-item" mat-menu-item>
       {{menuItems.userProfile}}
       <mat-icon class="menu-icon">
         face
@@ -23,24 +21,18 @@
       </mat-icon>
     </button>
     <button class="menu-item" (click)="goToMyBookings()" mat-menu-item>
-      My bookings
-    <button class="menu-item" mat-menu-item>
       {{menuItems.userBookings}}
       <mat-icon class="menu-icon">
         where_to_vote
       </mat-icon>
     </button>
     <button class="menu-item" (click)="goToMyProposed()" mat-menu-item>
-      Proposed trips
-    <button class="menu-item" mat-menu-item>
       {{menuItems.userProposedTrips}}
       <mat-icon class="menu-icon">
         directions_car
       </mat-icon>
     </button>
     <button class="menu-item" (click)="goToAuthirization()" mat-menu-item>
-      Exit
-    <button class="menu-item" mat-menu-item>
       {{menuItems.menuExit}}
       <mat-icon class="menu-icon">
         exit_to_app

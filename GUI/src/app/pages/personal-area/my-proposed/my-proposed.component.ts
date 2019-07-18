@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable} from "rxjs";
-import {Trip} from "../../shared/types/common";
-import {TripService} from "../../shared/components/trip/trip.service";
+import {Observable} from 'rxjs';
+import {Trip} from '../../../shared/types/common';
+import {TripService} from '../../../shared/components/trip/trip.service';
 
 @Component({
-  selector: 'app-my-bookings',
+  selector: 'app-my-proposed',
   templateUrl: './my-proposed.component.html',
   styleUrls: ['./my-proposed.component.scss']
 })

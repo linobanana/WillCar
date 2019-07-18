@@ -1,12 +1,13 @@
 import {NgModule} from '@angular/core';
 import {ProfileMenuComponent} from './profile-menu.component';
-import {MatTabsModule} from '@angular/material';
+import {MatButtonModule, MatTabsModule} from '@angular/material';
 
 
 
 @NgModule({
   imports: [
-    MatTabsModule
+    MatTabsModule,
+    MatButtonModule
   ],
   declarations: [
     ProfileMenuComponent

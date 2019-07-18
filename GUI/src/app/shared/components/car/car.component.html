@@ -1,11 +1,15 @@
 <div *ngFor="let car of user?.cars">
+  <h2 class="label">Car park:</h2>
   <div class="car">
-    <h1></h1>
-    <div class="temp"><h2>{{profileLabels.carModel}} </h2>
-      <h3>{{car.model}}</h3></div>
-    <div class="temp"><h2>{{profileLabels.carNumber}} </h2>
-      <h3>{{car.number}}</h3></div>
-    <div class="temp"><h2>{{profileLabels.carColor}} </h2>
-      <h3>{{car.color}}</h3></div>
+    <mat-icon class="car-icon">directions_car</mat-icon>
+    <div class="temp">
+      <h3>{{car.model}}</h3>
+    </div>
+    <div class="temp">
+      <h3>{{car.number}}</h3>
+    </div>
+    <div class="temp">
+      <h3>{{car.color}}</h3>
+    </div>
   </div>
 </div>
