@@ -1,12 +1,39 @@
-.search
-{
-  background:green;
-  width: 20%;
+.rightMenu {
+  position: absolute;
+  top: 7%;
+  bottom: 5%;
+  right: 0;
+  width: 25%;
+  background-color: #f7f7fc;
 }
-.rightMenu
-{
-  width: 50%;
-  margin-top:3rem;
+
+.formLabel {
+  font-family: "Titillium Web", sans-serif;
+  font-size: 3em;
+  color: #093738bd;
+  text-align: center;
+  margin-top: 15%;
+  font-weight: bold;
+}
+
+.form-container {
+  margin: 15% 10%;
+  display: flex;
+  height: 69%;
+  flex-direction: column;
+}
+
+.rightMenu-form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputs {
+  display: block;
+  margin-top: 10%;
+  font-size: 1.4em;
+  font-family: 'Titillium Web', sans-serif;
 
   ::ng-deep {
     ngx-timepicker-field {
@@ -16,16 +43,14 @@
     }
   }
 }
-.errorFormDate, .errorFormNumber
-{
-  background: red;
+
+.timeField {
+  align-self: center;
 }
 
-.rmContainer {
-  display: flex;
-  flex-direction: column;
-}
-
-.inputs {
-  width: 30%;
+.create {
+  border: 1px solid #fff;
+  background: #70a0a0;
+  width: 52%;
+  align-self: center;
 }

@@ -1,28 +1,28 @@
 <div class="leftMenu">
-  <form class ="leftMenu" [formGroup]="LeftMenuInfo" (ngSubmit)="onSubmit()">
-    <div class="lmContainer">
-      <div class="ngx-timepicker-field-example inputs">
-      <ngx-timepicker-field formControlName = "time" [controlOnly]="true"></ngx-timepicker-field>
-    </div>
+  <h2 class="formLabel">Find a trip</h2>
+  <div class="form-container">
+    <form class ="leftMenu-form" [formGroup]="LeftMenuInfo" (ngSubmit)="onSubmit()">
       <mat-form-field class="inputs">
-      <input matInput formControlName = "date" [matDatepicker]="picker" placeholder="Choose a date">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+        <input matInput formControlName = "date" [matDatepicker]="picker" placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
       <div *ngIf="!(date.errors == null)" class="errorFormDate inputs">
-      {{date.errors.forbiddenDate.value}}
-    </div>
-    <div formGroupName="adress">
-      <mat-form-field class="inputs">
-      <input matInput formControlName = "start" placeholder="Start point" required>
-    </mat-form-field>
-      <br>
-      <mat-form-field class="inputs">
-      <input matInput formControlName = "end"  placeholder="End point" required>
-    </mat-form-field>
-    </div>
-    <mat-checkbox formControlName = "near">Nearly search</mat-checkbox>
-    <button type="submit" [disabled]="LeftMenuInfo.invalid" class="search" mat-button>Pick up a route</button>
-    </div>
-  </form>
+       {{date.errors.forbiddenDate.value}}
+      </div>
+      <div class="ngx-timepicker-field-example inputs timeField">
+        <ngx-timepicker-field formControlName = "time" [controlOnly]="true"></ngx-timepicker-field>
+      </div>
+      <div formGroupName="adress">
+        <mat-form-field class="inputs">
+          <input matInput formControlName = "start" placeholder="Start point" required>
+        </mat-form-field>
+        <mat-form-field class="inputs">
+          <input matInput formControlName = "end"  placeholder="End point" required>
+        </mat-form-field>
+      </div>
+        <mat-checkbox formControlName = "near" class="inputs">Nearly search</mat-checkbox>
+        <button type="submit" [disabled]="LeftMenuInfo.invalid" class="search inputs" mat-button>Pick up a route</button>
+    </form>
+  </div>
 </div>
