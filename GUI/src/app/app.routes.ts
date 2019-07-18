@@ -8,7 +8,7 @@ import {MyProposedRoutes} from "./pages/my-proposed/my-proposed.routes";
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'authorization',
+    redirectTo: 'profile',
     pathMatch: 'full'
   },
   ...MainRoutes,

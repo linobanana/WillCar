@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
-import {User} from '../../types/common';
+import {Car, User} from '../../types/common';
 import {MatSelectChange} from '@angular/material';
 import {PROFILE_FIELD_LABELS} from '../../constants/profile';
+
 
 
 
@@ -14,13 +15,19 @@ import {PROFILE_FIELD_LABELS} from '../../constants/profile';
 export class UserComponent implements OnInit {
   @Input() user: User;
   @Input() options: string[];
+  @Output() carForm = new EventEmitter<Car>();
   profileLabels = PROFILE_FIELD_LABELS;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
+
   onSelectionChange(communicType: MatSelectChange): void {
     this.user.preferredCommunication = communicType.value;
+  }
+  onAddCar(car: Car) {
+    this.carForm.emit(car);;
   }
 }

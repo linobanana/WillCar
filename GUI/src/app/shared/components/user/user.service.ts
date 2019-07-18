@@ -26,6 +26,10 @@ export class UserService {
     this._userSubject.next(this.user);
   }
 
+  setCommunicType(newType: string){
+    this.user.preferredCommunication = newType;
+  }
+
   addCar(car: Car): void {
     this.user = {
       ...this.user,

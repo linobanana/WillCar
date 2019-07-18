@@ -18,6 +18,10 @@
               <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
         </mat-select></td></tr>
       </table>
+      <car-component [user]="user"></car-component>
+      <car-form-component
+        [user]="user"
+        (addCar) = "onAddCar($event)"></car-form-component>
     </div>
   </div>
 </div>
