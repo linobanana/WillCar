@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {Car, User} from "../../types/common";
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {Car, User} from '../../types/common';
 
 @Component({
   selector: 'car-form-component',

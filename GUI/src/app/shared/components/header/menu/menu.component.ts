@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
+import {MENU_ITEMS} from '../../../constants/menu-items';
 
 @Component({
   selector: 'app-menu',
@@ -20,6 +21,8 @@ goToMyBookings() {
   goToAuthirization() {
     this.roter.navigate(['/authorization']);
   }
+
+  menuItems = MENU_ITEMS;
 }
 
 
