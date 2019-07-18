@@ -21,10 +21,10 @@ export class AuthorizationPageComponent {
   });
   }
 
-  goToMain(user: User){
-    if(user.login === USER.login && user.password === USER.password){
+  goToMain(user: User) {
+    if ( user.login === USER.login && user.password === USER.password ) {
       this.router.navigate(['/main']);
-    } else{
+    } else {
       alert('Wrong info!');
     }
   }
