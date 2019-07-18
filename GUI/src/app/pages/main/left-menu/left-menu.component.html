@@ -21,6 +21,6 @@
   </mat-form-field>
   </div>
   <mat-checkbox formControlName = "near">Nearly search</mat-checkbox>
-  <button type="submit" [disabled]="LeftMenuInfo.invalid" class="search" mat-button>Pick up a route</button>
+  <button type="submit" (click)="goToConfirmation()"  [disabled]="LeftMenuInfo.invalid" class="search" mat-button>Pick up a route</button>
   </div>
 </form>
