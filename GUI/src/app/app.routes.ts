@@ -9,7 +9,7 @@ import {SuccessConfirmationRoutes} from "./shared/components/success-confirmatio
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'authorization',
+    redirectTo: 'profile',
     pathMatch: 'full'
   },
   ...MainRoutes,

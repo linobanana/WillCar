@@ -17,10 +17,8 @@ import {FooterModule} from '../../shared/components/footer/footer.module';
     UserModule,
     MatButtonModule,
     MatIconModule,
-    CarModule,
     ReactiveFormsModule,
     FormsModule,
-    CarFormModule,
     HeaderModule,
     ProfileMenuModule,
     FooterModule
