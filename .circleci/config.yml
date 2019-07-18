@@ -27,16 +27,16 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - BackEnd-{{ checksum "pom.xml" }}
+            - v1-dependencies-{{ checksum "pom.xml" }}
             # fallback to using the latest cache if no exact match is found
-            - BackEnd-
+            - v1-dependencies-
 
       - run: mvn dependency:go-offline
 
       - save_cache:
           paths:
             - ~/.m2
-          key: BackEnd-{{ checksum "pom.xml" }}
+          key: v1-dependencies-{{ checksum "pom.xml" }}
 
       # run tests!
       - run: mvn integration-test
