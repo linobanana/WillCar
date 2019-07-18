@@ -6,8 +6,9 @@ import {clone} from 'ramda';
 import {UserService} from '../../shared/components/user/user.service';
 
 @Component({
-  selector: 'profile-component',
-  templateUrl: './profile.component.html'
+  selector: 'app-profile-component',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
   title = 'Hello, Profile';

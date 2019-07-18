@@ -10,9 +10,10 @@ import {MatNativeDateModule} from '@angular/material';
 import {BrowserModule} from '@angular/platform-browser';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
-// import {RightMenuComponent} from './right-menu/right-menu.component';
 // import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
 import { RightMenuComponent } from './right-menu/right-menu.component';
+import {HeaderModule} from '../../shared/components/header/header.module';
+import {FooterModule} from '../../shared/components/footer/footer.module';
 
 @NgModule({
   imports: [
@@ -26,7 +27,9 @@ import { RightMenuComponent } from './right-menu/right-menu.component';
     MatNativeDateModule,
     FormsModule,
     MatDatepickerModule,
-    MatInputModule
+    MatInputModule,
+    HeaderModule,
+    FooterModule
   ],
   providers: [],
   declarations: [LeftMenuComponent, MainComponent, RightMenuComponent],

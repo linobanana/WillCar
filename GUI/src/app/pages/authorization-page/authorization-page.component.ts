@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {AUTHORIZATION_LABEL} from '../../shared/constants/authorization';
-import {Router} from "@angular/router";
-import {User} from "../../shared/types/common";
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
+import {User} from '../../shared/types/common';
 import {USER} from '../../shared/mocks/user.mocks';
-
+import {AUTHORIZATION} from '../../shared/constants/authorization';
 
 @Component({
   selector: 'app-authorization-page',
@@ -12,7 +11,7 @@ import {USER} from '../../shared/mocks/user.mocks';
   styleUrls: ['./authorization-page.component.css']
 })
 export class AuthorizationPageComponent {
-  authorizationLabels = AUTHORIZATION_LABEL;
+  authorizationLabels = AUTHORIZATION;
 
   authorizationForm: FormGroup;
 
@@ -23,10 +22,10 @@ export class AuthorizationPageComponent {
   }
 
   goToMain(user: User){
-    if(user.login===USER.login && user.password===USER.password){
+    if(user.login === USER.login && user.password === USER.password){
       this.router.navigate(['/main']);
     } else{
-      alert("Wrong info!");
+      alert('Wrong info!');
     }
   }
 }
