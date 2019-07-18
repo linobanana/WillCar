@@ -1,0 +1,33 @@
+.nav-list {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 9%;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-list li {
+  background-color: #fff;
+  margin: 0 0.1%;
+  color: #8a8686;
+  padding: 0.5% 2%;
+  font-family: "Titillium Web", sans-serif;
+  font-size: 1.3em;
+  border: 1px solid #edeef0;
+}
+
+.nav-list li:hover {
+  background-color: #ff844c;
+  color: #fff;
+}
+
+@media screen and (max-width: 414px) {
+  .nav-list li {
+    font-size: 1em;
+  }
+}

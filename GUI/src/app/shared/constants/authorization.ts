@@ -1,4 +1,4 @@
-export const AUTHORIZATION_LABEL = {
+export const AUTHORIZATION = {
   label: 'User Authorization',
   userLogin: 'Login',
   userPassword: 'Password',

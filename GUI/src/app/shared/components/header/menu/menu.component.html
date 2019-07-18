@@ -9,31 +9,31 @@
   </button>
   <mat-menu #beforeMenu="matMenu" xPosition="before">
     <button class="menu-item" mat-menu-item>
-      Profile
+      {{menuItems.userProfile}}
       <mat-icon class="menu-icon">
         face
       </mat-icon>
     </button>
     <button class="menu-item" mat-menu-item>
-      My messages
+      {{menuItems.userMessages}}
       <mat-icon class="menu-icon">
         mail
       </mat-icon>
     </button>
     <button class="menu-item" mat-menu-item>
-      My bookings
+      {{menuItems.userBookings}}
       <mat-icon class="menu-icon">
         where_to_vote
       </mat-icon>
     </button>
     <button class="menu-item" mat-menu-item>
-      Proposed trips
+      {{menuItems.userProposedTrips}}
       <mat-icon class="menu-icon">
         directions_car
       </mat-icon>
     </button>
     <button class="menu-item" mat-menu-item>
-      Exit
+      {{menuItems.menuExit}}
       <mat-icon class="menu-icon">
         exit_to_app
       </mat-icon>

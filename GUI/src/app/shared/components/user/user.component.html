@@ -1,20 +1,23 @@
 <div *ngIf="!user || !options">loading...</div>
 <div *ngIf="user && options">
   <div class="profile-info">
-    <img class="profile" src="{{user.photoUrl}}">
-    <h1>{{user.name}}</h1>
-    <h2>{{profileLabels.rating}} {{user.rating}} &#127942;</h2>
-  </div>
-  <div class="info">
-    <div class="temp-two"><h2>{{profileLabels.telNumber}} </h2>
-      <h3>{{user.telNumber}}</h3></div>
-    <div class="temp-two"><h2>{{profileLabels.eMail}} </h2>
-      <h3>{{user.email}}</h3></div>
-    <h2>{{profileLabels.communicationType}} </h2>
-    <mat-select
-      [value]="user.preferredCommunication"
-      (selectionChange)="onSelectionChange($event)" class="form-control">
-      <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
-    </mat-select>
+    <div class="photo-container">
+      <img class="photo" src="{{user.photoUrl}}">
+      <h2>{{profileLabels.rating}} {{user.rating}} <mat-icon>grade</mat-icon></h2>
+    </div>
+    <div class="personal-data">
+      <h1>{{user.name}}</h1>
+      <table class="data-table">
+        <tr><td class="parameter">{{profileLabels.telNumber}}</td><td class="value">{{user.telNumber}}</td></tr>
+        <tr><td class="parameter">{{profileLabels.eMail}}</td><td class="value">{{user.email}}</td></tr>
+        <tr><td class="parameter">{{profileLabels.communicationType}}</td>
+          <td class="value">
+            <mat-select
+              [value]="user.preferredCommunication"
+              (selectionChange)="onSelectionChange($event)" class="form-control">
+              <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
+        </mat-select></td></tr>
+      </table>
+    </div>
   </div>
 </div>

@@ -26,7 +26,7 @@ body {
 }
 
 .willcar-body {
-	background: $main-background-color;
+	background: #fff;
 
 	> .highcharts-tooltip-container {
 		z-index: 1001; // cdk-overlay-container's z-index + 1
