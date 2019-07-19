@@ -2,6 +2,7 @@ package com.exadel.carpoolfree.controller;
 
 
 import com.exadel.carpoolfree.model.Drive;
+import com.exadel.carpoolfree.model.Path;
 import com.exadel.carpoolfree.repository.DriveRepository;
 import com.exadel.carpoolfree.repository.PathRepository;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -50,7 +51,8 @@ public class DriveController {
 
     @PostMapping()
     public Drive addDrive(@RequestBody Drive drive) {
-        pathRepository.save(drive.getPath());
+        Path path = pathRepository.save(drive.getPath());
+        drive.setPath(path);
         return driveRepository.save(drive);
     }
 
