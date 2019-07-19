@@ -1,6 +1,5 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 import {AppComponent} from './app.component';
 import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
@@ -12,9 +11,11 @@ import {FooterModule} from './shared/components/footer/footer.module';
 import {AuthorizationPageModule} from './pages/authorization-page/authorization-page.module';
 import {ConfirmationModule} from './shared/components/success-confirmation/success-confirmation.module';
 import {BookingConfirmationModule} from './shared/components/booking-confirmation/booking-confirmation.module';
-import {ProfileModule} from "./pages/profile/profile.module";
-import {MyBookingsModule} from "./pages/my-bookings/my-bookings.module";
-import {MyProposedModule} from "./pages/my-proposed/my-proposed.module";
+import {MyBookingsModule} from './pages/my-bookings/my-bookings.module';
+import {MyProposedModule} from './pages/my-proposed/my-proposed.module';
+import {ProfileModule} from './pages/profile/profile.module';
+import {ProfileMenuModule} from './shared/components/profile-menu/profile-menu.module';
+
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import {MyProposedModule} from "./pages/my-proposed/my-proposed.module";
     BookingConfirmationModule,
     FooterModule,
     ProfileModule,
+    ProfileMenuModule,
     MyBookingsModule,
     MyProposedModule
   ],

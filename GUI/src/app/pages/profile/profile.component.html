@@ -1,10 +1,7 @@
-<div class="profile-container">
-  <user-component
-[user]="user$ | async"
-[options]="options$ | async"></user-component>
-<car-component [user]="user$ | async"></car-component>
-<car-form-component
+  <div class="profile-container">
+    <user-component
   [user]="user$ | async"
-  (addCar)="onAddCar($event)"></car-form-component>
-</div>
+  [options]="options$ | async"
+  (carForm)="onAddCar($event)"></user-component>
+  </div>
 
