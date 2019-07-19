@@ -23,6 +23,11 @@
   height: 100%;
 }
 
+.logo:hover {
+  background: #b2b2b23d;
+  border: 1px dotted #fff;
+}
+
 .role-toggle {
   display: inline-block;
   margin: 0 15px;
