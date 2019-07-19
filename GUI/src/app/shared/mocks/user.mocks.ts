@@ -10,7 +10,7 @@ export const USER: User = {
   cars: [],
   rating: 5.7,
   // tslint:disable-next-line:max-line-length
-  photoUrl: 'http://www.garant.ru/files/3/4/1074543/vs-rf-procedura-privlecheniya-netrezvogo-voditelya-k-otvetstvennosti-dolzhna-byt-bezuprechnoj_300.jpg'};
+  photoUrl: 'http://telegram-downloads.ru/wp-content/uploads/2016/10/2-12.png'};
 export const OPTIONS: string[] = [
   'Viber', 'E-mail', 'Telegram', 'Phone', 'Chat'
 ];

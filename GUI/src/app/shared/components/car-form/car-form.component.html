@@ -1,14 +1,11 @@
 <div class="car-form">
   <form [formGroup]="profileForm">
-    <label for="model">Car model:</label>
-    <input type="text" id="model" name="carModel" class="car-input" placeholder="Car model.." formControlName="model">
+    <input type="text" id="model" name="carModel" class="car-input" placeholder="Car model" formControlName="model">
 
-    <label for="number">Car number:</label>
-    <input type="text" id="number" name="carNumber" class="car-input" placeholder="Car number.." formControlName="number">
+    <input type="text" id="number" name="carNumber" class="car-input" placeholder="Car number" formControlName="number">
 
-    <label for="color">Car color:</label>
-    <input type="text" id="color" name="carColor" class="car-input" placeholder="Car color.." formControlName="color">
-    <button mat-fab (click)="addCar.emit(profileForm.value)"> </button>
+    <input type="text" id="color" name="carColor" class="car-input" placeholder="Car color" formControlName="color">
+    <button class="add" mat-mini-fab color="warn" (click)="addCar.emit(profileForm.value)"><mat-icon>add</mat-icon></button>
   </form>
 </div>
 

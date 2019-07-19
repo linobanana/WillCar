@@ -14,6 +14,7 @@ import {MatInputModule} from '@angular/material/input';
 import { RightMenuComponent } from './right-menu/right-menu.component';
 import {HeaderModule} from '../../shared/components/header/header.module';
 import {FooterModule} from '../../shared/components/footer/footer.module';
+import {MapModule} from './map/map.module';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import {FooterModule} from '../../shared/components/footer/footer.module';
     MatDatepickerModule,
     MatInputModule,
     HeaderModule,
-    FooterModule
+    FooterModule,
+    MapModule
   ],
   providers: [],
   declarations: [LeftMenuComponent, MainComponent, RightMenuComponent],
