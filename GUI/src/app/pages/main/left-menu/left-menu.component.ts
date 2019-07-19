@@ -3,6 +3,7 @@ import {FormControl, FormGroup, ValidatorFn} from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { REG_DATE} from '../../../shared/constants/common';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-left-menu',
@@ -12,7 +13,7 @@ import { REG_DATE} from '../../../shared/constants/common';
 export class LeftMenuComponent implements OnInit {
   LeftMenuInfo: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.LeftMenuInfo = this.fb.group({
       date: ['', {
         validators: forbiddenDateValidator(new RegExp(REG_DATE)),
@@ -43,6 +44,9 @@ export class LeftMenuComponent implements OnInit {
     console.log(this.LeftMenuInfo.value);
   }
   get date() { return this.LeftMenuInfo.get('date'); }
+  goToConfirmation() {
+    this.router.navigate(['/confirmation']);
+  }
 }
 export function forbiddenDateValidator(date: RegExp): ValidatorFn {
   return (control: FormControl): { [key: string]: any } | null => {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-success-confirmation',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SuccessConfirmationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
-
+  goToMyBookedTrips() {
+    this.router.navigate(['/mybookings']);
+  }
+  goToMain() {
+    this.router.navigate(['/main']);
+  }
 }

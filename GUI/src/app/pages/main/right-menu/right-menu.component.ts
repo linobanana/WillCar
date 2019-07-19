@@ -3,6 +3,7 @@ import {FormControl, FormGroup, ValidatorFn} from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { REG_DATE} from '../../../shared/constants/common';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-right-menu',
@@ -11,7 +12,8 @@ import { REG_DATE} from '../../../shared/constants/common';
 })
 export class RightMenuComponent implements OnInit {
   RightMenuInfo: FormGroup;
-  constructor(private fb: FormBuilder) {
+
+  constructor(private fb: FormBuilder, private router: Router) {
     this.RightMenuInfo = this.fb.group({
       date: ['', {
         validators: [forbiddenDateValidator(new RegExp(REG_DATE)), Validators.required],
@@ -20,10 +22,12 @@ export class RightMenuComponent implements OnInit {
       time: [''],
       adress: this.fb.group({
         start: ['', Validators.required],
-        end: ['', Validators.required]}),
+        end: ['', Validators.required]
+      }),
       numberOfSeats: ['', [negativeNumberValidator(), Validators.required]]
     });
   }
+
   ngOnInit() {
     this.RightMenuInfo.setValue({
         date: new Date('01.01.2019'),
@@ -36,12 +40,23 @@ export class RightMenuComponent implements OnInit {
       }
     );
   }
+
   onSubmit() {
     // TODO: Use EventEmitter with form value
     console.log(this.RightMenuInfo.value);
   }
-  get date() { return this.RightMenuInfo.get('date'); }
-  get numberOfSeats() {return this.RightMenuInfo.get('numberOfSeats'); }
+
+  get date() {
+    return this.RightMenuInfo.get('date');
+  }
+
+  get numberOfSeats() {
+    return this.RightMenuInfo.get('numberOfSeats');
+  }
+
+  goToMyProposedTrips() {
+    this.router.navigate(['/myproposed']);
+  }
 }
 export function forbiddenDateValidator(date: RegExp): ValidatorFn {
   return (control: FormControl): { [key: string]: any } | null => {
