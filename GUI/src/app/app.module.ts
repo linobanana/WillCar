@@ -16,6 +16,7 @@ import {MyProposedModule} from './pages/personal-area/my-proposed/my-proposed.mo
 import {ProfileModule} from './pages/personal-area/profile/profile.module';
 import {ProfileMenuModule} from './shared/components/profile-menu/profile-menu.module';
 import {PersonalAreaModule} from './pages/personal-area/personal-area.module';
+import {ApiService} from "./shared/services/api.service";
 
 
 @NgModule({
@@ -40,7 +41,9 @@ import {PersonalAreaModule} from './pages/personal-area/personal-area.module';
     MyProposedModule,
     PersonalAreaModule
   ],
-  providers: [],
+  providers: [
+    ApiService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
