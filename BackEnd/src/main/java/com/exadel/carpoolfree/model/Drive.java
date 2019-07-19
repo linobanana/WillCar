@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -54,10 +55,12 @@ public class Drive {
     @OneToMany(
             mappedBy = "drive",
             cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
             orphanRemoval = true
     )
     private List<PassengerDrive> passengers = new ArrayList<>();
 
     @OneToMany()
     private List<Message> messages = new ArrayList<>();
+
 }

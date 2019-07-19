@@ -1,5 +1,6 @@
 package com.exadel.carpoolfree.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -40,9 +41,11 @@ public class User {
     @Column
     private String email;
 
+    @JsonIgnore
     @Column
     private String login;
 
+    @JsonIgnore
     @Column
     private String password;
 
