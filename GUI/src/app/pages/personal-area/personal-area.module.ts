@@ -4,6 +4,7 @@ import {MyBookingsModule} from './my-bookings/my-bookings.module';
 import {MyProposedModule} from './my-proposed/my-proposed.module';
 import {ProfileModule} from './profile/profile.module';
 import {ProfileMenuModule} from '../../shared/components/profile-menu/profile-menu.module';
+import {RouterModule} from '@angular/router';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import {ProfileMenuModule} from '../../shared/components/profile-menu/profile-me
     MyBookingsModule,
     MyProposedModule,
     ProfileModule,
-    ProfileMenuModule
+    ProfileMenuModule,
+    RouterModule
   ],
   declarations: [
     PersonalAreaComponent,

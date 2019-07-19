@@ -3,7 +3,7 @@ import {FormControl, FormGroup, ValidatorFn} from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { REG_DATE} from '../../../shared/constants/common';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-left-menu',
@@ -25,6 +25,10 @@ export class LeftMenuComponent implements OnInit {
         end: ['', Validators.required]}),
       near: []
     });
+  }
+
+  goToBookingConfirmation() {
+    this.router.navigate(['/confirmation']);
   }
 
   ngOnInit() {
