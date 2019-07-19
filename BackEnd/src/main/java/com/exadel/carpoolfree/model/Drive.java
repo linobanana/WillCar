@@ -27,6 +27,14 @@ import java.util.List;
 @Entity
 @Table(name = "drive")
 public class Drive {
+    public Drive(LocalDateTime startTime, LocalDateTime endTime, int freePlaceCount, User driver, Path path, Double startPoint) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.freePlaceCount = freePlaceCount;
+        this.driver = driver;
+        this.path = path;
+        this.startPoint = startPoint;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

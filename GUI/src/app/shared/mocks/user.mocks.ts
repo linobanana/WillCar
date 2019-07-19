@@ -1,6 +1,9 @@
 import {User} from '../types/common';
 
-export const USER: User = {name: 'Misha Ivanov',
+export const USER: User = {
+  login: 'login',
+  password: 'password',
+  name: 'Misha Ivanov',
   telNumber: '+3752911111111',
   email: 'ivanov27098@gmail.com',
   preferredCommunication: 'Chat',

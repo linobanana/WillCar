@@ -1,0 +1,10 @@
+<div *ngFor="let trip of Trips">
+  <div class="trip">
+    <div>{{testTrip.date}}</div>
+    <div> {{testTrip.driverCallNumber}}</div>
+    <div> {{testTrip.startPoint}}</div>
+    <div> {{testTrip.endPoint}} </div>
+    <button (click)="cancelTrip.emit(trip)"> Отменить поездку </button>
+    <button *ngIf="ifProposed"> Редактировать </button>
+  </div>
+</div>

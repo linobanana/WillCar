@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {AUTHORIZATION_LABEL} from '../../shared/constants/authorization';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
+import {User} from '../../shared/types/common';
+import {USER} from '../../shared/mocks/user.mocks';
+import {AUTHORIZATION} from '../../shared/constants/authorization';
 
 @Component({
   selector: 'app-authorization-page',
@@ -8,17 +11,21 @@ import {AUTHORIZATION_LABEL} from '../../shared/constants/authorization';
   styleUrls: ['./authorization-page.component.css']
 })
 export class AuthorizationPageComponent {
-  authorizationLabels = AUTHORIZATION_LABEL;
+  authorizationLabels = AUTHORIZATION;
 
   authorizationForm: FormGroup;
 
-  constructor(private fb: FormBuilder) { this.authorizationForm = this.fb.group({
+  constructor(private fb: FormBuilder, private router: Router) { this.authorizationForm = this.fb.group({
     login: [''],
     password: ['']
   });
   }
 
-  onSubmit() {
-    alert("good job");
+  goToMain(user: User) {
+    if ( user.login === USER.login && user.password === USER.password ) {
+      this.router.navigate(['/main']);
+    } else {
+      alert('Wrong info!');
+    }
   }
 }
