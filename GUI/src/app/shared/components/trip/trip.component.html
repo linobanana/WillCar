@@ -1,10 +1,17 @@
+<h2 class="my-bookings">My bookings</h2>
+<h3 class="upcoming">Upcoming trips</h3>
 <div *ngFor="let trip of Trips">
-  <div class="trip">
-    <div>{{testTrip.date}}</div>
-    <div> {{testTrip.driverCallNumber}}</div>
-    <div> {{testTrip.startPoint}}</div>
-    <div> {{testTrip.endPoint}} </div>
-    <button (click)="cancelTrip.emit(trip)"> Отменить поездку </button>
-    <button *ngIf="ifProposed"> Редактировать </button>
+  <div class="trips-container">
+    <img class="route-shot" src="{{testTrip.routeURL}}" />
+    <div class="trip">
+      <div class="field">{{testTrip.date}}</div>
+      <div class="field"> {{testTrip.driverCallNumber}}</div>
+      <div class="field"> {{testTrip.startPoint}}</div>
+      <div class="field"> {{testTrip.endPoint}} </div>
+      <button class="edit-button" mat-flat-button color="warn" *ngIf="ifProposed">Edit</button>
+      <button class="cancel-button" mat-flat-button color="warn" (click)="cancelTrip.emit(trip)">Cancel</button>
+    </div>
   </div>
 </div>
+<h3 class="archive">Archive</h3>
+

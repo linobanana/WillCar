@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Car, Trip} from "../../types/common";
-import {TEST_TRIP} from "../../constants/trip";
+import {Car, Trip} from '../../types/common';
+import {TEST_TRIP} from '../../constants/trip';
 
 @Component({
   selector: 'app-trip',

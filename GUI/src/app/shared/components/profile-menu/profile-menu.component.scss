@@ -11,23 +11,17 @@
   margin: 0;
 }
 
-.nav-list li {
-  background-color: #fff;
-  margin: 0 0.1%;
-  color: #8a8686;
-  padding: 0.5% 2%;
+.nav-list button {
+  margin: 0 0.5%;
+  padding: 0% 2%;
   font-family: "Titillium Web", sans-serif;
   font-size: 1.3em;
-  border: 1px solid #edeef0;
-}
-
-.nav-list li:hover {
-  background-color: #ff844c;
-  color: #fff;
 }
 
 @media screen and (max-width: 414px) {
-  .nav-list li {
-    font-size: 1em;
+  .nav-list button {
+    font-size: 0.9em;
+    margin: 0 0.1%;
+    padding: 0% 1%;
   }
 }

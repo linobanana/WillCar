@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,6 +27,14 @@ import java.util.List;
 @Entity
 @Table(name = "drive")
 public class Drive {
+    public Drive(LocalDateTime startTime, LocalDateTime endTime, int freePlaceCount, User driver, Path path, Double startPoint) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.freePlaceCount = freePlaceCount;
+        this.driver = driver;
+        this.path = path;
+        this.startPoint = startPoint;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +53,7 @@ public class Drive {
     @JoinColumn(name = "driver_id")
     private User driver;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "path")
     private Path path;
 
@@ -54,10 +63,12 @@ public class Drive {
     @OneToMany(
             mappedBy = "drive",
             cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
             orphanRemoval = true
     )
     private List<PassengerDrive> passengers = new ArrayList<>();
 
     @OneToMany()
     private List<Message> messages = new ArrayList<>();
+
 }

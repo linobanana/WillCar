@@ -1,19 +1,36 @@
-.car h1{
-  margin: 0;
+.label {
+  color: #376061;
+  font-size: 1.6em;
+  font-family: 'Titillium Web', sans-serif;
+  margin-top: 2%;
 }
-.car{
-  text-align: left;
-  color: #353c4e;
-  text-transform: uppercase;
-  padding: 2rem;
-}
-.temp{
+
+.car {
   display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  height: 2.5rem;
+  font-family: 'Titillium Web', sans-serif;
+  color: #376061;
 }
-.temp h2{
-  padding-right: 1rem;
-  margin: 0;
+
+.car-icon {
+  color: #ff844c;
+  margin-right: 5%;
+}
+
+.temp h3 {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 1.3em;
+}
+
+.temp:not(:last-child) {
+  margin-right: 5%;
+}
+
+@media screen and (max-width: 414px) {
+  .label {
+    font-size: 0.9em;
+    margin-top: -13%;
+  }
+  .temp h3 {
+    font-size: 0.8em;
+  }
 }
