@@ -8,18 +8,18 @@ import {MENU_ITEMS} from '../../../constants/menu-items';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent {
-  constructor(private roter: Router ) {}
+  constructor(private router: Router ) {}
 goToProfile() {
-  this.roter.navigate(['/profile']);
+  this.router.navigate(['/personalarea/', 'profile' ], );
 }
 goToMyBookings() {
-  this.roter.navigate(['/mybookings']);
+  this.router.navigate(['/personalarea/', 'mybookings']);
 }
   goToMyProposed() {
-    this.roter.navigate(['/myproposed']);
+    this.router.navigate(['/personalarea/', 'myproposed']);
   }
   goToAuthirization() {
-    this.roter.navigate(['/authorization']);
+    this.router.navigate(['/authorization']);
   }
 
   menuItems = MENU_ITEMS;
