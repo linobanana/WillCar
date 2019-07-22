@@ -6,7 +6,7 @@ import {TripService} from '../../../shared/components/trip/trip.service';
 @Component({
   selector: 'app-my-bookings',
   templateUrl: './my-bookings.component.html',
-  styleUrls: ['./my-bookings.component.css']
+  styleUrls: ['./my-bookings.component.scss']
 })
 export class MyBookingsComponent implements OnInit {
   trips$: Observable<Trip[]>;

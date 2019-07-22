@@ -1,10 +1,10 @@
 <div class="confirmation">
   <div class="container">
-  <p class="confirm-text">Your booking is confirmed!</p>
+  <p class="confirm-text">{{label.successLabel}}</p>
     <button mat-fab disabled><mat-icon class="icon">done</mat-icon></button>
     <div class="buttons">
-    <button mat-stroked-button class="main-button" color="primary" (click)="goToMain()">Main</button>
-    <button mat-flat-button color="primary" (click)="goToMyBookings()">My bookings</button>
+    <button mat-stroked-button class="main-button" color="primary" (click)="goToMain()">{{menuItem.mainMenu}}</button>
+    <button mat-flat-button color="primary" (click)="goToMyBookings()">{{menuItem.userBookings}}</button>
     </div>
   </div>
 </div>
