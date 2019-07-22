@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @Data
@@ -44,8 +45,10 @@ public class User {
     @Column(name = "pref_communication")
     private String prefCommunication;
 
-    @Column
-    private int role;
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> role;
 
     @Column(name = "driver_rating")
     private Long driverRating;

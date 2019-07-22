@@ -20,9 +20,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -144,7 +142,7 @@ public class FlowTest {
     private User getNextUser() {
         Long num = 1L;
         String testTxt = "Test text";
-        int role = 1;
+        Set<Role> role = new HashSet<>();
         List<Car> cars = new ArrayList<>();
         cars.add(getNextCar());
         cars.add(getNextCar());
