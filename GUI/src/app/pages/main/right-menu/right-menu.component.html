@@ -29,7 +29,7 @@
       <div class="errorFormNumber" *ngIf="!(numberOfSeats.errors == null)">
         {{numberOfSeats.errors.forbiddenDate.value}}
       </div>
-      <button type="submit" [disabled]="RightMenuInfo.invalid" class="create inputs" mat-button>Create route</button>
+      <button type="submit" [disabled]="RightMenuInfo.invalid" class="create inputs" mat-button>{{buttonLabel.rightButton}}</button>
     </form>
   </div>
 </div>

@@ -9,7 +9,7 @@ import {BookingConfirmationRoutes} from './shared/components/booking-confirmatio
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'mobileMenu',
+    redirectTo: 'profile',
     pathMatch: 'full'
   },
   ...MainRoutes,
