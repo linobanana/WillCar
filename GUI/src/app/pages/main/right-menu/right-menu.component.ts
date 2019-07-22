@@ -3,7 +3,8 @@ import {FormControl, FormGroup, ValidatorFn} from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { REG_DATE} from '../../../shared/constants/common';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
+import {BUTTON_LABELS} from '../../../shared/constants/button-labels';
 
 @Component({
   selector: 'app-right-menu',
@@ -12,6 +13,7 @@ import {Router} from "@angular/router";
 })
 export class RightMenuComponent implements OnInit {
   RightMenuInfo: FormGroup;
+  buttonLabel = BUTTON_LABELS;
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.RightMenuInfo = this.fb.group({

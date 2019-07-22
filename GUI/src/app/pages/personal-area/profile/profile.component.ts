@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BehaviorSubject, Observable, Subscription} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {Car, User} from '../../../shared/types/common';
 import {OPTIONS} from '../../../shared/mocks/user.mocks';
 import {clone} from 'ramda';

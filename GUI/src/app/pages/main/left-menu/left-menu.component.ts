@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { REG_DATE} from '../../../shared/constants/common';
 import {Router} from '@angular/router';
+import {BUTTON_LABELS} from '../../../shared/constants/button-labels';
 
 @Component({
   selector: 'app-left-menu',
@@ -12,6 +13,7 @@ import {Router} from '@angular/router';
 })
 export class LeftMenuComponent implements OnInit {
   LeftMenuInfo: FormGroup;
+  buttonLabel = BUTTON_LABELS;
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.LeftMenuInfo = this.fb.group({
@@ -27,9 +29,7 @@ export class LeftMenuComponent implements OnInit {
     });
   }
 
-  goToBookingConfirmation() {
-    this.router.navigate(['/confirmation']);
-  }
+
 
   ngOnInit() {
     this.LeftMenuInfo.setValue({
@@ -47,10 +47,10 @@ export class LeftMenuComponent implements OnInit {
     // TODO: Use EventEmitter with form value
     console.log(this.LeftMenuInfo.value);
   }
-  get date() { return this.LeftMenuInfo.get('date'); }
-  goToConfirmation() {
-    this.router.navigate(['/confirmation']);
-  }
+    get date() { return this.LeftMenuInfo.get('date'); }
+    goToBookingConfirmation() {
+      this.router.navigate(['/confirmation']);
+    }
 }
 export function forbiddenDateValidator(date: RegExp): ValidatorFn {
   return (control: FormControl): { [key: string]: any } | null => {
