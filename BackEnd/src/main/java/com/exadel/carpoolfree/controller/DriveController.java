@@ -55,14 +55,25 @@ public class DriveController {
                 = passengerDriveList.stream()
                 .collect(Collectors.groupingBy(PassengerDrive::getDrive));
 
-        for (Drive drive : driveListMap.keySet()) {
+       List<Drive> result =  driveListMap.keySet().stream().map(drive ->{
+                List<User> passengers = driveListMap.get(drive).stream().map(passengerDrive -> {
+                    User user = passengerDrive.getPassenger();
+                    return user;
+                }).collect(Collectors.toList());
+               drive.setPassengers(passengers);
+               return drive;
+        }).collect(Collectors.toList());
+
+       return result;
+
+        /*for (Drive drive : driveListMap.keySet()) {
             List<User> passengers = new LinkedList<>();
             for (PassengerDrive passengerDrive : driveListMap.get(drive)) {
                 passengers.add(passengerDrive.getPassenger());
             }
             drive.setPassengers(passengers);
         }
-        return driveListMap.keySet().stream().collect(Collectors.toList());
+        return driveListMap.keySet().stream().collect(Collectors.toList());*/
     }
 
     @GetMapping("/startPoint/{startPoint}")
