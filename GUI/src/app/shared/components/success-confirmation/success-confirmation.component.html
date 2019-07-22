@@ -1,9 +1,11 @@
 <div class="confirmation">
-  <p class="confirm-text">Your booking is confirmed! <br>
-    <mat-icon class="icon">done</mat-icon>
-    <br>
-    <button class="main-button" (click)="goToMain()">Main</button>
-    <button class="booking-button" (click)="goToMyBookedTrips()">My bookings</button>
-  </p>
+  <div class="container">
+  <p class="confirm-text">Your booking is confirmed!</p>
+    <button mat-fab disabled><mat-icon class="icon">done</mat-icon></button>
+    <div class="buttons">
+    <button mat-stroked-button class="main-button" color="primary" (click)="goToMain()">Main</button>
+    <button mat-flat-button color="primary" (click)="goToMyBookings()">My bookings</button>
+    </div>
+  </div>
 </div>
 

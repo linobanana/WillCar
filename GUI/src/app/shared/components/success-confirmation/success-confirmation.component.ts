@@ -12,8 +12,8 @@ export class SuccessConfirmationComponent implements OnInit {
 
   ngOnInit() {
   }
-  goToMyBookedTrips() {
-    this.router.navigate(['/mybookings']);
+  goToMyBookings() {
+    this.router.navigate(['/personalarea/', 'mybookings']);
   }
   goToMain() {
     this.router.navigate(['/main']);
