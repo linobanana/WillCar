@@ -8,6 +8,7 @@ import {UserService} from '../../../shared/components/user/user.service';
 import {HeaderModule} from '../../../shared/components/header/header.module';
 import {ProfileMenuModule} from '../../../shared/components/profile-menu/profile-menu.module';
 import {FooterModule} from '../../../shared/components/footer/footer.module';
+import {ProfileApiService} from "../../../shared/api/profile/profile.api.service";
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import {FooterModule} from '../../../shared/components/footer/footer.module';
     FooterModule
   ],
   providers: [
+    ProfileApiService,
     UserService
   ],
   declarations: [ProfileComponent],

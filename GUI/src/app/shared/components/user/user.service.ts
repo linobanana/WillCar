@@ -2,15 +2,19 @@ import { Injectable } from '@angular/core';
 import {Car, User} from '../../types/common';
 import {BehaviorSubject, Observable} from "rxjs";
 import {USER} from "../../mocks/user.mocks";
+import {ProfileApiService} from "../../api/profile/profile.api.service";
+import {delay, take} from "rxjs/operators";
 
 @Injectable()
 export class UserService {
   private _user: User;
   private _userSubject: BehaviorSubject<User> = new BehaviorSubject(null);
-  constructor() {
-    setTimeout(() => {
-      this.user = USER;
-    }, 1000);
+  constructor(private profileApiService: ProfileApiService) {
+    this.profileApiService.getUser(1)
+      .pipe(take(1), delay(1000))
+      .subscribe((user) => {
+        this.user = user
+      });
   }
 
   get userSubject(): Observable<User> {
