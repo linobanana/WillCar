@@ -17,6 +17,10 @@ import {ProfileModule} from './pages/personal-area/profile/profile.module';
 import {ProfileMenuModule} from './shared/components/profile-menu/profile-menu.module';
 import {PersonalAreaModule} from './pages/personal-area/personal-area.module';
 import {ApiService} from "./shared/services/api.service";
+import {MobileMenuModule} from "./shared/components/mobile-menu/mobile-menu.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatNativeDateModule, MatSidenavModule} from "@angular/material";
 
 
 @NgModule({
@@ -41,9 +45,7 @@ import {ApiService} from "./shared/services/api.service";
     MyProposedModule,
     PersonalAreaModule
   ],
-  providers: [
-    ApiService
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
