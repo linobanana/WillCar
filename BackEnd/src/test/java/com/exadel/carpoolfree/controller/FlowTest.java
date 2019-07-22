@@ -1,11 +1,6 @@
 package com.exadel.carpoolfree.controller;
 
-import com.exadel.carpoolfree.model.Car;
-import com.exadel.carpoolfree.model.Drive;
-import com.exadel.carpoolfree.model.Message;
-import com.exadel.carpoolfree.model.PassengerDrive;
-import com.exadel.carpoolfree.model.Path;
-import com.exadel.carpoolfree.model.User;
+import com.exadel.carpoolfree.model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -153,9 +148,9 @@ public class FlowTest {
         List<Car> cars = new ArrayList<>();
         cars.add(getNextCar());
         cars.add(getNextCar());
-        List<PassengerDrive> drives = new ArrayList<>();
+        Mark mark = new Mark();
         User user = new User(num, testTxt, testTxt, testTxt, testTxt, testTxt,
-                testTxt, testTxt, role, num, num, cars, drives);
+                testTxt, testTxt, role, num, num, cars, mark, mark);
         return user;
     }
 

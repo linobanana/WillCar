@@ -1,5 +1,7 @@
 package com.exadel.carpoolfree.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +24,7 @@ import javax.persistence.Table;
 public class PassengerDrive {
 
     @Id
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "passenger_id")
     private User passenger;
 

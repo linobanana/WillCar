@@ -5,15 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,12 +61,14 @@ public class User {
     )
     private List<Car> cars = new ArrayList<>();
 
-    @OneToMany(
-            mappedBy = "passenger",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            orphanRemoval = true
+    @OneToOne(
+            mappedBy = "ratedUser"
     )
-    private List<PassengerDrive> drives = new ArrayList<>();
+    private Mark driverMark;
+
+    @OneToOne(
+            mappedBy = "ratedBy"
+    )
+    private Mark passengerMark;
 
 }
