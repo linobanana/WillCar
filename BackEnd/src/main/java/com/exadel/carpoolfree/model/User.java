@@ -65,13 +65,8 @@ public class User {
     private List<Car> cars = new ArrayList<>();
 
     @OneToOne(
-            mappedBy = "ratedUser"
-    )
-    private Mark driverMark;
-
-    @OneToOne(
             mappedBy = "ratedBy"
     )
-    private Mark passengerMark;
+    private Mark mark;
 
 }

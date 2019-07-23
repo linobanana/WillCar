@@ -148,7 +148,7 @@ public class FlowTest {
         cars.add(getNextCar());
         Mark mark = new Mark();
         User user = new User(num, testTxt, testTxt, testTxt, testTxt, testTxt,
-                testTxt, testTxt, role, num, num, cars, mark, mark);
+                testTxt, testTxt, role, num, num, cars, mark);
         return user;
     }
 

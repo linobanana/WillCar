@@ -7,6 +7,7 @@ import com.exadel.carpoolfree.model.Path;
 import com.exadel.carpoolfree.repository.DriveRepository;
 import com.exadel.carpoolfree.repository.PassengerDriveRepository;
 import com.exadel.carpoolfree.repository.PathRepository;
+import com.exadel.carpoolfree.service.DriveService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,36 +26,41 @@ import java.util.stream.Collectors;
 @RequestMapping("api/drive")
 public class DriveController {
     private final DriveRepository driveRepository;
-    private final PathRepository pathRepository;
     private final PassengerDriveRepository passengerDriveRepository;
+    private final PathRepository pathRepository;
+    private final DriveService driveService;
 
-    public DriveController(DriveRepository driveRepository, PathRepository pathRepository, PassengerDriveRepository passengerDriveRepository) {
+    public DriveController(DriveRepository driveRepository, PassengerDriveRepository passengerDriveRepository,
+                           PathRepository pathRepository, DriveService driveService) {
         this.driveRepository = driveRepository;
-        this.pathRepository = pathRepository;
         this.passengerDriveRepository = passengerDriveRepository;
+        this.pathRepository = pathRepository;
+        this.driveService = driveService;
     }
 
     @GetMapping()
-    public List<Drive> findAllDrives() {
+    public List<Drive> findAllDrives()
+    {
         return driveRepository.findAll();
     }
+
 
     @GetMapping("/{id}")
     public Drive findById(final @PathVariable Long id) {
         return driveRepository.findById(id).get();
     }
 
+    @GetMapping("/driverId/{driverId}")
+    private List<Drive> findAllByDriverId(final @PathVariable Long driverId) {
+        List<PassengerDrive> passengerDriveList = passengerDriveRepository.findAllByDriverId(driverId);
+        List<Drive> result = driveService.findAllByDriverId(passengerDriveList);
+        return result;
+    }
 
     @GetMapping("/passengerId/{passengerId}")
     private List<Drive> findAllByPassengerId(final @PathVariable Long passengerId) {
         List<PassengerDrive> passengerDriveList = passengerDriveRepository.findAllByPassengerId(passengerId);
-
-        List<Drive> result = passengerDriveList.stream()
-                .map(temp -> {
-                    Drive obj = temp.getDrive();
-                    return obj;
-                }).collect(Collectors.toList());
-
+        List<Drive> result = driveService.findAllByPassengerId(passengerDriveList);
         return result;
     }
 
@@ -86,9 +93,10 @@ public class DriveController {
     }
 
     @DeleteMapping("/{id}")
-    public boolean delete(final @PathVariable Long id) {
+    public void delete(final @PathVariable Long id) {
         driveRepository.deleteById(id);
-        return true;
     }
+
+
 
 }
