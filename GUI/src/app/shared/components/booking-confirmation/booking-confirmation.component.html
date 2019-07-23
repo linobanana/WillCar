@@ -9,7 +9,9 @@
       <tr><td class="parameter">Departure time:</td><td class="value">{{tripInfo.date}}</td></tr>
       <tr><td class="parameter">Your pickup point:</td><td class="value">{{tripInfo.startPoint}}</td></tr>
     </table>
-    <button class="book-button button" (click)="goToSuccess()">{{buttonLabel.bookButton}}</button>
-    <button class="cancel-button button" (click)="goToMain()">{{buttonLabel.cancelButton}}</button>
+    <div class="buttons">
+    <button mat-raised-button (click)="goToSuccess()" class="button">{{buttonLabel.bookButton}}</button>
+    <button mat-raised-button (click)="goToMain()" class="button cancel-button">{{buttonLabel.cancelButton}}</button>
+    </div>
   </div>
 </div>
