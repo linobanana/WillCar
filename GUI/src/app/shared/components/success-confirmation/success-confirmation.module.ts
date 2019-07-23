@@ -1,11 +1,12 @@
 import {NgModule} from '@angular/core';
 import {SuccessConfirmationComponent} from './success-confirmation.component';
-import {MatIconModule} from '@angular/material';
+import {MatButtonModule, MatIconModule} from '@angular/material';
 
 
 @NgModule({
   imports: [
-    MatIconModule
+    MatIconModule,
+    MatButtonModule
   ],
   declarations: [
     SuccessConfirmationComponent

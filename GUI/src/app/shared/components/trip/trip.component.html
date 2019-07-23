@@ -1,4 +1,5 @@
-<h2 class="my-bookings">My bookings</h2>
+<h2 class="my-bookings" *ngIf="!ifProposed">My bookings</h2>
+<h2 class="my-bookings" *ngIf="ifProposed" >Proposed trips</h2>
 <h3 class="upcoming">Upcoming trips</h3>
 <div *ngFor="let trip of Trips">
   <div class="trips-container">

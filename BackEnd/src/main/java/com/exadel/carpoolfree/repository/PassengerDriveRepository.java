@@ -13,4 +13,11 @@ public interface PassengerDriveRepository extends JpaRepository<PassengerDrive, 
             "left join fetch dr.driver driver  " +
             "where driver.id = :driverId")
     List<PassengerDrive> findAllByDriverId(Long driverId);
+
+
+    @Query(value = "SELECT d " +
+            "from PassengerDrive d " +
+            "left join fetch d.passenger p  " +
+            "where p.id = :passengerId")
+    List<PassengerDrive> findAllByPassengerId(Long passengerId);
 }

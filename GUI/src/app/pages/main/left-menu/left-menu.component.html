@@ -22,7 +22,7 @@
         </mat-form-field>
       </div>
         <mat-checkbox formControlName = "near" class="inputs">Nearly search</mat-checkbox>
-        <button type="submit" [disabled]="LeftMenuInfo.invalid" (click)="goToBookingConfirmation()" class="search inputs" mat-button>Pick up a route</button>
+        <button type="submit" [disabled]="LeftMenuInfo.invalid" (click)="goToBookingConfirmation()" class="search inputs" mat-button>{{buttonLabel.leftButton}}</button>
     </form>
   </div>
 </div>

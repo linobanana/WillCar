@@ -4,7 +4,6 @@ package com.exadel.carpoolfree.controller;
 import com.exadel.carpoolfree.model.Drive;
 import com.exadel.carpoolfree.model.PassengerDrive;
 import com.exadel.carpoolfree.model.Path;
-import com.exadel.carpoolfree.model.User;
 import com.exadel.carpoolfree.repository.DriveRepository;
 import com.exadel.carpoolfree.repository.PassengerDriveRepository;
 import com.exadel.carpoolfree.repository.PathRepository;
@@ -18,62 +17,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/drive")
 public class DriveController {
     private final DriveRepository driveRepository;
-    private final PassengerDriveRepository passengerDriveRepository;
     private final PathRepository pathRepository;
+    private final PassengerDriveRepository passengerDriveRepository;
 
-    public DriveController(DriveRepository driveRepository, PassengerDriveRepository passengerDriveRepository, PathRepository pathRepository) {
+    public DriveController(DriveRepository driveRepository, PathRepository pathRepository, PassengerDriveRepository passengerDriveRepository) {
         this.driveRepository = driveRepository;
-        this.passengerDriveRepository = passengerDriveRepository;
         this.pathRepository = pathRepository;
+        this.passengerDriveRepository = passengerDriveRepository;
     }
 
     @GetMapping()
-    public List<Drive> findAllDrives()
-    {
+    public List<Drive> findAllDrives() {
         return driveRepository.findAll();
     }
-
 
     @GetMapping("/{id}")
     public Drive findById(final @PathVariable Long id) {
         return driveRepository.findById(id).get();
     }
 
-    @GetMapping("/driverId/{driverId}")
-    private List<Drive> findAllByDriverId(final @PathVariable Long driverId) {
-        List<PassengerDrive> passengerDriveList = passengerDriveRepository.findAllByDriverId(driverId);
-        Map<Drive, List<PassengerDrive>> driveListMap
-                = passengerDriveList.stream()
-                .collect(Collectors.groupingBy(PassengerDrive::getDrive));
 
-       List<Drive> result =  driveListMap.keySet().stream().map(drive ->{
-                List<User> passengers = driveListMap.get(drive).stream().map(passengerDrive -> {
-                    User user = passengerDrive.getPassenger();
-                    return user;
+    @GetMapping("/passengerId/{passengerId}")
+    private List<Drive> findAllByPassengerId(final @PathVariable Long passengerId) {
+        List<PassengerDrive> passengerDriveList = passengerDriveRepository.findAllByPassengerId(passengerId);
+
+        List<Drive> result = passengerDriveList.stream()
+                .map(temp -> {
+                    Drive obj = temp.getDrive();
+                    return obj;
                 }).collect(Collectors.toList());
-               drive.setPassengers(passengers);
-               return drive;
-        }).collect(Collectors.toList());
 
-       return result;
-
-        /*for (Drive drive : driveListMap.keySet()) {
-            List<User> passengers = new LinkedList<>();
-            for (PassengerDrive passengerDrive : driveListMap.get(drive)) {
-                passengers.add(passengerDrive.getPassenger());
-            }
-            drive.setPassengers(passengers);
-        }
-        return driveListMap.keySet().stream().collect(Collectors.toList());*/
+        return result;
     }
 
     @GetMapping("/startPoint/{startPoint}")
@@ -94,13 +75,14 @@ public class DriveController {
     }
 
     @PutMapping("/{id}")
-    public Drive updateDrive(@PathVariable Long id, @RequestBody Drive drive) {
+    public Drive updateDrive(@PathVariable Long id, @RequestBody Path path) {
+        Path newPath = pathRepository.save(path);
         return driveRepository.findById(id)
                 .map(drive1 -> {
-                    drive1.setPath(drive.getPath());
+                    drive1.setPath(newPath);
                     return driveRepository.save(drive1);
                 })
-                .orElseThrow((() -> new RuntimeException("User not found")));
+                .orElseThrow((() -> new RuntimeException("Drive not found")));
     }
 
     @DeleteMapping("/{id}")
@@ -108,7 +90,5 @@ public class DriveController {
         driveRepository.deleteById(id);
         return true;
     }
-
-
 
 }

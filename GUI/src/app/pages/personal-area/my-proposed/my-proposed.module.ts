@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {TripService} from "../../../shared/components/trip/trip.service";
-import {MyProposedComponent} from "./my-proposed.component";
-import {TripModule} from "../../../shared/components/trip/trip.module";
+import {TripService} from '../../../shared/components/trip/trip.service';
+import {MyProposedComponent} from './my-proposed.component';
+import {TripModule} from '../../../shared/components/trip/trip.module';
 
 @NgModule({
   imports: [
