@@ -5,17 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @Data
@@ -52,8 +45,10 @@ public class User {
     @Column(name = "pref_communication")
     private String prefCommunication;
 
-    @Column
-    private int role;
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> role;
 
     @Column(name = "driver_rating")
     private Long driverRating;
@@ -69,12 +64,9 @@ public class User {
     )
     private List<Car> cars = new ArrayList<>();
 
-    @OneToMany(
-            mappedBy = "passenger",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            orphanRemoval = true
+    @OneToOne(
+            mappedBy = "ratedBy"
     )
-    private List<PassengerDrive> drives = new ArrayList<>();
+    private Mark mark;
 
 }

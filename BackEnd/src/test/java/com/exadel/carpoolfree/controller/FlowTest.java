@@ -1,11 +1,6 @@
 package com.exadel.carpoolfree.controller;
 
-import com.exadel.carpoolfree.model.Car;
-import com.exadel.carpoolfree.model.Drive;
-import com.exadel.carpoolfree.model.Message;
-import com.exadel.carpoolfree.model.PassengerDrive;
-import com.exadel.carpoolfree.model.Path;
-import com.exadel.carpoolfree.model.User;
+import com.exadel.carpoolfree.model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -25,9 +20,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -149,13 +142,13 @@ public class FlowTest {
     private User getNextUser() {
         Long num = 1L;
         String testTxt = "Test text";
-        int role = 1;
+        Set<Role> role = new HashSet<>();
         List<Car> cars = new ArrayList<>();
         cars.add(getNextCar());
         cars.add(getNextCar());
-        List<PassengerDrive> drives = new ArrayList<>();
+        Mark mark = new Mark();
         User user = new User(num, testTxt, testTxt, testTxt, testTxt, testTxt,
-                testTxt, testTxt, role, num, num, cars, drives);
+                testTxt, testTxt, role, num, num, cars, mark);
         return user;
     }
 
