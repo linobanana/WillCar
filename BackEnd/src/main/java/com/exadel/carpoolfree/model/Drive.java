@@ -53,13 +53,14 @@ public class Drive {
     @Column(name = "fin_point")
     private String finPoint;
 
-    public Drive(LocalDateTime startTime, LocalDateTime endTime, int freePlaceCount, User driver, Path path, String startPoint) {
+    public Drive(LocalDateTime startTime, LocalDateTime endTime, int freePlaceCount, User driver, Path path, String startPoint, String finPoint) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.freePlaceCount = freePlaceCount;
         this.driver = driver;
         this.path = path;
         this.startPoint = startPoint;
+        this.finPoint = finPoint;
     }
 
     @OneToMany()

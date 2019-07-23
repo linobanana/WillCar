@@ -180,7 +180,7 @@ public class FlowTest {
         messages.add(getNextMessage());
 
         return new Drive(localDateTime, localDateTime,
-                test, user, path, startPoint);
+                test, user, path, startPoint, startPoint);
     }
 
     private MvcResult doPost(String url, Object data) throws Exception {
