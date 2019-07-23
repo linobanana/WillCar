@@ -28,14 +28,9 @@ import java.util.List;
 @Entity
 @Table(name = "drive")
 public class Drive {
-    public Drive(LocalDateTime startTime, LocalDateTime endTime, int freePlaceCount, User driver, Path path, Double startPoint) {
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.freePlaceCount = freePlaceCount;
-        this.driver = driver;
-        this.path = path;
-        this.startPoint = startPoint;
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "path_id")
+    private Path path;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,13 +48,19 @@ public class Drive {
     @ManyToOne
     @JoinColumn(name = "driver_id")
     private User driver;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "path")
-    private Path path;
-
     @Column(name = "start_point")
-    private Double startPoint;
+    private String startPoint;
+    @Column(name = "fin_point")
+    private String finPoint;
+
+    public Drive(LocalDateTime startTime, LocalDateTime endTime, int freePlaceCount, User driver, Path path, String startPoint) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.freePlaceCount = freePlaceCount;
+        this.driver = driver;
+        this.path = path;
+        this.startPoint = startPoint;
+    }
 
     @OneToMany()
     private List<Message> messages = new ArrayList<>();

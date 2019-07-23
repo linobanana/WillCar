@@ -1,6 +1,12 @@
 package com.exadel.carpoolfree.controller;
 
-import com.exadel.carpoolfree.model.*;
+import com.exadel.carpoolfree.model.Car;
+import com.exadel.carpoolfree.model.Drive;
+import com.exadel.carpoolfree.model.Mark;
+import com.exadel.carpoolfree.model.Message;
+import com.exadel.carpoolfree.model.Path;
+import com.exadel.carpoolfree.model.Role;
+import com.exadel.carpoolfree.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -20,7 +26,11 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -136,7 +146,7 @@ public class FlowTest {
         Long num = 1L;
         String text = "Test_text";
         Double testDouble = Math.random() * 10;
-        return new Path(num, text, testDouble, testDouble);
+        return new Path(num, text);
     }
 
     private User getNextUser() {
@@ -163,14 +173,14 @@ public class FlowTest {
         Date date = new Date();
         LocalDateTime localDateTime = LocalDateTime.now();
         int test = (int) (1 + Math.random() * 4);
-        Double doubleNum = Math.random() * 10;
+        String startPoint = "";
 
         List<Message> messages = new ArrayList<>();
         messages.add(getNextMessage());
         messages.add(getNextMessage());
 
         return new Drive(localDateTime, localDateTime,
-                test, user, path, doubleNum);
+                test, user, path, startPoint);
     }
 
     private MvcResult doPost(String url, Object data) throws Exception {
