@@ -15,14 +15,14 @@
       </div>
       <div formGroupName="adress">
         <mat-form-field class="inputs">
-          <input matInput formControlName = "start" placeholder="Start point" required>
+          <input matInput formControlName = "start" placeholder="Start point"  id="suggestStart"  [value]="startSuggestion">
         </mat-form-field>
         <mat-form-field class="inputs">
-          <input matInput formControlName = "end"  placeholder="End point" required>
+          <input matInput formControlName = "end"  placeholder="End point"  id="suggestEnd" >
         </mat-form-field>
       </div>
         <mat-checkbox formControlName = "near" class="inputs">Nearly search</mat-checkbox>
-        <button type="submit" [disabled]="LeftMenuInfo.invalid" (click)="goToBookingConfirmation()" class="search inputs" mat-button>{{buttonLabel.leftButton}}</button>
+        <button type="submit" (click)="onSubmit()" class="search inputs" mat-button>{{buttonLabel.leftButton}}</button>
     </form>
   </div>
 </div>
