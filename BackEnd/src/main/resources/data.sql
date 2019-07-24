@@ -23,8 +23,8 @@ ALTER TABLE user
 
 CREATE TABLE user_role
 (
-  user_id INT NOT NULL,
-  role    VARCHAR(10) check (role in ('PASSENGER', 'DRIVER', 'ADMIN'))
+    user_id INT NOT NULL,
+    roles   VARCHAR(10) check (roles in ('PASSENGER', 'DRIVER', 'ADMIN'))
 );
 
 CREATE TABLE path
@@ -52,7 +52,7 @@ CREATE TABLE passenger_drive
   start_point  VARCHAR(250) NOT NULL
 );
 
-INSERT INTO user_role (user_id, role)
+INSERT INTO user_role (user_id, roles)
 VALUES ('1', 'DRIVER'),
        ('2', 'PASSENGER'),
        ('3', 'PASSENGER'),

@@ -62,6 +62,7 @@ public class User {
 
     @Column(name = "pref_communication")
     private String prefCommunication;
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
