@@ -13,13 +13,16 @@ export class User {
   email: string;
   preferredCommunication: string;
   cars: Car[];
-  rating: number;
+  rating: number; //divide rating driver and passenger
   photoUrl: string;
 }
 export class Trip {
-  date: Date;
+  freePlaceCount: number;
+  startDate: Date;
+  endDate: Date;
   startPoint: string;
   endPoint: string;
-  driverCallNumber: string;
+  driverCallNumber: string ;
+
 }
 

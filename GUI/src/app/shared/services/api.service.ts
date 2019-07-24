@@ -12,6 +12,7 @@ export class ApiService {
   constructor(private httpClient: HttpClient) {
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('Access-Control-Allow-Credentials', 'true');
     this.defaultOptions = {
       headers
     };

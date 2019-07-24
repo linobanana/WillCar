@@ -43,7 +43,10 @@ import {MatNativeDateModule, MatSidenavModule} from "@angular/material";
     ProfileMenuModule,
     MyBookingsModule,
     MyProposedModule,
-    PersonalAreaModule
+    PersonalAreaModule,
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

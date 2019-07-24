@@ -5,10 +5,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
-import {LeftMenuComponent} from 'src/app/pages/main/left-menu/left-menu.component';
-import {MainComponent} from "../../../pages/main/main.component";
-import {RightMenuComponent} from "../../../pages/main/right-menu/right-menu.component";
-import {MainModule} from 'src/app/pages/main/main.module';
+import {MainModule} from "../../../pages/main/main.module";
+
 
 
 @NgModule({
@@ -23,8 +21,8 @@ import {MainModule} from 'src/app/pages/main/main.module';
     BrowserAnimationsModule,
     HttpClientModule,
     MatNativeDateModule,
-    MainModule,
-    MatIconModule
+    MatIconModule,
+    MainModule
   ],
   exports : [
     MobileMenuComponent
