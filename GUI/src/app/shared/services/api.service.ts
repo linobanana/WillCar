@@ -5,7 +5,7 @@ import {mergeDeepRight, clone} from 'ramda';
 
 @Injectable()
 export class ApiService {
-  private url = 'http://localhost:8080/';
+  private url = 'http://localhost:4200/';
 
   private defaultOptions: any;
 
