@@ -146,7 +146,7 @@ public class FlowTest {
         Long num = 1L;
         String text = "Test_text";
         Double testDouble = Math.random() * 10;
-        return new Path(num, text, testDouble, testDouble);
+        return new Path(num, text);
     }
 
     private User getNextUser() {
@@ -172,14 +172,14 @@ public class FlowTest {
         Date date = new Date();
         LocalDateTime localDateTime = LocalDateTime.now();
         int test = (int) (1 + Math.random() * 4);
-        Double doubleNum = Math.random() * 10;
+        String startPoint = "";
 
         List<Message> messages = new ArrayList<>();
         messages.add(getNextMessage());
         messages.add(getNextMessage());
 
         return new Drive(localDateTime, localDateTime,
-                test, user, path, doubleNum);
+                test, user, path, startPoint, startPoint);
     }
 
     private MvcResult doPost(String url, Object data) throws Exception {
