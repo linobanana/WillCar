@@ -1,14 +1,11 @@
 package com.exadel.carpoolfree.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -33,6 +30,6 @@ public class PassengerDrive {
     @JoinColumn(name = "drive_id")
     private Drive drive;
 
-    @Column(name = "start_coordinate")
+    @Column(name = "start_point")
     private String startPoint;
 }
