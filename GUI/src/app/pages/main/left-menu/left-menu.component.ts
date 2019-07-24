@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, ValidatorFn} from '@angular/forms';
-import {FormBuilder} from '@angular/forms';
-import {Validators} from '@angular/forms';
-import {REG_DATE} from '../../../shared/constants/common';
+import { FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
+import { REG_DATE} from '../../../shared/constants/common';
 import {Router} from '@angular/router';
 import {BUTTON_LABELS} from '../../../shared/constants/button-labels';
-import {Trip} from "../../../shared/types/common";
 
 declare var ymaps: any;
 
@@ -17,27 +16,26 @@ declare var ymaps: any;
 export class LeftMenuComponent implements OnInit {
   LeftMenuInfo: FormGroup;
   buttonLabel = BUTTON_LABELS;
-  constructor(private fb: FormBuilder, private router: Router,) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.LeftMenuInfo = this.fb.group({
       date: ['', {
         validators: forbiddenDateValidator(new RegExp(REG_DATE)),
         updateOn: 'blur'
       }],
       time: [''],
-      adress: this.fb.group({
+      address: this.fb.group({
         start: ['', Validators.required],
-        end: ['', Validators.required]
-      }),
+        end: ['', Validators.required]}),
       near: []
     });
     this.initYandexSuggestionsForInput();
   }
-
   ngOnInit() {
 
   }
 
   onSubmit() {
+    // TODO: Use EventEmitter with form value
     console.log(this.LeftMenuInfo.value);
   }
 
@@ -50,18 +48,29 @@ export class LeftMenuComponent implements OnInit {
   }
 
   initYandexSuggestionsForInput() {
-
+    const self = this;
     ymaps.ready(init);
     function init() {
-      var suggestStart = new ymaps.SuggestView('suggestStart',{
+      let suggestionForStartInput = new ymaps.SuggestView('start',{
         boundedBy: [
           [50, 60],
           [25, 30]
         ]
       });
-      var suggestViewEnd = new ymaps.SuggestView('suggestEnd');
-      suggestStart.events.add("select", function(e) {
+      let suggestionForEndInput = new ymaps.SuggestView('end',{
+        boundedBy: [
+          [50, 60],
+          [25, 30]
+        ]
+      });
+      suggestionForStartInput.events.add("select", function(e) {
         let startSuggestion = e.get('item').value;
+        self.LeftMenuInfo.get('address').get('start').setValue(startSuggestion);
+        console.log(e.get('item').value);
+      });
+      suggestionForEndInput.events.add("select", function(e) {
+        let endSuggestion = e.get('item').value;
+        self.LeftMenuInfo.get('address').get('end').setValue(endSuggestion);
         console.log(e.get('item').value);
       });
     }

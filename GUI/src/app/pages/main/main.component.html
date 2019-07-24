@@ -1,3 +1,6 @@
+<div [ngClass]="{'test':driverState}">
 <app-left-menu></app-left-menu>
 <app-right-menu></app-right-menu>
 <app-map></app-map>
+<app-right-menu *ngIf="driverState"></app-right-menu>
+</div>
