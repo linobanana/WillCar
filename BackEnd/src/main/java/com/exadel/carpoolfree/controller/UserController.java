@@ -2,7 +2,6 @@ package com.exadel.carpoolfree.controller;
 
 import com.exadel.carpoolfree.model.User;
 import com.exadel.carpoolfree.repository.UserRepository;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -40,12 +39,6 @@ public class UserController {
                     return userRepository.save(user1);
                 })
                 .orElseThrow((() -> new RuntimeException("User not found")));
-    }
-
-    @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable Long id) {
-        userRepository.deleteById(id);
-        return true;
     }
 
 }

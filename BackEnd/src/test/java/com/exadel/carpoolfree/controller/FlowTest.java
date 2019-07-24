@@ -1,6 +1,12 @@
 package com.exadel.carpoolfree.controller;
 
-import com.exadel.carpoolfree.model.*;
+import com.exadel.carpoolfree.model.Car;
+import com.exadel.carpoolfree.model.Drive;
+import com.exadel.carpoolfree.model.Mark;
+import com.exadel.carpoolfree.model.Message;
+import com.exadel.carpoolfree.model.Path;
+import com.exadel.carpoolfree.model.Role;
+import com.exadel.carpoolfree.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -20,7 +26,11 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -147,8 +157,7 @@ public class FlowTest {
         cars.add(getNextCar());
         cars.add(getNextCar());
         Mark mark = new Mark();
-        User user = new User(num, testTxt, testTxt, testTxt, testTxt, testTxt,
-                testTxt, testTxt, role, num, num, cars, mark);
+        User user = new User();
         return user;
     }
 
