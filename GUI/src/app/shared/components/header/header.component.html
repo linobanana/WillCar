@@ -1,10 +1,10 @@
 <header class="page-header">
   <div class="header-container">
-    <div>
+    <div *ngIf="router.url.includes('main')">
       <p class="role-toggle">
         Passenger
       </p>
-      <mat-slide-toggle>
+      <mat-slide-toggle (click)="changeDriverState()">
       </mat-slide-toggle>
       <p class="role-toggle">
         Driver
