@@ -1,7 +1,8 @@
 <user-component
   [user]="user$ | async"
   [options]="options$ | async"
-  (carForm)="onAddCar($event)">
+  (carForm)="onAddCar($event)"
+  (deleteCarButton)="onDeleteCar($event)">
 </user-component>
 
 

@@ -11,7 +11,6 @@ import {UserService} from '../../../shared/components/user/user.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  title = 'Hello, Profile';
   user$: Observable<User>;
   options$: BehaviorSubject<string[]> = new BehaviorSubject(null);
 
@@ -26,5 +25,9 @@ export class ProfileComponent implements OnInit {
 
   onAddCar(car: Car) {
     this.userService.addCar(car);
+  }
+
+  onDeleteCar(car: Car) {
+    this.userService.deleteCar(car);
   }
 }

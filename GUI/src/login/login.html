@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Log in · WillCar</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="src/favicon.ico">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="login.scss" rel="stylesheet">
+</head>
+<body>
+<div class="form-container">
+  <form class="authorization-form" [formGroup]="authorizationForm">
+    <h2 class="form-label">{{authorizationLabels.label}}</h2>
+    <input type="text" id="login-field" placeholder="{{authorizationLabels.userLogin}}" formControlName="login" />
+    <input type="password" id="password-field" placeholder="{{authorizationLabels.userPassword}}" formControlName="password" />
+    <button type="submit" (click)="goToMain(authorizationForm.value)" [disabled]="!authorizationForm.valid" class="submit-button">{{authorizationLabels.enterButton}}</button>
+  </form>
+</div>
+</body>
+</html>

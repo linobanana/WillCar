@@ -9,6 +9,7 @@
   display: flex;
   font-family: 'Titillium Web', sans-serif;
   color: #376061;
+  align-items: center;
 }
 
 .car-icon {
@@ -18,12 +19,14 @@
 
 .temp h3 {
   font-family: 'Titillium Web', sans-serif;
-  font-size: 1.3em;
+  font-size: 1.2em;
+  margin: 0;
 }
 
 .temp:not(:last-child) {
-  margin-right: 5%;
+  margin-right: 3%;
 }
+
 
 @media screen and (max-width: 414px) {
   .label {
