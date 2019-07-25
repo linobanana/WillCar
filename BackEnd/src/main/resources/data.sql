@@ -5,22 +5,22 @@ DROP TABLE IF EXISTS drive;
 DROP TABLE IF EXISTS passenger_drive;
 
 CREATE TABLE user (
-                    id                 INT AUTO_INCREMENT  PRIMARY KEY,
-                    first_name         VARCHAR(100) NOT NULL,
-                    last_name          VARCHAR(100) NOT NULL,
-                    phone_number       VARCHAR(50)  NOT NULL,
-                    email              VARCHAR(50)  NOT NULL,
-                    login              VARCHAR(250) NOT NULL,
-                    password           VARCHAR(250) NOT NULL,
-                    pref_communication VARCHAR(50) DEFAULT NULL,
-                    passenger_rating   INT,
-                    driver_rating      INT
+    id                 INT AUTO_INCREMENT  PRIMARY KEY,
+    first_name         VARCHAR(100) NOT NULL,
+    last_name          VARCHAR(100) NOT NULL,
+    phone_number       VARCHAR(50)  NOT NULL,
+    email              VARCHAR(50)  NOT NULL,
+    login              VARCHAR(250) NOT NULL,
+    password           VARCHAR(250) NOT NULL,
+    pref_communication VARCHAR(50) DEFAULT NULL,
+    passenger_rating   INT,
+    driver_rating      INT
 );
 
 CREATE TABLE user_role
 (
   user_id INT NOT NULL,
-  role    VARCHAR(10) check (role in ('PASSENGER', 'DRIVER', 'ADMIN'))
+  roles    VARCHAR(10) check (roles in ('PASSENGER', 'DRIVER', 'ADMIN'))
 );
 
 CREATE TABLE path
@@ -48,7 +48,7 @@ CREATE TABLE passenger_drive
   start_point  VARCHAR(250) NOT NULL
 );
 
-INSERT INTO user_role (user_id, role)
+INSERT INTO user_role (user_id, roles)
 VALUES ('1', 'DRIVER'),
        ('2', 'PASSENGER'),
        ('3', 'PASSENGER'),

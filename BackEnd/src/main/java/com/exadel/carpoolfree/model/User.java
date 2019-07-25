@@ -62,7 +62,7 @@ public class User {
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
-    private Set<Role> role;
+    private Set<Role> roles;
 
     @Column(name = "driver_rating")
     private Long driverRating;
@@ -78,7 +78,15 @@ public class User {
     )
     private List<Car> cars = new ArrayList<>();
 
-    @OneToOne(mappedBy = "ratedBy")
-    private Mark mark;
+    public User(Long id, String firstName, String lastName, String phoneNumber,
+                String email, String login, String password) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.login = login;
+        this.password = password;
+    }
 
 }

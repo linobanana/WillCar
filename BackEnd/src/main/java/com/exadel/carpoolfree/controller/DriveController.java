@@ -2,11 +2,8 @@ package com.exadel.carpoolfree.controller;
 
 
 import com.exadel.carpoolfree.model.Drive;
-import com.exadel.carpoolfree.model.PassengerDrive;
+import com.exadel.carpoolfree.model.view.DriveVO;
 import com.exadel.carpoolfree.model.Path;
-import com.exadel.carpoolfree.repository.DriveRepository;
-import com.exadel.carpoolfree.repository.PassengerDriveRepository;
-import com.exadel.carpoolfree.repository.PathRepository;
 import com.exadel.carpoolfree.service.DriveService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,85 +15,66 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/drive")
 public class DriveController {
-    private final DriveRepository driveRepository;
-    private final PassengerDriveRepository passengerDriveRepository;
-    private final PathRepository pathRepository;
+
     private final DriveService driveService;
 
-    public DriveController(DriveRepository driveRepository, PassengerDriveRepository passengerDriveRepository,
-                           PathRepository pathRepository, DriveService driveService) {
-        this.driveRepository = driveRepository;
-        this.passengerDriveRepository = passengerDriveRepository;
-        this.pathRepository = pathRepository;
+    public DriveController(DriveService driveService) {
         this.driveService = driveService;
     }
 
     @GetMapping()
-    public List<Drive> findAllDrives()
+    public List<DriveVO> findAllDrives()
     {
-        return driveRepository.findAll();
+        return driveService.findAllDrives();
     }
 
 
     @GetMapping("/{id}")
-    public Drive findById(final @PathVariable Long id) {
-        return driveRepository.findById(id).get();
+    public DriveVO findById(final @PathVariable Long id) {
+
+        return driveService.findById(id);
     }
 
     @GetMapping("/driverId/{driverId}")
-    private List<Drive> findAllByDriverId(final @PathVariable Long driverId) {
-        List<PassengerDrive> passengerDriveList = passengerDriveRepository.findAllByDriverId(driverId);
-        List<Drive> result = driveService.findAllByDriverId(passengerDriveList);
+    private List<DriveVO> findAllByDriverId(final @PathVariable Long driverId) {
+        List<DriveVO> result = driveService.findAllByDriverId(driverId);
         return result;
     }
 
     @GetMapping("/passengerId/{passengerId}")
-    private List<Drive> findAllByPassengerId(final @PathVariable Long passengerId) {
-        List<PassengerDrive> passengerDriveList = passengerDriveRepository.findAllByPassengerId(passengerId);
-        List<Drive> result = driveService.findAllByPassengerId(passengerDriveList);
+    private List<DriveVO> findAllByPassengerId(final @PathVariable Long passengerId) {
+        List<DriveVO> result = driveService.findAllByPassengerId(passengerId);
         return result;
     }
 
     @GetMapping("/startPoint/{startPoint}")
-    public List<Drive> getDriveByStartPoint(final @PathVariable Double startPoint) {
-        return driveRepository.findDrivesByStartPoint(startPoint);
+    public List<DriveVO> getDriveByStartPoint(final @PathVariable Double startPoint) {
+        return driveService.getDriveByStartPoint(startPoint);
     }
 
     @GetMapping("/startTime/{startTime}")
-    public List<Drive> findAllByStartTime(final @PathVariable LocalDateTime startTime) {
-        return driveRepository.findAllByStartTime(startTime);
+    public List<DriveVO> findAllByStartTime(final @PathVariable LocalDateTime startTime) {
+        return driveService.findAllByStartTime(startTime);
     }
 
     @PostMapping()
-    public Drive addDrive(@RequestBody Drive drive) {
-        Path path = pathRepository.save(drive.getPath());
-        drive.setPath(path);
-        return driveRepository.save(drive);
+    public DriveVO addDrive(@RequestBody Drive drive) {
+        return driveService.addDrive(drive);
     }
 
     @PutMapping("/{id}")
-    public Drive updateDrive(@PathVariable Long id, @RequestBody Path path) {
-        Path newPath = pathRepository.save(path);
-        return driveRepository.findById(id)
-                .map(drive1 -> {
-                    drive1.setPath(newPath);
-                    return driveRepository.save(drive1);
-                })
-                .orElseThrow((() -> new RuntimeException("Drive not found")));
+    public DriveVO updateDrive(@PathVariable Long id, @RequestBody Path path) {
+       return driveService.updateDrive(id, path);
     }
 
     @DeleteMapping("/{id}")
     public void delete(final @PathVariable Long id) {
-        driveRepository.deleteById(id);
+        driveService.deleteById(id);
     }
-
-
 
 }
