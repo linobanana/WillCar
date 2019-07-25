@@ -4,51 +4,56 @@ DROP TABLE IF EXISTS path;
 DROP TABLE IF EXISTS drive;
 DROP TABLE IF EXISTS passenger_drive;
 
-CREATE TABLE user (
-                    id                 INT AUTO_INCREMENT  PRIMARY KEY,
-                    first_name         VARCHAR(100) NOT NULL,
-                    last_name          VARCHAR(100) NOT NULL,
-                    phone_number       VARCHAR(50)  NOT NULL,
-                    email              VARCHAR(50)  NOT NULL,
-                    login              VARCHAR(250) NOT NULL,
-                    password           VARCHAR(250) NOT NULL,
-                    pref_communication VARCHAR(50) DEFAULT NULL,
-                    passenger_rating   INT,
-                    driver_rating      INT
+CREATE TABLE user
+(
+    id                 INT AUTO_INCREMENT PRIMARY KEY,
+    first_name         VARCHAR(250) NOT NULL,
+    last_name          VARCHAR(250) NOT NULL,
+    phone_number       VARCHAR(250) NOT NULL,
+    email              VARCHAR(250) NOT NULL,
+    login              VARCHAR(250) NOT NULL,
+    password           VARCHAR(250) NOT NULL,
+    pref_communication VARCHAR(250) DEFAULT NULL,
+    passenger_rating   INT,
+    driver_rating      INT,
+    active             BOOLEAN
 );
+
+ALTER TABLE user
+    ADD CONSTRAINT uniqueFirstName UNIQUE (login);
 
 CREATE TABLE user_role
 (
-  user_id INT NOT NULL,
-  role    VARCHAR(10) check (role in ('PASSENGER', 'DRIVER', 'ADMIN'))
+    user_id INT NOT NULL,
+    roles   VARCHAR(10) check (roles in ('PASSENGER', 'DRIVER', 'ADMIN'))
 );
 
 CREATE TABLE path
 (
-  id          INT AUTO_INCREMENT PRIMARY KEY,
-  coordinates VARCHAR(250) NOT NULL
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    coordinates VARCHAR(250) NOT NULL
 );
 
 CREATE TABLE drive
 (
-  id               INT AUTO_INCREMENT PRIMARY KEY,
-  start_time       TIMESTAMP    NOT NULL,
-  end_time         TIMESTAMP    NOT NULL,
-  free_place_count INT          NOT NULL,
-  driver_id        VARCHAR(250) NOT NULL,
-  path_id          VARCHAR(250) NOT NULL,
-  start_point      VARCHAR(250) NOT NULL,
-  fin_point        VARCHAR(250) NOT NULL
+    id               INT AUTO_INCREMENT PRIMARY KEY,
+    start_time       TIMESTAMP    NOT NULL,
+    end_time         TIMESTAMP    NOT NULL,
+    free_place_count INT          NOT NULL,
+    driver_id        VARCHAR(250) NOT NULL,
+    path_id          VARCHAR(250) NOT NULL,
+    start_point      VARCHAR(250) NOT NULL,
+    fin_point        VARCHAR(250) NOT NULL
 );
 
 CREATE TABLE passenger_drive
 (
-  passenger_id INT          NOT NULL,
-  drive_id     INT          NOT NULL,
-  start_point  VARCHAR(250) NOT NULL
+    passenger_id INT          NOT NULL,
+    drive_id     INT          NOT NULL,
+    start_point  VARCHAR(250) NOT NULL
 );
 
-INSERT INTO user_role (user_id, role)
+INSERT INTO user_role (user_id, roles)
 VALUES ('1', 'DRIVER'),
        ('2', 'PASSENGER'),
        ('3', 'PASSENGER'),
@@ -61,16 +66,24 @@ VALUES ('1', 'DRIVER'),
        ('9', 'PASSENGER');
 
 INSERT INTO user (first_name, last_name, phone_number, email, login,
-                  password, passenger_rating, driver_rating)
-VALUES ('Aliko', 'Dangote', '+375293456789', 'xdfghjkl', 'aliko', 'aliko', '11', '50'),
-       ('Bill', 'Gates', '+375298260934', 'fshg', 'bill', 'bill', '11', '0'),
-       ('Alex', 'Forman', '+375295627624', 'alex@gmail.com', 'alexForman', '11111', '1', '0'),
-       ('Natalia', 'Ivanova', '+375445647221', 'nat92@mail.com', 'nattIva', '12345', '56', '125'),
-       ('Tatiana', 'Sosnovskaya', '+375298784455', 'tatia@mail.com', 'tatiaSosn', 'tatiana', '0', '300'),
-       ('Gregory', 'House', '+375296543222', 'house@gmail.com', 'greghouse', '777', '0', '0'),
-       ('DJ', 'Gates', '+375298267634', 'dj@mail.com', 'dj', 'dj', '0', '10'),
-       ('Alexandra', 'Shimanovich', '+375293678389', 'shimAl@gmail.com', 'sasha', 'sasha', '0', '0'),
-       ('Folrunsho', 'Alakija', '+375447261378', 'kadiuskw', 'alak', 'alak', '100', '10');
+                  password, passenger_rating, driver_rating, active)
+VALUES ('Aliko', 'Dangote', '+375293456789', 'xdfghjkl', 'aliko',
+        '$2a$10$Jij7xU.xa0ZeMrJxTprzjejVD5yTVahMwaZ8mdjtJ6K2cBRVlhS.y', '11', '50', 'TRUE'),
+       ('Bill', 'Gates', '+375298260934', 'fshg', 'bill',
+        '$2a$10$4BEiFy3gkPmSrbdfPB6eTOtuxMUYLPMbtFPtBWIXej64wjdOMDSkC', '11', '0', 'TRUE'),
+       ('Alex', 'Forman', '+375295627624', 'alex@gmail.com', 'alexForman',
+        '$2a$10$WyIDLksLKNDobiMStA/egOiPVaItQWOcpyMHsQQtZ15MFTLdhpSRi', '1', '0', 'TRUE'),
+       ('Natalia', 'Ivanova', '+375445647221', 'nat92@mail.com', 'nattIva',
+        '$2a$10$4fqzUIU1Se0cfXu7JFb5reUPvEJnmdWZnNuBVnfy46uX1UnKW.SVC', '56', '125', 'TRUE'),
+       ('Tatiana', 'Sosnovskaya', '+375298784455', 'tatia@mail.com', 'tatiaSosn',
+        '$2a$10$WcT5gUO6rI3DQqD5gqcB9Oa6uB6UBDrNZoe/DwJUXdsZOXOKVIcTi', '0', '300', 'TRUE'),
+       ('Gregory', 'House', '+375296543222', 'house@gmail.com', 'greghouse',
+        '$2a$10$CuNUOXvdi.q3AelSRnH9gO.C3foJDqc0s0XeSEOLvcvmTVvP57Ica', '0', '0', 'TRUE'),
+       ('DJ', 'Gates', '+375298267634', 'dj@mail.com', 'dj',
+        '$2a$10$qIS4HbTbQoGMVAGKeNjKnOdm67pK2UGavdxc7PZyzzntRB06GRHcC', '0', '10', 'TRUE'),
+       ('Folrunsho', 'Alakija', '+375447261378', 'kadiuskw', 'alak',
+        '$2a$10$ozMEroUIr5MKL8LU1iJ7QeJE/ueCijGtNM/CMpl51gwKcwBB.JC.K', '100', '10', 'TRUE');
+
 
 INSERT INTO path (coordinates)
 VALUES ('53.9313228, 27.6925045/53.9313228, 27.6925045/53.9313228, 27.6925045/53.9313228, 27.6925045/53.934891, 27.460824'),

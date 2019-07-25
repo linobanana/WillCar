@@ -151,15 +151,15 @@ public class FlowTest {
 
     private User getNextUser() {
         Long num = 1L;
+        boolean active = true;
         String testTxt = "Test text";
         Set<Role> role = new HashSet<>();
         List<Car> cars = new ArrayList<>();
         cars.add(getNextCar());
         cars.add(getNextCar());
         Mark mark = new Mark();
-        User user = new User(num, testTxt, testTxt, testTxt, testTxt, testTxt,
+        return new User(active, num, testTxt, testTxt, testTxt, testTxt, testTxt,
                 testTxt, testTxt, role, num, num, cars, mark);
-        return user;
     }
 
     private Message getNextMessage() {

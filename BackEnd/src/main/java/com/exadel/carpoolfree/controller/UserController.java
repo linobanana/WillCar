@@ -41,5 +41,4 @@ public class UserController {
                 .orElseThrow((() -> new RuntimeException("User not found")));
     }
 
-
 }
