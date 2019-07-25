@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/drive")
+@RequestMapping("/api/drive")
 public class DriveController {
 
     private final DriveService driveService;
