@@ -15,6 +15,8 @@ export class AuthorizationPageComponent {
 
   authorizationForm: FormGroup;
 
+  isAuthorized = true;
+
   constructor(private fb: FormBuilder, private router: Router) { this.authorizationForm = this.fb.group({
     login: [''],
     password: ['']
@@ -25,7 +27,7 @@ export class AuthorizationPageComponent {
     if ( user.login === USER.login && user.password === USER.password ) {
       this.router.navigate(['/main']);
     } else {
-      alert('Wrong info!');
+      this.isAuthorized = !this.isAuthorized;
     }
   }
 }

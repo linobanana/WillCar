@@ -32,9 +32,9 @@ public class UserController {
         return userRepository.findById(id).orElseThrow((() -> new RuntimeException("User not found")));
     }
 
-    @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User user) {
-        return userRepository.findById(id)
+    @PutMapping()
+    public User updateUser(@RequestBody User user) {
+        return userRepository.findById(user.getId())
                 .map(user1 -> {
                     user1.setPrefCommunication(user.getPrefCommunication());
                     return userRepository.save(user1);

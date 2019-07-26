@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Titillium+Web&display=swap');
+//@import url('https://fonts.googleapis.com/css?family=Titillium+Web&display=swap');
 
 @keyframes form-container {
   0% {
@@ -54,6 +54,10 @@
   margin-bottom: 10%;
 }
 
+#password-field {
+  margin-bottom: 3%;
+}
+
 .submit-button {
   color: #ffffff;
   background: #0da09c;
@@ -69,6 +73,16 @@
 #password-field:focus {
   border-color: #0da09c;;
   outline: 0;
+}
+
+.error {
+  width: 90%;
+  padding: 3% 1%;
+  text-align: center;
+  border: 1px solid red;
+  background: #ecb3b37d;
+  color: #1c1f1c;
+  font-family: "Titillium Web", sans-serif;
 }
 
 @media screen and (max-width: 414px) {

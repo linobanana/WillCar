@@ -31,12 +31,12 @@ export class UserComponent implements OnInit {
     this.user.preferredCommunication = communicType.value;
     this.profileApiService.changeUserOptions({
       cars: this.user.cars,
-      driverRating: this.user.rating,
-      drives: [],
+      //driverRating: this.user.rating,
+      //drives: [],
       email: this.user.email,
       id: 1,
       lastName: this.user.name,
-      passengerRating: this.user.rating,
+      //passengerRating: this.user.rating,
       phoneNumber: this.user.telNumber,
       prefCommunication: communicType.value,
       role: 0
