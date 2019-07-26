@@ -28,9 +28,6 @@ import java.util.List;
 @Entity
 @Table(name = "drive")
 public class Drive {
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "path_id")
-    private Path path;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,8 +45,10 @@ public class Drive {
     @ManyToOne
     @JoinColumn(name = "driver_id")
     private User driver;
+
     @Column(name = "start_point")
     private String startPoint;
+
     @Column(name = "fin_point")
     private String finPoint;
 
@@ -63,10 +62,11 @@ public class Drive {
         this.finPoint = finPoint;
     }
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "path_id")
+    private Path path;
+
     @OneToMany()
     private List<Message> messages = new ArrayList<>();
-
-    @Transient
-    private List<User> passengers = new LinkedList<>();
 
 }

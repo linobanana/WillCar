@@ -1,13 +1,10 @@
 package com.exadel.carpoolfree.controller;
 
+import com.exadel.carpoolfree.model.view.MarkVO;
 import com.exadel.carpoolfree.model.PassengerDrive;
 import com.exadel.carpoolfree.repository.PassengerDriveRepository;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/passenger")
@@ -23,6 +20,18 @@ public class PassengerDriveController {
     public void addPassenger(@RequestBody PassengerDrive passengerDrive) {
         passengerDriveRepository.save(passengerDrive);
 
+    }
+
+    @PostMapping("/markToPassenger")
+    public void addMarkDriverToPassenger(@RequestBody MarkVO markVO){
+        passengerDriveRepository.addMarkDriverToPassenger(markVO.getMark(),
+                markVO.getDriveId(), markVO.getPassengerId());
+    }
+
+    @PostMapping("/markToDriver")
+    public void addMarkPassengerToDriver(@RequestBody MarkVO markVO){
+        passengerDriveRepository.addMarkPassengerToDriver(markVO.getMark(),
+                markVO.getDriveId(), markVO.getPassengerId());
     }
 }
 

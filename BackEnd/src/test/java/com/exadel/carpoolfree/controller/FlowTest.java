@@ -2,11 +2,11 @@ package com.exadel.carpoolfree.controller;
 
 import com.exadel.carpoolfree.model.Car;
 import com.exadel.carpoolfree.model.Drive;
-import com.exadel.carpoolfree.model.Mark;
 import com.exadel.carpoolfree.model.Message;
 import com.exadel.carpoolfree.model.Path;
 import com.exadel.carpoolfree.model.Role;
 import com.exadel.carpoolfree.model.User;
+import com.exadel.carpoolfree.model.view.DriveVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -57,6 +57,7 @@ public class FlowTest {
     private User user2;
     private Message message = getNextMessage();
     private Drive drive = getNextDrive();
+    private DriveVO driveVO;
     @Autowired
     private MockMvc mockMvc;
     private JacksonTester<Message> jsonMessage;
@@ -110,8 +111,8 @@ public class FlowTest {
         //save drive
         MvcResult mvcDriveResultSaved = doPost(DRIVE_API_ROOT, drive);
         String responseDrive = mvcDriveResultSaved.getResponse().getContentAsString();
-        Drive savedDrive = objectMapper.readValue(responseDrive, Drive.class);
-        this.drive = savedDrive;
+        DriveVO savedDrive = objectMapper.readValue(responseDrive, DriveVO.class);
+        this.driveVO = savedDrive;
         Assert.assertNotNull(savedDrive.getId());
 
         //read car
@@ -132,7 +133,7 @@ public class FlowTest {
         doDelete(DRIVE_API_ROOT + "/" + savedDrive.getId());
 
         //update user
-        doUpdate(USER_API_ROOT + "/" + 1, getNextUser());
+        doUpdate(USER_API_ROOT, getNextUser());
     }
 
     private Car getNextCar() {
@@ -157,9 +158,9 @@ public class FlowTest {
         List<Car> cars = new ArrayList<>();
         cars.add(getNextCar());
         cars.add(getNextCar());
-        Mark mark = new Mark();
-        return new User(active, num, testTxt, testTxt, testTxt, testTxt, testTxt,
-                testTxt, testTxt, role, num, num, cars, mark);
+        User user = new User(num, testTxt, testTxt, testTxt,
+                testTxt, testTxt, testTxt);
+        return user;
     }
 
     private Message getNextMessage() {
