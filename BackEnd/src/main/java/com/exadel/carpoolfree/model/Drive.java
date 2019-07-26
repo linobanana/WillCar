@@ -16,7 +16,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -58,7 +57,7 @@ public class Drive {
     private Path path;
 
     @OneToMany()
-    private List<Message> messages = new ArrayList<>();
+    private List<Message> messages;
 
 
     public Drive(LocalDateTime startTime, LocalDateTime endTime, int freePlaceCount, User driver, Path path, String startPoint, String finPoint) {

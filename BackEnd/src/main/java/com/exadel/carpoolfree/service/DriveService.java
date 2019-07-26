@@ -1,11 +1,13 @@
 package com.exadel.carpoolfree.service;
 
 import com.exadel.carpoolfree.model.Drive;
+import com.exadel.carpoolfree.model.Message;
 import com.exadel.carpoolfree.model.PassengerDrive;
 import com.exadel.carpoolfree.model.Path;
 import com.exadel.carpoolfree.model.view.DriveVO;
 import com.exadel.carpoolfree.model.view.UserVO;
 import com.exadel.carpoolfree.repository.DriveRepository;
+import com.exadel.carpoolfree.repository.MessageRepository;
 import com.exadel.carpoolfree.repository.PassengerDriveRepository;
 import com.exadel.carpoolfree.repository.PathRepository;
 import org.modelmapper.ModelMapper;
@@ -23,12 +25,15 @@ public class DriveService {
     private final DriveRepository driveRepository;
     private final PassengerDriveRepository passengerDriveRepository;
     private final PathRepository pathRepository;
+    private final MessageRepository messageRepository;
+
 
     public DriveService(DriveRepository driveRepository, PathRepository pathRepository,
-                        PassengerDriveRepository passengerDriveRepository) {
+                        PassengerDriveRepository passengerDriveRepository, MessageRepository messageRepository) {
         this.driveRepository = driveRepository;
         this.passengerDriveRepository = passengerDriveRepository;
         this.pathRepository = pathRepository;
+        this.messageRepository = messageRepository;
     }
 
     public List<DriveVO> findAllDrives(){
@@ -62,8 +67,10 @@ public class DriveService {
                 userVO.setMark(passengerDrive.getDriverToPassengerMark());
                 return userVO;
             }).collect(Collectors.toList());
+            List<Message> messages = messageRepository.findAllByDriveId(drive.getId());
             DriveVO driveVO = convertToVO(drive);
             driveVO.setPassengers(passengers);
+            driveVO.setMessages(messages);
             return driveVO;
         }).collect(Collectors.toList());
         return result;
@@ -74,9 +81,11 @@ public class DriveService {
         List<DriveVO> result = passengerDriveList.stream()
                 .map(temp -> {
                     UserVO driverVO = modelMapper.map(temp.getDrive().getDriver(), UserVO.class);
+                    List<Message> messages = messageRepository.findAllByDriveId(temp.getDrive().getId());
                     DriveVO driveVO = convertToVO(temp.getDrive());
                     driverVO.setMark(temp.getPassengerToDriverMark());
                     driveVO.setDriver(driverVO);
+                    driveVO.setMessages(messages);
                     return driveVO;
                 }).collect(Collectors.toList());
 

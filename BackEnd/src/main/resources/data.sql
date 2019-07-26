@@ -41,6 +41,7 @@ CREATE TABLE drive
   id               INT AUTO_INCREMENT PRIMARY KEY,
   start_time       TIMESTAMP    NOT NULL,
   end_time         TIMESTAMP    NOT NULL,
+  name             VARCHAR(250),
   free_place_count INT          NOT NULL,
   driver_id        VARCHAR(250) NOT NULL,
   path_id          VARCHAR(250) NOT NULL,
@@ -59,7 +60,7 @@ CREATE TABLE passenger_drive
 
 CREATE TABLE messages
 (
-  id       INT          NOT NULL,
+  id       INT AUTO_INCREMENT PRIMARY KEY,
   drive_id INT          NOT NULL,
   message  VARCHAR(250) NOT NULL,
   time     TIMESTAMP,
