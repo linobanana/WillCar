@@ -3,54 +3,67 @@ DROP TABLE IF EXISTS user_role;
 DROP TABLE IF EXISTS path;
 DROP TABLE IF EXISTS drive;
 DROP TABLE IF EXISTS passenger_drive;
+DROP TABLE IF EXISTS messages;
+
 
 CREATE TABLE user
 (
-    id                 INT AUTO_INCREMENT PRIMARY KEY,
-    first_name         VARCHAR(250) NOT NULL,
-    last_name          VARCHAR(250) NOT NULL,
-    phone_number       VARCHAR(250) NOT NULL,
-    email              VARCHAR(250) NOT NULL,
-    login              VARCHAR(250) NOT NULL,
-    password           VARCHAR(250) NOT NULL,
-    pref_communication VARCHAR(250) DEFAULT NULL,
-    passenger_rating   INT,
-    driver_rating      INT,
-    active             BOOLEAN
+  id                 INT AUTO_INCREMENT PRIMARY KEY,
+  first_name         VARCHAR(250) NOT NULL,
+  last_name          VARCHAR(250) NOT NULL,
+  phone_number       VARCHAR(250) NOT NULL,
+  email              VARCHAR(250) NOT NULL,
+  login              VARCHAR(250) NOT NULL,
+  password           VARCHAR(250) NOT NULL,
+  pref_communication VARCHAR(250) DEFAULT NULL,
+  passenger_rating   INT,
+  driver_rating      INT,
+  active             BOOLEAN
 );
 
 ALTER TABLE user
-    ADD CONSTRAINT uniqueFirstName UNIQUE (login);
+  ADD CONSTRAINT uniqueFirstName UNIQUE (login);
 
 CREATE TABLE user_role
 (
-    user_id INT NOT NULL,
-    roles   VARCHAR(10) check (roles in ('PASSENGER', 'DRIVER', 'ADMIN'))
+  user_id INT NOT NULL,
+  roles   VARCHAR(10) check (roles in ('PASSENGER', 'DRIVER', 'ADMIN'))
 );
 
 CREATE TABLE path
 (
-    id          INT AUTO_INCREMENT PRIMARY KEY,
-    coordinates VARCHAR(250) NOT NULL
+  id          INT AUTO_INCREMENT PRIMARY KEY,
+  coordinates VARCHAR(250) NOT NULL
 );
 
 CREATE TABLE drive
 (
-    id               INT AUTO_INCREMENT PRIMARY KEY,
-    start_time       TIMESTAMP    NOT NULL,
-    end_time         TIMESTAMP    NOT NULL,
-    free_place_count INT          NOT NULL,
-    driver_id        VARCHAR(250) NOT NULL,
-    path_id          VARCHAR(250) NOT NULL,
-    start_point      VARCHAR(250) NOT NULL,
-    fin_point        VARCHAR(250) NOT NULL
+  id               INT AUTO_INCREMENT PRIMARY KEY,
+  start_time       TIMESTAMP    NOT NULL,
+  end_time         TIMESTAMP    NOT NULL,
+  free_place_count INT          NOT NULL,
+  driver_id        VARCHAR(250) NOT NULL,
+  path_id          VARCHAR(250) NOT NULL,
+  start_point      VARCHAR(250) NOT NULL,
+  fin_point        VARCHAR(250) NOT NULL
 );
 
 CREATE TABLE passenger_drive
 (
-    passenger_id INT          NOT NULL,
-    drive_id     INT          NOT NULL,
-    start_point  VARCHAR(250) NOT NULL
+  passenger_id             INT          NOT NULL,
+  drive_id                 INT          NOT NULL,
+  start_point              VARCHAR(250) NOT NULL,
+  passenger_to_driver_mark INT DEFAULT NULL,
+  driver_to_passenger_mark INT DEFAULT NULL
+);
+
+CREATE TABLE messages
+(
+  id       INT          NOT NULL,
+  drive_id INT          NOT NULL,
+  message  VARCHAR(250) NOT NULL,
+  time     TIMESTAMP,
+  user_id  INT
 );
 
 INSERT INTO user_role (user_id, roles)
@@ -105,6 +118,11 @@ VALUES ('2019-07-23 00:00:01', '2019-07-23 01:00:01', '3', '1', '1', '53.9313228
 INSERT INTO passenger_drive (passenger_id, drive_id, start_point)
 VALUES ('4', '1', '53.9313228, 27.6925045'),
        ('2', '1', '53.9313228, 27.6925045'),
+       ('1', '4', '53.9313228, 27.6925045'),
        ('5', '3', '53.9313228, 27.6925045'),
        ('2', '5', '53.9313228, 27.6925045'),
        ('6', '2', '53.9313228, 27.6925045');
+
+INSERT INTO messages (drive_id, message, time, user_id)
+VALUES ('1', 'hello', '23.40', '1'),
+       ('1', 'hi', '23.41', '4');
