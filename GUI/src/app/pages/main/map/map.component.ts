@@ -9,7 +9,6 @@ declare var ymaps: any;
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
-  private myMap: any;
 constructor(private mapService: MapService) { }
   ngOnInit() {
     this.InitYandexMap();

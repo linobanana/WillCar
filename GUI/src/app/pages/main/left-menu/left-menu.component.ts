@@ -5,9 +5,7 @@ import { Validators } from '@angular/forms';
 import { REG_DATE} from '../../../shared/constants/common';
 import {Router} from '@angular/router';
 import {BUTTON_LABELS} from '../../../shared/constants/button-labels';
-import {MapService} from "../map/map.service";
-
-declare var ymaps: any;
+import {MapService} from '../map/map.service';
 
 @Component({
   selector: 'app-left-menu',
@@ -25,19 +23,19 @@ export class LeftMenuComponent implements OnInit {
       }],
       time: [''],
       address: this.fb.group({
-        start: ['', Validators.required],
-        end: ['', Validators.required]}),
+        startl: ['', Validators.required],
+        endl: ['', Validators.required]}),
       near: []
     });
   }
   ngOnInit() {
-    this.initYandexSuggestionsForInput();
+  this.initRelationMwithY();
   }
-
-  onSubmit() {
+  onSubmit() {}
+  onSubmitForm() {
     // TODO: Use EventEmitter with form value
     console.log(this.LeftMenuInfo.value);
-    this.mapper.makeRoute();
+    this.mapper.makeRoutePoints();
   }
 
   get date() {
@@ -48,8 +46,8 @@ export class LeftMenuComponent implements OnInit {
     this.router.navigate(['/confirmation']);
   }
 
-  initYandexSuggestionsForInput() {
-    this.mapper.initYandexSuggestionsForInput(this.LeftMenuInfo);
+  initRelationMwithY() {
+    this.mapper.initRelationLMwithY(this.LeftMenuInfo);
   }
 }
 
