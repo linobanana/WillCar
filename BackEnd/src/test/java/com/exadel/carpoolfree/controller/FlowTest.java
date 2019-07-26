@@ -152,6 +152,7 @@ public class FlowTest {
 
     private User getNextUser() {
         Long num = 1L;
+        boolean active = true;
         String testTxt = "Test text";
         Set<Role> role = new HashSet<>();
         List<Car> cars = new ArrayList<>();
