@@ -2,8 +2,8 @@ package com.exadel.carpoolfree.controller;
 
 
 import com.exadel.carpoolfree.model.Drive;
-import com.exadel.carpoolfree.model.view.DriveVO;
 import com.exadel.carpoolfree.model.Path;
+import com.exadel.carpoolfree.model.view.DriveVO;
 import com.exadel.carpoolfree.service.DriveService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +38,12 @@ public class DriveController {
     public DriveVO findById(final @PathVariable Long id) {
 
         return driveService.findById(id);
+    }
+
+    @GetMapping("/userId/{userId}")
+    private List<DriveVO> findAllByUserId(final @PathVariable Long userId) {
+        List<DriveVO> result = driveService.findAllByUserId(userId);
+        return result;
     }
 
     @GetMapping("/driverId/{driverId}")
