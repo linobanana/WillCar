@@ -96,7 +96,15 @@ public class User {
     )
     private List<Car> cars = new ArrayList<>();
 
-    @OneToOne(mappedBy = "ratedBy")
-    private Mark mark;
+    public User(Long id, String firstName, String lastName, String phoneNumber,
+                String email, String login, String password) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.login = login;
+        this.password = password;
+    }
 
 }
