@@ -36,6 +36,7 @@ public class UserController {
         return userRepository.findById(user.getId())
                 .map(user1 -> {
                     user1.setPrefCommunication(user.getPrefCommunication());
+                    user1.setPhoneNumber(user.getPhoneNumber());
                     return userRepository.save(user1);
                 })
                 .orElseThrow((() -> new RuntimeException("User not found")));
