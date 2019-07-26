@@ -3,6 +3,8 @@ DROP TABLE IF EXISTS user_role;
 DROP TABLE IF EXISTS path;
 DROP TABLE IF EXISTS drive;
 DROP TABLE IF EXISTS passenger_drive;
+DROP TABLE IF EXISTS messages;
+
 
 CREATE TABLE user
 (
@@ -20,12 +22,12 @@ CREATE TABLE user
 );
 
 ALTER TABLE user
-    ADD CONSTRAINT uniqueFirstName UNIQUE (login);
+  ADD CONSTRAINT uniqueFirstName UNIQUE (login);
 
 CREATE TABLE user_role
 (
-    user_id INT NOT NULL,
-    roles   VARCHAR(10) check (roles in ('PASSENGER', 'DRIVER', 'ADMIN'))
+  user_id INT NOT NULL,
+  roles   VARCHAR(10) check (roles in ('PASSENGER', 'DRIVER', 'ADMIN'))
 );
 
 CREATE TABLE path
@@ -48,9 +50,20 @@ CREATE TABLE drive
 
 CREATE TABLE passenger_drive
 (
-    passenger_id INT          NOT NULL,
-    drive_id     INT          NOT NULL,
-    start_point  VARCHAR(250) NOT NULL
+  passenger_id             INT          NOT NULL,
+  drive_id                 INT          NOT NULL,
+  start_point              VARCHAR(250) NOT NULL,
+  passenger_to_driver_mark INT DEFAULT NULL,
+  driver_to_passenger_mark INT DEFAULT NULL
+);
+
+CREATE TABLE messages
+(
+  id       INT          NOT NULL,
+  drive_id INT          NOT NULL,
+  message  VARCHAR(250) NOT NULL,
+  time     TIMESTAMP,
+  user_id  INT
 );
 
 INSERT INTO user_role (user_id, roles)
@@ -105,6 +118,11 @@ VALUES ('2019-07-23 00:00:01', '2019-07-23 01:00:01', '3', '1', '1', '53.9313228
 INSERT INTO passenger_drive (passenger_id, drive_id, start_point)
 VALUES ('4', '1', '53.9313228, 27.6925045'),
        ('2', '1', '53.9313228, 27.6925045'),
+       ('1', '4', '53.9313228, 27.6925045'),
        ('5', '3', '53.9313228, 27.6925045'),
        ('2', '5', '53.9313228, 27.6925045'),
        ('6', '2', '53.9313228, 27.6925045');
+
+INSERT INTO messages (drive_id, message, time, user_id)
+VALUES ('1', 'hello', '23.40', '1'),
+       ('1', 'hi', '23.41', '4');
