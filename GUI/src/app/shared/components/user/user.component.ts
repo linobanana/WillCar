@@ -1,10 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-
 import {Car, User} from '../../types/common';
 import {MatSelectChange} from '@angular/material';
 import {PROFILE_FIELD_LABELS} from '../../constants/profile';
 import {ProfileApiService} from '../../api/profile/profile.api.service';
-import {USER} from '../../mocks/user.mocks';
 
 
 
