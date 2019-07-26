@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface PassengerDriveRepository extends JpaRepository<PassengerDrive, Long> {
+
     @Query(value = "SELECT d " +
             "from PassengerDrive d " +
             "left join fetch d.drive dr  " +

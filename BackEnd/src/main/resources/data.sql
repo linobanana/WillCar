@@ -8,17 +8,17 @@ DROP TABLE IF EXISTS messages;
 
 CREATE TABLE user
 (
-    id                 INT AUTO_INCREMENT PRIMARY KEY,
-    first_name         VARCHAR(250) NOT NULL,
-    last_name          VARCHAR(250) NOT NULL,
-    phone_number       VARCHAR(250) NOT NULL,
-    email              VARCHAR(250) NOT NULL,
-    login              VARCHAR(250) NOT NULL,
-    password           VARCHAR(250) NOT NULL,
-    pref_communication VARCHAR(250) DEFAULT NULL,
-    passenger_rating   INT,
-    driver_rating      INT,
-    active             BOOLEAN
+  id                 INT AUTO_INCREMENT PRIMARY KEY,
+  first_name         VARCHAR(250) NOT NULL,
+  last_name          VARCHAR(250) NOT NULL,
+  phone_number       VARCHAR(250) NOT NULL,
+  email              VARCHAR(250) NOT NULL,
+  login              VARCHAR(250) NOT NULL,
+  password           VARCHAR(250) NOT NULL,
+  pref_communication VARCHAR(250) DEFAULT NULL,
+  passenger_rating   INT,
+  driver_rating      INT,
+  active             BOOLEAN
 );
 
 ALTER TABLE user
@@ -32,20 +32,21 @@ CREATE TABLE user_role
 
 CREATE TABLE path
 (
-    id          INT AUTO_INCREMENT PRIMARY KEY,
-    coordinates VARCHAR(250) NOT NULL
+  id          INT AUTO_INCREMENT PRIMARY KEY,
+  coordinates VARCHAR(250) NOT NULL
 );
 
 CREATE TABLE drive
 (
-    id               INT AUTO_INCREMENT PRIMARY KEY,
-    start_time       TIMESTAMP    NOT NULL,
-    end_time         TIMESTAMP    NOT NULL,
-    free_place_count INT          NOT NULL,
-    driver_id        VARCHAR(250) NOT NULL,
-    path_id          VARCHAR(250) NOT NULL,
-    start_point      VARCHAR(250) NOT NULL,
-    fin_point        VARCHAR(250) NOT NULL
+  id               INT AUTO_INCREMENT PRIMARY KEY,
+  start_time       TIMESTAMP    NOT NULL,
+  end_time         TIMESTAMP    NOT NULL,
+  name             VARCHAR(250),
+  free_place_count INT          NOT NULL,
+  driver_id        VARCHAR(250) NOT NULL,
+  path_id          VARCHAR(250) NOT NULL,
+  start_point      VARCHAR(250) NOT NULL,
+  fin_point        VARCHAR(250) NOT NULL
 );
 
 CREATE TABLE passenger_drive
@@ -59,7 +60,7 @@ CREATE TABLE passenger_drive
 
 CREATE TABLE messages
 (
-  id       INT          NOT NULL,
+  id       INT AUTO_INCREMENT PRIMARY KEY,
   drive_id INT          NOT NULL,
   message  VARCHAR(250) NOT NULL,
   time     TIMESTAMP,
