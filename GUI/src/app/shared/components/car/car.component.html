@@ -1,6 +1,6 @@
-<div *ngFor="let car of user?.cars">
-  <h2 class="label">Car park:</h2>
-  <div class="car">
+<h2 class="label">Car park:</h2>
+<div >
+  <div class="car" *ngFor="let car of user?.cars">
     <mat-icon class="car-icon">directions_car</mat-icon>
     <div class="temp">
       <h3>{{car.model}}</h3>
@@ -11,5 +11,6 @@
     <div class="temp">
       <h3>{{car.color}}</h3>
     </div>
+    <button mat-button (click)="deleteCar.emit(car)"><mat-icon>delete_outline</mat-icon></button>
   </div>
 </div>
