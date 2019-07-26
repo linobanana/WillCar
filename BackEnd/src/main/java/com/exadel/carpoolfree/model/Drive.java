@@ -15,10 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -52,6 +50,17 @@ public class Drive {
     @Column(name = "fin_point")
     private String finPoint;
 
+    @Column
+    private String name;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "path_id")
+    private Path path;
+
+    @OneToMany()
+    private List<Message> messages = new ArrayList<>();
+
+
     public Drive(LocalDateTime startTime, LocalDateTime endTime, int freePlaceCount, User driver, Path path, String startPoint, String finPoint) {
         this.startTime = startTime;
         this.endTime = endTime;
@@ -61,12 +70,4 @@ public class Drive {
         this.startPoint = startPoint;
         this.finPoint = finPoint;
     }
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "path_id")
-    private Path path;
-
-    @OneToMany()
-    private List<Message> messages = new ArrayList<>();
-
 }

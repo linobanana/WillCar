@@ -43,6 +43,13 @@ public class DriveService {
         return convertToVO(driveRepository.findById(id).get());
     }
 
+    public List<DriveVO> findAllByUserId(final Long userId) {
+        List<DriveVO> result = this.findAllByDriverId(userId);
+        List<DriveVO> result2 = this.findAllByPassengerId(userId);
+        result.addAll(result2);
+        return result;
+    }
+
     public List<DriveVO> findAllByDriverId(final Long driverId) {
         List<PassengerDrive> passengerDriveList = passengerDriveRepository.findAllByDriverId(driverId);
         Map<Drive, List<PassengerDrive>> driveListMap
