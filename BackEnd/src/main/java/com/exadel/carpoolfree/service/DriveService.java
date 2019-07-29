@@ -84,6 +84,7 @@ public class DriveService {
                     List<Message> messages = messageRepository.findAllByDriveId(temp.getDrive().getId());
                     DriveVO driveVO = convertToVO(temp.getDrive());
                     driverVO.setMark(temp.getPassengerToDriverMark());
+                    driveVO.setPickUpPoint(temp.getStartPoint());
                     driveVO.setDriver(driverVO);
                     driveVO.setMessages(messages);
                     return driveVO;
