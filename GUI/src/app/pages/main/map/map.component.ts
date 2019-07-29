@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {MapService} from "./map.service";
 
-declare var ymaps:any;
-
+declare var ymaps: any;
 
 @Component({
   selector: 'app-map',
@@ -9,21 +9,13 @@ declare var ymaps:any;
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
-  public myMap;
-
+constructor(private mapService: MapService) { }
   ngOnInit() {
-    this.initYandexMap();
+    this.InitYandexMap();
+    console.log("init into map.component");
   }
-  private initYandexMap() {
-    ymaps.ready(init);
-    function init(){
-      this.myMap = new ymaps.Map('map', {
-        center: [53.9, 27.56],
-        zoom: 12,
-      }, {
-        searchControlProvider: 'yandex#search'
-      });
-    }
+  private InitYandexMap() {
+    ymaps.ready(this.mapService.initMap());
   }
 }
 

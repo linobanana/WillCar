@@ -26,9 +26,4 @@ public class Path {
     @Column
     private String coordinates;
 
-    @Column(name = "start_point")
-    private Double startPoint;
-
-    @Column(name = "fin_point")
-    private Double finPoint;
 }

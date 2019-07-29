@@ -6,16 +6,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Data
@@ -24,6 +32,9 @@ import java.util.List;
 @Entity
 @Table(name = "user")
 public class User {
+
+    @Column
+    private boolean active;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,8 +63,24 @@ public class User {
     @Column(name = "pref_communication")
     private String prefCommunication;
 
-    @Column
-    private int role;
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles = new HashSet<>();
+
+    public User(String firstName, String lastName, String phoneNumber, String email,
+                String login, String password, boolean active, Long driverRating,
+                Long passengerRating) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.login = login;
+        this.password = password;
+        this.active = active;
+        this.driverRating = driverRating;
+        this.passengerRating = passengerRating;
+    }
 
     @Column(name = "driver_rating")
     private Long driverRating;
@@ -69,12 +96,15 @@ public class User {
     )
     private List<Car> cars = new ArrayList<>();
 
-    @OneToMany(
-            mappedBy = "passenger",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            orphanRemoval = true
-    )
-    private List<PassengerDrive> drives = new ArrayList<>();
+    public User(Long id, String firstName, String lastName, String phoneNumber,
+                String email, String login, String password) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.login = login;
+        this.password = password;
+    }
 
 }

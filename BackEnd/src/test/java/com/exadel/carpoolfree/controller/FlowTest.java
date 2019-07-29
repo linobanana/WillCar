@@ -3,9 +3,10 @@ package com.exadel.carpoolfree.controller;
 import com.exadel.carpoolfree.model.Car;
 import com.exadel.carpoolfree.model.Drive;
 import com.exadel.carpoolfree.model.Message;
-import com.exadel.carpoolfree.model.PassengerDrive;
 import com.exadel.carpoolfree.model.Path;
+import com.exadel.carpoolfree.model.Role;
 import com.exadel.carpoolfree.model.User;
+import com.exadel.carpoolfree.model.view.DriveVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -27,7 +28,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -54,6 +57,7 @@ public class FlowTest {
     private User user2;
     private Message message = getNextMessage();
     private Drive drive = getNextDrive();
+    private DriveVO driveVO;
     @Autowired
     private MockMvc mockMvc;
     private JacksonTester<Message> jsonMessage;
@@ -107,8 +111,8 @@ public class FlowTest {
         //save drive
         MvcResult mvcDriveResultSaved = doPost(DRIVE_API_ROOT, drive);
         String responseDrive = mvcDriveResultSaved.getResponse().getContentAsString();
-        Drive savedDrive = objectMapper.readValue(responseDrive, Drive.class);
-        this.drive = savedDrive;
+        DriveVO savedDrive = objectMapper.readValue(responseDrive, DriveVO.class);
+        this.driveVO = savedDrive;
         Assert.assertNotNull(savedDrive.getId());
 
         //read car
@@ -129,7 +133,7 @@ public class FlowTest {
         doDelete(DRIVE_API_ROOT + "/" + savedDrive.getId());
 
         //update user
-        doUpdate(USER_API_ROOT + "/" + 1, getNextUser());
+        doUpdate(USER_API_ROOT, getNextUser());
     }
 
     private Car getNextCar() {
@@ -143,19 +147,19 @@ public class FlowTest {
         Long num = 1L;
         String text = "Test_text";
         Double testDouble = Math.random() * 10;
-        return new Path(num, text, testDouble, testDouble);
+        return new Path(num, text);
     }
 
     private User getNextUser() {
         Long num = 1L;
+        boolean active = true;
         String testTxt = "Test text";
-        int role = 1;
+        Set<Role> role = new HashSet<>();
         List<Car> cars = new ArrayList<>();
         cars.add(getNextCar());
         cars.add(getNextCar());
-        List<PassengerDrive> drives = new ArrayList<>();
-        User user = new User(num, testTxt, testTxt, testTxt, testTxt, testTxt,
-                testTxt, testTxt, role, num, num, cars, drives);
+        User user = new User(num, testTxt, testTxt, testTxt,
+                testTxt, testTxt, testTxt);
         return user;
     }
 
@@ -170,14 +174,14 @@ public class FlowTest {
         Date date = new Date();
         LocalDateTime localDateTime = LocalDateTime.now();
         int test = (int) (1 + Math.random() * 4);
-        Double doubleNum = Math.random() * 10;
+        String startPoint = "";
 
         List<Message> messages = new ArrayList<>();
         messages.add(getNextMessage());
         messages.add(getNextMessage());
 
         return new Drive(localDateTime, localDateTime,
-                test, user, path, doubleNum);
+                test, user, path, startPoint, startPoint);
     }
 
     private MvcResult doPost(String url, Object data) throws Exception {

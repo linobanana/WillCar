@@ -2,7 +2,6 @@ package com.exadel.carpoolfree.controller;
 
 import com.exadel.carpoolfree.model.User;
 import com.exadel.carpoolfree.repository.UserRepository;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -32,20 +31,14 @@ public class UserController {
         return userRepository.findById(id).orElseThrow((() -> new RuntimeException("User not found")));
     }
 
-    @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User user) {
-        return userRepository.findById(id)
+    @PutMapping()
+    public User updateUser(@RequestBody User user) {
+        return userRepository.findById(user.getId())
                 .map(user1 -> {
                     user1.setPrefCommunication(user.getPrefCommunication());
                     return userRepository.save(user1);
                 })
                 .orElseThrow((() -> new RuntimeException("User not found")));
-    }
-
-    @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable Long id) {
-        userRepository.deleteById(id);
-        return true;
     }
 
 }
