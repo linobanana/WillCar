@@ -86,9 +86,9 @@ VALUES ('1', 'DRIVER'),
 
 INSERT INTO user (name, phone_number, email, login,
                   password, passenger_rating, driver_rating, active)
-VALUES ('Aliko Dangote', '+375293456789', 'xdfghjkl', 'aliko',
+VALUES ('Aliko Dangote', '+375293456789', 'alikoDan@mail.ru', 'aliko',
         '$2a$10$Jij7xU.xa0ZeMrJxTprzjejVD5yTVahMwaZ8mdjtJ6K2cBRVlhS.y', '11', '50', 'TRUE'),
-       ('Bill Gates', '+375298260934', 'fshg', 'bill',
+       ('Bill Gates', '+375298260934', 'billGates1999@mail.ru', 'bill',
         '$2a$10$4BEiFy3gkPmSrbdfPB6eTOtuxMUYLPMbtFPtBWIXej64wjdOMDSkC', '11', '0', 'TRUE'),
        ('Alex Forman', '+375295627624', 'alex@gmail.com', 'alexForman',
         '$2a$10$WyIDLksLKNDobiMStA/egOiPVaItQWOcpyMHsQQtZ15MFTLdhpSRi', '1', '0', 'TRUE'),
@@ -100,7 +100,7 @@ VALUES ('Aliko Dangote', '+375293456789', 'xdfghjkl', 'aliko',
         '$2a$10$CuNUOXvdi.q3AelSRnH9gO.C3foJDqc0s0XeSEOLvcvmTVvP57Ica', '0', '0', 'TRUE'),
        ('DJ Gates', '+375298267634', 'dj@mail.com', 'dj',
         '$2a$10$qIS4HbTbQoGMVAGKeNjKnOdm67pK2UGavdxc7PZyzzntRB06GRHcC', '0', '10', 'TRUE'),
-       ('Folrunsho Alakija', '+375447261378', 'kadiuskw', 'alak',
+       ('Folrunsho Alakija', '+375447261378', 'kadiuskw@mail.ru', 'alak',
         '$2a$10$ozMEroUIr5MKL8LU1iJ7QeJE/ueCijGtNM/CMpl51gwKcwBB.JC.K', '100', '10', 'TRUE');
 
 
