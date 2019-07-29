@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {FormGroup} from "@angular/forms";
+import {Trip} from "../../../shared/types/common";
 
 @Injectable({
   providedIn: 'root'
@@ -145,7 +146,6 @@ private map;
         result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
         self.map.geoObjects.add(result.geoObjects);
       });
-      this.createMultiRoute('улица Михася Лынькова, 39','улица Ваупшасова, 4к71');
       this.createMultiRoute('улица Франциска Скорины, 21к1','улица Козлова, 15');
     }
   }
@@ -224,5 +224,29 @@ private map;
       console.log(coords);
     }
   }
+  // private createBalloonOfTrip(trip :Trip){
+  //    let balloonLayout = ymaps.templateLayoutFactory.createClass(
+  //     "<div class='my-balloon'>" +
+  //     '<a class="close" href="#">&times;</a>' +
+  //     "Расстояние: " +
+  //     "<i>{{ properties.distance.text }}</i>,<br />" +
+  //     "Время в пути: " +
+  //     "<i>{{ properties.duration.text }} (без учета пробок) </i>" +
+  //     "</div>", {
+  //
+  //       build: function () {
+  //         this.constructor.superclass.build.call(this);
+  //         this._$element = $('.my-balloon', this.getParentElement());
+  //         this._$element.find('.close')
+  //           .on('click', $.proxy(this.onCloseClick, this));
+  //       },
+  //
+  //       onCloseClick: function (e) {
+  //         e.preventDefault();
+  //         this.events.fire('userclose');
+  //       }
+  //     }
+  //   );
+  // }
 }
 declare var ymaps: any;
