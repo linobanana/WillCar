@@ -4,6 +4,10 @@
   bottom: 5%;
   width: 25%;
   background-color: #f7f7fc;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .formLabel {
@@ -13,6 +17,7 @@
   text-align: center;
   margin-top: 15%;
   font-weight: bold;
+  line-height: 1;
 }
 
 .form-container {
