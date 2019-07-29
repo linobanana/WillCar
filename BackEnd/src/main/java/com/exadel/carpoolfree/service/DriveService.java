@@ -43,6 +43,13 @@ public class DriveService {
         return convertToVO(driveRepository.findById(id).get());
     }
 
+    public List<DriveVO> findAllByUserId(final Long userId) {
+        List<DriveVO> result = this.findAllByDriverId(userId);
+        List<DriveVO> result2 = this.findAllByPassengerId(userId);
+        result.addAll(result2);
+        return result;
+    }
+
     public List<DriveVO> findAllByDriverId(final Long driverId) {
         List<PassengerDrive> passengerDriveList = passengerDriveRepository.findAllByDriverId(driverId);
         Map<Drive, List<PassengerDrive>> driveListMap
@@ -83,9 +90,13 @@ public class DriveService {
                 .collect(Collectors.toList());
     }
 
-    public List<DriveVO> findAllByStartTime(final LocalDateTime startTime) {
-        List<Drive> drives = driveRepository.findAllByStartTime(startTime);
+    public List<DriveVO> findAllByStartTime(final String stTime) {
+        LocalDateTime startTime = LocalDateTime.parse(stTime);
+        List<Drive> drives = driveRepository.findAll();
         return drives.stream()
+                .filter(drive -> drive.getStartTime().
+                        isAfter(startTime.minusHours(2)) &&
+                        drive.getStartTime().isBefore(startTime.plusHours(2)))
                 .map(drive -> convertToVO(drive))
                 .collect(Collectors.toList());
     }

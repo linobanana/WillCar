@@ -87,7 +87,7 @@ public class FlowTest {
         //read user2
         MvcResult mvcUser2ResultRead = doRead(USER_API_ROOT + "/" + 2);
         User user2Read = objectMapper.readValue(mvcUser2ResultRead.getResponse().getContentAsString(), User.class);
-        user2 = user2Read;
+        this.user2 = user2Read;
 
         //save car
         MvcResult mvcCarResultSaved = doPost(CAR_API_ROOT, car);
