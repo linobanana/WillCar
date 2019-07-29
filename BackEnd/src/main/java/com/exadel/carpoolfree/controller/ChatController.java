@@ -48,22 +48,15 @@ public class ChatController {
     private SimpMessagingTemplate simpMessagingTemplate;
 
     @MessageMapping("/send/message")
-    @SendTo("/socket-publisher/")
     public Message sendMessage(@Payload Message message) {
         messageRepository.save(message);
+        this.simpMessagingTemplate.convertAndSend("/socket-publisher/" + message.getDriveId() + " " + message.getUser().getId(), message);
         return message;
     }
 
-    @MessageMapping("/{driveId}/connect")
-    @SendTo("/socket-publisher/{driveId}/connect")
-    public Message addUser(@DestinationVariable String driveId, @Payload Message message, SimpMessageHeaderAccessor headerAccessor) {
-        // Add username in web socket session
-        headerAccessor.getSessionAttributes().put("username", message.getUser().getFirstName());
-        return message;
-    }
 
-    //    @MessageMapping("/send/message")
-//    public Map<String, String> useSocketCommunication(String message) {
+//    @MessageMapping("/send/message")
+//    public Map<String, String> useSocketCommunication(@Payload Message message) {
 //        ObjectMapper mapper = new ObjectMapper();
 //        Map<String, String> messageConverted = null;
 //        try {
@@ -72,9 +65,8 @@ public class ChatController {
 //            messageConverted = null;
 //        }
 //        if (messageConverted != null) {
-//            if (messageConverted.containsKey("toId") && messageConverted.get("toId") != null && !messageConverted.get("toId").equals("")) {
-//                this.simpMessagingTemplate.convertAndSend("/socket-publisher/" + messageConverted.get("toId"), messageConverted);
-//                this.simpMessagingTemplate.convertAndSend("/socket-publisher/" + messageConverted.get("fromId"), message);
+//            if (messageConverted.containsKey("driveId") && messageConverted.get("driveId") != null && !messageConverted.get("driveId").equals("")) {
+//                this.simpMessagingTemplate.convertAndSend("/socket-publisher/" + messageConverted.get("driveId"), messageConverted);
 //            } else {
 //                this.simpMessagingTemplate.convertAndSend("/socket-publisher", messageConverted);
 //            }
@@ -82,4 +74,11 @@ public class ChatController {
 //        return messageConverted;
 //    }
 
+    @MessageMapping("/{driveId}/connect")
+    @SendTo("/socket-publisher/{driveId}/connect")
+    public Message addUser(@DestinationVariable String driveId, @Payload Message message, SimpMessageHeaderAccessor headerAccessor) {
+        // Add username in web socket session
+        headerAccessor.getSessionAttributes().put("username", message.getUser().getFirstName());
+        return message;
+    }
 }
