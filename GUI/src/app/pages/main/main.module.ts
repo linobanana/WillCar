@@ -35,7 +35,7 @@ import {MapModule} from './map/map.module';
   ],
   providers: [],
   declarations: [LeftMenuComponent, MainComponent, RightMenuComponent],
-  exports: [MainComponent],
+  exports: [MainComponent,LeftMenuComponent],
   bootstrap: [LeftMenuComponent, RightMenuComponent]
 })
 export class MainModule {}

@@ -1,12 +1,13 @@
 package com.exadel.carpoolfree.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -22,7 +23,7 @@ import javax.persistence.Table;
 public class PassengerDrive {
 
     @Id
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "passenger_id")
     private User passenger;
 
@@ -31,6 +32,12 @@ public class PassengerDrive {
     @JoinColumn(name = "drive_id")
     private Drive drive;
 
-    @Column(name = "start_coordinate")
+    @Column(name = "start_point")
     private String startPoint;
+
+    @Column(name = "passenger_to_driver_mark")
+    private Double passengerToDriverMark;
+
+    @Column(name = "driver_to_passenger_mark")
+    private Double driverToPassengerMark;
 }

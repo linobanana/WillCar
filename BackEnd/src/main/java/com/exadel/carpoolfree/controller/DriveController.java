@@ -2,9 +2,9 @@ package com.exadel.carpoolfree.controller;
 
 
 import com.exadel.carpoolfree.model.Drive;
+import com.exadel.carpoolfree.model.view.DriveVO;
 import com.exadel.carpoolfree.model.Path;
-import com.exadel.carpoolfree.repository.DriveRepository;
-import com.exadel.carpoolfree.repository.PathRepository;
+import com.exadel.carpoolfree.service.DriveService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,58 +18,63 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/drive")
+@RequestMapping("/api/drive")
 public class DriveController {
-    private final DriveRepository driveRepository;
-    private final PathRepository pathRepository;
 
-    public DriveController(DriveRepository driveRepository, PathRepository pathRepository) {
-        this.driveRepository = driveRepository;
-        this.pathRepository = pathRepository;
+    private final DriveService driveService;
+
+    public DriveController(DriveService driveService) {
+        this.driveService = driveService;
     }
 
     @GetMapping()
-    public List<Drive> findAllDrives() {
-        return driveRepository.findAll();
+    public List<DriveVO> findAllDrives()
+    {
+        return driveService.findAllDrives();
     }
+
 
     @GetMapping("/{id}")
-    public Drive findById(final @PathVariable Long id) {
-        return driveRepository.findById(id).get();
+    public DriveVO findById(final @PathVariable Long id) {
+
+        return driveService.findById(id);
     }
 
+    @GetMapping("/driverId/{driverId}")
+    private List<DriveVO> findAllByDriverId(final @PathVariable Long driverId) {
+        List<DriveVO> result = driveService.findAllByDriverId(driverId);
+        return result;
+    }
+
+    @GetMapping("/passengerId/{passengerId}")
+    private List<DriveVO> findAllByPassengerId(final @PathVariable Long passengerId) {
+        List<DriveVO> result = driveService.findAllByPassengerId(passengerId);
+        return result;
+    }
 
     @GetMapping("/startPoint/{startPoint}")
-    public List<Drive> getDriveByStartPoint(final @PathVariable Double startPoint) {
-        return driveRepository.findDrivesByStartPoint(startPoint);
+    public List<DriveVO> getDriveByStartPoint(final @PathVariable Double startPoint) {
+        return driveService.getDriveByStartPoint(startPoint);
     }
 
     @GetMapping("/startTime/{startTime}")
-    public List<Drive> findAllByStartTime(final @PathVariable LocalDateTime startTime) {
-        return driveRepository.findAllByStartTime(startTime);
+    public List<DriveVO> findAllByStartTime(final @PathVariable LocalDateTime startTime) {
+        return driveService.findAllByStartTime(startTime);
     }
 
     @PostMapping()
-    public Drive addDrive(@RequestBody Drive drive) {
-        Path path = pathRepository.save(drive.getPath());
-        drive.setPath(path);
-        return driveRepository.save(drive);
+    public DriveVO addDrive(@RequestBody Drive drive) {
+        return driveService.addDrive(drive);
     }
 
     @PutMapping("/{id}")
-    public Drive updateDrive(@PathVariable Long id, @RequestBody Drive drive) {
-        return driveRepository.findById(id)
-                .map(drive1 -> {
-                    drive1.setPath(drive.getPath());
-                    return driveRepository.save(drive1);
-                })
-                .orElseThrow((() -> new RuntimeException("User not found")));
+    public DriveVO updateDrive(@PathVariable Long id, @RequestBody Path path) {
+       return driveService.updateDrive(id, path);
     }
 
     @DeleteMapping("/{id}")
-    public boolean delete(final @PathVariable Long id) {
-        driveRepository.deleteById(id);
-        return true;
+    public void delete(final @PathVariable Long id) {
+        driveService.deleteById(id);
     }
 
 }

@@ -23,7 +23,11 @@ export class ProfileApiService extends ApiService {
   }
 
   getUser(id) {
-    return super.get(`api/users/${id}`, ProfileApiService.mapUser);
+    return super.get(`api/users/${id}`);
+  }
+  putUser(id, prefCommunication){
+    const body = {preferredCommunication: "chat"};
+    return super.put(`api/users/${id}`, body);
   }
 
   setUserCar(car: Car) {

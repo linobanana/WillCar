@@ -13,12 +13,12 @@
       <div class="ngx-timepicker-field-example inputs timeField">
         <ngx-timepicker-field formControlName = "time" [controlOnly]="true" ></ngx-timepicker-field>
       </div>
-      <div formGroupName="adress">
+      <div formGroupName="address">
         <mat-form-field class="inputs">
-          <input matInput formControlName = "start" placeholder="Start point" required>
+          <input matInput formControlName = "startr" placeholder="Start point" id="startr">
         </mat-form-field>
         <mat-form-field class="inputs">
-          <input matInput formControlName = "end"  placeholder="End point" required>
+          <input matInput formControlName = "endr"  placeholder="End point" id="endr" >
         </mat-form-field>
       </div>
       <div>
@@ -29,7 +29,7 @@
       <div class="errorFormNumber" *ngIf="!(numberOfSeats.errors == null)">
         {{numberOfSeats.errors.forbiddenDate.value}}
       </div>
-      <button type="submit" [disabled]="RightMenuInfo.invalid" class="create inputs" mat-button>{{buttonLabel.rightButton}}</button>
+      <button type="submit" [disabled]="RightMenuInfo.invalid" (click)="onSubmitForm()" class="create inputs" mat-button>{{buttonLabel.rightButton}}</button>
     </form>
   </div>
 </div>
