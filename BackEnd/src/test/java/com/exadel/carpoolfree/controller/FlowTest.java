@@ -158,7 +158,7 @@ public class FlowTest {
         List<Car> cars = new ArrayList<>();
         cars.add(getNextCar());
         cars.add(getNextCar());
-        User user = new User(num, testTxt, testTxt, testTxt,
+        User user = new User(num, testTxt, testTxt,
                 testTxt, testTxt, testTxt);
         return user;
     }
@@ -166,8 +166,9 @@ public class FlowTest {
     private Message getNextMessage() {
         Long timestamp = 1L;
         String text = "Test_message";
+        LocalDateTime time = LocalDateTime.now();
 
-        return new Message(timestamp, text, timestamp, text, user);
+        return new Message(timestamp, text, timestamp, time, user);
     }
 
     private Drive getNextDrive() {

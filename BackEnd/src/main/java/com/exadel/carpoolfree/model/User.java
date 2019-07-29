@@ -18,7 +18,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -40,11 +39,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "phone_number")
     private String phoneNumber;
@@ -63,16 +59,21 @@ public class User {
     @Column(name = "pref_communication")
     private String prefCommunication;
 
+    @Column
+    private Long points;
+
+    @Column(name = "photo_url")
+    private String photoUrl;
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
 
-    public User(String firstName, String lastName, String phoneNumber, String email,
+    public User(String name, String phoneNumber, String email,
                 String login, String password, boolean active, Long driverRating,
                 Long passengerRating) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.login = login;
@@ -96,11 +97,10 @@ public class User {
     )
     private List<Car> cars = new ArrayList<>();
 
-    public User(Long id, String firstName, String lastName, String phoneNumber,
+    public User(Long id, String name, String phoneNumber,
                 String email, String login, String password) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.login = login;

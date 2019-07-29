@@ -52,6 +52,12 @@ public class Drive {
     @Column
     private String name;
 
+    @Column(name = "sum_of_km")
+    private Double sumOfKm;
+
+    @Column(name = "sum_of_time")
+    private Double sumOfTime;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "path_id")
     private Path path;

@@ -9,20 +9,15 @@ import java.util.Set;
 
 public class UserVO {
 
-
         private Long id;
 
-        private String firstName;
+        private String name;
 
-        private String lastName;
+        private String photoUrl;
 
         private String phoneNumber;
 
         private String email;
-
-        private String login;
-
-        private String password;
 
         private String prefCommunication;
 
@@ -36,32 +31,26 @@ public class UserVO {
 
         private Double mark;
 
+        private String pickUpPoint;
+
+        private double numOfKm;
+
+        private double driveTime;
+
         public Long getId() {
                 return id;
         }
 
-        public String getFirstName() {
-                return firstName;
+        public String getPickUpPoint() {
+                return pickUpPoint;
         }
 
         public String getPhoneNumber() {
                 return phoneNumber;
         }
 
-        public String getLastName() {
-                return lastName;
-        }
-
         public String getEmail() {
                 return email;
-        }
-
-        public String getLogin() {
-                return login;
-        }
-
-        public String getPassword() {
-                return password;
         }
 
         public String getPrefCommunication() {
@@ -116,14 +105,6 @@ public class UserVO {
                 this.prefCommunication = prefCommunication;
         }
 
-        public void setPassword(String password) {
-                this.password = password;
-        }
-
-        public void setLogin(String login) {
-                this.login = login;
-        }
-
         public void setEmail(String email) {
                 this.email = email;
         }
@@ -132,12 +113,40 @@ public class UserVO {
                 this.phoneNumber = phoneNumber;
         }
 
-        public void setLastName(String lastName) {
-                this.lastName = lastName;
+        public void setPickUpPoint(String pickUpPoint) {
+                this.pickUpPoint = pickUpPoint;
         }
 
-        public void setFirstName(String firstName) {
-                this.firstName = firstName;
+        public double getNumOfKm() {
+                return numOfKm;
+        }
+
+        public void setNumOfKm(double numOfKm) {
+                this.numOfKm = numOfKm;
+        }
+
+        public double getDriveTime() {
+                return driveTime;
+        }
+
+        public void setDriveTime(double driveTime) {
+                this.driveTime = driveTime;
+        }
+
+        public String getName() {
+                return name;
+        }
+
+        public void setName(String name) {
+                this.name = name;
+        }
+
+        public String getPhotoUrl() {
+                return photoUrl;
+        }
+
+        public void setPhotoUrl(String photoUrl) {
+                this.photoUrl = photoUrl;
         }
 }
 

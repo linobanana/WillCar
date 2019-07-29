@@ -9,15 +9,16 @@ DROP TABLE IF EXISTS messages;
 CREATE TABLE user
 (
   id                 INT AUTO_INCREMENT PRIMARY KEY,
-  first_name         VARCHAR(250) NOT NULL,
-  last_name          VARCHAR(250) NOT NULL,
+  name               VARCHAR(250) NOT NULL,
   phone_number       VARCHAR(250) NOT NULL,
+  photo_url          VARCHAR(250),
   email              VARCHAR(250) NOT NULL,
   login              VARCHAR(250) NOT NULL,
   password           VARCHAR(250) NOT NULL,
   pref_communication VARCHAR(250) DEFAULT NULL,
   passenger_rating   INT,
   driver_rating      INT,
+  points             INT,
   active             BOOLEAN
 );
 
@@ -46,7 +47,9 @@ CREATE TABLE drive
   driver_id        VARCHAR(250) NOT NULL,
   path_id          VARCHAR(250) NOT NULL,
   start_point      VARCHAR(250) NOT NULL,
-  fin_point        VARCHAR(250) NOT NULL
+  fin_point        VARCHAR(250) NOT NULL,
+  sum_of_km        DOUBLE,
+  sum_of_time      DOUBLE
 );
 
 CREATE TABLE passenger_drive
@@ -54,6 +57,8 @@ CREATE TABLE passenger_drive
   passenger_id             INT          NOT NULL,
   drive_id                 INT          NOT NULL,
   start_point              VARCHAR(250) NOT NULL,
+  number_of_km             DOUBLE,
+  drive_time               DOUBLE,
   passenger_to_driver_mark INT DEFAULT NULL,
   driver_to_passenger_mark INT DEFAULT NULL
 );
@@ -79,23 +84,23 @@ VALUES ('1', 'DRIVER'),
        ('8', 'PASSENGER'),
        ('9', 'PASSENGER');
 
-INSERT INTO user (first_name, last_name, phone_number, email, login,
+INSERT INTO user (name, phone_number, email, login,
                   password, passenger_rating, driver_rating, active)
-VALUES ('Aliko', 'Dangote', '+375293456789', 'xdfghjkl', 'aliko',
+VALUES ('Aliko Dangote', '+375293456789', 'xdfghjkl', 'aliko',
         '$2a$10$Jij7xU.xa0ZeMrJxTprzjejVD5yTVahMwaZ8mdjtJ6K2cBRVlhS.y', '11', '50', 'TRUE'),
-       ('Bill', 'Gates', '+375298260934', 'fshg', 'bill',
+       ('Bill Gates', '+375298260934', 'fshg', 'bill',
         '$2a$10$4BEiFy3gkPmSrbdfPB6eTOtuxMUYLPMbtFPtBWIXej64wjdOMDSkC', '11', '0', 'TRUE'),
-       ('Alex', 'Forman', '+375295627624', 'alex@gmail.com', 'alexForman',
+       ('Alex Forman', '+375295627624', 'alex@gmail.com', 'alexForman',
         '$2a$10$WyIDLksLKNDobiMStA/egOiPVaItQWOcpyMHsQQtZ15MFTLdhpSRi', '1', '0', 'TRUE'),
-       ('Natalia', 'Ivanova', '+375445647221', 'nat92@mail.com', 'nattIva',
+       ('Natalia Ivanova', '+375445647221', 'nat92@mail.com', 'nattIva',
         '$2a$10$4fqzUIU1Se0cfXu7JFb5reUPvEJnmdWZnNuBVnfy46uX1UnKW.SVC', '56', '125', 'TRUE'),
-       ('Tatiana', 'Sosnovskaya', '+375298784455', 'tatia@mail.com', 'tatiaSosn',
+       ('Tatiana Sosnovskaya', '+375298784455', 'tatia@mail.com', 'tatiaSosn',
         '$2a$10$WcT5gUO6rI3DQqD5gqcB9Oa6uB6UBDrNZoe/DwJUXdsZOXOKVIcTi', '0', '300', 'TRUE'),
-       ('Gregory', 'House', '+375296543222', 'house@gmail.com', 'greghouse',
+       ('Gregory House', '+375296543222', 'house@gmail.com', 'greghouse',
         '$2a$10$CuNUOXvdi.q3AelSRnH9gO.C3foJDqc0s0XeSEOLvcvmTVvP57Ica', '0', '0', 'TRUE'),
-       ('DJ', 'Gates', '+375298267634', 'dj@mail.com', 'dj',
+       ('DJ Gates', '+375298267634', 'dj@mail.com', 'dj',
         '$2a$10$qIS4HbTbQoGMVAGKeNjKnOdm67pK2UGavdxc7PZyzzntRB06GRHcC', '0', '10', 'TRUE'),
-       ('Folrunsho', 'Alakija', '+375447261378', 'kadiuskw', 'alak',
+       ('Folrunsho Alakija', '+375447261378', 'kadiuskw', 'alak',
         '$2a$10$ozMEroUIr5MKL8LU1iJ7QeJE/ueCijGtNM/CMpl51gwKcwBB.JC.K', '100', '10', 'TRUE');
 
 

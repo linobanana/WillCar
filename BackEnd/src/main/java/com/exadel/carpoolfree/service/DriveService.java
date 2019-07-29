@@ -44,7 +44,6 @@ public class DriveService {
     }
 
     public DriveVO findById(final Long id) {
-
         return convertToVO(driveRepository.findById(id).get());
     }
 
@@ -65,6 +64,7 @@ public class DriveService {
             List<UserVO> passengers = driveListMap.get(drive).stream().map(passengerDrive -> {
                 UserVO userVO = modelMapper.map(passengerDrive.getPassenger(), UserVO.class);
                 userVO.setMark(passengerDrive.getDriverToPassengerMark());
+                userVO.setPickUpPoint(passengerDrive.getStartPoint());
                 return userVO;
             }).collect(Collectors.toList());
             List<Message> messages = messageRepository.findAllByDriveId(drive.getId());
@@ -99,9 +99,12 @@ public class DriveService {
                 .collect(Collectors.toList());
     }
 
-    public List<DriveVO> findAllByStartTime(final LocalDateTime startTime) {
+    public List<DriveVO> findAllByStartTime(final String stTime) {
+        LocalDateTime startTime = LocalDateTime.parse(stTime);
         List<Drive> drives = driveRepository.findAllByStartTime(startTime);
         return drives.stream()
+                .filter(drive -> drive.getStartTime().isBefore(startTime.plusHours(1)) &&
+                        drive.getStartTime().isAfter(startTime.minusHours(1)))
                 .map(drive -> convertToVO(drive))
                 .collect(Collectors.toList());
     }
