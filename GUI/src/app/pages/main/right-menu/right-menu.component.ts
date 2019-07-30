@@ -5,6 +5,7 @@ import { Validators } from '@angular/forms';
 import { REG_DATE} from '../../../shared/constants/common';
 import {Router} from '@angular/router';
 import {BUTTON_LABELS} from '../../../shared/constants/button-labels';
+import {MapService} from "../map/map.service";
 
 @Component({
   selector: 'app-right-menu',
@@ -15,16 +16,16 @@ export class RightMenuComponent implements OnInit {
   RightMenuInfo: FormGroup;
   buttonLabel = BUTTON_LABELS;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private mapper: MapService) {
     this.RightMenuInfo = this.fb.group({
       date: ['', {
         validators: [forbiddenDateValidator(new RegExp(REG_DATE)), Validators.required],
         updateOn: 'blur'
       }],
       time: [''],
-      adress: this.fb.group({
-        start: ['', Validators.required],
-        end: ['', Validators.required]
+      address: this.fb.group({
+        startr: ['', Validators.required],
+        endr: ['', Validators.required]
       }),
       numberOfSeats: ['', [negativeNumberValidator(), Validators.required]]
     });
@@ -34,20 +35,25 @@ export class RightMenuComponent implements OnInit {
     this.RightMenuInfo.setValue({
         date: new Date('01.01.2019'),
         time: '8:00 am',
-        adress: {
-          start: 'Купревича',
-          end: 'пр-т Победителей',
+        address: {
+          startr: 'Купревича',
+          endr: 'пр-т Победителей',
         },
         numberOfSeats: '1'
       }
     );
+    this.initRelationMwithY();
   }
 
   onSubmit() {
-    // TODO: Use EventEmitter with form value
-    console.log(this.RightMenuInfo.value);
   }
-
+onSubmitForm() {
+  // TODO: Use EventEmitter with form value
+  console.log(this.RightMenuInfo.value);
+}
+  initRelationMwithY() {
+    this.mapper.initRelationRMwithY(this.RightMenuInfo);
+  }
   get date() {
     return this.RightMenuInfo.get('date');
   }

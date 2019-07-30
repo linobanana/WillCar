@@ -5,8 +5,7 @@ import { Validators } from '@angular/forms';
 import { REG_DATE} from '../../../shared/constants/common';
 import {Router} from '@angular/router';
 import {BUTTON_LABELS} from '../../../shared/constants/button-labels';
-
-declare var ymaps: any;
+import {MapService} from '../map/map.service';
 
 @Component({
   selector: 'app-left-menu',
@@ -16,7 +15,7 @@ declare var ymaps: any;
 export class LeftMenuComponent implements OnInit {
   LeftMenuInfo: FormGroup;
   buttonLabel = BUTTON_LABELS;
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private mapper: MapService) {
     this.LeftMenuInfo = this.fb.group({
       date: ['', {
         validators: forbiddenDateValidator(new RegExp(REG_DATE)),
@@ -24,19 +23,19 @@ export class LeftMenuComponent implements OnInit {
       }],
       time: [''],
       address: this.fb.group({
-        start: ['', Validators.required],
-        end: ['', Validators.required]}),
+        startl: ['', Validators.required],
+        endl: ['', Validators.required]}),
       near: []
     });
-    this.initYandexSuggestionsForInput();
   }
   ngOnInit() {
-
+  this.initRelationMwithY();
   }
-
-  onSubmit() {
+  onSubmit() {}
+  onSubmitForm() {
     // TODO: Use EventEmitter with form value
     console.log(this.LeftMenuInfo.value);
+    this.mapper.makeRoutePoints();
   }
 
   get date() {
@@ -47,33 +46,8 @@ export class LeftMenuComponent implements OnInit {
     this.router.navigate(['/confirmation']);
   }
 
-  initYandexSuggestionsForInput() {
-    const self = this;
-    ymaps.ready(init);
-    function init() {
-      let suggestionForStartInput = new ymaps.SuggestView('start',{
-        boundedBy: [
-          [50, 60],
-          [25, 30]
-        ]
-      });
-      let suggestionForEndInput = new ymaps.SuggestView('end',{
-        boundedBy: [
-          [50, 60],
-          [25, 30]
-        ]
-      });
-      suggestionForStartInput.events.add("select", function(e) {
-        let startSuggestion = e.get('item').value;
-        self.LeftMenuInfo.get('address').get('start').setValue(startSuggestion);
-        console.log(e.get('item').value);
-      });
-      suggestionForEndInput.events.add("select", function(e) {
-        let endSuggestion = e.get('item').value;
-        self.LeftMenuInfo.get('address').get('end').setValue(endSuggestion);
-        console.log(e.get('item').value);
-      });
-    }
+  initRelationMwithY() {
+    this.mapper.initRelationLMwithY(this.LeftMenuInfo);
   }
 }
 
@@ -83,6 +57,9 @@ export function forbiddenDateValidator(date: RegExp): ValidatorFn {
     let buf: string;
     buf = temp.toLocaleDateString();
     const forbidden: boolean = !(date.test(buf));
+    if (control.value === '') {
+      return {forbiddenDate: {value: ''}};
+    }
     if (control.value === null) {
       return {forbiddenDate: {value: 'There is a mistake in this date!'}};
     } else {
