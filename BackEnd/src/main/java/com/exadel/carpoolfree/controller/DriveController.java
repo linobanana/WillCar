@@ -1,8 +1,6 @@
 package com.exadel.carpoolfree.controller;
 
-
-import com.exadel.carpoolfree.model.Drive;
-import com.exadel.carpoolfree.model.Path;
+import com.exadel.carpoolfree.model.view.PathVO;
 import com.exadel.carpoolfree.model.view.DriveVO;
 import com.exadel.carpoolfree.service.DriveService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -56,9 +54,9 @@ public class DriveController {
         return result;
     }
 
-    @GetMapping("/startPoint/{startPoint}")
-    public List<DriveVO> getDriveByStartPoint(final @PathVariable Double startPoint) {
-        return driveService.getDriveByStartPoint(startPoint);
+    @PostMapping("/points")
+    public List<DriveVO> getDriveByStartPoint(@RequestBody PathVO pathVO) {
+        return driveService.getDriveByPoints(pathVO.getStartPoint(), pathVO.getEndPoint(), pathVO.getDateTime());
     }
 
     @GetMapping("/startTime/{startTime}")
@@ -67,12 +65,12 @@ public class DriveController {
     }
 
     @PostMapping()
-    public DriveVO addDrive(@RequestBody Drive drive) {
+    public DriveVO addDrive(@RequestBody DriveVO drive) {
         return driveService.addDrive(drive);
     }
 
     @PutMapping("/{id}")
-    public DriveVO updateDrive(@PathVariable Long id, @RequestBody Path path) {
+    public DriveVO updateDrive(@PathVariable Long id, @RequestBody String path) {
        return driveService.updateDrive(id, path);
     }
 
