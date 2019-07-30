@@ -14,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -101,8 +102,8 @@ public class DriveService {
     }
 
     public List<DriveVO> findAllByStartTime(final String stTime) {
-        LocalDateTime startTime = LocalDateTime.parse(stTime);
-        List<Drive> drives = driveRepository.findAllByStartTime(startTime);
+        LocalDateTime startTime = LocalDateTime.parse(stTime, DateTimeFormatter.ISO_DATE_TIME);
+        List<Drive> drives = driveRepository.findAll();
         return drives.stream()
                 .filter(drive -> drive.getStartTime().isBefore(startTime.plusHours(1)) &&
                         drive.getStartTime().isAfter(startTime.minusHours(1)))
