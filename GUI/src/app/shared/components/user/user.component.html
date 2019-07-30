@@ -2,7 +2,7 @@
 <div *ngIf="user && options">
   <div class="profile-info">
     <div class="photo-container">
-      <img class="photo" src="{{user.photoUrl}}">
+<!--      <img class="photo" src="{{user.photoUrl}}">-->
       <h2>{{profileLabels.rating}} {{user.rating}} <mat-icon>grade</mat-icon></h2>
     </div>
     <div class="personal-data">
@@ -22,7 +22,9 @@
       <car-form-component
         [user]="user"
         (addCar) = "onAddCar($event)"></car-form-component>
-      <car-component [user]="user"></car-component>
+      <car-component
+        [user]="user"
+        (deleteCar)="onDeleteCar($event)"></car-component>
     </div>
   </div>
 </div>

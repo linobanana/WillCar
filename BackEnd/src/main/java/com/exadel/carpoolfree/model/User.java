@@ -18,9 +18,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -32,15 +32,15 @@ import java.util.Set;
 @Table(name = "user")
 public class User {
 
+    @Column
+    private boolean active;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "phone_number")
     private String phoneNumber;
@@ -59,10 +59,29 @@ public class User {
     @Column(name = "pref_communication")
     private String prefCommunication;
 
+    @Column
+    private Long points;
+
+    @Column(name = "photo_url")
+    private String photoUrl;
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
-    private Set<Role> role;
+    private Set<Role> roles = new HashSet<>();
+
+    public User(String name, String phoneNumber, String email,
+                String login, String password, boolean active, Long driverRating,
+                Long passengerRating) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.login = login;
+        this.password = password;
+        this.active = active;
+        this.driverRating = driverRating;
+        this.passengerRating = passengerRating;
+    }
 
     @Column(name = "driver_rating")
     private Long driverRating;
@@ -78,7 +97,14 @@ public class User {
     )
     private List<Car> cars = new ArrayList<>();
 
-    @OneToOne(mappedBy = "ratedBy")
-    private Mark mark;
+    public User(Long id, String name, String phoneNumber,
+                String email, String login, String password) {
+        this.id = id;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.login = login;
+        this.password = password;
+    }
 
 }

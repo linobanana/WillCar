@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Log in · WillCar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="login.css" rel="stylesheet">
+</head>
+<body>
+<div class="form-container">
+  <form class="authorization-form" method="post">
+    <h2 class="form-label">User Authorization</h2>
+    <input type="text" id="login-field" placeholder="Login"/>
+    <input type="password" id="password-field" placeholder="Password"/>
+    <button type="submit" class="submit-button" name="submit">Log in</button>
+  </form>
+</div>
+<script src="https://unpkg.com/bcryptjs@2.4.3/dist/bcrypt.min.js"></script>
+<script src="./main.js"></script>
+</body>
+</html>

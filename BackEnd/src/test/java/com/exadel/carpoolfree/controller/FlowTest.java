@@ -2,11 +2,12 @@ package com.exadel.carpoolfree.controller;
 
 import com.exadel.carpoolfree.model.Car;
 import com.exadel.carpoolfree.model.Drive;
-import com.exadel.carpoolfree.model.Mark;
 import com.exadel.carpoolfree.model.Message;
 import com.exadel.carpoolfree.model.Path;
 import com.exadel.carpoolfree.model.Role;
 import com.exadel.carpoolfree.model.User;
+import com.exadel.carpoolfree.model.view.DriveVO;
+import com.exadel.carpoolfree.model.view.UserVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -54,9 +55,12 @@ public class FlowTest {
     private Car car = getNextCar();
     private Path path = getNextPath();
     private User user = getNextUser();
-    private User user2;
+    private UserVO user2;
     private Message message = getNextMessage();
     private Drive drive = getNextDrive();
+    private DriveVO driveVO;
+    private UserVO userVO;
+
     @Autowired
     private MockMvc mockMvc;
     private JacksonTester<Message> jsonMessage;
@@ -80,12 +84,12 @@ public class FlowTest {
 
         //read user1
         MvcResult mvcUserResultRead = doRead(USER_API_ROOT + "/" + 1);
-        User userRead = objectMapper.readValue(mvcUserResultRead.getResponse().getContentAsString(), User.class);
-        this.user = userRead;
+        UserVO userRead = objectMapper.readValue(mvcUserResultRead.getResponse().getContentAsString(), UserVO.class);
+        this.userVO = userRead;
 
         //read user2
         MvcResult mvcUser2ResultRead = doRead(USER_API_ROOT + "/" + 2);
-        User user2Read = objectMapper.readValue(mvcUser2ResultRead.getResponse().getContentAsString(), User.class);
+        UserVO user2Read = objectMapper.readValue(mvcUser2ResultRead.getResponse().getContentAsString(), UserVO.class);
         user2 = user2Read;
 
         //save car
@@ -110,8 +114,8 @@ public class FlowTest {
         //save drive
         MvcResult mvcDriveResultSaved = doPost(DRIVE_API_ROOT, drive);
         String responseDrive = mvcDriveResultSaved.getResponse().getContentAsString();
-        Drive savedDrive = objectMapper.readValue(responseDrive, Drive.class);
-        this.drive = savedDrive;
+        DriveVO savedDrive = objectMapper.readValue(responseDrive, DriveVO.class);
+        this.driveVO = savedDrive;
         Assert.assertNotNull(savedDrive.getId());
 
         //read car
@@ -132,7 +136,7 @@ public class FlowTest {
         doDelete(DRIVE_API_ROOT + "/" + savedDrive.getId());
 
         //update user
-        doUpdate(USER_API_ROOT + "/" + 1, getNextUser());
+        doUpdate(USER_API_ROOT, getNextUser());
     }
 
     private Car getNextCar() {
@@ -151,22 +155,23 @@ public class FlowTest {
 
     private User getNextUser() {
         Long num = 1L;
+        boolean active = true;
         String testTxt = "Test text";
         Set<Role> role = new HashSet<>();
         List<Car> cars = new ArrayList<>();
         cars.add(getNextCar());
         cars.add(getNextCar());
-        Mark mark = new Mark();
-        User user = new User(num, testTxt, testTxt, testTxt, testTxt, testTxt,
-                testTxt, testTxt, role, num, num, cars, mark);
+        User user = new User(num, testTxt, testTxt,
+                testTxt, testTxt, testTxt);
         return user;
     }
 
     private Message getNextMessage() {
         Long timestamp = 1L;
         String text = "Test_message";
+        LocalDateTime time = LocalDateTime.now();
 
-        return new Message(timestamp, text, timestamp, text, user);
+        return new Message(timestamp, text, timestamp, time, user);
     }
 
     private Drive getNextDrive() {

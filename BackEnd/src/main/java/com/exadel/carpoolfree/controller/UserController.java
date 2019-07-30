@@ -1,7 +1,9 @@
 package com.exadel.carpoolfree.controller;
 
 import com.exadel.carpoolfree.model.User;
-import com.exadel.carpoolfree.repository.UserRepository;
+import com.exadel.carpoolfree.model.view.UserForAdminVO;
+import com.exadel.carpoolfree.model.view.UserVO;
+import com.exadel.carpoolfree.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,31 +17,25 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping()
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserForAdminVO> getAllUsers() {
+        return userService.findAllUsers();
     }
 
     @GetMapping("/{id}")
-    public User getById(final @PathVariable Long id) {
-        return userRepository.findById(id).orElseThrow((() -> new RuntimeException("User not found")));
+    public UserVO getById(final @PathVariable Long id) {
+        return userService.findById(id);
     }
 
-    @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User user) {
-        return userRepository.findById(id)
-                .map(user1 -> {
-                    user1.setPrefCommunication(user.getPrefCommunication());
-                    return userRepository.save(user1);
-                })
-                .orElseThrow((() -> new RuntimeException("User not found")));
+    @PutMapping()
+    public UserVO updateUser(@RequestBody User user) {
+        return userService.updateUser(user);
     }
-
 
 }

@@ -32,4 +32,16 @@ public class PassengerDrive {
 
     @Column(name = "start_point")
     private String startPoint;
+
+    @Column(name = "number_of_km")
+    private Double numOfKm;
+
+    @Column(name = "drive_time")
+    private Double driveTime;
+
+    @Column(name = "passenger_to_driver_mark")
+    private Double passengerToDriverMark;
+
+    @Column(name = "driver_to_passenger_mark")
+    private Double driverToPassengerMark;
 }
