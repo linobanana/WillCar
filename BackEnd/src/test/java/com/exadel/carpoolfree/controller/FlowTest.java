@@ -7,6 +7,7 @@ import com.exadel.carpoolfree.model.Path;
 import com.exadel.carpoolfree.model.Role;
 import com.exadel.carpoolfree.model.User;
 import com.exadel.carpoolfree.model.view.DriveVO;
+import com.exadel.carpoolfree.model.view.UserVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -54,10 +55,12 @@ public class FlowTest {
     private Car car = getNextCar();
     private Path path = getNextPath();
     private User user = getNextUser();
-    private User user2;
+    private UserVO user2;
     private Message message = getNextMessage();
     private Drive drive = getNextDrive();
     private DriveVO driveVO;
+    private UserVO userVO;
+
     @Autowired
     private MockMvc mockMvc;
     private JacksonTester<Message> jsonMessage;
@@ -81,12 +84,12 @@ public class FlowTest {
 
         //read user1
         MvcResult mvcUserResultRead = doRead(USER_API_ROOT + "/" + 1);
-        User userRead = objectMapper.readValue(mvcUserResultRead.getResponse().getContentAsString(), User.class);
-        this.user = userRead;
+        UserVO userRead = objectMapper.readValue(mvcUserResultRead.getResponse().getContentAsString(), UserVO.class);
+        this.userVO = userRead;
 
         //read user2
         MvcResult mvcUser2ResultRead = doRead(USER_API_ROOT + "/" + 2);
-        User user2Read = objectMapper.readValue(mvcUser2ResultRead.getResponse().getContentAsString(), User.class);
+        UserVO user2Read = objectMapper.readValue(mvcUser2ResultRead.getResponse().getContentAsString(), UserVO.class);
         user2 = user2Read;
 
         //save car
@@ -158,7 +161,7 @@ public class FlowTest {
         List<Car> cars = new ArrayList<>();
         cars.add(getNextCar());
         cars.add(getNextCar());
-        User user = new User(num, testTxt, testTxt, testTxt,
+        User user = new User(num, testTxt, testTxt,
                 testTxt, testTxt, testTxt);
         return user;
     }
@@ -166,8 +169,9 @@ public class FlowTest {
     private Message getNextMessage() {
         Long timestamp = 1L;
         String text = "Test_message";
+        LocalDateTime time = LocalDateTime.now();
 
-        return new Message(timestamp, text, timestamp, text, user);
+        return new Message(timestamp, text, timestamp, time, user);
     }
 
     private Drive getNextDrive() {

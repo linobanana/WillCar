@@ -1,7 +1,5 @@
 package com.exadel.carpoolfree.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,6 +32,12 @@ public class PassengerDrive {
 
     @Column(name = "start_point")
     private String startPoint;
+
+    @Column(name = "number_of_km")
+    private Double numOfKm;
+
+    @Column(name = "drive_time")
+    private Double driveTime;
 
     @Column(name = "passenger_to_driver_mark")
     private Double passengerToDriverMark;

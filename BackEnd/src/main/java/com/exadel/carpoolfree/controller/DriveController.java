@@ -2,8 +2,8 @@ package com.exadel.carpoolfree.controller;
 
 
 import com.exadel.carpoolfree.model.Drive;
-import com.exadel.carpoolfree.model.view.DriveVO;
 import com.exadel.carpoolfree.model.Path;
+import com.exadel.carpoolfree.model.view.DriveVO;
 import com.exadel.carpoolfree.service.DriveService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -33,11 +32,16 @@ public class DriveController {
         return driveService.findAllDrives();
     }
 
-
     @GetMapping("/{id}")
     public DriveVO findById(final @PathVariable Long id) {
 
         return driveService.findById(id);
+    }
+
+    @GetMapping("/userId/{userId}")
+    private List<DriveVO> findAllByUserId(final @PathVariable Long userId) {
+        List<DriveVO> result = driveService.findAllByUserId(userId);
+        return result;
     }
 
     @GetMapping("/driverId/{driverId}")
@@ -58,7 +62,7 @@ public class DriveController {
     }
 
     @GetMapping("/startTime/{startTime}")
-    public List<DriveVO> findAllByStartTime(final @PathVariable LocalDateTime startTime) {
+    public List<DriveVO> findAllByStartTime(final @PathVariable String startTime) {
         return driveService.findAllByStartTime(startTime);
     }
 
