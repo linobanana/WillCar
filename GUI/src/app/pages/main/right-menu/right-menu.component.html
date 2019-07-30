@@ -3,7 +3,7 @@
   <div class="form-container">
     <form class ="rightMenu-form" [formGroup]="RightMenuInfo" (ngSubmit)="onSubmit()">
       <mat-form-field class="inputs">
-        <input matInput formControlName = "date" [matDatepicker]="picker" placeholder="Choose a date" required>
+        <input matInput formControlName = "date" [matDatepicker]="picker" placeholder="Choose a date" required  id="date">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -11,11 +11,11 @@
         {{date.errors.forbiddenDate.value}}
       </div>
       <div class="ngx-timepicker-field-example inputs timeField">
-        <ngx-timepicker-field formControlName = "time" [controlOnly]="true" ></ngx-timepicker-field>
+        <ngx-timepicker-field formControlName = "time" [controlOnly]="true" id = "time"></ngx-timepicker-field>
       </div>
       <div formGroupName="address">
         <mat-form-field class="inputs">
-          <input matInput formControlName = "startr" placeholder="Start point" id="startr">
+          <input  matInput formControlName = "startr" placeholder="Start point" id="startr">
         </mat-form-field>
         <mat-form-field class="inputs">
           <input matInput formControlName = "endr"  placeholder="End point" id="endr" >
@@ -23,13 +23,14 @@
       </div>
       <div>
         <mat-form-field class="inputs">
-          <input matInput type="number" formControlName = "numberOfSeats" placeholder="Number of seats" required>
+          <input matInput type="number" formControlName = "numberOfSeats" placeholder="Number of seats" id="numberOfSeats">
         </mat-form-field>
       </div>
       <div class="errorFormNumber" *ngIf="!(numberOfSeats.errors == null)">
         {{numberOfSeats.errors.forbiddenDate.value}}
       </div>
-      <button type="submit" [disabled]="RightMenuInfo.invalid" (click)="onSubmitForm()" class="create inputs" mat-button>{{buttonLabel.rightButton}}</button>
+      <button type="submit" [disabled]="RightMenuInfo.invalid" (click)="onSubmitForm()" class="create inputs" mat-button>{{buttonLabel.drawRoute}}</button>
+      <button type="button" [disabled] = "ifDraw" (click)="onCreate()" class="create inputs" mat-button>{{buttonLabel.createRoute}}</button>
     </form>
   </div>
 </div>

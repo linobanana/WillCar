@@ -23,6 +23,5 @@ export class Trip {
   startPoint: string;
   endPoint: string;
   driverCallNumber: string ;
-
 }
 

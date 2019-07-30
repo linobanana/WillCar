@@ -35,7 +35,6 @@ export class LeftMenuComponent implements OnInit {
   onSubmitForm() {
     // TODO: Use EventEmitter with form value
     console.log(this.LeftMenuInfo.value);
-    this.mapper.makeRoutePoints();
   }
 
   get date() {
@@ -47,7 +46,7 @@ export class LeftMenuComponent implements OnInit {
   }
 
   initRelationMwithY() {
-    this.mapper.initRelationLMwithY(this.LeftMenuInfo);
+    this.mapper.initRelationMwithY(this.LeftMenuInfo, 'l');
   }
 }
 
