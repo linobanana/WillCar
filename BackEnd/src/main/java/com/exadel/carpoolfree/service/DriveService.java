@@ -14,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -65,6 +66,7 @@ public class DriveService {
             List<UserVO> passengers = driveListMap.get(drive).stream().map(passengerDrive -> {
                 UserVO userVO = modelMapper.map(passengerDrive.getPassenger(), UserVO.class);
                 userVO.setMark(passengerDrive.getDriverToPassengerMark());
+                userVO.setPickUpPoint(passengerDrive.getStartPoint());
                 return userVO;
             }).collect(Collectors.toList());
             List<Message> messages = messageRepository.findAllByDriveId(drive.getId());
@@ -84,6 +86,7 @@ public class DriveService {
                     List<Message> messages = messageRepository.findAllByDriveId(temp.getDrive().getId());
                     DriveVO driveVO = convertToVO(temp.getDrive());
                     driverVO.setMark(temp.getPassengerToDriverMark());
+                    driveVO.setPickUpPoint(temp.getStartPoint());
                     driveVO.setDriver(driverVO);
                     driveVO.setMessages(messages);
                     return driveVO;
@@ -99,9 +102,12 @@ public class DriveService {
                 .collect(Collectors.toList());
     }
 
-    public List<DriveVO> findAllByStartTime(final LocalDateTime startTime) {
-        List<Drive> drives = driveRepository.findAllByStartTime(startTime);
+    public List<DriveVO> findAllByStartTime(final String stTime) {
+        LocalDateTime startTime = LocalDateTime.parse(stTime, DateTimeFormatter.ISO_DATE_TIME);
+        List<Drive> drives = driveRepository.findAll();
         return drives.stream()
+                .filter(drive -> drive.getStartTime().isBefore(startTime.plusHours(1)) &&
+                        drive.getStartTime().isAfter(startTime.minusHours(1)))
                 .map(drive -> convertToVO(drive))
                 .collect(Collectors.toList());
     }

@@ -1,10 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-
 import {Car, User} from '../../types/common';
 import {MatSelectChange} from '@angular/material';
 import {PROFILE_FIELD_LABELS} from '../../constants/profile';
 import {ProfileApiService} from '../../api/profile/profile.api.service';
-import {USER} from '../../mocks/user.mocks';
 
 
 
@@ -31,12 +29,12 @@ export class UserComponent implements OnInit {
     this.user.preferredCommunication = communicType.value;
     this.profileApiService.changeUserOptions({
       cars: this.user.cars,
-      driverRating: this.user.rating,
-      drives: [],
+      //driverRating: this.user.rating,
+      //drives: [],
       email: this.user.email,
       id: 1,
       lastName: this.user.name,
-      passengerRating: this.user.rating,
+      //passengerRating: this.user.rating,
       phoneNumber: this.user.telNumber,
       prefCommunication: communicType.value,
       role: 0

@@ -78,7 +78,7 @@ public class ChatController {
     @SendTo("/socket-publisher/{driveId}/connect")
     public Message addUser(@DestinationVariable String driveId, @Payload Message message, SimpMessageHeaderAccessor headerAccessor) {
         // Add username in web socket session
-        headerAccessor.getSessionAttributes().put("username", message.getUser().getFirstName());
+        headerAccessor.getSessionAttributes().put("username", message.getUser().getName());
         return message;
     }
 }
