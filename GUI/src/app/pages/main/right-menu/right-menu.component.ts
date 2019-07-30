@@ -15,33 +15,33 @@ import {MapService} from "../map/map.service";
 export class RightMenuComponent implements OnInit {
   RightMenuInfo: FormGroup;
   buttonLabel = BUTTON_LABELS;
-
+  ifDraw = true;
   constructor(private fb: FormBuilder, private router: Router, private mapper: MapService) {
     this.RightMenuInfo = this.fb.group({
-      date: ['', {
+      date: [new Date(), {
         validators: [forbiddenDateValidator(new RegExp(REG_DATE)), Validators.required],
         updateOn: 'blur'
       }],
-      time: [''],
+      time: ['12:00 am'],
       address: this.fb.group({
         startr: ['', Validators.required],
         endr: ['', Validators.required]
       }),
-      numberOfSeats: ['', [negativeNumberValidator(), Validators.required]]
+      numberOfSeats: ['1', [negativeNumberValidator(), Validators.required]]
     });
   }
 
   ngOnInit() {
-    this.RightMenuInfo.setValue({
-        date: new Date('01.01.2019'),
-        time: '8:00 am',
-        address: {
-          startr: 'Купревича',
-          endr: 'пр-т Победителей',
-        },
-        numberOfSeats: '1'
-      }
-    );
+    // this.RightMenuInfo.setValue({
+    //     date: new Date('01.01.2019'),
+    //     time: '8:00 am',
+    //     address: {
+    //       startr: 'Купревича',
+    //       endr: 'пр-т Победителей',
+    //     },
+    //     numberOfSeats: '1'
+    //   }
+    // );
     this.initRelationMwithY();
   }
 
@@ -50,9 +50,14 @@ export class RightMenuComponent implements OnInit {
 onSubmitForm() {
   // TODO: Use EventEmitter with form value
   console.log(this.RightMenuInfo.value);
+  this.mapper.makeRoute(this.RightMenuInfo);
+  this.ifDraw = false;
+}
+onCreate() {
+    this.mapper.exportDrive();
 }
   initRelationMwithY() {
-    this.mapper.initRelationRMwithY(this.RightMenuInfo);
+    this.mapper.initRelationMwithY(this.RightMenuInfo, 'r');
   }
   get date() {
     return this.RightMenuInfo.get('date');
@@ -72,6 +77,9 @@ export function forbiddenDateValidator(date: RegExp): ValidatorFn {
     let buf: string;
     buf = temp.toLocaleDateString();
     const forbidden: boolean = !(date.test(buf));
+    if (control.value === '') {
+      return {forbiddenDate: {value: ''}};
+    }
     if (control.value === null) {
       return {forbiddenDate: {value: 'There is a mistake in this date!'}};
     } else {
@@ -83,7 +91,7 @@ export function negativeNumberValidator(): ValidatorFn {
   return (control: FormControl): { [key: string]: any } | null => {
     if (control.value !== null) {
       const temp = control.value;
-      if (temp === undefined || temp === 0) {
+      if (temp === 0) {
         return {forbiddenDate: {value: 'U should provide at least one seat!'}};
       } else {
         if (temp < 0) {

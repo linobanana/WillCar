@@ -50,29 +50,29 @@ public class ChatController {
     @MessageMapping("/send/message")
     public Message sendMessage(@Payload Message message) {
         messageRepository.save(message);
-        this.simpMessagingTemplate.convertAndSend("/socket-publisher/" + message.getDriveId() + " " + message.getUser().getId(), message);
+        this.simpMessagingTemplate.convertAndSend("/socket-publisher/" + message.getDriveId() + "_" + message.getUser().getId(), message);
         return message;
     }
 
 
-//    @MessageMapping("/send/message")
-//    public Map<String, String> useSocketCommunication(@Payload Message message) {
-//        ObjectMapper mapper = new ObjectMapper();
-//        Map<String, String> messageConverted = null;
-//        try {
-//            messageConverted = mapper.readValue(message, Map.class);
-//        } catch (IOException e) {
-//            messageConverted = null;
-//        }
-//        if (messageConverted != null) {
-//            if (messageConverted.containsKey("driveId") && messageConverted.get("driveId") != null && !messageConverted.get("driveId").equals("")) {
-//                this.simpMessagingTemplate.convertAndSend("/socket-publisher/" + messageConverted.get("driveId"), messageConverted);
-//            } else {
-//                this.simpMessagingTemplate.convertAndSend("/socket-publisher", messageConverted);
-//            }
-//        }
-//        return messageConverted;
-//    }
+   /* @MessageMapping("/send/message")
+    public Map<String, String> useSocketCommunication(@Payload Message message) {
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, String> messageConverted = null;
+        try {
+            messageConverted = mapper.readValue(message, Map.class);
+        } catch (IOException e) {
+            messageConverted = null;
+        }
+        if (messageConverted != null) {
+            if (messageConverted.containsKey("driveId") && messageConverted.get("driveId") != null && !messageConverted.get("driveId").equals("")) {
+                this.simpMessagingTemplate.convertAndSend("/socket-publisher/" + messageConverted.get("driveId"), messageConverted);
+            } else {
+                this.simpMessagingTemplate.convertAndSend("/socket-publisher", messageConverted);
+            }
+        }
+        return messageConverted;
+    }*/
 
     @MessageMapping("/{driveId}/connect")
     @SendTo("/socket-publisher/{driveId}/connect")

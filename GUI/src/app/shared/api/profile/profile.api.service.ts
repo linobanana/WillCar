@@ -39,7 +39,7 @@ export class ProfileApiService extends ApiService {
     return super.get(`api/users/${id}`, ProfileApiService.mapUser);
   }
 
-  setUserCar(car: Car) {
+  setUserCar(car) {
     return super.post(`api/car`, car, ProfileApiService.simpleResponse);
   }
 

@@ -15,4 +15,10 @@ public interface DriveRepository extends JpaRepository<Drive, Long> {
 
     List<Drive> findDrivesByStartPoint(Double startPoint);
 
+    @Query(value = "SELECT d " +
+            "from Drive d " +
+            "left join fetch d.driver dr  "+
+            "where d.startTime >= :startTime")
+    List<Drive> findAllDriveInFuture(LocalDateTime startTime);
+
 }

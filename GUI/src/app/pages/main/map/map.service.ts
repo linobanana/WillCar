@@ -1,30 +1,48 @@
 import { Injectable } from '@angular/core';
 import {FormGroup} from "@angular/forms";
 
+import {delay, min, take} from "rxjs/operators";
+import {MapApiService} from "../../../shared/api/map/map.api.service";
+import {ApiService} from "../../../shared/services/api.service";
+
+declare var ymaps: any;
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class MapService {
-private startl: string;
-private endl: string;
-private startr: string;
-private endr: string;
+private start: string;
+private end: string;
+private datestart: Date;
 private map;
-  constructor() {
+private drive = {
+  startPoint: '',
+  finPoint: '',
+  startTime: '',
+  endTime: '2019-07-23T15:00:00.000Z',
+  path: '',
+  freePlaceCount: '1',
+  driver: {
+    id: '1'
   }
-   public initRelationLMwithY(LeftMenuInfo: FormGroup) {
-     const leftmenuInfo = LeftMenuInfo;
+};
+  constructor(private mapApi: MapApiService) {
+  }
+   public initRelationMwithY(MenuInfo: FormGroup, mode: string) {
+     const menuInfo = MenuInfo;
      const self = this;
+     const start = 'start';
+     const end = 'end';
      ymaps.ready(init);
      function init() {
-       let suggestionForStartInput = new ymaps.SuggestView('startl', {
+       let suggestionForStartInput = new ymaps.SuggestView(start + mode, {
          boundedBy: [
            [50, 60],
            [25, 30]
          ]
        });
-       let suggestionForEndInput = new ymaps.SuggestView('endl', {
+       let suggestionForEndInput = new ymaps.SuggestView(end + mode, {
          boundedBy: [
            [50, 60],
            [25, 30]
@@ -32,83 +50,124 @@ private map;
        });
        suggestionForStartInput.events.add("select", function(e) {
          let startSuggestion = e.get('item').value;
-         leftmenuInfo.get('address').get('startl').setValue(startSuggestion);
-         self.startl = startSuggestion;
+         menuInfo.get('address').get(start + mode).setValue(startSuggestion);
+         self.start = startSuggestion;
        });
        suggestionForEndInput.events.add("select", function(e) {
          let endSuggestion = e.get('item').value;
-         leftmenuInfo.get('address').get('endl').setValue(endSuggestion);
-         self.endl = endSuggestion;
+         menuInfo.get('address').get(end + mode).setValue(endSuggestion);
+         self.end = endSuggestion;
        });
-     }
    }
-
-  public initRelationRMwithY(RightMenuInfo: FormGroup) {
-    const rightmenuInfo = RightMenuInfo;
+   }
+  public makeRoute(form: FormGroup) {
     const self = this;
-    ymaps.ready(init);
-    function init() {
-      let suggestionForStartInput = new ymaps.SuggestView('startr', {
-        boundedBy: [
-          [50, 60],
-          [25, 30]
-        ]
-      });
-      let suggestionForEndInput = new ymaps.SuggestView('endr', {
-        boundedBy: [
-          [50, 60],
-          [25, 30]
-        ]
-      });
-      suggestionForStartInput.events.add("select", function(e) {
-        let startSuggestion = e.get('item').value;
-        rightmenuInfo.get('address').get('startr').setValue(startSuggestion);
-        self.startr = startSuggestion;
-      });
-      suggestionForEndInput.events.add("select", function(e) {
-        let endSuggestion = e.get('item').value;
-        rightmenuInfo.get('address').get('endr').setValue(endSuggestion);
-        self.endr = endSuggestion;
-      });
-    }
-  }
-  public makeRoutePoints() {
-    const self = this;
-    ymaps.route([
-          this.startl,
-          this.endl,
-    ],
-      {
-        mapStateAutoApply: true
-      }).then(function(route) {
-      self.map.geoObjects.add(route);
-      let way;
-      let segments;
-      for (let i = 0; i < route.getPaths().getLength(); i++) {
-        way = route.getPaths().get(i);
-        segments = way.getSegments();
-        for(let j = 0; j < segments.length; j++) {
-          console.log(segments[j].getCoordinates());
-        }
-      }
-    });
-    ymaps.route([
-      [42.53838899999997, 44.48258999999989],
-        [42.538392999999964, 44.48283999999989],
-     [42.538408999999966, 44.48299799999989],
-    [42.53845899999997, 44.48328499999989],
-   [42.538487999999965, 44.483412999999885],
-     [42.53853399999996, 44.483555999999886],
-    [42.53875099999996, 44.48420499999989],
-   [42.53883099999996, 44.48441399999989],
-     [42.53894699999996, 44.484684999999885],
-     [42.53902199999996, 44.484844999999886]
+    let multiRoute = new ymaps.multiRouter.MultiRoute({
+      referencePoints: [
+        self.start,
+        self.end
       ],
-      {
-        mapStateAutoApply: true,
-      }).then(function(route) {
-      self.map.geoObjects.add(route);
+      params: {
+        results: 10
+      }
+    }, {
+      boundsAutoApply: true,
+      editorDrawOver: false,
+      editorMidPointsType: "via",
+      routeActiveStrokeColor: this.generateColor(null)
     });
+    multiRoute.editor.start({
+      // addWayPoints: true,
+      removeWayPoints: true,
+      addMidPoints: true
+    });
+    multiRoute.events
+      .add("activeroutechange", self.onActiveRouteChange, self);
+    self.map.geoObjects.add(multiRoute);
+    multiRoute.events.add('update', function () {
+      const route = multiRoute.getActiveRoute();
+      let pathArray = route.getPaths();
+      let path;
+      let coords = [];
+      for (let i = 0; i < pathArray.getLength(); i++) {
+        path = pathArray.get(i);
+        coords = coords.concat(path.properties.get('coordinates'));
+      }
+      self.drive.startPoint = JSON.stringify(coords[0]);
+      self.drive.finPoint =  JSON.stringify(coords[coords.length - 1]);
+      self.drive.path = JSON.stringify(coords);
+      self.drive.freePlaceCount = form.get('numberOfSeats').value.toString();
+      self.datestart = new Date(form.get('date').value.toString());
+      self.formatDateISO8601(form.get('time').value.toString());
+    });
+    // const multiRoute = new ymaps.multiRouter.MultiRoute({
+    //   referencePoints: [
+    //     this.start,
+    //     this.end
+    //   ], params: {
+    //     routingMode: 'auto'
+    //   }
+    // }, {
+    //   boundsAutoApply: true
+    // });
+    // this.map.geoObjects.add(multiRoute);
+    // multiRoute.model.events.add('requestsuccess', function(){
+    //   let activeRoute = multiRoute.getActiveRoute();
+    //   let paths = activeRoute.getPaths();
+    //   paths.each(function(path) {
+    //     let segments = path.getSegments();
+    //     segments.each(function(segment) {
+    //       console.log(segment.properties.get('coordinates'));
+    //     });
+    //   });
+    //
+    // });
+    // /////////////////
+    // ymaps.route([
+    //       this.start,
+    //       this.end,
+    // ],
+    //   {
+    //     mapStateAutoApply: true
+    //   }).then(function(route) {
+    //   self.map.geoObjects.add(route);
+    //   let way;
+    //   let segments;
+    //   let coordinates = [];
+    //   for (let i = 0; i < route.getPaths().getLength(); i++) {
+    //     way = route.getPaths().get(i);
+    //     segments = way.getSegments();
+    //     for(let j = 0; j < segments.length; j++) {
+    //       coordinates = coordinates.concat(segments[j].getCoordinates());
+    //     }
+    //   }
+    // let coordinates = self.createMultiRoute();
+    // self.drive.path = coordinates.toString();
+    // self.drive.start = coordinates[0];
+    // self.drive.end = coordinates[coordinates.length - 1];
+    // self.drive.seats = form.get('numberOfSeats').value.toString();
+    // self.datestart = new Date(form.get('date').value.toString());
+    // self.formatDateISO8601( form.get('time').value.toString());
+    // console.log(self.drive);
+      // console.log(JSON.stringify(coordinates.toString()));
+    //});
+   //  ymaps.route([
+   //    [42.53838899999997, 44.48258999999989],
+   //      [42.538392999999964, 44.48283999999989],
+   //   [42.538408999999966, 44.48299799999989],
+   //  [42.53845899999997, 44.48328499999989],
+   // [42.538487999999965, 44.483412999999885],
+   //   [42.53853399999996, 44.483555999999886],
+   //  [42.53875099999996, 44.48420499999989],
+   // [42.53883099999996, 44.48441399999989],
+   //   [42.53894699999996, 44.484684999999885],
+   //   [42.53902199999996, 44.484844999999886]
+   //    ],
+   //    {
+   //      mapStateAutoApply: true,
+   //    }).then(function(route) {
+   //    self.map.geoObjects.add(route);
+   //  });
 
     //////////////////////
     //let pointStart = new ymaps.Placemark(ymaps.geocode(this.start));
@@ -116,19 +175,39 @@ private map;
     //let pointEnd = new ymaps.Placemark(ymaps.geocode(this.end));
     //this.map.geoObjects.add(pointEnd);
     //////////////////////////
-    var myGeocoder = ymaps.geocode(this.startl);
-    myGeocoder.then(function(res) {
-      self.map.geoObjects.add(res.geoObjects);
-      self.map.setBounds(self.map.geoObjects.getBounds());
-    });
-    myGeocoder = ymaps.geocode(this.endl);
-    myGeocoder.then(function(res) {
-      self.map.geoObjects.add(res.geoObjects);
-      self.map.setBounds(self.map.geoObjects.getBounds());
-    });
+    // var myGeocoder = ymaps.geocode(this.start);
+    // myGeocoder.then(function(res) {
+    //   self.map.geoObjects.add(res.geoObjects);
+    //   self.map.setBounds(self.map.geoObjects.getBounds());
+    // });
+    // myGeocoder = ymaps.geocode(this.end);
+    // myGeocoder.then(function(res) {
+    //   self.map.geoObjects.add(res.geoObjects);
+    //   self.map.setBounds(self.map.geoObjects.getBounds());
+    // });
+  }
+  public exportDrive() {
+    console.log('--------');
+    console.log(this.drive);
+    console.log('--------');
+    this.mapApi.postDrive(this.drive)
+      .subscribe((data) => {
+        console.log(data);
+      });
+  }
+  private formatDateISO8601(time: string) {
+    let hours = parseInt(time.substring(0, 2), 10);
+    const minutes = parseInt(time.substring(3, 5), 10);
+    if (time.substring(6, 8) === 'pm') {
+      hours = hours + 12;
+    }
+    this.datestart.setHours(hours - (new Date().getTimezoneOffset() / 60));
+    this.datestart.setMinutes(minutes);
+    this.drive.startTime = this.datestart.toISOString();
+    //console.log(this.drive.starttime);
+    // const date  = new Date(this.drive.date.toString());
   }
   public initMap() {
-    const self = this;
     const geolocation = ymaps.geolocation;
     if (this.map === undefined) {
       this.map = new ymaps.Map('map', {
@@ -143,59 +222,22 @@ private map;
         mapStateAutoApply: true
       }).then(function(result) {
         result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
-        self.map.geoObjects.add(result.geoObjects);
+        this.map.geoObjects.add(result.geoObjects);
       });
-      this.createMultiRoute('улица Франциска Скорины, 21к1','улица Козлова, 15');
     }
   }
-  private createRoute() {
-    const self = this;
-    ymaps.route(['улица Михася Лынькова, 39', 'улица Ваупшасова, 4к71'], {
-      multiRoute: true,
-      mapStateAutoApply: true
-    })
-      .done(function (multRoute) {
-        multRoute.options.set("mapStateAutoApply", true);
-        self.map.geoObjects.add(multRoute);
-        const route = multRoute.getActiveRoute();
-        console.log(route);
-        var way;
-        for (var i = 0; i < route.getPaths().getLength(); i++) {
-          way = route.getPaths().get(i);
-          var coords = way.properties.get('coordinates');
-          console.log("координаты" + coords);
-        }
-      }, function (err) {
-        throw err;
-      }, this);
+  private onActiveRouteChange(event) {
+        let multiRoute = event.get('target');
+        const route = multiRoute.getActiveRoute();
+        let pathArray = route.getPaths();
+        let path;
+        let coords = [];
+        for (let i = 0; i < pathArray.getLength(); i++) {
+          path = pathArray.get(i);
+      coords = coords.concat(path.properties.get('coordinates'));
+    }
+        // this.path = coords;
   }
-  private createMultiRoute(startAddress:string , endAddress:string){
-    const self = this;
-    let multiRoute = new ymaps.multiRouter.MultiRoute({
-      referencePoints: [
-        startAddress,
-        endAddress
-      ],
-      params: {
-        results: 10
-      }
-    }, {
-      boundsAutoApply: true,
-      editorDrawOver: false,
-      editorMidPointsType: "via",
-      routeActiveStrokeColor: this.generateColor(null)
-    });
-    multiRoute.editor.start({
-      addWayPoints: true,
-      // Для удаления точки нужно дважды кликнуть по ней.
-      removeWayPoints: true,
-      addMidPoints: true
-    });
-    multiRoute.events
-      .add("activeroutechange", self.onActiveRouteChange, self);
-    self.map.geoObjects.add(multiRoute);
-  }
-
   private generateColor(ranges) {
     if (!ranges) {
       ranges = [
@@ -209,44 +251,5 @@ private map;
       return Math.floor(Math.random() * (range[1] - range[0])) + range[0];
     };
     return "rgb(" + g() + "," + g() + "," + g() +")";
-  };
-
-  private onActiveRouteChange(event){
-    let multiRoute = event.get('target');
-    const route = multiRoute.getActiveRoute();
-    let pathArray = route.getPaths();
-    let path;
-    for (let i = 0; i < pathArray.getLength(); i++) {
-      path = pathArray.get(i);
-      let coords = path.properties.get('coordinates');
-      // console.log(JSON.stringify(coords));
-      console.log(coords);
-    }
   }
-  // private createBalloonOfTrip(trip :Trip){
-  //    let balloonLayout = ymaps.templateLayoutFactory.createClass(
-  //     "<div class='my-balloon'>" +
-  //     '<a class="close" href="#">&times;</a>' +
-  //     "Расстояние: " +
-  //     "<i>{{ properties.distance.text }}</i>,<br />" +
-  //     "Время в пути: " +
-  //     "<i>{{ properties.duration.text }} (без учета пробок) </i>" +
-  //     "</div>", {
-  //
-  //       build: function () {
-  //         this.constructor.superclass.build.call(this);
-  //         this._$element = $('.my-balloon', this.getParentElement());
-  //         this._$element.find('.close')
-  //           .on('click', $.proxy(this.onCloseClick, this));
-  //       },
-  //
-  //       onCloseClick: function (e) {
-  //         e.preventDefault();
-  //         this.events.fire('userclose');
-  //       }
-  //     }
-  //   );
-  // }
 }
-
-declare var ymaps: any;
