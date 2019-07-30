@@ -1,17 +1,31 @@
 <h2 class="my-bookings" *ngIf="!ifProposed">My bookings</h2>
 <h2 class="my-bookings" *ngIf="ifProposed" >Proposed trips</h2>
-<h3 class="upcoming">Upcoming trips</h3>
+<h3 class="label">Upcoming trips</h3>
 <div *ngFor="let trip of Trips">
   <div class="trips-container">
     <img class="route-shot" src="{{testTrip.routeURL}}" />
     <div class="trip">
-      <div class="field">{{testTrip.date}}</div>
-      <div class="field"> {{testTrip.driverCallNumber}}</div>
-      <div class="field"> {{testTrip.startPoint}}</div>
-      <div class="field"> {{testTrip.endPoint}} </div>
-      <button class="edit-button" mat-flat-button color="warn" *ngIf="ifProposed">Edit</button>
-      <button class="cancel-button" mat-flat-button color="warn" (click)="cancelTrip.emit(trip)">Cancel</button>
+      <div class="field"><mat-icon>date_range</mat-icon> {{testTrip.date}}</div>
+      <div class="field"><mat-icon>access_time</mat-icon> {{testTrip.time}}</div>
+      <div class="field"><mat-icon>gesture</mat-icon> {{testTrip.startPoint}} - {{testTrip.endPoint}}</div>
+      <div class="field" *ngIf="!ifProposed"><mat-icon>where_to_vote</mat-icon> Купревича, 12 </div>
+      <div class="field" *ngIf="!ifProposed"><mat-icon>directions_car</mat-icon>{{car.model}} {{car.number}} {{car.color}}</div>
+      <div class="field" *ngIf="!ifProposed"><mat-icon>person_outline</mat-icon> {{user.name}} <a href="tel:{{user.telNumber}}">{{user.telNumber}}</a> {{user.preferredCommunication}}</div>
+      <div class="field" *ngIf="ifProposed"><mat-icon>accessibility_new</mat-icon> {{testTrip.numberOfSeats}}      </div>
+      <div *ngIf="ifProposed" class="passengers">
+        <mat-list>
+          <mat-list-item>Vasya Pupkin</mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>Petya Galtsev</mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list>
+      </div>
+      <div class="btn">
+        <button mat-stroked-button color="warn" *ngIf="ifProposed">Edit</button>
+        <button mat-stroked-button color="warn" (click)="cancelTrip.emit(trip)">Cancel</button>
+      </div>
     </div>
   </div>
 </div>
-<h3 class="archive">Archive</h3>
+<h3 class="label">Archive</h3>
+

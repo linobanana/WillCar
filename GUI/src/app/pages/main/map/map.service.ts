@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import {FormGroup} from "@angular/forms";
-import {Trip} from "../../../shared/types/common";
+
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class MapService {
 private startl: string;
 private endl: string;
@@ -249,4 +248,5 @@ private map;
   //   );
   // }
 }
+
 declare var ymaps: any;

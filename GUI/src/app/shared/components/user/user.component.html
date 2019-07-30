@@ -2,18 +2,18 @@
 <div *ngIf="user && options">
   <div class="profile-info">
     <div class="photo-container">
-<!--      <img class="photo" src="{{user.photoUrl}}">-->
-      <h2>{{profileLabels.rating}} {{user.rating}} <mat-icon>grade</mat-icon></h2>
+      <img class="photo" src="http://telegram-downloads.ru/wp-content/uploads/2016/10/2-12.png">
+      <h2>{{profileLabels.rating}} {{user.driverRating}} <mat-icon>grade</mat-icon></h2>
     </div>
     <div class="personal-data">
       <h1>{{user.name}}</h1>
       <table class="data-table">
-        <tr><td class="parameter">{{profileLabels.telNumber}}</td><td class="value">{{user.telNumber}}</td></tr>
+        <tr><td class="parameter">{{profileLabels.telNumber}}</td><td class="value">{{user.phoneNumber}}</td></tr>
         <tr><td class="parameter">{{profileLabels.eMail}}</td><td class="value">{{user.email}}</td></tr>
         <tr><td class="parameter">{{profileLabels.communicationType}}</td>
           <td class="value">
             <mat-select
-              [value]="user.preferredCommunication"
+              [value]="user.prefCommunication"
               (selectionChange)="onSelectionChange($event)" class="form-control">
               <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
         </mat-select></td></tr>

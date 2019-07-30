@@ -5,8 +5,6 @@ import {PROFILE_FIELD_LABELS} from '../../constants/profile';
 import {ProfileApiService} from '../../api/profile/profile.api.service';
 
 
-
-
 @Component({
   selector: 'user-component',
   templateUrl: './user.component.html',
@@ -26,18 +24,15 @@ export class UserComponent implements OnInit {
   }
 
   onSelectionChange(communicType: MatSelectChange): void {
-    this.user.preferredCommunication = communicType.value;
+    this.user.prefCommunication = communicType.value;
     this.profileApiService.changeUserOptions({
-      cars: this.user.cars,
-      //driverRating: this.user.rating,
-      //drives: [],
+      id: this.user.id,
+      name: this.user.name,
+      phoneNumber: this.user.phoneNumber,
       email: this.user.email,
-      id: 1,
-      lastName: this.user.name,
-      //passengerRating: this.user.rating,
-      phoneNumber: this.user.telNumber,
       prefCommunication: communicType.value,
-      role: 0
+      cars: this.user.cars,
+      driverRating: this.user.driverRating
     }).subscribe((data) => {
       console.log(data);
     }, (error) => {

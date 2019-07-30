@@ -32,6 +32,7 @@ export class UserService {
 
   addCar(car: Car): void {
     this.profileApiService.setUserCar({
+      id: car.id,
       model: car.model,
       color: car.color,
       number: car.number,

@@ -13,15 +13,13 @@
 
 .nav-list button {
   margin: 0 0.5%;
-  padding: 0% 2%;
   font-family: "Titillium Web", sans-serif;
   font-size: 1.3em;
 }
 
 @media screen and (max-width: 414px) {
   .nav-list button {
-    font-size: 0.9em;
+    font-size: 0.75em;
     margin: 0 0.1%;
-    padding: 0% 1%;
   }
 }

@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-bottom: 2%;
 }
 
 .my-bookings {
@@ -12,11 +13,12 @@
   padding-bottom: 2%;
   border-bottom: 1px solid #376061;
   text-align: center;
+  font-weight: bold;
 }
 
-.upcoming {
-  font-family: 'Titillium Web', sans-serif;
-  font-size: 1.5em;
+.label {
+  font-family: "Titillium Web", sans-serif;
+  font-size: 1.7em;
   color: #ff844c;
   margin: 5% 5% 0 5%;
   padding-bottom: 2%;
@@ -25,8 +27,7 @@
 
 .route-shot {
   max-width: 300px;
-  margin-right: 2%;
-  margin-top: 2%;
+  margin: 3%;
   border: 2px solid #ff844c;
 }
 
@@ -34,33 +35,50 @@
   display: flex;
   flex-direction: column;
   align-self: center;
+  white-space: pre;
 }
 
 .field {
-  font-family: 'Titillium Web', sans-serif;
+  font-family: "Titillium Web", sans-serif;
   font-size: 1.3em;
+  color: #376061;
+  display: inline-flex;
+  margin-bottom: 1%;
+}
+
+.field a {
   color: #376061;
 }
 
-.cancel-button {
-  margin-top: 10%;
+.btn {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-evenly;
+  margin-top: 5%;
 }
 
-.archive {
-  font-family: 'Titillium Web', sans-serif;
-  font-size: 1.5em;
-  color: #ff844c;
-  margin: 5% 5% 0 5%;
-  padding-bottom: 2%;
-  text-align: center;
+.mat-icon {
+  padding-right: 2%;
+}
+
+.passengers {
+  ::ng-deep {
+    mat-list-item.mat-list-item{
+      height: 1.5em;
+      font-family: "Titillium Web", sans-serif;
+      color: #376061;
+    }
+    .mat-list-base {
+      padding: 0;
+    }
+  }
 }
 
 @media screen and (max-width: 414px) {
   .route-shot {
-    max-width: 200px;
-    margin-right: 1%;
-    margin-top: 1%;
-    border: 1px solid #ff844c;
+    max-width: 150px;
+    max-height: 100px;
   }
   .field {
     font-family: 'Titillium Web', sans-serif;
