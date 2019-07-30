@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {FormGroup} from "@angular/forms";
+import {Trip} from "../../../shared/types/common";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ private endl: string;
 private startr: string;
 private endr: string;
 private map;
-  constructor() { }
+  constructor() {
+  }
    public initRelationLMwithY(LeftMenuInfo: FormGroup) {
      const leftmenuInfo = LeftMenuInfo;
      const self = this;
@@ -41,6 +43,7 @@ private map;
        });
      }
    }
+
   public initRelationRMwithY(RightMenuInfo: FormGroup) {
     const rightmenuInfo = RightMenuInfo;
     const self = this;
@@ -72,29 +75,6 @@ private map;
   }
   public makeRoutePoints() {
     const self = this;
-    // const multiRoute = new ymaps.multiRouter.MultiRoute({
-    //   referencePoints: [
-    //     this.start,
-    //     this.end
-    //   ], params: {
-    //     routingMode: 'auto'
-    //   }
-    // }, {
-    //   boundsAutoApply: true
-    // });
-    // this.map.geoObjects.add(multiRoute);
-    // multiRoute.model.events.add('requestsuccess', function(){
-    //   let activeRoute = multiRoute.getActiveRoute();
-    //   let paths = activeRoute.getPaths();
-    //   paths.each(function(path) {
-    //     let segments = path.getSegments();
-    //     segments.each(function(segment) {
-    //       console.log(segment.properties.get('coordinates'));
-    //     });
-    //   });
-    //
-    // });
-    ///////////////////
     ymaps.route([
           this.startl,
           this.endl,
@@ -149,6 +129,7 @@ private map;
     });
   }
   public initMap() {
+    const self = this;
     const geolocation = ymaps.geolocation;
     if (this.map === undefined) {
       this.map = new ymaps.Map('map', {
@@ -163,9 +144,109 @@ private map;
         mapStateAutoApply: true
       }).then(function(result) {
         result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
-        this.map.geoObjects.add(result.geoObjects);
+        self.map.geoObjects.add(result.geoObjects);
       });
+      this.createMultiRoute('улица Франциска Скорины, 21к1','улица Козлова, 15');
     }
   }
+  private createRoute() {
+    const self = this;
+    ymaps.route(['улица Михася Лынькова, 39', 'улица Ваупшасова, 4к71'], {
+      multiRoute: true,
+      mapStateAutoApply: true
+    })
+      .done(function (multRoute) {
+        multRoute.options.set("mapStateAutoApply", true);
+        self.map.geoObjects.add(multRoute);
+        const route = multRoute.getActiveRoute();
+        console.log(route);
+        var way;
+        for (var i = 0; i < route.getPaths().getLength(); i++) {
+          way = route.getPaths().get(i);
+          var coords = way.properties.get('coordinates');
+          console.log("координаты" + coords);
+        }
+      }, function (err) {
+        throw err;
+      }, this);
+  }
+  private createMultiRoute(startAddress:string , endAddress:string){
+    const self = this;
+    let multiRoute = new ymaps.multiRouter.MultiRoute({
+      referencePoints: [
+        startAddress,
+        endAddress
+      ],
+      params: {
+        results: 10
+      }
+    }, {
+      boundsAutoApply: true,
+      editorDrawOver: false,
+      editorMidPointsType: "via",
+      routeActiveStrokeColor: this.generateColor(null)
+    });
+    multiRoute.editor.start({
+      addWayPoints: true,
+      // Для удаления точки нужно дважды кликнуть по ней.
+      removeWayPoints: true,
+      addMidPoints: true
+    });
+    multiRoute.events
+      .add("activeroutechange", self.onActiveRouteChange, self);
+    self.map.geoObjects.add(multiRoute);
+  }
+
+  private generateColor(ranges) {
+    if (!ranges) {
+      ranges = [
+        [150,256],
+        [0, 190],
+        [0, 30]
+      ];
+    }
+    var g = function() {
+      var range = ranges.splice(Math.floor(Math.random()*ranges.length), 1)[0];
+      return Math.floor(Math.random() * (range[1] - range[0])) + range[0];
+    };
+    return "rgb(" + g() + "," + g() + "," + g() +")";
+  };
+
+  private onActiveRouteChange(event){
+    let multiRoute = event.get('target');
+    const route = multiRoute.getActiveRoute();
+    let pathArray = route.getPaths();
+    let path;
+    for (let i = 0; i < pathArray.getLength(); i++) {
+      path = pathArray.get(i);
+      let coords = path.properties.get('coordinates');
+      // console.log(JSON.stringify(coords));
+      console.log(coords);
+    }
+  }
+  // private createBalloonOfTrip(trip :Trip){
+  //    let balloonLayout = ymaps.templateLayoutFactory.createClass(
+  //     "<div class='my-balloon'>" +
+  //     '<a class="close" href="#">&times;</a>' +
+  //     "Расстояние: " +
+  //     "<i>{{ properties.distance.text }}</i>,<br />" +
+  //     "Время в пути: " +
+  //     "<i>{{ properties.duration.text }} (без учета пробок) </i>" +
+  //     "</div>", {
+  //
+  //       build: function () {
+  //         this.constructor.superclass.build.call(this);
+  //         this._$element = $('.my-balloon', this.getParentElement());
+  //         this._$element.find('.close')
+  //           .on('click', $.proxy(this.onCloseClick, this));
+  //       },
+  //
+  //       onCloseClick: function (e) {
+  //         e.preventDefault();
+  //         this.events.fire('userclose');
+  //       }
+  //     }
+  //   );
+  // }
 }
 declare var ymaps: any;
