@@ -25,14 +25,14 @@ export class TripService {
     this._drives = drives;
     this._tripsSubject.next(this.drives);
   }
-  cancelTrip(trip: Drive): void {
-    const index: number = this.drives.indexOf(trip);
+  cancelTrip(drive: Drive): void {
+    const index: number = this.drives.indexOf(drive);
     const tempTrips: Drive[] = clone(this.drives);
     tempTrips.splice(index,1 );
     this.drives = tempTrips;
   }
-  addTrip(trip: Drive): void {
-    this.drives = this.drives.concat(trip);
+  addTrip(drive: Drive): void {
+    this.drives = this.drives.concat(drive);
   }
 }
 
