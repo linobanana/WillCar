@@ -1,7 +1,7 @@
 package com.exadel.carpoolfree.model.view;
 
 import com.exadel.carpoolfree.model.Message;
-import com.exadel.carpoolfree.model.Path;
+import com.exadel.carpoolfree.model.User;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class DriveVO {
 
     private UserVO driver;
 
-    private Path path;
+    private String path;
 
     private String startPoint;
 
@@ -42,7 +42,7 @@ public class DriveVO {
     public DriveVO() {
     }
 
-    public DriveVO(LocalDateTime startTime, LocalDateTime endTime, int freePlaceCount, UserVO driver, Path path, String startPoint, String finPoint, List<Message> messages) {
+    public DriveVO(LocalDateTime startTime, LocalDateTime endTime, int freePlaceCount, UserVO driver, String path, String startPoint, String finPoint, List<Message> messages) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.freePlaceCount = freePlaceCount;
@@ -73,7 +73,7 @@ public class DriveVO {
         return driver;
     }
 
-    public Path getPath() {
+    public String getPath() {
         return path;
     }
 
@@ -113,7 +113,7 @@ public class DriveVO {
         this.passengers = passengers;
     }
 
-    public void setPath(Path path) {
+    public void setPath(String path) {
         this.path = path;
     }
 

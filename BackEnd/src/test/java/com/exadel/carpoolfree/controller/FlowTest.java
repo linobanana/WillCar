@@ -1,11 +1,6 @@
 package com.exadel.carpoolfree.controller;
 
-import com.exadel.carpoolfree.model.Car;
-import com.exadel.carpoolfree.model.Drive;
-import com.exadel.carpoolfree.model.Message;
-import com.exadel.carpoolfree.model.Path;
-import com.exadel.carpoolfree.model.Role;
-import com.exadel.carpoolfree.model.User;
+import com.exadel.carpoolfree.model.*;
 import com.exadel.carpoolfree.model.view.DriveVO;
 import com.exadel.carpoolfree.model.view.UserVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,12 +43,10 @@ public class FlowTest {
 
     private final String DRIVE_API_ROOT = "/api/drive";
     private final String MESSAGE_API_ROOT = "/api/messages";
-    private final String PATH_API_ROOT = "/api/path";
     private final String USER_API_ROOT = "/api/users";
     private final String CAR_API_ROOT = "/api/car";
     ObjectMapper objectMapper = new ObjectMapper();
     private Car car = getNextCar();
-    private Path path = getNextPath();
     private User user = getNextUser();
     private UserVO user2;
     private Message message = getNextMessage();
@@ -65,7 +58,6 @@ public class FlowTest {
     private MockMvc mockMvc;
     private JacksonTester<Message> jsonMessage;
     private JacksonTester<Drive> jsonDriveConverter;
-    private JacksonTester<Path> jsonPath;
     private JacksonTester<User> jsonUser;
     private JacksonTester<Car> jsonCar;
 
@@ -99,12 +91,6 @@ public class FlowTest {
         this.car = savedCar;
         Assert.assertNotNull(savedCar.getId());
 
-        //save path
-        MvcResult mvcPathResultSaved = doPost(PATH_API_ROOT, path);
-        String responsePath = mvcPathResultSaved.getResponse().getContentAsString();
-        Path savedPath = objectMapper.readValue(responsePath, Path.class);
-        Assert.assertNotNull(savedPath.getId());
-
         //save message
         MvcResult mvcMessageResultSaved = doPost(MESSAGE_API_ROOT, message);
         String responseMessage = mvcMessageResultSaved.getResponse().getContentAsString();
@@ -122,9 +108,6 @@ public class FlowTest {
         MvcResult mvcCarResultRead = doRead(CAR_API_ROOT + "/userId/" + savedCar.getId());
         //Car carRead = jsonCar.parseObject(mvcCarResultRead.getResponse().getContentAsString());
         //Assert.assertEquals(savedCar.getId(), carRead.getId());
-
-        //read path
-        MvcResult mvcPathResultRead = doRead(PATH_API_ROOT + "/" + savedPath.getId());
 
         //read message
         MvcResult mvcMessageResultRead = doRead(MESSAGE_API_ROOT + "/" + savedMessage.getId());
@@ -144,13 +127,6 @@ public class FlowTest {
         Long userId = 1L;
         String text = "Test_text";
         return new Car(timestamp, text, text, text, userId);
-    }
-
-    private Path getNextPath() {
-        Long num = 1L;
-        String text = "Test_text";
-        Double testDouble = Math.random() * 10;
-        return new Path(num, text);
     }
 
     private User getNextUser() {
@@ -185,7 +161,7 @@ public class FlowTest {
         messages.add(getNextMessage());
 
         return new Drive(localDateTime, localDateTime,
-                test, user, path, startPoint, startPoint);
+                test, user, startPoint, startPoint, startPoint);
     }
 
     private MvcResult doPost(String url, Object data) throws Exception {
