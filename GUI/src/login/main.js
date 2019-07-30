@@ -1,19 +1,10 @@
-const submitButton = document.querySelector('.submit-button');
-const bcrypt = dcodeIO.bcrypt;
-const testValue = 'encrypt';
-const testValueSalt = bcrypt.genSaltSync(5);
-const testValueHash = bcrypt.hashSync(testValue, testValueSalt);
-
-submitButton.addEventListener('click', function() {
-  const password = document.querySelector("#password-field").value;
-  let check = bcrypt.compareSync(password, testValueHash);
-  console.log(check);
-  if (check) {
-    alert('correct');
-  } else {
-    alert('not correct');
-  }
-})
+function submitForm() {
+  const bcrypt = dcodeIO.bcrypt;
+  var password = document.querySelector("#password-field").value;
+  password = bcrypt.hashSync(password);
+  document.form.action='http://localhost:4200';
+  document.form.submit();
+}
 
 
 // var salt = bcrypt.genSaltSync(5);

@@ -1,0 +1,9 @@
+table {
+  width: 98%;
+  margin: 1% 1% 0 1%;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}

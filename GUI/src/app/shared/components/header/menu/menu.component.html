@@ -32,6 +32,12 @@
         directions_car
       </mat-icon>
     </button>
+    <button class="menu-item" (click)="goToAdminTab()" mat-menu-item *ngIf="isAdmin">
+      {{menuItems.adminTab}}
+      <mat-icon class="menu-icon">
+        gavel
+      </mat-icon>
+    </button>
     <button class="menu-item" (click)="goToAuthirization()" mat-menu-item>
       {{menuItems.menuExit}}
       <mat-icon class="menu-icon">

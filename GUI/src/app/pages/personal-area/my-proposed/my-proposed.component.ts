@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
-import {Trip} from '../../../shared/types/common';
+import {Drive} from '../../../shared/types/common';
 import {TripService} from '../../../shared/components/trip/trip.service';
 
 @Component({
@@ -9,14 +9,14 @@ import {TripService} from '../../../shared/components/trip/trip.service';
   styleUrls: ['./my-proposed.component.scss']
 })
 export class MyProposedComponent implements OnInit {
-  trips$: Observable<Trip[]>;
+  drives$: Observable<Drive[]>;
   constructor(private tripService: TripService) {
-    this.trips$ = tripService.tripsSubject;
+    this.drives$ = tripService.tripsSubject;
   }
 
   ngOnInit() {
   }
-onCancelTrip(trip: Trip) {
-  this.tripService.cancelTrip(trip);
+onCancelTrip(drive: Drive) {
+  this.tripService.cancelTrip(drive);
 }
 }

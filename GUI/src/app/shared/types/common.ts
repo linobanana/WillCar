@@ -1,5 +1,3 @@
-import {Time} from "@angular/common";
-
 export class Car {
   id: number;
   model: string;
@@ -11,20 +9,35 @@ export class User {
   id: number;
   login: string;
   password: string;
+  //roles: Role[];
   name: string;
-  telNumber: string;
   email: string;
-  preferredCommunication: string;
+  phoneNumber: string;
+  prefCommunication: string;
   cars: Car[];
-  rating: number; //divide rating driver and passenger
   photoUrl: string;
+  driverRating: number;
+  passengerRating: number;
+  //mark: number;
+  points: number;
+  drives: Drive[];
+  //pickUpPoint: Point[];
+  //numOfKm: number;
 }
-export class Trip {
-  freePlaceCount: number;
-  startDate: Date;
-  endDate: Date;
+export class Drive {
+  id: number;
+  startTime: string;
+  endTime: string;
   startPoint: string;
-  endPoint: string;
-  driverCallNumber: string ;
+  finPoint: string;
+  name: string;
+  //passengers: Passenger[];
+  //freePlaceCount: number;
+  //routeUrl: string;
+  //driver: user;
+  //messages: Message[];
+  //path: Coordinate[];
+  sumOfKm: number;
+  //pickUpPoint: Point[];
 }
 

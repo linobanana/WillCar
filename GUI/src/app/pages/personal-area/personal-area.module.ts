@@ -8,6 +8,9 @@ import {RouterModule, Routes} from "@angular/router";
 import {MyBookingsRoutes} from "./my-bookings/my-bookings.routes";
 import {MyProposedRoutes} from "./my-proposed/my-proposed.routes";
 import {ProfileRoutes} from "./profile/profile.routes";
+import { AdminComponent } from './admin-tab/admin.component';
+import {AdminRoutes} from './admin-tab/admin.routes';
+import {AdminModule} from './admin-tab/admin.module';
 
 const personalAreaRotes: Routes = [
   {
@@ -20,6 +23,7 @@ const personalAreaRotes: Routes = [
           ...MyBookingsRoutes,
           ...MyProposedRoutes,
           ...ProfileRoutes,
+          ...AdminRoutes
         ]
       }
     ]
@@ -31,10 +35,11 @@ const personalAreaRotes: Routes = [
     MyProposedModule,
     ProfileModule,
     ProfileMenuModule,
+    AdminModule,
     RouterModule.forChild(personalAreaRotes)
   ],
   declarations: [
-    PersonalAreaComponent,
+    PersonalAreaComponent
   ],
   exports: [
     PersonalAreaComponent,

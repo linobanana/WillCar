@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Car, Trip} from '../../types/common';
+import {Drive} from '../../types/common';
 import {TEST_TRIP} from '../../constants/trip';
+import {CAR, USER} from '../../mocks/user.mocks';
 
 @Component({
   selector: 'app-trip',
@@ -8,10 +9,12 @@ import {TEST_TRIP} from '../../constants/trip';
   styleUrls: ['./trip.component.scss']
 })
 export class TripComponent implements OnInit {
- @Input() Trips: Trip[];
+ @Input() Drives: Drive[];
  @Input() ifProposed: boolean;
- @Output() cancelTrip: EventEmitter<Trip> = new EventEmitter();
+ @Output() cancelTrip: EventEmitter<Drive> = new EventEmitter();
  testTrip = TEST_TRIP;
+ user = USER;
+ car = CAR;
  constructor() { }
 
  ngOnInit() {}

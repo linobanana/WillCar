@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from '../../services/api.service';
-import {HttpResponse} from '@angular/common/http';
 import {Car, User} from '../../types/common';
 
 @Injectable()
@@ -8,14 +7,28 @@ export class ProfileApiService extends ApiService {
   private static mapUser(response: any) {
     return {
       id: response.id,
-      name: response.firstName + ' ' + response.lastName,
-      telNumber: response.phoneNumber,
+      name: response.name,
+      phoneNumber: response.phoneNumber,
       email: response.email,
-      preferredCommunication: response.prefCommunication,
+      prefCommunication: response.prefCommunication,
       cars: response.cars,
-      rating: response.driverRating,
-      photoUrl: ''
+      driverRating: response.driverRating,
     };
+  }
+
+  private static mapUsers(response: any) {
+    response.forEach((user) => {
+      user.km = user.drives.reduce((a, b) => a + (b.sumOfKm || 0), 0);
+      user.points = user.points || 0;
+      user.numberOfDrives = user.drives.length;
+      let countOfPassengers = 0;
+      user.drives.forEach((drive) => {
+        countOfPassengers += drive.passengers.length;
+      });
+      user.passengers = countOfPassengers;
+      return user;
+    });
+    return response;
   }
 
   private static simpleResponse(response: any) {
@@ -23,11 +36,7 @@ export class ProfileApiService extends ApiService {
   }
 
   getUser(id) {
-    return super.get(`api/users/${id}`);
-  }
-  putUser(id, prefCommunication){
-    const body = {preferredCommunication: "chat"};
-    return super.put(`api/users/${id}`, body);
+    return super.get(`api/users/${id}`, ProfileApiService.mapUser);
   }
 
   setUserCar(car) {
@@ -42,7 +51,7 @@ export class ProfileApiService extends ApiService {
     return super.delete(`api/car/${id}`, {id}); //rewrite url
   }
 
-  // `api/users/${id}`
-
-  // 'api/users/' + id
+  getUsers() {
+    return super.get(`api/users`, ProfileApiService.mapUsers);
+  }
 }
