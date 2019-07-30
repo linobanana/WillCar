@@ -1,6 +1,7 @@
 export const BUTTON_LABELS = {
   leftButton: 'Find a trip',
-  rightButton: 'Create route',
+  drawRoute: 'Draw route',
   bookButton: 'Book',
-  cancelButton: 'Cancel'
-}
+  cancelButton: 'Cancel',
+  createRoute: 'Create route'
+};

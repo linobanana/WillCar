@@ -3,7 +3,7 @@
   <div class="form-container">
     <form class ="leftMenu-form" [formGroup]="LeftMenuInfo" (ngSubmit)="onSubmit()">
       <mat-form-field class="inputs">
-        <input matInput formControlName = "date" [matDatepicker]="picker" placeholder="Choose a date">
+        <input matInput formControlName = "date" [matDatepicker]="picker" placeholder="Choose a date" id="date">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -11,7 +11,7 @@
        {{date.errors.forbiddenDate.value}}
       </div>
       <div class="ngx-timepicker-field-example inputs timeField">
-        <ngx-timepicker-field formControlName = "time" [controlOnly]="true"></ngx-timepicker-field>
+        <ngx-timepicker-field formControlName = "time" [controlOnly]="true" id = "time"></ngx-timepicker-field>
       </div>
       <div formGroupName="address">
         <mat-form-field class="inputs">
