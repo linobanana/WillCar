@@ -92,9 +92,9 @@ private drive = {
         path = pathArray.get(i);
         coords = coords.concat(path.properties.get('coordinates'));
       }
-      self.drive.startPoint = JSON.stringify(coords[0]).toString();
-      self.drive.finPoint =  JSON.stringify(coords[coords.length - 1]).toString();
-      self.drive.path = JSON.stringify(coords).toString();
+      self.drive.startPoint = JSON.stringify(coords[0]);
+      self.drive.finPoint =  JSON.stringify(coords[coords.length - 1]);
+      self.drive.path = JSON.stringify(coords);
       self.drive.freePlaceCount = form.get('numberOfSeats').value.toString();
       self.datestart = new Date(form.get('date').value.toString());
       self.formatDateISO8601(form.get('time').value.toString());

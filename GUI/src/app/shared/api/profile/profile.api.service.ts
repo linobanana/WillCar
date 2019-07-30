@@ -30,11 +30,11 @@ export class ProfileApiService extends ApiService {
     return super.put(`api/users/${id}`, body);
   }
 
-  setUserCar(car: Car) {
+  setUserCar(car) {
     return super.post(`api/car`, car, ProfileApiService.simpleResponse);
   }
 
-  changeUserOptions(userOptions: User) {
+  changeUserOptions(userOptions) {
     return super.put(`api/users`, userOptions);
   }
 
