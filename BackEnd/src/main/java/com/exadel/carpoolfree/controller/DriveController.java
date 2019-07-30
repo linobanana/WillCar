@@ -32,7 +32,6 @@ public class DriveController {
         return driveService.findAllDrives();
     }
 
-
     @GetMapping("/{id}")
     public DriveVO findById(final @PathVariable Long id) {
 

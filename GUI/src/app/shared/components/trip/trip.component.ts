@@ -10,11 +10,10 @@ import {TEST_TRIP} from '../../constants/trip';
 export class TripComponent implements OnInit {
  @Input() Trips: Trip[];
  @Input() ifProposed: boolean;
-  @Output() cancelTrip: EventEmitter<Trip> = new EventEmitter();
+ @Output() cancelTrip: EventEmitter<Trip> = new EventEmitter();
  testTrip = TEST_TRIP;
-  constructor() { }
+ constructor() { }
 
-  ngOnInit() {
-  }
+ ngOnInit() {}
 
 }

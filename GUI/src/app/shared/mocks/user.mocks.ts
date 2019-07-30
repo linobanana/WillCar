@@ -1,6 +1,7 @@
 import {User} from '../types/common';
 
 export const USER: User = {
+  id: 1,
   login: 'login',
   password: 'password',
   name: 'Misha Ivanov',
