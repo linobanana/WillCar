@@ -61,6 +61,20 @@ export class ApiService {
     );
   }
 
+  public delete(
+    endpointName: string,
+    data: any,
+    extractData?: (value: HttpResponse<any> | any) => {}
+  ) {
+    return this.request(
+      endpointName,
+      extractData || ApiService.extractData,
+      data,
+      'DELETE',
+      {}
+    );
+  }
+
   private request(
     endpointName: string,
     extractData: (value: HttpResponse<any> | any) => {},
@@ -97,7 +111,7 @@ export class ApiService {
   }
 
   private static extractData(res: HttpResponse<any> | any) {
-    return res.docs || {};
+    return res ? (res.docs || {}) : {};
   }
 
   private handleError(error: HttpResponse<any> | any) {

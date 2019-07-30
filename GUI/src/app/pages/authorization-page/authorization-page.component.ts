@@ -8,12 +8,14 @@ import {AUTHORIZATION} from '../../shared/constants/authorization';
 @Component({
   selector: 'app-authorization-page',
   templateUrl: './authorization-page.component.html',
-  styleUrls: ['./authorization-page.component.css']
+  styleUrls: ['./authorization-page.component.scss']
 })
 export class AuthorizationPageComponent {
   authorizationLabels = AUTHORIZATION;
 
   authorizationForm: FormGroup;
+
+  isAuthorized = true;
 
   constructor(private fb: FormBuilder, private router: Router) { this.authorizationForm = this.fb.group({
     login: [''],
@@ -25,7 +27,7 @@ export class AuthorizationPageComponent {
     if ( user.login === USER.login && user.password === USER.password ) {
       this.router.navigate(['/main']);
     } else {
-      alert('Wrong info!');
+      this.isAuthorized = !this.isAuthorized;
     }
   }
 }

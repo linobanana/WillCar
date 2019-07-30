@@ -49,11 +49,11 @@
 }
 
 .value {
-  color: #ff844c;
+  color: #376061;
 }
 
 .form-control {
-  width: 35%;
+  width: 50%;
 }
 
 .material-icons {
@@ -65,7 +65,21 @@
   font-size: 1.5em;
 }
 
-
+::ng-deep {
+  span.ng-tns-c12-1.ng-star-inserted {
+    color: #4e6f6f;
+    font-weight: 100;
+    font-size: 1em;
+    font-family: 'Titillium Web', sans-serif;
+    line-height: 1.2;
+  }
+  .mat-option {
+    color: #4e6f6f;
+    font-weight: 100;
+    font-size: 1em;
+    font-family: 'Titillium Web', sans-serif;
+  }
+}
 
 @media screen and (max-width: 1100px) {
   .personal-data {
