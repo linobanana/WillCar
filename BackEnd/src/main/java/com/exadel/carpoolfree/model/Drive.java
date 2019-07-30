@@ -58,15 +58,14 @@ public class Drive {
     @Column(name = "sum_of_time")
     private Double sumOfTime;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "path_id")
-    private Path path;
+    @Column(name = "pathVO")
+    private String path;
 
     @OneToMany()
     private List<Message> messages;
 
 
-    public Drive(LocalDateTime startTime, LocalDateTime endTime, int freePlaceCount, User driver, Path path, String startPoint, String finPoint) {
+    public Drive(LocalDateTime startTime, LocalDateTime endTime, int freePlaceCount, User driver, String path, String startPoint, String finPoint) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.freePlaceCount = freePlaceCount;
