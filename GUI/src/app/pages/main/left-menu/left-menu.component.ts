@@ -29,12 +29,13 @@ export class LeftMenuComponent implements OnInit {
     });
   }
   ngOnInit() {
-  this.initRelationMwithY();
+    this.initRelationMwithY();
   }
   onSubmit() {}
   onSubmitForm() {
     // TODO: Use EventEmitter with form value
-    console.log(this.LeftMenuInfo.value);
+    // console.log(this.LeftMenuInfo.value);
+    this.mapper.importInfoRoute(this.LeftMenuInfo).then(() => { this.mapper.exportInfoRoute(); });
   }
 
   get date() {
@@ -54,7 +55,7 @@ export function forbiddenDateValidator(date: RegExp): ValidatorFn {
   return (control: FormControl): { [key: string]: any } | null => {
     const temp = new Date(control.value);
     let buf: string;
-    buf = temp.toLocaleDateString();
+    buf = temp.toLocaleDateString('en-GB');
     const forbidden: boolean = !(date.test(buf));
     if (control.value === '') {
       return {forbiddenDate: {value: ''}};
@@ -66,4 +67,3 @@ export function forbiddenDateValidator(date: RegExp): ValidatorFn {
     }
   };
 }
-

@@ -4,8 +4,8 @@ export const TEST_TRIP: Drive = {
   id: 1,
   startTime: '',
   endTime: '',
-  startPoint: '',
-  finPoint: '',
+  startPoint: [1, 2],
+  finPoint: [2, 3],
   name: '',
   //passengers: [],
   //freePlaceCount: 1,
@@ -13,6 +13,7 @@ export const TEST_TRIP: Drive = {
   //driver: [],
   messages: [],
   isOpenSocket: false,
+  path: [],
   sumOfKm: 1,
   //pickUpPoint: []
 };

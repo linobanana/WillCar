@@ -12,7 +12,7 @@ import {ProfileApiService} from '../../../shared/api/profile/profile.api.service
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  users: User[]=[];
+  users: User[] = [];
   dataSource;
 
   constructor(private profileApiService: ProfileApiService) {
