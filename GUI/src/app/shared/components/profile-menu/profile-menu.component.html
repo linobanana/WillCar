@@ -1,6 +1,6 @@
 <nav class="nav-list">
   <button (click)="goToProfile()" mat-stroked-button color="warn">{{profileNavItems.userProfile}}</button>
-  <button mat-stroked-button color="warn">{{profileNavItems.userMessages}}</button>
+  <button mat-stroked-button color="warn" (click)="goToMyMessages()">{{profileNavItems.userMessages}}</button>
   <button (click)="goToMyBookings()"  mat-stroked-button color="warn">{{profileNavItems.userBookings}}</button>
   <button (click)="goToMyProposed()" mat-stroked-button color="warn">{{profileNavItems.userProposedTrips}}</button>
   <button (click)="goToAdminTab()" mat-stroked-button color="warn" *ngIf="isAdmin">{{profileNavItems.adminTab}}</button>

@@ -35,9 +35,16 @@ export class Drive {
   //freePlaceCount: number;
   //routeUrl: string;
   //driver: user;
-  //messages: Message[];
+  messages: Message[];
   //path: Coordinate[];
   sumOfKm: number;
+  isOpenSocket = false;
   //pickUpPoint: Point[];
+}
+export class Message {
+  message: string;
+  user: User;
+  driveId:number;
+  time:Date;
 }
 

@@ -70,6 +70,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
 
+    public User(Long id){
+        this.id = id;
+    }
+
     public User(String name, String phoneNumber, String email,
                 String login, String password, boolean active, Long driverRating,
                 Long passengerRating) {

@@ -27,6 +27,9 @@ export class ProfileMenuComponent implements OnInit {
   goToAuthirization() {
     this.router.navigate(['/authorization']);
   }
+  goToMyMessages() {
+    this.router.navigate(['/personalarea/', 'chat']);
+  }
   goToAdminTab() {
     this.router.navigate(['/personalarea/', 'admin-tab']);
   }

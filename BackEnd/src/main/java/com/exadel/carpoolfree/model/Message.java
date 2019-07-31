@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @AllArgsConstructor
@@ -38,4 +39,18 @@ public class Message {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Message(String message, Long driveId, String time, User user) {
+        this.message = message;
+        this.driveId = driveId;
+        this.time = LocalDateTime.parse(time, DateTimeFormatter.ISO_DATE_TIME);
+        this.user = user;
+    }
+
+    public Message(String message, Long driveId, LocalDateTime time, User user) {
+        this.message = message;
+        this.driveId = driveId;
+        this.time = time;
+        this.user = user;
+    }
 }

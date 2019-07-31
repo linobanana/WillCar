@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -29,13 +28,16 @@ public class DriveService {
     private final DriveRepository driveRepository;
     private final PassengerDriveRepository passengerDriveRepository;
     private final MessageRepository messageRepository;
+    private final ChatService chatService;
 
 
     public DriveService(DriveRepository driveRepository,
-                        PassengerDriveRepository passengerDriveRepository, MessageRepository messageRepository) {
+                        PassengerDriveRepository passengerDriveRepository,
+                        MessageRepository messageRepository, ChatService chatService) {
         this.driveRepository = driveRepository;
         this.passengerDriveRepository = passengerDriveRepository;
         this.messageRepository = messageRepository;
+        this.chatService = chatService;
     }
 
     public List<DriveVO> findAllDrives(){
@@ -147,6 +149,7 @@ public class DriveService {
         return driveRepository.findById(id)
                 .map(drive1 -> {
                     drive1.setPath(path);
+                    chatService.sendNotification("Driver has updated the route!", id);
                     return convertToVO(driveRepository.save(drive1));
                 })
                 .orElseThrow((() -> new RuntimeException("Drive not found")));
@@ -155,6 +158,7 @@ public class DriveService {
     public void deleteById(final Long id) {
         passengerDriveRepository.deleteByDriveId(id);
         driveRepository.deleteById(id);
+        chatService.sendNotification("Driver has deleted the route!", id);
     }
 
     private DriveVO convertToVO(Drive drive) {
