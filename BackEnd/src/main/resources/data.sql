@@ -40,9 +40,9 @@ CREATE TABLE drive
   driver_id        VARCHAR(250) NOT NULL,
   start_point      VARCHAR(250),
   fin_point        VARCHAR(250),
-  pathVO             CLOB,
+  pathVO           CLOB,
   sum_of_km        DOUBLE,
-  sum_of_time      DOUBLE
+  route_url        VARCHAR(250)
 );
 
 CREATE TABLE passenger_drive
@@ -51,7 +51,6 @@ CREATE TABLE passenger_drive
   drive_id                 INT          NOT NULL,
   start_point              VARCHAR(250) NOT NULL,
   number_of_km             DOUBLE,
-  drive_time               DOUBLE,
   passenger_to_driver_mark INT DEFAULT NULL,
   driver_to_passenger_mark INT DEFAULT NULL
 );

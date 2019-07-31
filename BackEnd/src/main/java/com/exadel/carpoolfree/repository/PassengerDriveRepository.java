@@ -24,6 +24,11 @@ public interface PassengerDriveRepository extends JpaRepository<PassengerDrive, 
             "where p.id = :passengerId")
     List<PassengerDrive> findAllByPassengerId(Long passengerId);
 
+    @Query(value = "SELECT d " +
+            "from PassengerDrive d " +
+            "where drive_id = :driveId and passenger_id = :passengerId")
+    PassengerDrive getByDriveAndPassengerId(Long driveId, Long passengerId);
+
     @Modifying
     @Transactional
     @Query(value = "UPDATE PassengerDrive set driver_to_passenger_mark = :mark " +
@@ -42,4 +47,10 @@ public interface PassengerDriveRepository extends JpaRepository<PassengerDrive, 
     @Query(value = "DELETE FROM PassengerDrive " +
             "where drive_id = :driveId ")
     void deleteByDriveId(Long driveId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM PassengerDrive " +
+            "where drive_id = :driveId and passenger_id = :passengerId ")
+    void deleteByDriveAndPassengerId(Long driveId, Long passengerId);
 }
