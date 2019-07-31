@@ -28,15 +28,15 @@ export class Drive {
   id: number;
   startTime: string;
   endTime: string;
-  startPoint: string;
-  finPoint: string;
+  startPoint: [number, number];
+  finPoint: [number, number];
   name: string;
   //passengers: Passenger[];
-  //freePlaceCount: number;
+  freePlaceCount: string;
   //routeUrl: string;
   //driver: user;
   //messages: Message[];
-  //path: Coordinate[];
+  path: [];
   sumOfKm: number;
   //pickUpPoint: Point[];
 }

@@ -4,6 +4,7 @@ import {FormGroup} from "@angular/forms";
 import {delay, min, take} from "rxjs/operators";
 import {MapApiService} from "../../../shared/api/map/map.api.service";
 import {ApiService} from "../../../shared/services/api.service";
+import {Drive} from "../../../shared/types/common";
 
 declare var ymaps: any;
 
@@ -12,61 +13,101 @@ declare var ymaps: any;
 })
 
 export class MapService {
-  private start: string;
-  private end: string;
-  private datestart: Date;
-  private map;
-  private drive = {
-    startPoint: '',
-    finPoint: '',
-    startTime: '',
-    endTime: '2019-07-23T15:00:00.000Z',
-    path: '',
-    freePlaceCount: '1',
-    driver: {
-      id: '1'
-    }
+private start: string;
+private end: string;
+private datestart: Date;
+private map;
+private drive = {
+  startPoint: '',
+  finPoint: '',
+  startTime: '',
+  endTime: '2019-07-23T15:00:00.000Z',
+  path: '',
+  freePlaceCount: '1',
+  driver: {
+    id: '1'
+  }
+};
+private infoToSearchDrive =
+  {
+    startPoint : '',
+    endPoint : '',
+    dateTime : ''
   };
+private drives: Drive[] = [];
 
   constructor(private mapApi: MapApiService) {
   }
-
-  public initRelationMwithY(MenuInfo: FormGroup, mode: string) {
-    const menuInfo = MenuInfo;
-    const self = this;
-    const start = 'start';
-    const end = 'end';
-    ymaps.ready(init);
-
-    function init() {
-      let suggestionForStartInput = new ymaps.SuggestView(start + mode, {
-        boundedBy: [
-          [50, 60],
-          [25, 30]
-        ]
-      });
-      let suggestionForEndInput = new ymaps.SuggestView(end + mode, {
-        boundedBy: [
-          [50, 60],
-          [25, 30]
-        ]
-      });
-      suggestionForStartInput.events.add("select", function (e) {
-        let startSuggestion = e.get('item').value;
-        menuInfo.get('address').get(start + mode).setValue(startSuggestion);
-        self.start = startSuggestion;
-        suggestionForStartInput.state.set({open: false});
-
-      });
-      suggestionForEndInput.events.add("select", function (e) {
-        let endSuggestion = e.get('item').value;
-        menuInfo.get('address').get(end + mode).setValue(endSuggestion);
-        self.end = endSuggestion;
-        suggestionForEndInput.state.set({open: false});
-      });
-    }
+   public initRelationMwithY(MenuInfo: FormGroup, mode: string) {
+     const menuInfo = MenuInfo;
+     const self = this;
+     const start = 'start';
+     const end = 'end';
+     ymaps.ready(init);
+     function init() {
+       let suggestionForStartInput = new ymaps.SuggestView(start + mode, {
+         boundedBy: [
+           [50, 60],
+           [25, 30]
+         ]
+       });
+       let suggestionForEndInput = new ymaps.SuggestView(end + mode, {
+         boundedBy: [
+           [50, 60],
+           [25, 30]
+         ]
+       });
+       suggestionForStartInput.events.add("select", function(e) {
+         let startSuggestion = e.get('item').value;
+         menuInfo.get('address').get(start + mode).setValue(startSuggestion);
+         self.start = startSuggestion;
+       });
+       suggestionForEndInput.events.add("select", function(e) {
+         let endSuggestion = e.get('item').value;
+         menuInfo.get('address').get(end + mode).setValue(endSuggestion);
+         self.end = endSuggestion;
+       });
+   }
+   }
+   public importInfoRoute(form: FormGroup) {
+     this.datestart = new Date(form.get('date').value.toString());
+     this.infoToSearchDrive.dateTime = this.formatDateISO8601(form.get('time').value.toString());
+     const self = this;
+     const promises = [];
+     promises.push(
+     ymaps.geocode(self.start, {results: 1}).then(function (res) {
+         const firstGeoObject = res.geoObjects.get(0);
+       self.infoToSearchDrive.startPoint = JSON.stringify(firstGeoObject.geometry.getCoordinates());
+     }));
+     promises.push(
+     ymaps.geocode(self.end, {results: 1}).then(function (res) {
+       const firstGeoObject = res.geoObjects.get(0);
+       self.infoToSearchDrive.endPoint = JSON.stringify(firstGeoObject.geometry.getCoordinates());
+     }));
+     return Promise.all(promises);
   }
-
+  public exportInfoRoute() {
+    const self = this;
+      console.log('searching route:', this.infoToSearchDrive);
+    const promise = new Promise((resolve, reject) => {
+      self.mapApi.postInfoToSearchDrive( self.infoToSearchDrive).subscribe((data) => {
+        data.forEach(function(element) {
+          self.drives.push(element);
+        });
+        resolve(self.drives);
+      }, (error) => {
+        console.error(error);
+      });
+    });
+    promise.then((drives) => {
+    this.showDrives();
+    });
+  }
+  private showDrives() {
+    this.drives.forEach((drive) => {
+      this.createRouteWithBalloonForUser(drive.path, 'Shumaxer', drive.startTime, drive.freePlaceCount);
+    });
+  }
   public makeRoute(form: FormGroup) {
     const self = this;
     let multiRoute = new ymaps.multiRouter.MultiRoute({
@@ -122,22 +163,18 @@ export class MapService {
       self.drive.path = JSON.stringify(coords);
       self.drive.freePlaceCount = form.get('numberOfSeats').value.toString();
       self.datestart = new Date(form.get('date').value.toString());
-      console.log('drive after changes --------');
-      console.log(self.drive);
-      self.formatDateISO8601(form.get('time').value.toString());
+      self.drive.startTime = self.formatDateISO8601(form.get('time').value.toString());
     });
   }
-
   public exportDrive() {
-    console.log('drive before request --------');
+    console.log('export drive:');
     console.log(this.drive);
-    console.log('--------');
     this.mapApi.postDrive(this.drive)
       .subscribe((data) => {
+        console.log(data);
       });
   }
-
-  private formatDateISO8601(time: string) {
+  private formatDateISO8601(time: string): string {
     let hours = parseInt(time.substring(0, 2), 10);
     const minutes = parseInt(time.substring(3, 5), 10);
     if (time.substring(6, 8) === 'pm') {
@@ -145,9 +182,10 @@ export class MapService {
     }
     this.datestart.setHours(hours - (new Date().getTimezoneOffset() / 60));
     this.datestart.setMinutes(minutes);
-    this.drive.startTime = this.datestart.toISOString();
+    return this.datestart.toISOString();
+    //console.log(this.drive.starttime);
+    // const date  = new Date(this.drive.date.toString());
   }
-
   public initMap() {
     const geolocation = ymaps.geolocation;
     const self = this;
@@ -159,7 +197,6 @@ export class MapService {
       }, {
         searchControlProvider: 'yandex#search'
       });
-
       geolocation.get({
         provider: 'browser',
         mapStateAutoApply: true
@@ -169,19 +206,17 @@ export class MapService {
       });
     }
   }
-
   private onActiveRouteChange(event) {
-    let multiRoute = event.get('target');
-    const route = multiRoute.getActiveRoute();
-    let pathArray = route.getPaths();
-    let path;
-    let coords = [];
-    for (let i = 0; i < pathArray.getLength(); i++) {
-      path = pathArray.get(i);
+        let multiRoute = event.get('target');
+        const route = multiRoute.getActiveRoute();
+        let pathArray = route.getPaths();
+        let path;
+        let coords = [];
+        for (let i = 0; i < pathArray.getLength(); i++) {
+          path = pathArray.get(i);
       coords = coords.concat(path.properties.get('coordinates'));
     }
   }
-
   private generateColor(ranges) {
     if (!ranges) {
       ranges = [
@@ -196,19 +231,40 @@ export class MapService {
     };
     return "rgb(" + g() + "," + g() + "," + g() + ")";
   }
+  private createRouteWithBalloonForUser(coordinates, driverName, driveStartTime, freeSeats) {
+    let newCoordinates = coordinates.filter(function (currentValue, index) {
+      if (index % 5 === 0 || index === coordinates.length) {
+        return currentValue;
+      }
+    });
+    let viaIndex = [];
+    for (let i = 0; i < newCoordinates.length-2; i++) {
+      viaIndex.push(i + 1);
+    }
+    var multiRoute = new ymaps.multiRouter.MultiRoute({
+        referencePoints: newCoordinates,
+        params: {viaIndexes: viaIndex}
+      },
+      {
+        viaPointVisible: false,
+        boundsAutoApply: true,
+      });
+    const self = this;
+    multiRoute.events.add("click", (event) => {
+      let coords = event.get("coords");
+      let myPlacemark = new ymaps.Placemark(coords, {
+        balloonContentHeader: 'Водитель: ' + driverName,
+        balloonContentBody: 'Время начла поездки: ' + driveStartTime,
+        balloonContentFooter: "количество свободных мест " + freeSeats,
+      });
+      self.map.geoObjects.add(myPlacemark);
+      myPlacemark.balloon.open();
+    }, this);
+    this.map.geoObjects.add(multiRoute);
+  }
 
   public cleanMap() {
     this.map.geoObjects.removeAll();
   }
 
-  public getAddressByCoords(coordinates) {
-    let address;
-    ymaps.geocode(coordinates, {
-      results: 1
-    }).then(function (res) {
-      let firstGeoObject = res.geoObjects.get(0);
-      address = firstGeoObject.getAddressLine();
-    });
-    return address;
-  }
 }

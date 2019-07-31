@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, ValidatorFn} from '@angular/forms';
-import {FormBuilder} from '@angular/forms';
-import {Validators} from '@angular/forms';
-import {REG_DATE} from '../../../shared/constants/common';
+import { FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
+import { REG_DATE} from '../../../shared/constants/common';
 import {Router} from '@angular/router';
 import {BUTTON_LABELS} from '../../../shared/constants/button-labels';
 import {MapService} from "../map/map.service";
@@ -16,7 +16,6 @@ export class RightMenuComponent implements OnInit {
   RightMenuInfo: FormGroup;
   buttonLabel = BUTTON_LABELS;
   ifDraw = true;
-
   constructor(private fb: FormBuilder, private router: Router, private mapper: MapService) {
     this.RightMenuInfo = this.fb.group({
       date: [new Date(), {
@@ -33,6 +32,16 @@ export class RightMenuComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.RightMenuInfo.setValue({
+    //     date: new Date('01.01.2019'),
+    //     time: '8:00 am',
+    //     address: {
+    //       startr: 'Купревича',
+    //       endr: 'пр-т Победителей',
+    //     },
+    //     numberOfSeats: '1'
+    //   }
+    // );
     this.initRelationMwithY();
   }
 
@@ -47,12 +56,10 @@ export class RightMenuComponent implements OnInit {
 
   onCreate() {
     this.mapper.exportDrive();
-  }
-
+}
   initRelationMwithY() {
     this.mapper.initRelationMwithY(this.RightMenuInfo, 'r');
   }
-
   get date() {
     return this.RightMenuInfo.get('date');
   }
@@ -65,7 +72,6 @@ export class RightMenuComponent implements OnInit {
     this.router.navigate(['/myproposed']);
   }
 }
-
 export function forbiddenDateValidator(date: RegExp): ValidatorFn {
   return (control: FormControl): { [key: string]: any } | null => {
     const temp = new Date(control.value);

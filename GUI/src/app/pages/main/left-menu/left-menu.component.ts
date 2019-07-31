@@ -34,7 +34,8 @@ export class LeftMenuComponent implements OnInit {
   onSubmit() {}
   onSubmitForm() {
     // TODO: Use EventEmitter with form value
-    console.log(this.LeftMenuInfo.value);
+    // console.log(this.LeftMenuInfo.value);
+    this.mapper.importInfoRoute(this.LeftMenuInfo).then(() => { this.mapper.exportInfoRoute(); });
   }
 
   get date() {
