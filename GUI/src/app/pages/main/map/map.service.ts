@@ -4,6 +4,7 @@ import {FormGroup} from "@angular/forms";
 import {delay, min, take} from "rxjs/operators";
 import {MapApiService} from "../../../shared/api/map/map.api.service";
 import {ApiService} from "../../../shared/services/api.service";
+import {Drive} from "../../../shared/types/common";
 
 declare var ymaps: any;
 
@@ -27,6 +28,14 @@ private drive = {
     id: '1'
   }
 };
+private infoToSearchDrive =
+  {
+    startPoint : '',
+    endPoint : '',
+    dateTime : ''
+  };
+private drives: Drive[] = [];
+
   constructor(private mapApi: MapApiService) {
   }
    public initRelationMwithY(MenuInfo: FormGroup, mode: string) {
@@ -60,6 +69,45 @@ private drive = {
        });
    }
    }
+   public importInfoRoute(form: FormGroup) {
+     this.datestart = new Date(form.get('date').value.toString());
+     this.infoToSearchDrive.dateTime = this.formatDateISO8601(form.get('time').value.toString());
+     const self = this;
+     const promises = [];
+     promises.push(
+     ymaps.geocode(self.start, {results: 1}).then(function (res) {
+         const firstGeoObject = res.geoObjects.get(0);
+       self.infoToSearchDrive.startPoint = JSON.stringify(firstGeoObject.geometry.getCoordinates());
+     }));
+     promises.push(
+     ymaps.geocode(self.end, {results: 1}).then(function (res) {
+       const firstGeoObject = res.geoObjects.get(0);
+       self.infoToSearchDrive.endPoint = JSON.stringify(firstGeoObject.geometry.getCoordinates());
+     }));
+     return Promise.all(promises);
+  }
+  public exportInfoRoute() {
+    const self = this;
+      console.log('searching route:', this.infoToSearchDrive);
+    const promise = new Promise((resolve, reject) => {
+      self.mapApi.postInfoToSearchDrive( self.infoToSearchDrive).subscribe((data) => {
+        data.forEach(function(element) {
+          self.drives.push(element);
+        });
+        resolve(self.drives);
+      }, (error) => {
+        console.error(error);
+      });
+    });
+    promise.then((drives) => {
+    this.showDrives();
+    });
+  }
+  private showDrives() {
+    this.drives.forEach((drive) => {
+      this.createRouteWithBalloonForUser(drive.path, 'Shumaxer', drive.startTime, drive.freePlaceCount);
+    });
+  }
   public makeRoute(form: FormGroup) {
     const self = this;
     let multiRoute = new ymaps.multiRouter.MultiRoute({
@@ -98,7 +146,7 @@ private drive = {
       self.drive.path = JSON.stringify(coords);
       self.drive.freePlaceCount = form.get('numberOfSeats').value.toString();
       self.datestart = new Date(form.get('date').value.toString());
-      self.formatDateISO8601(form.get('time').value.toString());
+      self.drive.startTime = self.formatDateISO8601(form.get('time').value.toString());
     });
     // const multiRoute = new ymaps.multiRouter.MultiRoute({
     //   referencePoints: [
@@ -187,15 +235,14 @@ private drive = {
     // });
   }
   public exportDrive() {
-    console.log('--------');
+    console.log('export drive:');
     console.log(this.drive);
-    console.log('--------');
     this.mapApi.postDrive(this.drive)
       .subscribe((data) => {
         console.log(data);
       });
   }
-  private formatDateISO8601(time: string) {
+  private formatDateISO8601(time: string): string {
     let hours = parseInt(time.substring(0, 2), 10);
     const minutes = parseInt(time.substring(3, 5), 10);
     if (time.substring(6, 8) === 'pm') {
@@ -203,7 +250,7 @@ private drive = {
     }
     this.datestart.setHours(hours - (new Date().getTimezoneOffset() / 60));
     this.datestart.setMinutes(minutes);
-    this.drive.startTime = this.datestart.toISOString();
+    return this.datestart.toISOString();
     //console.log(this.drive.starttime);
     // const date  = new Date(this.drive.date.toString());
   }
@@ -251,5 +298,36 @@ private drive = {
       return Math.floor(Math.random() * (range[1] - range[0])) + range[0];
     };
     return "rgb(" + g() + "," + g() + "," + g() +")";
+  }
+  private createRouteWithBalloonForUser(coordinates, driverName, driveStartTime, freeSeats) {
+    let newCoordinates = coordinates.filter(function (currentValue, index) {
+      if (index % 5 === 0 || index === coordinates.length) {
+        return currentValue;
+      }
+    });
+    let viaIndex = [];
+    for (let i = 0; i < newCoordinates.length-2; i++) {
+      viaIndex.push(i + 1);
+    }
+    var multiRoute = new ymaps.multiRouter.MultiRoute({
+        referencePoints: newCoordinates,
+        params: {viaIndexes: viaIndex}
+      },
+      {
+        viaPointVisible: false,
+        boundsAutoApply: true,
+      });
+    const self = this;
+    multiRoute.events.add("click", (event) => {
+      let coords = event.get("coords");
+      let myPlacemark = new ymaps.Placemark(coords, {
+        balloonContentHeader: 'Водитель: ' + driverName,
+        balloonContentBody: 'Время начла поездки: ' + driveStartTime,
+        balloonContentFooter: "количество свободных мест " + freeSeats,
+      });
+      self.map.geoObjects.add(myPlacemark);
+      myPlacemark.balloon.open();
+    }, this);
+    this.map.geoObjects.add(multiRoute);
   }
 }

@@ -7,7 +7,7 @@
     <div class="trip">
       <div class="field"><mat-icon>date_range</mat-icon> {{testTrip.date}}</div>
       <div class="field"><mat-icon>access_time</mat-icon> {{testTrip.time}}</div>
-      <div class="field"><mat-icon>gesture</mat-icon> {{testTrip.startPoint}} - {{testTrip.endPoint}}</div>
+      <div class="field"><mat-icon>gesture</mat-icon> {{testTrip.startPoint.toString()}} - {{testTrip.finPoint.toString()}}</div>
       <div class="field" *ngIf="!ifProposed"><mat-icon>where_to_vote</mat-icon> Купревича, 12 </div>
       <div class="field" *ngIf="!ifProposed"><mat-icon>directions_car</mat-icon>{{car.model}} {{car.number}} {{car.color}}</div>
       <div class="field" *ngIf="!ifProposed"><mat-icon>person_outline</mat-icon> {{user.name}} <a href="tel:{{user.telNumber}}">{{user.telNumber}}</a> {{user.preferredCommunication}}</div>
