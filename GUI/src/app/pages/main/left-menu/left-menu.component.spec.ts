@@ -10,7 +10,7 @@ describe('LeftMenuComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ LeftMenuComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
