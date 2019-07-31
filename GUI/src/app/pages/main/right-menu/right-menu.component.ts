@@ -49,7 +49,7 @@ export class RightMenuComponent implements OnInit {
   }
 onSubmitForm() {
   // TODO: Use EventEmitter with form value
-  console.log(this.RightMenuInfo.value);
+  //console.log(this.RightMenuInfo.value);
   this.mapper.makeRoute(this.RightMenuInfo);
   this.ifDraw = false;
 }
