@@ -21,7 +21,7 @@ export class LeftMenuComponent implements OnInit {
         validators: forbiddenDateValidator(new RegExp(REG_DATE)),
         updateOn: 'blur'
       }],
-      time: [''],
+      time: ['12:00 am'],
       address: this.fb.group({
         startl: ['', Validators.required],
         endl: ['', Validators.required]}),

@@ -47,15 +47,14 @@ export class RightMenuComponent implements OnInit {
 
   onSubmit() {
   }
+onSubmitForm() {
+  this.mapper.cleanMap();
+  this.mapper.makeRoute(this.RightMenuInfo);
+  this.ifDraw = false;
+}
+onCreate() {
+    this.mapper.importDrive(this.RightMenuInfo).then(() => this.mapper.exportDrive(this.RightMenuInfo));
 
-  onSubmitForm() {
-    this.mapper.cleanMap();
-    this.mapper.makeRoute(this.RightMenuInfo);
-    this.ifDraw = false;
-  }
-
-  onCreate() {
-    this.mapper.exportDrive();
 }
   initRelationMwithY() {
     this.mapper.initRelationMwithY(this.RightMenuInfo, 'r');
@@ -88,7 +87,6 @@ export function forbiddenDateValidator(date: RegExp): ValidatorFn {
     }
   };
 }
-
 export function negativeNumberValidator(): ValidatorFn {
   return (control: FormControl): { [key: string]: any } | null => {
     if (control.value !== null) {
