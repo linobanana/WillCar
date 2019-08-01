@@ -1,10 +1,12 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {FormGroup} from "@angular/forms";
 
 import {delay, min, take} from "rxjs/operators";
 import {MapApiService} from "../../../shared/api/map/map.api.service";
 import {ApiService} from "../../../shared/services/api.service";
 import {Drive} from "../../../shared/types/common";
+import {stringify} from "querystring";
+import {END_STRING, START_STRING} from "../../../shared/constants/common";
 
 declare var ymaps: any;
 
@@ -13,8 +15,12 @@ declare var ymaps: any;
 })
 
 export class MapService {
-private start: string;
-private end: string;
+  private points = {
+    start: '',
+    end: ''
+  };
+//private start: string;
+//private end: string;
 private datestart: Date;
 private map;
 private drive = {
@@ -41,17 +47,15 @@ private drives: Drive[] = [];
    public initRelationMwithY(MenuInfo: FormGroup, mode: string) {
      const menuInfo = MenuInfo;
      const self = this;
-     const start = 'start';
-     const end = 'end';
      ymaps.ready(init);
      function init() {
-       let suggestionForStartInput = new ymaps.SuggestView(start + mode, {
+       let suggestionForStartInput = new ymaps.SuggestView(START_STRING + mode, {
          boundedBy: [
            [50, 60],
            [25, 30]
          ]
        });
-       let suggestionForEndInput = new ymaps.SuggestView(end + mode, {
+       let suggestionForEndInput = new ymaps.SuggestView(END_STRING + mode, {
          boundedBy: [
            [50, 60],
            [25, 30]
@@ -59,13 +63,13 @@ private drives: Drive[] = [];
        });
        suggestionForStartInput.events.add("select", function(e) {
          let startSuggestion = e.get('item').value;
-         menuInfo.get('address').get(start + mode).setValue(startSuggestion);
-         self.start = startSuggestion;
+         menuInfo.get('address').get(START_STRING + mode).setValue(startSuggestion);
+         self.points.start = startSuggestion;
        });
        suggestionForEndInput.events.add("select", function(e) {
          let endSuggestion = e.get('item').value;
-         menuInfo.get('address').get(end + mode).setValue(endSuggestion);
-         self.end = endSuggestion;
+         menuInfo.get('address').get(END_STRING + mode).setValue(endSuggestion);
+         self.points.end = endSuggestion;
        });
    }
    }
@@ -75,20 +79,30 @@ private drives: Drive[] = [];
      const self = this;
      const promises = [];
      promises.push(
-     ymaps.geocode(self.start, {results: 1}).then(function (res) {
-         const firstGeoObject = res.geoObjects.get(0);
-       self.infoToSearchDrive.startPoint = JSON.stringify(firstGeoObject.geometry.getCoordinates());
-     }));
+       self.getCordinatesFromAdress(self.points.start, self.points, START_STRING));
      promises.push(
-     ymaps.geocode(self.end, {results: 1}).then(function (res) {
-       const firstGeoObject = res.geoObjects.get(0);
-       self.infoToSearchDrive.endPoint = JSON.stringify(firstGeoObject.geometry.getCoordinates());
-     }));
+        self.getCordinatesFromAdress(self.points.end, self.points, END_STRING));
      return Promise.all(promises);
   }
+  private getCordinatesFromAdress(adress: string, points: {start: string, end: string}, mode: string) {
+    let promise = new Promise(function(resolve, reject) {
+      ymaps.geocode(adress, {results: 1}).then(function (res) {
+        const firstGeoObject = res.geoObjects.get(0);
+        if (mode === START_STRING) {
+          points.start =  JSON.stringify(firstGeoObject.geometry.getCoordinates());
+        } else {
+          points.end =  JSON.stringify(firstGeoObject.geometry.getCoordinates());
+        }
+        resolve('correct');
+      });
+    });
+    return promise.then(result => {console.log(result); });
+    }
   public exportInfoRoute() {
     const self = this;
-      console.log('searching route:', this.infoToSearchDrive);
+    this.infoToSearchDrive.startPoint = this.points.start;
+    this.infoToSearchDrive.endPoint = this.points.end;
+    console.log('searching route:', this.infoToSearchDrive);
     const promise = new Promise((resolve, reject) => {
       self.mapApi.postInfoToSearchDrive( self.infoToSearchDrive).subscribe((data) => {
         data.forEach(function(element) {
@@ -112,8 +126,8 @@ private drives: Drive[] = [];
     const self = this;
     let multiRoute = new ymaps.multiRouter.MultiRoute({
       referencePoints: [
-        self.start,
-        self.end
+        self.points.start,
+        self.points.end
       ],
       params: {
         results: 10
@@ -132,8 +146,7 @@ private drives: Drive[] = [];
     multiRoute.events
       .add("activeroutechange", self.onActiveRouteChange, self);
     self.map.geoObjects.add(multiRoute);
-    multiRoute.events
-      .add('update', function () {
+    multiRoute.events.add('update', function () {
       const route = multiRoute.getActiveRoute();
       let pathArray = route.getPaths();
       let path;
@@ -148,25 +161,36 @@ private drives: Drive[] = [];
       }).then(function (res) {
         let firstGeoObject = res.geoObjects.get(0);
         startAddress = firstGeoObject.getAddressLine();
-        form.get('address').get("startr").setValue(startAddress);
+        form.get('address').get(START_STRING + 'r').setValue(startAddress);
       });
       let finAddress;
-      ymaps.geocode(coords[coords.length-1], {
+      ymaps.geocode(coords[coords.length - 1], {
         results: 1
       }).then(function (res) {
         let firstGeoObject = res.geoObjects.get(0);
         finAddress = firstGeoObject.getAddressLine();
-        form.get('address').get("endr").setValue(finAddress);
+        form.get('address').get(END_STRING + 'r').setValue(finAddress);
       });
       self.drive.startPoint = JSON.stringify(coords[0]);
-      self.drive.finPoint = JSON.stringify(coords[coords.length - 1]);
+      self.drive.finPoint =  JSON.stringify(coords[coords.length - 1]);
       self.drive.path = JSON.stringify(coords);
-      self.drive.freePlaceCount = form.get('numberOfSeats').value.toString();
-      self.datestart = new Date(form.get('date').value.toString());
-      self.drive.startTime = self.formatDateISO8601(form.get('time').value.toString());
     });
   }
-  public exportDrive() {
+  public importDrive(form: FormGroup) {
+    this.drive.freePlaceCount = form.get('numberOfSeats').value;
+    this.datestart = new Date(form.get('date').value.toString());
+    this.drive.startTime = this.formatDateISO8601(form.get('time').value.toString());
+    const self = this;
+    const promises = [];
+    promises.push(
+      self.getCordinatesFromAdress(self.points.start, self.points, START_STRING));
+    promises.push(
+      self.getCordinatesFromAdress(self.points.end, self.points, END_STRING));
+    return Promise.all(promises);
+  }
+  public exportDrive(form: FormGroup) {
+    this.drive.startPoint = this.points.start;
+    this.drive.finPoint = this.points.end;
     console.log('export drive:');
     console.log(this.drive);
     this.mapApi.postDrive(this.drive)
@@ -200,7 +224,7 @@ private drives: Drive[] = [];
       geolocation.get({
         provider: 'browser',
         mapStateAutoApply: true
-      }).then(function (result) {
+      }).then(function(result) {
         result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
         self.map.geoObjects.add(result.geoObjects);
       });
@@ -220,18 +244,18 @@ private drives: Drive[] = [];
   private generateColor(ranges) {
     if (!ranges) {
       ranges = [
-        [150, 256],
+        [150,256],
         [0, 190],
         [0, 30]
       ];
     }
-    var g = function () {
+    var g = function() {
       var range = ranges.splice(Math.floor(Math.random() * ranges.length), 1)[0];
       return Math.floor(Math.random() * (range[1] - range[0])) + range[0];
     };
-    return "rgb(" + g() + "," + g() + "," + g() + ")";
+    return "rgb(" + g() + "," + g() + "," + g() +")";
   }
-  private createRouteWithBalloonForUser(coordinates, driverName, driveStartTime, freeSeats) {
+  private createRouteWithBalloonForUser(coordinates: [], driverName: string, driveStartTime: string, freeSeats: number) {
     let newCoordinates = coordinates.filter(function (currentValue, index) {
       if (index % 5 === 0 || index === coordinates.length) {
         return currentValue;

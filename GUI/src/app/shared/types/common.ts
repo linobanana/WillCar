@@ -32,7 +32,7 @@ export class Drive {
   finPoint: [number, number];
   name: string;
   //passengers: Passenger[];
-  freePlaceCount: string;
+  freePlaceCount: number;
   //routeUrl: string;
   //driver: user;
   //messages: Message[];
