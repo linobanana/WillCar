@@ -46,5 +46,6 @@ export class Message {
   user: User;
   driveId:number;
   time:Date;
+  notify:boolean;
 }
 

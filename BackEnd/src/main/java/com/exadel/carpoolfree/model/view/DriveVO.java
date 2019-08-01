@@ -1,7 +1,6 @@
 package com.exadel.carpoolfree.model.view;
 
 import com.exadel.carpoolfree.model.Message;
-import com.exadel.carpoolfree.model.User;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -33,6 +32,8 @@ public class DriveVO {
     private String name;
 
     private String pickUpPoint;
+
+    private boolean isArchieve = false;
 
     private List<Message> messages = new ArrayList<>();
 
@@ -93,6 +94,30 @@ public class DriveVO {
         return finPoint;
     }
 
+    public Double getSumOfKm() {
+        return sumOfKm;
+    }
+
+    public Double getSumOfTime() {
+        return sumOfTime;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPickUpPoint() {
+        return pickUpPoint;
+    }
+
+    public boolean isArchieve() {
+        return isArchieve;
+    }
+
+    public void setArchieve(boolean archieve) {
+        isArchieve = archieve;
+    }
+
     public void setFinPoint(String finPoint) {
         this.finPoint = finPoint;
     }
@@ -133,32 +158,16 @@ public class DriveVO {
         this.startTime = startTime;
     }
 
-    public Double getSumOfKm() {
-        return sumOfKm;
-    }
-
     public void setSumOfKm(Double sumOfKm) {
         this.sumOfKm = sumOfKm;
-    }
-
-    public Double getSumOfTime() {
-        return sumOfTime;
     }
 
     public void setSumOfTime(Double sumOfTime) {
         this.sumOfTime = sumOfTime;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPickUpPoint() {
-        return pickUpPoint;
     }
 
     public void setPickUpPoint(String pickUpPoint) {

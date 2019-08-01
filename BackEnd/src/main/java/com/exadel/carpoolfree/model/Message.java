@@ -40,17 +40,22 @@ public class Message {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Message(String message, Long driveId, String time, User user) {
+    @Column(name = "is_notify")
+    private boolean notify = false;
+
+    public Message(String message, Long driveId, String time, User user, boolean notify) {
         this.message = message;
         this.driveId = driveId;
         this.time = LocalDateTime.parse(time, DateTimeFormatter.ISO_DATE_TIME);
         this.user = user;
+        this.notify = notify;
     }
 
-    public Message(String message, Long driveId, LocalDateTime time, User user) {
+    public Message(String message, Long driveId, LocalDateTime time, User user, boolean notify) {
         this.message = message;
         this.driveId = driveId;
         this.time = time;
         this.user = user;
+        this.notify = notify;
     }
 }

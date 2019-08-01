@@ -11,6 +11,7 @@ import com.exadel.carpoolfree.repository.PassengerDriveRepository;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -29,15 +30,18 @@ public class DriveService {
     private final PassengerDriveRepository passengerDriveRepository;
     private final MessageRepository messageRepository;
     private final ChatService chatService;
+    private final NotificationService notificationService;
 
 
     public DriveService(DriveRepository driveRepository,
                         PassengerDriveRepository passengerDriveRepository,
-                        MessageRepository messageRepository, ChatService chatService) {
+                        MessageRepository messageRepository,
+                        ChatService chatService, NotificationService notificationService) {
         this.driveRepository = driveRepository;
         this.passengerDriveRepository = passengerDriveRepository;
         this.messageRepository = messageRepository;
         this.chatService = chatService;
+        this.notificationService = notificationService;
     }
 
     public List<DriveVO> findAllDrives(){
@@ -64,7 +68,7 @@ public class DriveService {
         List<Drive> drives = driveRepository.findAllDriveInFuture(startTime.minusHours(1));
         return drives.stream()
                 .filter(drive -> drive.getStartTime().isBefore(startTime.plusHours(1))&&
-                        drive.getStartTime().isAfter(startTime.minusHours(1)))
+                        drive.getStartTime().isAfter(startTime.minusHours(1)) && !drive.isArchive())
                 .map(drive -> convertToVO(drive))
                 .collect(Collectors.toList());
     }
@@ -148,17 +152,25 @@ public class DriveService {
     public DriveVO updateDrive(Long id, String path) {
         return driveRepository.findById(id)
                 .map(drive1 -> {
-                    drive1.setPath(path);
-                    chatService.sendNotification("Driver has updated the route!", id);
+                    if(!drive1.isArchive()) {
+                        drive1.setPath(path);
+                        chatService.sendNotification("Driver has updated the route!", id, drive1.getDriver());
+                       // notificationService.sendNotification(drive1.getDriver());
+                    }
                     return convertToVO(driveRepository.save(drive1));
                 })
                 .orElseThrow((() -> new RuntimeException("Drive not found")));
     }
 
     public void deleteById(final Long id) {
-        passengerDriveRepository.deleteByDriveId(id);
-        driveRepository.deleteById(id);
-        chatService.sendNotification("Driver has deleted the route!", id);
+        driveRepository.findById(id)
+                .map(drive1 -> {
+                    drive1.setArchive(true);
+                    chatService.sendNotification("Driver has deleted the route!", id, drive1.getDriver());
+                   // notificationService.sendNotification(drive1.getDriver());
+                    return convertToVO(driveRepository.save(drive1));
+                })
+                .orElseThrow((() -> new RuntimeException("Drive not found")));
     }
 
     private DriveVO convertToVO(Drive drive) {
