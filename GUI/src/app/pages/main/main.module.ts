@@ -40,4 +40,3 @@ import {MapModule} from './map/map.module';
 })
 export class MainModule {}
 // platformBrowserDynamic().bootstrapModule(MainModule);
-

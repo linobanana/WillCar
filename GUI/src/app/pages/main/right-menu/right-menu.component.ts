@@ -47,13 +47,14 @@ export class RightMenuComponent implements OnInit {
 
   onSubmit() {
   }
-onSubmitForm() {
-  // TODO: Use EventEmitter with form value
-  console.log(this.RightMenuInfo.value);
-  this.mapper.makeRoute(this.RightMenuInfo);
-  this.ifDraw = false;
-}
-onCreate() {
+
+  onSubmitForm() {
+    this.mapper.cleanMap();
+    this.mapper.makeRoute(this.RightMenuInfo);
+    this.ifDraw = false;
+  }
+
+  onCreate() {
     this.mapper.exportDrive();
 }
   initRelationMwithY() {
@@ -75,7 +76,7 @@ export function forbiddenDateValidator(date: RegExp): ValidatorFn {
   return (control: FormControl): { [key: string]: any } | null => {
     const temp = new Date(control.value);
     let buf: string;
-    buf = temp.toLocaleDateString();
+    buf = temp.toLocaleDateString('en-GB');
     const forbidden: boolean = !(date.test(buf));
     if (control.value === '') {
       return {forbiddenDate: {value: ''}};
@@ -87,6 +88,7 @@ export function forbiddenDateValidator(date: RegExp): ValidatorFn {
     }
   };
 }
+
 export function negativeNumberValidator(): ValidatorFn {
   return (control: FormControl): { [key: string]: any } | null => {
     if (control.value !== null) {
