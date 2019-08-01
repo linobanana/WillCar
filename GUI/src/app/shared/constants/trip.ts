@@ -8,7 +8,7 @@ export const TEST_TRIP: Drive = {
   finPoint: [2, 3],
   name: '',
   //passengers: [],
-  //freePlaceCount: 1,
+  freePlaceCount: 9,
   //routeUrl: '',
   //driver: [],
   //messages: [],
