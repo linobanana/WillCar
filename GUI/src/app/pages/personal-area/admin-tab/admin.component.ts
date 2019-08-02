@@ -18,7 +18,7 @@ export class AdminComponent implements OnInit {
   constructor(private profileApiService: ProfileApiService) {
   }
 
-  displayedColumns: string[] = ['name', 'passengerRating', 'driverRating', 'numberOfKm', 'numberOfTrips', 'numberOfPassengers', 'numberOfPoints'];
+  displayedColumns: string[] = ['name', 'passengerRating', 'driverRating', 'km', 'numberOfDrives', 'passengers', 'points'];
   adminLabels = ADMIN_LABELS;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;

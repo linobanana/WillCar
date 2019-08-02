@@ -2,8 +2,6 @@ import {Car, Drive, User} from '../types/common';
 
 export const USER: User = {
   id: 1,
-  login: 'login',
-  password: 'password',
   name: 'Misha Ivanov',
   phoneNumber: '+3752911111111',
   email: 'ivanov27098@gmail.com',

@@ -25,6 +25,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatNativeDateModule, MatSidenavModule} from "@angular/material";
 import {AdminModule} from './pages/personal-area/admin-tab/admin.module';
+import {MainEditModule} from './pages/main-edit/main-edit.module';
 
 
 @NgModule({
@@ -39,7 +40,6 @@ import {AdminModule} from './pages/personal-area/admin-tab/admin.module';
     MainModule,
     HeaderModule,
     FooterModule,
-    AuthorizationPageModule,
     ConfirmationModule,
     BookingConfirmationModule,
     FooterModule,
@@ -52,6 +52,8 @@ import {AdminModule} from './pages/personal-area/admin-tab/admin.module';
     PersonalAreaModule,
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
+    MainEditModule
     ReactiveFormsModule,
     BrowserModule,
     FormsModule,

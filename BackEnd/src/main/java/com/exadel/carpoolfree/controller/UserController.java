@@ -23,9 +23,14 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping()
+    @GetMapping("/admin")
     public List<UserForAdminVO> getAllUsers() {
         return userService.findAllUsers();
+    }
+
+    @GetMapping()
+    public UserVO getCurrentUser() {
+        return userService.findUserByLogin();
     }
 
     @GetMapping("/{id}")

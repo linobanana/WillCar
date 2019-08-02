@@ -13,7 +13,15 @@ export class ProfileApiService extends ApiService {
       prefCommunication: response.prefCommunication,
       cars: response.cars,
       driverRating: response.driverRating,
-    };
+      passengerRating: response.passengerRating,
+      roles: response.roles,
+      photoUrl: response.photoUrl,
+      mark: response.mark,
+      points: response.points,
+      drives: response.drives,
+      pickUpPoint: response.pickUpPoint,
+      numOfKm: response.numOfKm
+      };
   }
 
   private static mapUsers(response: any) {
@@ -35,6 +43,9 @@ export class ProfileApiService extends ApiService {
     return response;
   }
 
+  getCurrentUser() {
+    return super.get(`api/users/`, ProfileApiService.mapUser);
+  }
   getUser(id) {
     return super.get(`api/users/${id}`);
   }
@@ -55,6 +66,10 @@ export class ProfileApiService extends ApiService {
   }
 
   getUsers() {
-    return super.get(`api/users`, ProfileApiService.mapUsers);
+    return super.get(`api/users/admin`, ProfileApiService.mapUsers);
+  }
+
+  logOut(any) {
+    return super.post(`logout`, any);
   }
 }
