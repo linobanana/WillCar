@@ -23,9 +23,9 @@ public class UserVO {
 
         private Set<Role> roles;
 
-        private Long driverRating;
+        private double driverRating;
 
-        private Long passengerRating;
+        private double passengerRating;
 
         private List<Car> cars = new ArrayList<>();
 
@@ -57,12 +57,12 @@ public class UserVO {
                 return prefCommunication;
         }
 
-        public Long getDriverRating() {
+        public double getDriverRating() {
                 return driverRating;
         }
 
-        public Long getPassengerRating() {
-                return passengerRating;
+        public void setDriverRating(double driverRating) {
+                this.driverRating = driverRating;
         }
 
         public Double getMark() {
@@ -93,12 +93,12 @@ public class UserVO {
                 this.mark = mark;
         }
 
-        public void setPassengerRating(Long passengerRating) {
-                this.passengerRating = passengerRating;
+        public double getPassengerRating() {
+                return passengerRating;
         }
 
-        public void setDriverRating(Long driverRating) {
-                this.driverRating = driverRating;
+        public void setPassengerRating(double passengerRating) {
+                this.passengerRating = passengerRating;
         }
 
         public void setPrefCommunication(String prefCommunication) {

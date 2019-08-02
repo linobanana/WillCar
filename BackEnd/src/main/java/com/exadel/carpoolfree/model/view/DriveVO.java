@@ -1,7 +1,6 @@
 package com.exadel.carpoolfree.model.view;
 
 import com.exadel.carpoolfree.model.Message;
-import com.exadel.carpoolfree.model.User;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,8 +26,6 @@ public class DriveVO {
     private String finPoint;
 
     private Double sumOfKm;
-
-    private Double sumOfTime;
 
     private String name;
 
@@ -139,14 +136,6 @@ public class DriveVO {
 
     public void setSumOfKm(Double sumOfKm) {
         this.sumOfKm = sumOfKm;
-    }
-
-    public Double getSumOfTime() {
-        return sumOfTime;
-    }
-
-    public void setSumOfTime(Double sumOfTime) {
-        this.sumOfTime = sumOfTime;
     }
 
     public String getName() {
