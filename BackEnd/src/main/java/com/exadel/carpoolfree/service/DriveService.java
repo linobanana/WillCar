@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -54,6 +54,7 @@ public class DriveService {
         List<DriveVO> result = this.findAllByDriverId(userId);
         List<DriveVO> result2 = this.findAllByPassengerId(userId);
         result.addAll(result2);
+        result.stream().sorted(Comparator.comparing(DriveVO::getStartTime).reversed());
         return result;
     }
 
@@ -81,6 +82,9 @@ public class DriveService {
                 return userVO;
             }).collect(Collectors.toList());
             List<Message> messages = messageRepository.findAllByDriveId(drive.getId());
+            if (drive.getStartTime().isBefore(LocalDateTime.now())) {
+                this.deleteById(drive.getId());
+            }
             DriveVO driveVO = convertToVO(drive);
             driveVO.setPassengers(passengers);
             driveVO.setMessages(messages);
@@ -93,6 +97,9 @@ public class DriveService {
         List<PassengerDrive> passengerDriveList = passengerDriveRepository.findAllByPassengerId(passengerId);
         List<DriveVO> result = passengerDriveList.stream()
                 .map(temp -> {
+                    if (temp.getDrive().getStartTime().isBefore(LocalDateTime.now())) {
+                        this.deleteById(temp.getDrive().getId());
+                    }
                     UserVO driverVO = modelMapper.map(temp.getDrive().getDriver(), UserVO.class);
                     List<Message> messages = messageRepository.findAllByDriveId(temp.getDrive().getId());
                     DriveVO driveVO = convertToVO(temp.getDrive());
@@ -123,17 +130,17 @@ public class DriveService {
                         firstCoordinate = Arrays.stream(temp).collect((Collectors.toList())).indexOf(firstFiding);
                         secondCoordinate = Arrays.stream(temp).collect((Collectors.toList())).indexOf(secondFiding);
                         } catch (JsonParseException e){
-                            new RuntimeException("Drive not found");
+                            throw new RuntimeException("Drive not found");
                         } catch (IOException e){
-                            new RuntimeException("Drive not found");
+                            throw new RuntimeException("Drive not found");
                         }
                         return firstFiding!=null && secondFiding!=null && firstCoordinate<=secondCoordinate;
                     })
                     .collect(Collectors.toList());
         } catch (JsonParseException e){
-            new RuntimeException("Drive not found");
+            throw new RuntimeException("Drive not found");
         } catch (IOException e){
-            new RuntimeException("Drive not found");
+            throw new RuntimeException("Drive not found");
         }
          return drives;
     }
