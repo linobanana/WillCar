@@ -53,6 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
+                .logoutSuccessUrl("/login")
                 .permitAll()
         ;
         http.headers().frameOptions().disable();
@@ -71,7 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 SecurityContext context = SecurityContextHolder.getContext();
                 httpServletResponse.setStatus(200);
-                //httpServletResponse.sendRedirect("/login");
+                httpServletResponse.sendRedirect("/main");
                 httpServletResponse.getWriter().println(context.getAuthentication().getName());
                 httpServletResponse.getWriter().println(context.getAuthentication().getAuthorities());
 
@@ -81,15 +82,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /* UNCOMMENT TO DISABLE SPRING SECURITY */
-    @Configuration
-    @Order(1)
-    public static class DisableSecurityConfigurationAdapater extends WebSecurityConfigurerAdapter {
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            http
-                    .csrf().disable()
-                    .antMatcher("/**").authorizeRequests().anyRequest().permitAll();
-            http.headers().frameOptions().disable();
-        }
-    }
+//    @Configuration
+//    @Order(1)
+//    public static class DisableSecurityConfigurationAdapater extends WebSecurityConfigurerAdapter {
+//        @Override
+//        protected void configure(HttpSecurity http) throws Exception {
+//            http
+//                    .csrf().disable()
+//                    .antMatcher("/**").authorizeRequests().anyRequest().permitAll();
+//            http.headers().frameOptions().disable();
+//        }
+//    }
 }

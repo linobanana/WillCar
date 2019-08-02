@@ -56,6 +56,17 @@
   width: 50%;
 }
 
+::ng-deep {
+  mat-option[id^=mat-option].mat-option.ng-star-inserted {
+    height: 2em;
+  }
+  span[class^=ng-tns].ng-star-inserted {
+    font-size: 1em;
+    font-family: "Titillium Web", sans-serif;
+    line-height: 1.5;
+  }
+}
+
 .material-icons {
   font-size: 30px;
   color: #ffda13;
@@ -63,6 +74,10 @@
 
 .photo-container h2 {
   font-size: 1.5em;
+}
+
+.photo {
+  max-width: 300px;
 }
 
 ::ng-deep {
@@ -90,7 +105,7 @@
     margin: 0;
   }
   .photo {
-    max-width: 240px;
+    max-width: 300px;
   }
   .data-table {
     font-size: 0.9em;

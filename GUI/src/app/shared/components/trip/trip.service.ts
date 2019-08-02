@@ -34,5 +34,6 @@ export class TripService {
   addTrip(drive: Drive): void {
     this.drives = this.drives.concat(drive);
   }
+
 }
 

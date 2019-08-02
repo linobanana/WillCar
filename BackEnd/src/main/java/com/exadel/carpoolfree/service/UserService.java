@@ -7,6 +7,8 @@ import com.exadel.carpoolfree.model.view.UserForAdminVO;
 import com.exadel.carpoolfree.model.view.UserVO;
 import com.exadel.carpoolfree.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,6 +42,13 @@ public class UserService {
 
     public UserVO findById(final Long id) {
         return convertToVO(userRepository.findById(id).get());
+    }
+
+
+    public UserVO findUserByLogin() {
+        SecurityContext context = SecurityContextHolder.getContext();
+        String login = context.getAuthentication().getName();
+        return convertToVO(userRepository.findByLogin(login));
     }
 
 
