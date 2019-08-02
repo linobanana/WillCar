@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
-import {Drive} from '../../../shared/types/common';
+import {Drive, User} from '../../../shared/types/common';
 import {TripService} from '../../../shared/components/trip/trip.service';
+import {UserService} from "../../../shared/components/user/user.service";
 
 @Component({
   selector: 'app-my-proposed',
@@ -10,8 +11,9 @@ import {TripService} from '../../../shared/components/trip/trip.service';
 })
 export class MyProposedComponent implements OnInit {
   drives$: Observable<Drive[]>;
-  constructor(private tripService: TripService) {
-    this.drives$ = tripService.tripsSubject;
+  constructor(private tripService: TripService, private userService: UserService) {
+    tripService.getProposedDrives(/*this.userService.user.id*/1).then(()=>
+      this.drives$ = tripService.proposedSubject);
   }
 
   ngOnInit() {
@@ -19,4 +21,7 @@ export class MyProposedComponent implements OnInit {
 onCancelTrip(drive: Drive) {
   this.tripService.cancelTrip(drive);
 }
+  onEditTrip(drive: Drive) {
+    this.tripService.cancelTrip(drive);
+  }
 }

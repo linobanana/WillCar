@@ -1,4 +1,4 @@
-<app-trip [Drives]="drives$|async"
-          (cancelTrip) = onCancelTrip($event)
+<app-trip [drives]="drives$|async"
+          (cancelPassengerDrive) = onCancelTrip($event)
           [ifProposed]="false">
 </app-trip>

@@ -1,38 +1,76 @@
 import { Injectable } from '@angular/core';
 import {Drive} from "../../types/common";
 import {BehaviorSubject, Observable} from "rxjs";
-import {TEST_TRIP} from "../../constants/trip";
 import {clone} from 'ramda';
+import {ProfileApiService} from "../../api/profile/profile.api.service";
+import {take} from "rxjs/operators";
+import {DriveApiService} from "../../api/trip/drive.api.service";
 
 @Injectable()
 export class TripService {
-  private _drives: Drive[];
-  private _tripsSubject: BehaviorSubject<Drive[]> = new BehaviorSubject(null);
-  constructor() {
-    setTimeout(() => {
-      this.drives = [TEST_TRIP];
-    }, 1000);
+  private _proposedDrives: Drive[];
+  private _bookedDrives: Drive[];
+  private _proposedSubject: BehaviorSubject<Drive[]> = new BehaviorSubject(null);
+  private _bookedSubject: BehaviorSubject<Drive[]> = new BehaviorSubject(null);
+  constructor(private driveApiService: DriveApiService) {
   }
 
-  get tripsSubject(): Observable<Drive[]> {
-    return this._tripsSubject.asObservable();
+  get proposedSubject(): Observable<Drive[]> {
+    return this._proposedSubject.asObservable();
+  }
+  get proposedDrives(): Drive[] {
+    return this._proposedDrives;
+  }
+  set proposedDrives(drives: Drive[]) {
+    this._proposedDrives = drives;
+    this._proposedSubject.next(this._proposedDrives);
   }
 
-  get drives(): Drive[] {
-    return this._drives;
+  get bookedSubject(): Observable<Drive[]> {
+    return this._bookedSubject.asObservable();
   }
-  set drives(drives: Drive[]) {
-    this._drives = drives;
-    this._tripsSubject.next(this.drives);
+  get bookedDrives(): Drive[] {
+    return this._bookedDrives;
   }
+  set bookedDrives(drives: Drive[]) {
+    this._bookedDrives = drives;
+    this._bookedSubject.next(this._bookedDrives);
+  }
+
   cancelTrip(drive: Drive): void {
-    const index: number = this.drives.indexOf(drive);
-    const tempTrips: Drive[] = clone(this.drives);
-    tempTrips.splice(index,1 );
-    this.drives = tempTrips;
+    this.driveApiService.canselDrive(drive.id)
+      .subscribe(() => {
+        const index: number = this.proposedDrives.indexOf(drive);
+        this.proposedDrives[index].archive = true;
+      });
   }
-  addTrip(drive: Drive): void {
-    this.drives = this.drives.concat(drive);
+
+  cancelPassengerTrip(drive: Drive, userId: number): void {
+    this.driveApiService.canselPassengerDrive(drive.id, userId)
+      .subscribe(() => {
+        const index: number = this.bookedDrives.indexOf(drive);
+        this.bookedDrives.splice(index, 1);
+      });
+  }
+
+  getProposedDrives(id: number){
+    return new Promise(resolve=> {
+      this.driveApiService.getProposedDrives(id)
+        .subscribe((drives) => {
+          this.proposedDrives = drives;
+          resolve(drives);
+        });
+    });
+  }
+
+  getBookedDrives(id: number){
+    return new Promise(resolve=> {
+      this.driveApiService.getBookedDrives(id)
+        .subscribe((drives) => {
+          this.bookedDrives = drives;
+          resolve(drives);
+        });
+    });
   }
 
 }

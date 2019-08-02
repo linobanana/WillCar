@@ -29,10 +29,11 @@ export class Drive {
   startPoint: [number, number];
   finPoint: [number, number];
   name: string;
-  //passengers: Passenger[];
+  passengers: User[];
   freePlaceCount: number;
+  archive: boolean;
   //routeUrl: string;
-  //driver: user;
+  driver: User;
   messages: Message[];
   path:[];
   sumOfKm: number;

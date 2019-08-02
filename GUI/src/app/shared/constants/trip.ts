@@ -1,6 +1,6 @@
 import {Drive} from '../types/common';
 
-export const TEST_TRIP: Drive = {
+/*export const TEST_TRIP: Drive = {
   id: 1,
   startTime: '',
   endTime: '',
@@ -16,4 +16,4 @@ export const TEST_TRIP: Drive = {
   path: [],
   sumOfKm: 1,
   //pickUpPoint: []
-};
+};*/

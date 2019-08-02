@@ -1,5 +1,5 @@
 export const BUTTON_LABELS = {
-  leftButton: 'Find a trip',
+  leftButton: 'Find a drive',
   drawRoute: 'Draw route',
   bookButton: 'Book',
   cancelButton: 'Cancel',
