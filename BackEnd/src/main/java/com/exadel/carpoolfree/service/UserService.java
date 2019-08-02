@@ -56,6 +56,13 @@ public class UserService {
     }
 
 
+    public UserVO findUserByLogin() {
+        SecurityContext context = SecurityContextHolder.getContext();
+        String login = context.getAuthentication().getName();
+        return convertToVO(userRepository.findByLogin(login));
+    }
+
+
     public UserVO updateUser(User user) {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         String login = securityContext.getAuthentication().getName();

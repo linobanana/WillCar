@@ -48,14 +48,35 @@
   align-self: center;
 }
 
+.btn {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-evenly;
+}
+
 .create {
   border: 1px solid #fff;
   background: #70a0a0;
   align-self: center;
+  ::ng-deep {
+    .mat-button-wrapper {
+      color: white;
+      font-size: 1em;
+    }
+  }
 }
 
 @media screen and (max-height: 750px) {
   .inputs {
     margin-top: 2%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .rightMenu {
+    width: 100%;
+    top: 6%;
+    bottom: 0;
   }
 }

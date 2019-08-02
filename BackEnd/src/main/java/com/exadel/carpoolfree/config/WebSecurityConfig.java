@@ -64,6 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
+                .logoutSuccessUrl("/login")
                 .permitAll()
         ;
         http.headers().frameOptions().disable();
@@ -108,15 +109,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /* UNCOMMENT TO DISABLE SPRING SECURITY */
-//    @Configuration
-//    @Order(1)
-//    public static class DisableSecurityConfigurationAdapater extends WebSecurityConfigurerAdapter {
-//        @Override
-//        protected void configure(HttpSecurity http) throws Exception {
-//            http
-//                    .csrf().disable()
-//                    .antMatcher("/**").authorizeRequests().anyRequest().permitAll();
-//            http.headers().frameOptions().disable();
-//        }
-//    }
+    @Configuration
+    @Order(1)
+    public static class DisableSecurityConfigurationAdapater extends WebSecurityConfigurerAdapter {
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http
+                    .csrf().disable()
+                    .antMatcher("/**").authorizeRequests().anyRequest().permitAll();
+            http.headers().frameOptions().disable();
+        }
+    }
 }
