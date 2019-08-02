@@ -5,13 +5,18 @@ import {StateManagementService} from '../../services/role-toggle.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
   public driverState: boolean;
   constructor(private router: Router ) {}
+
   goToMain() {
-    this.router.navigate(['/main']);
+    if (this.router.url.includes('edit')) {
+      this.router.navigate(['/personalarea/', 'myproposed']);
+    } else {
+      this.router.navigate(['/main']);
+    }
   }
 
   ngOnInit() {
