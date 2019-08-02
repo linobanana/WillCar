@@ -8,7 +8,7 @@ export class Car {
 export class User {
   id: number;
   login: string;
-  password: string;
+  password:string;
   //roles: Role[];
   name: string;
   email: string;

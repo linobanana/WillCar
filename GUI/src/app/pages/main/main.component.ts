@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {StateManagementService} from '../../shared/services/role-toggle.service';
+import {MapService} from "./map/map.service";
 
 @Component({
   selector: 'main-component',
@@ -8,7 +9,9 @@ import {StateManagementService} from '../../shared/services/role-toggle.service'
 })
 export class MainComponent implements OnInit {
   public driverState: boolean;
+  constructor(private mapService:MapService){
 
+  }
   ngOnInit() {
     this.initDriverState();
   }
@@ -16,6 +19,7 @@ export class MainComponent implements OnInit {
   private initDriverState() {
     StateManagementService.getDriverModeObservable().subscribe((state) => {
       this.driverState = state;
+      this.mapService.cleanMap();
     });
   }
 }
