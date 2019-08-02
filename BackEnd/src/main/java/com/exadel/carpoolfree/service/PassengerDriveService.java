@@ -1,9 +1,11 @@
 package com.exadel.carpoolfree.service;
 
 import com.exadel.carpoolfree.model.PassengerDrive;
+import com.exadel.carpoolfree.model.User;
 import com.exadel.carpoolfree.model.view.MarkVO;
 import com.exadel.carpoolfree.repository.DriveRepository;
 import com.exadel.carpoolfree.repository.PassengerDriveRepository;
+import com.exadel.carpoolfree.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,11 +13,13 @@ public class PassengerDriveService {
 
     private final PassengerDriveRepository passengerDriveRepository;
     private final DriveRepository driveRepository;
+    private final UserRepository userRepository;
 
 
-    public PassengerDriveService(PassengerDriveRepository passengerDriveRepository, DriveRepository driveRepository) {
+    public PassengerDriveService(PassengerDriveRepository passengerDriveRepository, DriveRepository driveRepository, UserRepository userRepository) {
         this.passengerDriveRepository = passengerDriveRepository;
         this.driveRepository = driveRepository;
+        this.userRepository = userRepository;
     }
 
     public void addPassenger(PassengerDrive passengerDrive) {
@@ -31,18 +35,24 @@ public class PassengerDriveService {
                 passengerDriveRepository.deleteByDriveAndPassengerId(ps.getDrive().getId(), ps.getPassenger().getId());
             }
         } else {
-            new RuntimeException("Passenger already booked this drive");
+            throw new RuntimeException("Passenger already booked this drive");
         }
     }
 
     public void addMarkDriverToPassenger(MarkVO markVO) {
         passengerDriveRepository.addMarkDriverToPassenger(markVO.getMark(),
                 markVO.getDriveId(), markVO.getPassengerId());
+        User passenger = userRepository.findById(markVO.getPassengerId()).get();
+        passenger.setPassengerRating((passenger.getPassengerRating() + markVO.getMark()) / 2);
+        userRepository.save(passenger);
     }
 
     public void addMarkPassengerToDriver(MarkVO markVO) {
         passengerDriveRepository.addMarkPassengerToDriver(markVO.getMark(),
                 markVO.getDriveId(), markVO.getPassengerId());
+        User driver = driveRepository.findById(markVO.getDriveId()).get().getDriver();
+        driver.setDriverRating((driver.getDriverRating() + markVO.getMark()) / 2);
+        userRepository.save(driver);
     }
 
     public void delete(Long driveId, Long passengerId) {
