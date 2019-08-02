@@ -15,8 +15,8 @@ CREATE TABLE user
   login              VARCHAR(250) NOT NULL,
   password           VARCHAR(250) NOT NULL,
   pref_communication VARCHAR(250) DEFAULT NULL,
-  passenger_rating   INT,
-  driver_rating      INT,
+  passenger_rating   DOUBLE,
+  driver_rating      DOUBLE,
   points             INT,
   active             BOOLEAN
 );
@@ -40,10 +40,10 @@ CREATE TABLE drive
   driver_id        VARCHAR(250) NOT NULL,
   start_point      VARCHAR(250),
   fin_point        VARCHAR(250),
-  pathVO             CLOB,
+  pathVO           CLOB,
   sum_of_km        DOUBLE,
-  sum_of_time      DOUBLE,
   is_archive       BOOLEAN
+  route_url        VARCHAR(250)
 );
 
 CREATE TABLE passenger_drive
@@ -52,7 +52,6 @@ CREATE TABLE passenger_drive
   drive_id                 INT          NOT NULL,
   start_point              VARCHAR(250) NOT NULL,
   number_of_km             DOUBLE,
-  drive_time               DOUBLE,
   passenger_to_driver_mark INT DEFAULT NULL,
   driver_to_passenger_mark INT DEFAULT NULL
 );
@@ -82,21 +81,21 @@ VALUES ('1', 'DRIVER'),
 INSERT INTO user (name, phone_number, email, login,
                   password, passenger_rating, driver_rating, active)
 VALUES ('Aliko Dangote', '+375293456789', 'shimanovav7@gmail.com', 'aliko',
-        '$2a$10$Jij7xU.xa0ZeMrJxTprzjejVD5yTVahMwaZ8mdjtJ6K2cBRVlhS.y', '11', '50', 'TRUE'),
+        '$2a$10$Jij7xU.xa0ZeMrJxTprzjejVD5yTVahMwaZ8mdjtJ6K2cBRVlhS.y', '5', '5', 'TRUE'),
        ('Bill Gates', '+375298260934', 'billGates1999@mail.ru', 'bill',
-        '$2a$10$4BEiFy3gkPmSrbdfPB6eTOtuxMUYLPMbtFPtBWIXej64wjdOMDSkC', '11', '0', 'TRUE'),
+        '$2a$10$4BEiFy3gkPmSrbdfPB6eTOtuxMUYLPMbtFPtBWIXej64wjdOMDSkC', '5', '5', 'TRUE'),
        ('Alex Forman', '+375295627624', 'alex@gmail.com', 'alexForman',
-        '$2a$10$WyIDLksLKNDobiMStA/egOiPVaItQWOcpyMHsQQtZ15MFTLdhpSRi', '1', '0', 'TRUE'),
+        '$2a$10$WyIDLksLKNDobiMStA/egOiPVaItQWOcpyMHsQQtZ15MFTLdhpSRi', '5', '5', 'TRUE'),
        ('Natalia Ivanova', '+375445647221', 'nat92@mail.com', 'nattIva',
-        '$2a$10$4fqzUIU1Se0cfXu7JFb5reUPvEJnmdWZnNuBVnfy46uX1UnKW.SVC', '56', '125', 'TRUE'),
+        '$2a$10$4fqzUIU1Se0cfXu7JFb5reUPvEJnmdWZnNuBVnfy46uX1UnKW.SVC', '5', '5', 'TRUE'),
        ('Tatiana Sosnovskaya', '+375298784455', 'tatia@mail.com', 'tatiaSosn',
-        '$2a$10$WcT5gUO6rI3DQqD5gqcB9Oa6uB6UBDrNZoe/DwJUXdsZOXOKVIcTi', '0', '300', 'TRUE'),
+        '$2a$10$WcT5gUO6rI3DQqD5gqcB9Oa6uB6UBDrNZoe/DwJUXdsZOXOKVIcTi', '5', '5', 'TRUE'),
        ('Gregory House', '+375296543222', 'house@gmail.com', 'greghouse',
-        '$2a$10$CuNUOXvdi.q3AelSRnH9gO.C3foJDqc0s0XeSEOLvcvmTVvP57Ica', '0', '0', 'TRUE'),
+        '$2a$10$CuNUOXvdi.q3AelSRnH9gO.C3foJDqc0s0XeSEOLvcvmTVvP57Ica', '5', '5', 'TRUE'),
        ('DJ Gates', '+375298267634', 'dj@mail.com', 'dj',
-        '$2a$10$qIS4HbTbQoGMVAGKeNjKnOdm67pK2UGavdxc7PZyzzntRB06GRHcC', '0', '10', 'TRUE'),
+        '$2a$10$qIS4HbTbQoGMVAGKeNjKnOdm67pK2UGavdxc7PZyzzntRB06GRHcC', '5', '5', 'TRUE'),
        ('Folrunsho Alakija', '+375447261378', 'kadiuskw@mail.ru', 'alak',
-        '$2a$10$ozMEroUIr5MKL8LU1iJ7QeJE/ueCijGtNM/CMpl51gwKcwBB.JC.K', '100', '10', 'TRUE');
+        '$2a$10$ozMEroUIr5MKL8LU1iJ7QeJE/ueCijGtNM/CMpl51gwKcwBB.JC.K', '5', '5', 'TRUE');
 
 
 INSERT INTO drive (start_time, end_time, free_place_count, driver_id,

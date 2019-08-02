@@ -88,10 +88,10 @@ public class User {
     }
 
     @Column(name = "driver_rating")
-    private Long driverRating;
+    private double driverRating;
 
     @Column(name = "passenger_rating")
-    private Long passengerRating;
+    private double passengerRating;
 
     @OneToMany(
             mappedBy = "userId",

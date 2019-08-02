@@ -36,9 +36,6 @@ public class PassengerDrive {
     @Column(name = "number_of_km")
     private Double numOfKm;
 
-    @Column(name = "drive_time")
-    private Double driveTime;
-
     @Column(name = "passenger_to_driver_mark")
     private Double passengerToDriverMark;
 

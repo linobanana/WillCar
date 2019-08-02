@@ -19,8 +19,6 @@ export class MapService {
     start: '',
     end: ''
   };
-//private start: string;
-//private end: string;
 private datestart: Date;
 private map;
 private drive = {
@@ -96,7 +94,7 @@ private drives: Drive[] = [];
         resolve('correct');
       });
     });
-    return promise.then(result => {console.log(result); });
+    return promise.then(result => { /*console.log(result);*/ });
     }
   public exportInfoRoute() {
     const self = this;
@@ -119,7 +117,8 @@ private drives: Drive[] = [];
   }
   private showDrives() {
     this.drives.forEach((drive) => {
-      this.createRouteWithBalloonForUser(drive.path, 'Shumaxer', drive.startTime, drive.freePlaceCount);
+      this.createRouteWithBalloonForUser(drive);
+      //this.createRouteWithBalloonForUser(drive.path, 'Shumaxer', drive.startTime, drive.freePlaceCount);
     });
   }
   public makeRoute(form: FormGroup) {
@@ -193,6 +192,7 @@ private drives: Drive[] = [];
     this.drive.finPoint = this.points.end;
     console.log('export drive:');
     console.log(this.drive);
+    console.log('-------------');
     this.mapApi.postDrive(this.drive)
       .subscribe((data) => {
         console.log(data);
@@ -213,7 +213,6 @@ private drives: Drive[] = [];
   public initMap() {
     const geolocation = ymaps.geolocation;
     const self = this;
-    if (this.map === undefined) {
       this.map = new ymaps.Map('map', {
         center: [53.9, 27.56],
         zoom: 12,
@@ -228,7 +227,9 @@ private drives: Drive[] = [];
         result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
         self.map.geoObjects.add(result.geoObjects);
       });
-    }
+  }
+  public destroyMap() {
+    this.map.destroy();
   }
   private onActiveRouteChange(event) {
         let multiRoute = event.get('target');
@@ -255,38 +256,47 @@ private drives: Drive[] = [];
     };
     return "rgb(" + g() + "," + g() + "," + g() +")";
   }
-  private createRouteWithBalloonForUser(coordinates: [], driverName: string, driveStartTime: string, freeSeats: number) {
-    let newCoordinates = coordinates.filter(function (currentValue, index) {
-      if (index % 5 === 0 || index === coordinates.length) {
-        return currentValue;
+  private createRouteWithBalloonForUser(drive: Drive) {
+    let temp = 0;
+    const amount = drive.path.length / 70;
+    for (let j = 0; j < amount ; j++) {
+      let tempCoordinates = [];
+      if ( j !== amount - 1) {
+         tempCoordinates = drive.path.slice(temp, temp + 71);
+      } else {
+         tempCoordinates = drive.path.slice(temp);
       }
-    });
-    let viaIndex = [];
-    for (let i = 0; i < newCoordinates.length-2; i++) {
-      viaIndex.push(i + 1);
+        let viaIndex = [];
+        for (let k = 0; k < tempCoordinates.length - 2; k++) {
+          viaIndex.push(k + 1);
+        }
+        var multiRoute = new ymaps.multiRouter.MultiRoute({
+            referencePoints: tempCoordinates,
+            params: {
+              viaIndexes: viaIndex,
+              results: 1
+            }
+          },
+          {
+            wayPointVisible: false,
+            viaPointVisible: false,
+            boundsAutoApply: true,
+          });
+        const self = this;
+        multiRoute.events.add("click", (event) => {
+          let coords = event.get("coords");
+          let myPlacemark = new ymaps.Placemark(coords, {
+            balloonContentHeader: 'Водитель: ' + 'MrSavage',
+            balloonContentBody: 'Время начла поездки: ' + drive.startTime,
+            balloonContentFooter: 'количество свободных мест ' + drive.freePlaceCount.toString(),
+          });
+          self.map.geoObjects.add(myPlacemark);
+          myPlacemark.balloon.open();
+        }, this);
+        this.map.geoObjects.add(multiRoute);
+        temp = temp + 70;
     }
-    var multiRoute = new ymaps.multiRouter.MultiRoute({
-        referencePoints: newCoordinates,
-        params: {viaIndexes: viaIndex}
-      },
-      {
-        viaPointVisible: false,
-        boundsAutoApply: true,
-      });
-    const self = this;
-    multiRoute.events.add("click", (event) => {
-      let coords = event.get("coords");
-      let myPlacemark = new ymaps.Placemark(coords, {
-        balloonContentHeader: 'Водитель: ' + driverName,
-        balloonContentBody: 'Время начла поездки: ' + driveStartTime,
-        balloonContentFooter: "количество свободных мест " + freeSeats,
-      });
-      self.map.geoObjects.add(myPlacemark);
-      myPlacemark.balloon.open();
-    }, this);
-    this.map.geoObjects.add(multiRoute);
   }
-
   public cleanMap() {
     this.map.geoObjects.removeAll();
   }
