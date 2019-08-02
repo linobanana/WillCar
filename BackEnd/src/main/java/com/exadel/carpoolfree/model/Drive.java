@@ -59,8 +59,8 @@ public class Drive {
     @Column(name = "pathVO")
     private String path;
 
-    @Column(name = "is_archive")
-    private boolean isArchive = false;
+    @Column(name = "archive")
+    private boolean archive = false;
 
     @OneToMany()
     private List<Message> messages;
