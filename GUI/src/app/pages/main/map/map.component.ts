@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MapService} from "./map.service";
 
 declare var ymaps: any;
@@ -8,7 +8,7 @@ declare var ymaps: any;
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, OnDestroy {
   constructor(private mapService: MapService) {
   }
 
@@ -21,5 +21,8 @@ export class MapComponent implements OnInit {
     ymaps.ready(this.mapService.initMap());
   }
 
-
+  ngOnDestroy() {
+      this.mapService.destroyMap();
+      console.log('destroy map');
+  }
 }
