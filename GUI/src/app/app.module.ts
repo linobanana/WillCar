@@ -8,7 +8,6 @@ import {routes} from './app.routes';
 import {MainModule} from './pages/main/main.module';
 import {HeaderModule} from './shared/components/header/header.module';
 import {FooterModule} from './shared/components/footer/footer.module';
-import {AuthorizationPageModule} from './pages/authorization-page/authorization-page.module';
 import {ConfirmationModule} from './shared/components/success-confirmation/success-confirmation.module';
 import {BookingConfirmationModule} from './shared/components/booking-confirmation/booking-confirmation.module';
 import {MyBookingsModule} from './pages/personal-area/my-bookings/my-bookings.module';
@@ -53,7 +52,7 @@ import {MainEditModule} from './pages/main-edit/main-edit.module';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    MainEditModule
+    MainEditModule,
     ReactiveFormsModule,
     BrowserModule,
     FormsModule,

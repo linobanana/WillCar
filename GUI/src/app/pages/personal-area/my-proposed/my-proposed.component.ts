@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {Drive, User} from '../../../shared/types/common';
 import {TripService} from '../../../shared/components/trip/trip.service';
 import {UserService} from "../../../shared/components/user/user.service";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-my-proposed',
@@ -11,8 +12,8 @@ import {UserService} from "../../../shared/components/user/user.service";
 })
 export class MyProposedComponent implements OnInit {
   drives$: Observable<Drive[]>;
-  constructor(private tripService: TripService, private userService: UserService) {
-    tripService.getProposedDrives(/*this.userService.user.id*/1).then(()=>
+  constructor(private tripService: TripService, private userService: UserService, private router: Router) {
+    tripService.getProposedDrives(this.userService.user.id).then(()=>
       this.drives$ = tripService.proposedSubject);
   }
 
@@ -22,6 +23,9 @@ onCancelTrip(drive: Drive) {
   this.tripService.cancelTrip(drive);
 }
   onEditTrip(drive: Drive) {
-    this.tripService.cancelTrip(drive);
+    //this.tripService.cancelTrip(drive);
+    this.router.navigate(['/edit']);
   }
+
+
 }

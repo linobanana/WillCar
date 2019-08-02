@@ -1,0 +1,21 @@
+table {
+  width: 98%;
+  margin: 1% 1% 0 1%;
+  font-family: 'Titillium Web', sans-serif;
+  ::ng-deep {
+    button.mat-sort-header-button {
+      color: black;
+      font-size: 1.5em;
+    }
+    .mat-sort-header-arrow {
+      color: #004d40;
+    }
+    td {
+      font-size: 1.4em;
+    }
+  }
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}

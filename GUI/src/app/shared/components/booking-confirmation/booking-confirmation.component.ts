@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {LABELS} from '../../constants/labels';
-import {USER} from '../../mocks/user.mocks';
 import {BUTTON_LABELS} from '../../constants/button-labels';
+import {UserService} from '../user/user.service';
 
 @Component({
   selector: 'app-booking-confirmation',
@@ -11,11 +11,10 @@ import {BUTTON_LABELS} from '../../constants/button-labels';
 })
 export class BookingConfirmationComponent implements OnInit {
   label = LABELS;
-  driverInfo = USER;
- // tripInfo = TEST_TRIP;
+  driverInfo = this.userService.user;
   buttonLabel = BUTTON_LABELS;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private userService: UserService) {}
 
   goToSuccess() {
     this.router.navigate(['/success-confirmation']);

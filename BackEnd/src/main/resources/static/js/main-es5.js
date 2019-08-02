@@ -100,6 +100,17 @@ module.exports = "<table mat-table [dataSource]=\"dataSource\" matSort class=\"m
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/pages/personal-area/chat/chat.component.html":
+/*!****************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/pages/personal-area/chat/chat.component.html ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<!--<form [formGroup]=\"userForm\" (submit)=\"openSocket()\" *ngIf=\"isLoaded\">\r\n  <p>User Information: (if user id(toId) is null the message will be sended to all users) </p>\r\n  <div style=\"margin-bottom: 20px;\">\r\n    <input type=\"text\" formControlName=\"fromId\" name=\"fromId\" placeholder=\"Your id\">\r\n    <input type=\"submit\" [disabled]=\"userForm.invalid || isCustomSocketOpened\" value=\"open socket to recieve custom messages\">\r\n  </div>\r\n  <input type=\"text\" formControlName=\"toId\" name=\"toId\" placeholder=\"User id to send the message to\">\r\n</form>\r\n<form [formGroup]=\"form\" (submit)=\"sendMessageUsingSocket()\">\r\n  <p>Message: </p>\r\n  <input type=\"text\" formControlName=\"message\" name=\"message\" placeholder=\"Message\">\r\n  <input type=\"submit\" [disabled]=\"form.invalid || userForm.invalid\" value=\"Send using socket subscription\">\r\n</form>\r\n<ul>\r\n  <li *ngFor=\"let message of messages\">From: {{message.fromId}}, To: {{message.toId}}, Message: {{message.message}}</li>\r\n</ul>-->\r\n\r\n<div class=\"wrapper\">\r\n  <div class=\"container\">\r\n    <div class=\"left\">\r\n      <ul class=\"people\" *ngFor=\"let drive of drives\">\r\n        <li class=\"person\" data-chat=\"person1\" (click)=\"chooseDrive(drive)\" *ngIf=\"isLoaded\">\r\n          <img src=\"../../../assets/logo.png\" alt=\"\" />\r\n          <span class=\"name\">{{drive.name}}</span>\r\n          <span class=\"preview\">{{drive.startTime}} - {{drive.endTime}}</span>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n <div class=\"right\">\r\n   <div class=\"chat\" data-chat=\"person3\">\r\n     <div *ngFor=\"let message of messages\">\r\n         <div class=\"bubble you\" *ngIf=\"isNotMine(message)\">\r\n           {{message.message}}\r\n         </div>\r\n         <div class=\"bubble me\" *ngIf=\"isMine(message)\">\r\n           {{message.message}}\r\n       </div>\r\n       <div class=\"notification\" *ngIf=\"message.notify\">\r\n         {{message.message}}\r\n       </div>\r\n     </div>\r\n   </div>\r\n   <div class=\"write\">\r\n      <form [formGroup]=\"form\" (submit)=\"sendMessageUsingSocket()\">\r\n        <input formControlName=\"message\" name=\"message\" class=\"write-input\" type=\"text\"/>\r\n        <input type=\"submit\" value=\"Send using socket subscription\">\r\n      </form>\r\n    </div>\r\n\r\n  </div>\r\n  </div>\r\n</div>\r\n"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/pages/personal-area/my-bookings/my-bookings.component.html":
 /*!******************************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/pages/personal-area/my-bookings/my-bookings.component.html ***!
@@ -107,7 +118,7 @@ module.exports = "<table mat-table [dataSource]=\"dataSource\" matSort class=\"m
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-trip [Drives]=\"drives$|async\"\r\n          (cancelTrip) = onCancelTrip($event)\r\n          [ifProposed]=\"false\">\r\n</app-trip>\r\n"
+module.exports = "<app-trip [drives]=\"drives$|async\"\r\n          (cancelPassengerDrive) = onCancelTrip($event)\r\n          [ifProposed]=\"false\">\r\n</app-trip>\r\n"
 
 /***/ }),
 
@@ -118,7 +129,7 @@ module.exports = "<app-trip [Drives]=\"drives$|async\"\r\n          (cancelTrip)
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-trip [Drives]=\"drives$|async\" (cancelTrip) = onCancelTrip($event) [ifProposed]=\"true\"></app-trip>\r\n"
+module.exports = "<app-trip [drives]=\"drives$|async\" (cancelDrive) = onCancelTrip($event) (editDrive) = onEditTrip($event) [ifProposed]=\"true\"></app-trip>\r\n"
 
 /***/ }),
 
@@ -151,7 +162,7 @@ module.exports = "<user-component\r\n  [user]=\"user$ | async\"\r\n  [options]=\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\r\n  <div class=\"info\">\r\n    <h2 class=\"title\">{{label.confirmLabel}}</h2>\r\n    <table class=\"list\">\r\n      <tr><td class=\"parameter\">Driver:</td><td class=\"value\">{{driverInfo.name}}</td></tr>\r\n      <tr><td class=\"parameter\">Car:</td><td class=\"value\">{{driverInfo.cars}}</td></tr>\r\n      <tr><td class=\"parameter\">Phone:</td><td class=\"value\"><a href=\"tel:{{driverInfo.telNumber}}\">{{driverInfo.telNumber}}</a></td></tr>\r\n      <tr><td class=\"parameter\">Communicate via:</td><td class=\"value\">{{driverInfo.preferredCommunication}}</td></tr>\r\n      <tr><td class=\"parameter\">Departure time:</td><td class=\"value\">{{tripInfo.date}}</td></tr>\r\n      <tr><td class=\"parameter\">Your pickup point:</td><td class=\"value\">{{tripInfo.startPoint.toString()}}</td></tr>\r\n    </table>\r\n    <div class=\"buttons\">\r\n    <button mat-raised-button (click)=\"goToSuccess()\" class=\"button\">{{buttonLabel.bookButton}}</button>\r\n    <button mat-raised-button (click)=\"goToMain()\" class=\"button cancel-button\">{{buttonLabel.cancelButton}}</button>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"container\">\r\n  <div class=\"info\">\r\n    <h2 class=\"title\">{{label.confirmLabel}}</h2>\r\n    <table class=\"list\">\r\n      <tr><td class=\"parameter\">Driver:</td><td class=\"value\">{{driverInfo.name}}</td></tr>\r\n      <tr><td class=\"parameter\">Car:</td><td class=\"value\">{{driverInfo.cars}}</td></tr>\r\n      <tr><td class=\"parameter\">Phone:</td><td class=\"value\"><a href=\"tel:{{driverInfo.telNumber}}\">{{driverInfo.telNumber}}</a></td></tr>\r\n      <tr><td class=\"parameter\">Communicate via:</td><td class=\"value\">{{driverInfo.preferredCommunication}}</td></tr>\r\n      <tr><td class=\"parameter\">Departure time:</td><td class=\"value\">{{driverInfo.date}}</td></tr>\r\n      <tr><td class=\"parameter\">Your pickup point:</td><td class=\"value\">{{driverInfo.startPoint.toString()}}</td></tr>\r\n    </table>\r\n    <div class=\"buttons\">\r\n    <button mat-raised-button (click)=\"goToSuccess()\" class=\"button\">{{buttonLabel.bookButton}}</button>\r\n    <button mat-raised-button (click)=\"goToMain()\" class=\"button cancel-button\">{{buttonLabel.cancelButton}}</button>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -195,7 +206,7 @@ module.exports = "<footer class=\"page-footer\">\r\n  <p class=\"copyright\">© 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<header class=\"page-header\">\r\n  <div class=\"header-container\">\r\n    <div *ngIf=\"router.url.includes('main')\">\r\n      <p class=\"role-toggle\">\r\n        Passenger\r\n      </p>\r\n      <mat-slide-toggle color=\"warn\" (click)=\"changeDriverState()\">\r\n      </mat-slide-toggle>\r\n      <p class=\"role-toggle\">\r\n        Driver\r\n      </p>\r\n    </div>\r\n    <div *ngIf=\"!router.url.includes('main')\" class=\"main-btn\" (click)=\"goToMain()\">\r\n        <mat-icon>\r\n          arrow_back_ios\r\n        </mat-icon>\r\n    </div>\r\n    <img src=\"../../../assets/logo.png\" alt=\"Logo\" class=\"logo\" (click)=\"goToMain()\" />\r\n    <app-menu class=\"app-menu\" *ngIf=\"router.url.includes('main')\">\r\n    </app-menu>\r\n  </div>\r\n</header>\r\n"
+module.exports = "<header class=\"page-header\">\r\n  <div class=\"header-container\">\r\n    <div *ngIf=\"router.url.includes('main')\">\r\n      <p class=\"role-toggle\">\r\n        Passenger\r\n      </p>\r\n      <mat-slide-toggle color=\"warn\" (click)=\"changeDriverState()\">\r\n      </mat-slide-toggle>\r\n      <p class=\"role-toggle\">\r\n        Driver\r\n      </p>\r\n    </div>\r\n    <div *ngIf=\"!router.url.includes('main')\" class=\"main-btn\" (click)=\"goToMain()\">\r\n        <mat-icon>\r\n          arrow_back_ios\r\n        </mat-icon>\r\n    </div>\r\n    <img src=\"../../../../assets/logo.png\" alt=\"Logo\" class=\"logo\" (click)=\"goToMain()\" />\r\n    <app-menu class=\"app-menu\" *ngIf=\"router.url.includes('main')\">\r\n    </app-menu>\r\n  </div>\r\n</header>\r\n"
 
 /***/ }),
 
@@ -206,7 +217,7 @@ module.exports = "<header class=\"page-header\">\r\n  <div class=\"header-contai
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"menu\">\r\n  <button class=\"profile-button\" mat-button [matMenuTriggerFor]=\"beforeMenu\">\r\n    <mat-icon class=\"profile-icon\">\r\n      account_circle\r\n    </mat-icon>\r\n    <mat-icon class=\"profile-icon\">\r\n      keyboard_arrow_down\r\n    </mat-icon>\r\n  </button>\r\n  <mat-menu #beforeMenu=\"matMenu\" xPosition=\"before\">\r\n    <button class=\"menu-item\" (click)=\"goToProfile()\" mat-menu-item>\r\n      {{menuItems.userProfile}}\r\n      <mat-icon class=\"menu-icon\">\r\n        face\r\n      </mat-icon>\r\n    </button>\r\n    <button class=\"menu-item\" mat-menu-item>\r\n      {{menuItems.userMessages}}\r\n      <mat-icon class=\"menu-icon\">\r\n        mail\r\n      </mat-icon>\r\n    </button>\r\n    <button class=\"menu-item\" (click)=\"goToMyBookings()\" mat-menu-item>\r\n      {{menuItems.userBookings}}\r\n      <mat-icon class=\"menu-icon\">\r\n        where_to_vote\r\n      </mat-icon>\r\n    </button>\r\n    <button class=\"menu-item\" (click)=\"goToMyProposed()\" mat-menu-item>\r\n      {{menuItems.userProposedTrips}}\r\n      <mat-icon class=\"menu-icon\">\r\n        directions_car\r\n      </mat-icon>\r\n    </button>\r\n    <button class=\"menu-item\" (click)=\"goToAdminTab()\" mat-menu-item *ngIf=\"isAdmin\">\r\n      {{menuItems.adminTab}}\r\n      <mat-icon class=\"menu-icon\">\r\n        gavel\r\n      </mat-icon>\r\n    </button>\r\n    <button class=\"menu-item\" (click)=\"goToAuthorization()\" mat-menu-item>\r\n      {{menuItems.menuExit}}\r\n      <mat-icon class=\"menu-icon\">\r\n        exit_to_app\r\n      </mat-icon>\r\n    </button>\r\n  </mat-menu>\r\n</div>\r\n"
+module.exports = "<div class=\"menu\">\r\n  <button class=\"profile-button\" mat-button [matMenuTriggerFor]=\"beforeMenu\">\r\n    <mat-icon class=\"profile-icon\">\r\n      account_circle\r\n    </mat-icon>\r\n    <mat-icon class=\"profile-icon\">\r\n      keyboard_arrow_down\r\n    </mat-icon>\r\n  </button>\r\n  <mat-menu #beforeMenu=\"matMenu\" xPosition=\"before\">\r\n    <button class=\"menu-item\" (click)=\"goToProfile()\" mat-menu-item>\r\n      {{menuItems.userProfile}}\r\n      <mat-icon class=\"menu-icon\">\r\n        face\r\n      </mat-icon>\r\n    </button>\r\n    <button class=\"menu-item\" (click)=\"goToMyMessages()\" mat-menu-item>\r\n      {{menuItems.userMessages}}\r\n      <mat-icon class=\"menu-icon\">\r\n        mail\r\n      </mat-icon>\r\n    </button>\r\n    <button class=\"menu-item\" (click)=\"goToMyBookings()\" mat-menu-item>\r\n      {{menuItems.userBookings}}\r\n      <mat-icon class=\"menu-icon\">\r\n        where_to_vote\r\n      </mat-icon>\r\n    </button>\r\n    <button class=\"menu-item\" (click)=\"goToMyProposed()\" mat-menu-item>\r\n      {{menuItems.userProposedTrips}}\r\n      <mat-icon class=\"menu-icon\">\r\n        directions_car\r\n      </mat-icon>\r\n    </button>\r\n    <button class=\"menu-item\" (click)=\"goToAdminTab()\" mat-menu-item *ngIf=\"isAdmin\">\r\n      {{menuItems.adminTab}}\r\n      <mat-icon class=\"menu-icon\">\r\n        gavel\r\n      </mat-icon>\r\n    </button>\r\n    <button class=\"menu-item\" (click)=\"goToAuthorization()\" mat-menu-item>\r\n      {{menuItems.menuExit}}\r\n      <mat-icon class=\"menu-icon\">\r\n        exit_to_app\r\n      </mat-icon>\r\n    </button>\r\n  </mat-menu>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -217,7 +228,7 @@ module.exports = "<div class=\"menu\">\r\n  <button class=\"profile-button\" mat
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"nav-list\">\r\n  <button (click)=\"goToProfile()\" mat-stroked-button color=\"warn\">{{profileNavItems.userProfile}}</button>\r\n  <button mat-stroked-button color=\"warn\">{{profileNavItems.userMessages}}</button>\r\n  <button (click)=\"goToMyBookings()\"  mat-stroked-button color=\"warn\">{{profileNavItems.userBookings}}</button>\r\n  <button (click)=\"goToMyProposed()\" mat-stroked-button color=\"warn\">{{profileNavItems.userProposedTrips}}</button>\r\n  <button (click)=\"goToAdminTab()\" mat-stroked-button color=\"warn\" *ngIf=\"isAdmin\">{{profileNavItems.adminTab}}</button>\r\n  <button (click)=\"goToAuthorization()\" mat-stroked-button color=\"warn\">{{profileNavItems.menuExit}}</button>\r\n</nav>\r\n\r\n"
+module.exports = "<nav class=\"nav-list\">\r\n  <button (click)=\"goToProfile()\" mat-stroked-button color=\"warn\">{{profileNavItems.userProfile}}</button>\r\n  <button mat-stroked-button color=\"warn\" (click)=\"goToMyMessages()\">{{profileNavItems.userMessages}}</button>\r\n  <button (click)=\"goToMyBookings()\"  mat-stroked-button color=\"warn\">{{profileNavItems.userBookings}}</button>\r\n  <button (click)=\"goToMyProposed()\" mat-stroked-button color=\"warn\">{{profileNavItems.userProposedTrips}}</button>\r\n  <button (click)=\"goToAdminTab()\" mat-stroked-button color=\"warn\" *ngIf=\"isAdmin\">{{profileNavItems.adminTab}}</button>\r\n  <button (click)=\"goToAuthorization()\" mat-stroked-button color=\"warn\">{{profileNavItems.menuExit}}</button>\r\n</nav>\r\n\r\n"
 
 /***/ }),
 
@@ -239,7 +250,7 @@ module.exports = "<div class=\"confirmation\">\r\n  <div class=\"container\">\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"my-bookings\" *ngIf=\"!ifProposed\">My bookings</h2>\r\n<h2 class=\"my-bookings\" *ngIf=\"ifProposed\" >Proposed trips</h2>\r\n<h3 class=\"label\">Upcoming trips</h3>\r\n<div *ngFor=\"let trip of Drives\">\r\n  <div class=\"trips-container\">\r\n    <img class=\"route-shot\" src=\"{{testTrip.routeURL}}\" />\r\n    <div class=\"trip\">\r\n      <div class=\"field\"><mat-icon>date_range</mat-icon> {{testTrip.date}}</div>\r\n      <div class=\"field\"><mat-icon>access_time</mat-icon> {{testTrip.time}}</div>\r\n      <div class=\"field\"><mat-icon>gesture</mat-icon> {{testTrip.startPoint.toString()}} - {{testTrip.finPoint.toString()}}</div>\r\n      <div class=\"field\" *ngIf=\"!ifProposed\"><mat-icon>where_to_vote</mat-icon> Купревича, 12 </div>\r\n      <div class=\"field\" *ngIf=\"!ifProposed\"><mat-icon>directions_car</mat-icon>{{car.model}} {{car.number}} {{car.color}}</div>\r\n      <div class=\"field\" *ngIf=\"!ifProposed\"><mat-icon>person_outline</mat-icon> {{user.name}} <a href=\"tel:{{user.telNumber}}\">{{user.telNumber}}</a> {{user.preferredCommunication}}</div>\r\n      <div class=\"field\" *ngIf=\"ifProposed\"><mat-icon>accessibility_new</mat-icon> {{testTrip.numberOfSeats}}      </div>\r\n      <div *ngIf=\"ifProposed\" class=\"passengers\">\r\n        <mat-list>\r\n          <mat-list-item>Vasya Pupkin</mat-list-item>\r\n          <mat-divider></mat-divider>\r\n          <mat-list-item>Petya Galtsev</mat-list-item>\r\n          <mat-divider></mat-divider>\r\n        </mat-list>\r\n      </div>\r\n      <div class=\"btn\">\r\n        <button mat-stroked-button color=\"warn\" *ngIf=\"ifProposed\" (click)=\"goToEdit()\">Edit</button>\r\n        <button mat-stroked-button color=\"warn\" (click)=\"cancelTrip.emit(trip)\">Cancel</button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<h3 class=\"label\">Archive</h3>\r\n\r\n"
+module.exports = "<h2 class=\"my-bookings\" *ngIf=\"!ifProposed\">My bookings</h2>\r\n<h2 class=\"my-bookings\" *ngIf=\"ifProposed\">Proposed trips</h2>\r\n<h3 class=\"label\">Upcoming trips</h3>\r\n<div *ngFor=\"let drive of drives\">\r\n  <div *ngIf=\"!drive.archive\" class=\"trips-container\">\r\n    <img class=\"route-shot\" src=\"https://img.tyt.by/n/it/01/9/screenshot_20180221-yandex_transport.jpg\"/>\r\n    <div class=\"trip\">\r\n      <div class=\"field\">\r\n        <mat-icon>date_range</mat-icon>\r\n        {{drive.startTime}}</div>\r\n      <div class=\"field\">\r\n        <mat-icon>access_time</mat-icon>\r\n        {{drive.endTime}}</div>\r\n      <div class=\"field\">\r\n        <mat-icon>gesture</mat-icon>\r\n        {{drive.name}}</div>\r\n      <div class=\"field\" *ngIf=\"!ifProposed\">\r\n        <mat-icon>where_to_vote</mat-icon>\r\n        {{drive.name}}\r\n      </div>\r\n      <div class=\"field\" *ngIf=\"!ifProposed\">\r\n        <mat-icon>directions_car</mat-icon>\r\n        {{car.model}} {{car.number}} {{car.color}}</div>\r\n      <div class=\"field\" *ngIf=\"!ifProposed\">\r\n        <mat-icon>person_outline</mat-icon>\r\n        {{drive.driver.name}} <a href=\"tel:{{drive.driver.phoneNumber}}\">{{drive.driver.phoneNumber}}</a> {{drive.driver.prefCommunication}}</div>\r\n      <div class=\"field\" *ngIf=\"ifProposed\">\r\n        <mat-icon>accessibility_new</mat-icon>\r\n        {{drive.freePlaceCount}}</div>\r\n      <div *ngIf=\"ifProposed\" class=\"passengers\">\r\n        <mat-list *ngFor=\"let passenger of drive.passengers\">\r\n          <mat-list-item>{{passenger.name}}</mat-list-item>\r\n          <mat-divider></mat-divider>\r\n        </mat-list>\r\n      </div>\r\n      <div class=\"btn\">\r\n        <button mat-stroked-button color=\"warn\" *ngIf=\"ifProposed\" (click)=\"editDrive.emit(drive)\">Edit</button>\r\n        <button mat-stroked-button color=\"warn\" *ngIf=\"ifProposed\"(click)=\"cancelDrive.emit(drive)\">Cancel</button>\r\n        <button mat-stroked-button color=\"warn\" *ngIf=\"!ifProposed\"(click)=\"cancelPassengerDrive.emit(drive)\">Cancel</button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<h3 class=\"label\">Archive</h3>\r\n<div *ngFor=\"let drive of drives\">\r\n  <div *ngIf=\"drive.archive\" class=\"trips-container\">\r\n    <img class=\"route-shot\" src=\"https://img.tyt.by/n/it/01/9/screenshot_20180221-yandex_transport.jpg\"/>\r\n    <div class=\"trip\">\r\n      <div class=\"field\">\r\n        <mat-icon>date_range</mat-icon>\r\n        {{drive.startTime}}</div>\r\n      <div class=\"field\">\r\n        <mat-icon>access_time</mat-icon>\r\n        {{drive.endTime}}</div>\r\n      <div class=\"field\">\r\n        <mat-icon>gesture</mat-icon>\r\n        {{drive.name}}</div>\r\n      <div class=\"field\" *ngIf=\"!ifProposed\">\r\n        <mat-icon>where_to_vote</mat-icon>\r\n        {{drive.name}}\r\n      </div>\r\n      <div class=\"field\" *ngIf=\"!ifProposed\">\r\n        <mat-icon>directions_car</mat-icon>\r\n        {{car.model}} {{car.number}} {{car.color}}</div>\r\n      <div class=\"field\" *ngIf=\"!ifProposed\">\r\n        <mat-icon>person_outline</mat-icon>\r\n        {{drive.driver.name}} <a href=\"tel:{{drive.driver.phoneNumber}}\">{{drive.driver.phoneNumber}}</a>\r\n        <mat-icon>grade</mat-icon><mat-icon>grade</mat-icon><mat-icon>grade</mat-icon><mat-icon>grade</mat-icon><mat-icon>grade</mat-icon>\r\n      </div>\r\n      <div class=\"field\" *ngIf=\"ifProposed\">\r\n        <mat-icon>accessibility_new</mat-icon>\r\n        {{drive.freePlaceCount}}</div>\r\n      <div *ngIf=\"ifProposed\" class=\"passengers\">\r\n        <mat-list *ngFor=\"let passenger of drive.passengers\">\r\n          <mat-list-item>{{passenger.name}}</mat-list-item>\r\n            <div class=\"star-rating\">\r\n              <div class=\"star-rating__wrap\">\r\n                <input class=\"star-rating__input\" id=\"star-rating-5\" type=\"radio\" name=\"rating\" value=\"5\">\r\n                <label class=\"star-rating__ico fa fa-star-o fa-lg\" for=\"star-rating-5\" title=\"5 out of 5 stars\"></label>\r\n                <input class=\"star-rating__input\" id=\"star-rating-4\" type=\"radio\" name=\"rating\" value=\"4\">\r\n                <label class=\"star-rating__ico fa fa-star-o fa-lg\" for=\"star-rating-4\" title=\"4 out of 5 stars\"></label>\r\n                <input class=\"star-rating__input\" id=\"star-rating-3\" type=\"radio\" name=\"rating\" value=\"3\">\r\n                <label class=\"star-rating__ico fa fa-star-o fa-lg\" for=\"star-rating-3\" title=\"3 out of 5 stars\"></label>\r\n                <input class=\"star-rating__input\" id=\"star-rating-2\" type=\"radio\" name=\"rating\" value=\"2\">\r\n                <label class=\"star-rating__ico fa fa-star-o fa-lg\" for=\"star-rating-2\" title=\"2 out of 5 stars\"></label>\r\n                <input class=\"star-rating__input\" id=\"star-rating-1\" type=\"radio\" name=\"rating\" value=\"1\">\r\n                <label class=\"star-rating__ico fa fa-star-o fa-lg\" for=\"star-rating-1\" title=\"1 out of 5 stars\"></label>\r\n              </div>\r\n            </div>\r\n          <mat-divider></mat-divider>\r\n        </mat-list>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -350,9 +361,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_components_profile_menu_profile_menu_module__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./shared/components/profile-menu/profile-menu.module */ "./src/app/shared/components/profile-menu/profile-menu.module.ts");
 /* harmony import */ var _pages_personal_area_personal_area_module__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./pages/personal-area/personal-area.module */ "./src/app/pages/personal-area/personal-area.module.ts");
 /* harmony import */ var _shared_services_api_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./shared/services/api.service */ "./src/app/shared/services/api.service.ts");
-/* harmony import */ var _pages_personal_area_admin_tab_admin_module__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./pages/personal-area/admin-tab/admin.module */ "./src/app/pages/personal-area/admin-tab/admin.module.ts");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _pages_main_edit_main_edit_module__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./pages/main-edit/main-edit.module */ "./src/app/pages/main-edit/main-edit.module.ts");
+/* harmony import */ var _pages_personal_area_chat_chat_module__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./pages/personal-area/chat/chat.module */ "./src/app/pages/personal-area/chat/chat.module.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _pages_personal_area_admin_tab_admin_module__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./pages/personal-area/admin-tab/admin.module */ "./src/app/pages/personal-area/admin-tab/admin.module.ts");
+/* harmony import */ var _pages_main_edit_main_edit_module__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./pages/main-edit/main-edit.module */ "./src/app/pages/main-edit/main-edit.module.ts");
+
+
 
 
 
@@ -399,12 +414,19 @@ var AppModule = /** @class */ (function () {
                 _pages_personal_area_my_bookings_my_bookings_module__WEBPACK_IMPORTED_MODULE_13__["MyBookingsModule"],
                 _pages_personal_area_my_proposed_my_proposed_module__WEBPACK_IMPORTED_MODULE_14__["MyProposedModule"],
                 _pages_personal_area_personal_area_module__WEBPACK_IMPORTED_MODULE_17__["PersonalAreaModule"],
-                _pages_personal_area_admin_tab_admin_module__WEBPACK_IMPORTED_MODULE_19__["AdminModule"],
+                _pages_personal_area_admin_tab_admin_module__WEBPACK_IMPORTED_MODULE_22__["AdminModule"],
                 _pages_personal_area_personal_area_module__WEBPACK_IMPORTED_MODULE_17__["PersonalAreaModule"],
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
-                _angular_forms__WEBPACK_IMPORTED_MODULE_20__["FormsModule"],
-                _angular_forms__WEBPACK_IMPORTED_MODULE_20__["ReactiveFormsModule"],
-                _pages_main_edit_main_edit_module__WEBPACK_IMPORTED_MODULE_21__["MainEditModule"]
+                _angular_forms__WEBPACK_IMPORTED_MODULE_21__["FormsModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_21__["ReactiveFormsModule"],
+                _pages_main_edit_main_edit_module__WEBPACK_IMPORTED_MODULE_23__["MainEditModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_21__["ReactiveFormsModule"],
+                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_21__["FormsModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_21__["ReactiveFormsModule"],
+                _pages_personal_area_personal_area_module__WEBPACK_IMPORTED_MODULE_17__["PersonalAreaModule"],
+                _pages_personal_area_chat_chat_module__WEBPACK_IMPORTED_MODULE_19__["ChatModule"],
+                ngx_toastr__WEBPACK_IMPORTED_MODULE_20__["ToastrModule"].forRoot()
             ],
             providers: [
                 _shared_services_api_service__WEBPACK_IMPORTED_MODULE_18__["ApiService"]
@@ -436,6 +458,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_components_success_confirmation_success_confirmation_routes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./shared/components/success-confirmation/success-confirmation.routes */ "./src/app/shared/components/success-confirmation/success-confirmation.routes.ts");
 /* harmony import */ var _shared_components_booking_confirmation_booking_confirmation_routes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./shared/components/booking-confirmation/booking-confirmation.routes */ "./src/app/shared/components/booking-confirmation/booking-confirmation.routes.ts");
 /* harmony import */ var _pages_main_edit_main_edit_routes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/main-edit/main-edit.routes */ "./src/app/pages/main-edit/main-edit.routes.ts");
+/* harmony import */ var _pages_personal_area_chat_chat_routes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/personal-area/chat/chat.routes */ "./src/app/pages/personal-area/chat/chat.routes.ts");
+
 
 
 
@@ -449,7 +473,7 @@ var routes = tslib__WEBPACK_IMPORTED_MODULE_0__["__spread"]([
         redirectTo: 'main',
         pathMatch: 'full'
     }
-], _pages_main_main_routes__WEBPACK_IMPORTED_MODULE_1__["MainRoutes"], _pages_personal_area_my_bookings_my_bookings_routes__WEBPACK_IMPORTED_MODULE_2__["MyBookingsRoutes"], _pages_personal_area_my_proposed_my_proposed_routes__WEBPACK_IMPORTED_MODULE_3__["MyProposedRoutes"], _shared_components_success_confirmation_success_confirmation_routes__WEBPACK_IMPORTED_MODULE_4__["SuccessConfirmationRoutes"], _shared_components_booking_confirmation_booking_confirmation_routes__WEBPACK_IMPORTED_MODULE_5__["BookingConfirmationRoutes"], _pages_main_edit_main_edit_routes__WEBPACK_IMPORTED_MODULE_6__["MainEditRoutes"]);
+], _pages_main_main_routes__WEBPACK_IMPORTED_MODULE_1__["MainRoutes"], _pages_personal_area_my_bookings_my_bookings_routes__WEBPACK_IMPORTED_MODULE_2__["MyBookingsRoutes"], _pages_personal_area_my_proposed_my_proposed_routes__WEBPACK_IMPORTED_MODULE_3__["MyProposedRoutes"], _shared_components_success_confirmation_success_confirmation_routes__WEBPACK_IMPORTED_MODULE_4__["SuccessConfirmationRoutes"], _shared_components_booking_confirmation_booking_confirmation_routes__WEBPACK_IMPORTED_MODULE_5__["BookingConfirmationRoutes"], _pages_main_edit_main_edit_routes__WEBPACK_IMPORTED_MODULE_6__["MainEditRoutes"], _pages_personal_area_chat_chat_routes__WEBPACK_IMPORTED_MODULE_7__["ChatRoutes"]);
 
 
 /***/ }),
@@ -616,7 +640,7 @@ var LeftMenuComponent = /** @class */ (function () {
                     validators: forbiddenDateValidator(new RegExp(_shared_constants_common__WEBPACK_IMPORTED_MODULE_3__["REG_DATE"])),
                     updateOn: 'blur'
                 }],
-            time: [''],
+            time: ['12:00 am'],
             address: this.fb.group({
                 startl: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
                 endl: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
@@ -632,6 +656,7 @@ var LeftMenuComponent = /** @class */ (function () {
         var _this = this;
         // TODO: Use EventEmitter with form value
         // console.log(this.LeftMenuInfo.value);
+        this.mapper.cleanMap();
         this.mapper.importInfoRoute(this.LeftMenuInfo).then(function () { _this.mapper.exportInfoRoute(); });
     };
     Object.defineProperty(LeftMenuComponent.prototype, "date", {
@@ -875,6 +900,10 @@ var MapComponent = /** @class */ (function () {
     MapComponent.prototype.InitYandexMap = function () {
         ymaps.ready(this.mapService.initMap());
     };
+    MapComponent.prototype.ngOnDestroy = function () {
+        this.mapService.destroyMap();
+        console.log('destroy map');
+    };
     MapComponent.ctorParameters = function () { return [
         { type: _map_service__WEBPACK_IMPORTED_MODULE_2__["MapService"] }
     ]; };
@@ -946,12 +975,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _shared_api_map_map_api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../shared/api/map/map.api.service */ "./src/app/shared/api/map/map.api.service.ts");
+/* harmony import */ var _shared_constants_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../shared/constants/common */ "./src/app/shared/constants/common.ts");
+
 
 
 
 var MapService = /** @class */ (function () {
     function MapService(mapApi) {
         this.mapApi = mapApi;
+        this.points = {
+            start: '',
+            end: ''
+        };
         this.drive = {
             startPoint: '',
             finPoint: '',
@@ -973,17 +1008,15 @@ var MapService = /** @class */ (function () {
     MapService.prototype.initRelationMwithY = function (MenuInfo, mode) {
         var menuInfo = MenuInfo;
         var self = this;
-        var start = 'start';
-        var end = 'end';
         ymaps.ready(init);
         function init() {
-            var suggestionForStartInput = new ymaps.SuggestView(start + mode, {
+            var suggestionForStartInput = new ymaps.SuggestView(_shared_constants_common__WEBPACK_IMPORTED_MODULE_3__["START_STRING"] + mode, {
                 boundedBy: [
                     [50, 60],
                     [25, 30]
                 ]
             });
-            var suggestionForEndInput = new ymaps.SuggestView(end + mode, {
+            var suggestionForEndInput = new ymaps.SuggestView(_shared_constants_common__WEBPACK_IMPORTED_MODULE_3__["END_STRING"] + mode, {
                 boundedBy: [
                     [50, 60],
                     [25, 30]
@@ -991,13 +1024,13 @@ var MapService = /** @class */ (function () {
             });
             suggestionForStartInput.events.add("select", function (e) {
                 var startSuggestion = e.get('item').value;
-                menuInfo.get('address').get(start + mode).setValue(startSuggestion);
-                self.start = startSuggestion;
+                menuInfo.get('address').get(_shared_constants_common__WEBPACK_IMPORTED_MODULE_3__["START_STRING"] + mode).setValue(startSuggestion);
+                self.points.start = startSuggestion;
             });
             suggestionForEndInput.events.add("select", function (e) {
                 var endSuggestion = e.get('item').value;
-                menuInfo.get('address').get(end + mode).setValue(endSuggestion);
-                self.end = endSuggestion;
+                menuInfo.get('address').get(_shared_constants_common__WEBPACK_IMPORTED_MODULE_3__["END_STRING"] + mode).setValue(endSuggestion);
+                self.points.end = endSuggestion;
             });
         }
     };
@@ -1006,19 +1039,30 @@ var MapService = /** @class */ (function () {
         this.infoToSearchDrive.dateTime = this.formatDateISO8601(form.get('time').value.toString());
         var self = this;
         var promises = [];
-        promises.push(ymaps.geocode(self.start, { results: 1 }).then(function (res) {
-            var firstGeoObject = res.geoObjects.get(0);
-            self.infoToSearchDrive.startPoint = JSON.stringify(firstGeoObject.geometry.getCoordinates());
-        }));
-        promises.push(ymaps.geocode(self.end, { results: 1 }).then(function (res) {
-            var firstGeoObject = res.geoObjects.get(0);
-            self.infoToSearchDrive.endPoint = JSON.stringify(firstGeoObject.geometry.getCoordinates());
-        }));
+        promises.push(self.getCordinatesFromAdress(self.points.start, self.points, _shared_constants_common__WEBPACK_IMPORTED_MODULE_3__["START_STRING"]));
+        promises.push(self.getCordinatesFromAdress(self.points.end, self.points, _shared_constants_common__WEBPACK_IMPORTED_MODULE_3__["END_STRING"]));
         return Promise.all(promises);
+    };
+    MapService.prototype.getCordinatesFromAdress = function (adress, points, mode) {
+        var promise = new Promise(function (resolve, reject) {
+            ymaps.geocode(adress, { results: 1 }).then(function (res) {
+                var firstGeoObject = res.geoObjects.get(0);
+                if (mode === _shared_constants_common__WEBPACK_IMPORTED_MODULE_3__["START_STRING"]) {
+                    points.start = JSON.stringify(firstGeoObject.geometry.getCoordinates());
+                }
+                else {
+                    points.end = JSON.stringify(firstGeoObject.geometry.getCoordinates());
+                }
+                resolve('correct');
+            });
+        });
+        return promise.then(function (result) { });
     };
     MapService.prototype.exportInfoRoute = function () {
         var _this = this;
         var self = this;
+        this.infoToSearchDrive.startPoint = this.points.start;
+        this.infoToSearchDrive.endPoint = this.points.end;
         console.log('searching route:', this.infoToSearchDrive);
         var promise = new Promise(function (resolve, reject) {
             self.mapApi.postInfoToSearchDrive(self.infoToSearchDrive).subscribe(function (data) {
@@ -1037,15 +1081,16 @@ var MapService = /** @class */ (function () {
     MapService.prototype.showDrives = function () {
         var _this = this;
         this.drives.forEach(function (drive) {
-            _this.createRouteWithBalloonForUser(drive.path, 'Shumaxer', drive.startTime, drive.freePlaceCount);
+            _this.createRouteWithBalloonForUser(drive);
+            //this.createRouteWithBalloonForUser(drive.path, 'Shumaxer', drive.startTime, drive.freePlaceCount);
         });
     };
     MapService.prototype.makeRoute = function (form) {
         var self = this;
         var multiRoute = new ymaps.multiRouter.MultiRoute({
             referencePoints: [
-                self.start,
-                self.end
+                self.points.start,
+                self.points.end
             ],
             params: {
                 results: 10
@@ -1064,8 +1109,7 @@ var MapService = /** @class */ (function () {
         multiRoute.events
             .add("activeroutechange", self.onActiveRouteChange, self);
         self.map.geoObjects.add(multiRoute);
-        multiRoute.events
-            .add('update', function () {
+        multiRoute.events.add('update', function () {
             var route = multiRoute.getActiveRoute();
             var pathArray = route.getPaths();
             var path;
@@ -1080,7 +1124,7 @@ var MapService = /** @class */ (function () {
             }).then(function (res) {
                 var firstGeoObject = res.geoObjects.get(0);
                 startAddress = firstGeoObject.getAddressLine();
-                form.get('address').get("startr").setValue(startAddress);
+                form.get('address').get(_shared_constants_common__WEBPACK_IMPORTED_MODULE_3__["START_STRING"] + 'r').setValue(startAddress);
             });
             var finAddress;
             ymaps.geocode(coords[coords.length - 1], {
@@ -1088,19 +1132,29 @@ var MapService = /** @class */ (function () {
             }).then(function (res) {
                 var firstGeoObject = res.geoObjects.get(0);
                 finAddress = firstGeoObject.getAddressLine();
-                form.get('address').get("endr").setValue(finAddress);
+                form.get('address').get(_shared_constants_common__WEBPACK_IMPORTED_MODULE_3__["END_STRING"] + 'r').setValue(finAddress);
             });
             self.drive.startPoint = JSON.stringify(coords[0]);
             self.drive.finPoint = JSON.stringify(coords[coords.length - 1]);
             self.drive.path = JSON.stringify(coords);
-            self.drive.freePlaceCount = form.get('numberOfSeats').value.toString();
-            self.datestart = new Date(form.get('date').value.toString());
-            self.drive.startTime = self.formatDateISO8601(form.get('time').value.toString());
         });
     };
-    MapService.prototype.exportDrive = function () {
+    MapService.prototype.importDrive = function (form) {
+        this.drive.freePlaceCount = form.get('numberOfSeats').value;
+        this.datestart = new Date(form.get('date').value.toString());
+        this.drive.startTime = this.formatDateISO8601(form.get('time').value.toString());
+        var self = this;
+        var promises = [];
+        promises.push(self.getCordinatesFromAdress(self.points.start, self.points, _shared_constants_common__WEBPACK_IMPORTED_MODULE_3__["START_STRING"]));
+        promises.push(self.getCordinatesFromAdress(self.points.end, self.points, _shared_constants_common__WEBPACK_IMPORTED_MODULE_3__["END_STRING"]));
+        return Promise.all(promises);
+    };
+    MapService.prototype.exportDrive = function (form) {
+        this.drive.startPoint = this.points.start;
+        this.drive.finPoint = this.points.end;
         console.log('export drive:');
         console.log(this.drive);
+        console.log('-------------');
         this.mapApi.postDrive(this.drive)
             .subscribe(function (data) {
             console.log(data);
@@ -1121,22 +1175,23 @@ var MapService = /** @class */ (function () {
     MapService.prototype.initMap = function () {
         var geolocation = ymaps.geolocation;
         var self = this;
-        if (this.map === undefined) {
-            this.map = new ymaps.Map('map', {
-                center: [53.9, 27.56],
-                zoom: 12,
-                controls: ['zoomControl', 'geolocationControl']
-            }, {
-                searchControlProvider: 'yandex#search'
-            });
-            geolocation.get({
-                provider: 'browser',
-                mapStateAutoApply: true
-            }).then(function (result) {
-                result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
-                self.map.geoObjects.add(result.geoObjects);
-            });
-        }
+        this.map = new ymaps.Map('map', {
+            center: [53.9, 27.56],
+            zoom: 12,
+            controls: ['zoomControl', 'geolocationControl']
+        }, {
+            searchControlProvider: 'yandex#search'
+        });
+        geolocation.get({
+            provider: 'browser',
+            mapStateAutoApply: true
+        }).then(function (result) {
+            result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
+            self.map.geoObjects.add(result.geoObjects);
+        });
+    };
+    MapService.prototype.destroyMap = function () {
+        this.map.destroy();
     };
     MapService.prototype.onActiveRouteChange = function (event) {
         var multiRoute = event.get('target');
@@ -1163,35 +1218,50 @@ var MapService = /** @class */ (function () {
         };
         return "rgb(" + g() + "," + g() + "," + g() + ")";
     };
-    MapService.prototype.createRouteWithBalloonForUser = function (coordinates, driverName, driveStartTime, freeSeats) {
-        var newCoordinates = coordinates.filter(function (currentValue, index) {
-            if (index % 5 === 0 || index === coordinates.length) {
-                return currentValue;
+    MapService.prototype.createRouteWithBalloonForUser = function (drive) {
+        var temp = 0;
+        var amount = drive.path.length / 70;
+        var _loop_1 = function (j) {
+            var tempCoordinates = [];
+            if (j !== amount - 1) {
+                tempCoordinates = drive.path.slice(temp, temp + 71);
             }
-        });
-        var viaIndex = [];
-        for (var i = 0; i < newCoordinates.length - 2; i++) {
-            viaIndex.push(i + 1);
-        }
-        var multiRoute = new ymaps.multiRouter.MultiRoute({
-            referencePoints: newCoordinates,
-            params: { viaIndexes: viaIndex }
-        }, {
-            viaPointVisible: false,
-            boundsAutoApply: true,
-        });
-        var self = this;
-        multiRoute.events.add("click", function (event) {
-            var coords = event.get("coords");
-            var myPlacemark = new ymaps.Placemark(coords, {
-                balloonContentHeader: 'Водитель: ' + driverName,
-                balloonContentBody: 'Время начла поездки: ' + driveStartTime,
-                balloonContentFooter: "количество свободных мест " + freeSeats,
+            else {
+                tempCoordinates = drive.path.slice(temp);
+            }
+            var viaIndex = [];
+            for (var k = 0; k < tempCoordinates.length - 2; k++) {
+                viaIndex.push(k + 1);
+            }
+            multiRoute = new ymaps.multiRouter.MultiRoute({
+                referencePoints: tempCoordinates,
+                params: {
+                    viaIndexes: viaIndex,
+                    results: 1
+                }
+            }, {
+                wayPointVisible: false,
+                viaPointVisible: false,
+                boundsAutoApply: true,
             });
-            self.map.geoObjects.add(myPlacemark);
-            myPlacemark.balloon.open();
-        }, this);
-        this.map.geoObjects.add(multiRoute);
+            var self_1 = this_1;
+            multiRoute.events.add("click", function (event) {
+                var coords = event.get("coords");
+                var myPlacemark = new ymaps.Placemark(coords, {
+                    balloonContentHeader: 'Водитель: ' + 'MrSavage',
+                    balloonContentBody: 'Время начла поездки: ' + drive.startTime,
+                    balloonContentFooter: 'количество свободных мест ' + drive.freePlaceCount.toString(),
+                });
+                self_1.map.geoObjects.add(myPlacemark);
+                myPlacemark.balloon.open();
+            }, this_1);
+            this_1.map.geoObjects.add(multiRoute);
+            temp = temp + 70;
+        };
+        var this_1 = this, multiRoute;
+        for (var j = 0; j < amount; j++) {
+            _loop_1(j);
+        }
     };
     MapService.prototype.cleanMap = function () {
         this.map.geoObjects.removeAll();
@@ -1290,7 +1360,9 @@ var RightMenuComponent = /** @class */ (function () {
         this.ifDraw = false;
     };
     RightMenuComponent.prototype.onCreate = function () {
-        this.mapper.exportDrive();
+        var _this = this;
+        this.mapper.cleanMap();
+        this.mapper.importDrive(this.RightMenuInfo).then(function () { return _this.mapper.exportDrive(_this.RightMenuInfo); });
     };
     RightMenuComponent.prototype.initRelationMwithY = function () {
         this.mapper.initRelationMwithY(this.RightMenuInfo, 'r');
@@ -1367,14 +1439,14 @@ function negativeNumberValidator() {
 
 /***/ }),
 
-/***/ "./src/app/pages/personal-area/admin-tab/admin.component.css":
-/*!*******************************************************************!*\
-  !*** ./src/app/pages/personal-area/admin-tab/admin.component.css ***!
-  \*******************************************************************/
+/***/ "./src/app/pages/personal-area/admin-tab/admin.component.scss":
+/*!********************************************************************!*\
+  !*** ./src/app/pages/personal-area/admin-tab/admin.component.scss ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "table {\r\n  width: 98%;\r\n  margin: 1% 1% 0 1%;\r\n  font-family: 'Titillium Web', sans-serif;\r\n}\r\n\r\nth.mat-sort-header-sorted {\r\n  color: black;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvcGVyc29uYWwtYXJlYS9hZG1pbi10YWIvYWRtaW4uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFVBQVU7RUFDVixrQkFBa0I7RUFDbEIsd0NBQXdDO0FBQzFDOztBQUVBO0VBQ0UsWUFBWTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvcGVyc29uYWwtYXJlYS9hZG1pbi10YWIvYWRtaW4uY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbInRhYmxlIHtcclxuICB3aWR0aDogOTglO1xyXG4gIG1hcmdpbjogMSUgMSUgMCAxJTtcclxuICBmb250LWZhbWlseTogJ1RpdGlsbGl1bSBXZWInLCBzYW5zLXNlcmlmO1xyXG59XHJcblxyXG50aC5tYXQtc29ydC1oZWFkZXItc29ydGVkIHtcclxuICBjb2xvcjogYmxhY2s7XHJcbn1cclxuIl19 */"
+module.exports = "table {\n  width: 98%;\n  margin: 1% 1% 0 1%;\n  font-family: \"Titillium Web\", sans-serif;\n}\ntable ::ng-deep button.mat-sort-header-button {\n  color: black;\n  font-size: 1.5em;\n}\ntable ::ng-deep .mat-sort-header-arrow {\n  color: #004d40;\n}\ntable ::ng-deep td {\n  font-size: 1.2em;\n}\nth.mat-sort-header-sorted {\n  color: black;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvcGVyc29uYWwtYXJlYS9hZG1pbi10YWIvRDpcXFdpbGxDYXJcXFdpbGxDYXJcXEdVSS9zcmNcXGFwcFxccGFnZXNcXHBlcnNvbmFsLWFyZWFcXGFkbWluLXRhYlxcYWRtaW4uY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3BhZ2VzL3BlcnNvbmFsLWFyZWEvYWRtaW4tdGFiL2FkbWluLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsVUFBQTtFQUNBLGtCQUFBO0VBQ0Esd0NBQUE7QUNDRjtBRENJO0VBQ0UsWUFBQTtFQUNBLGdCQUFBO0FDQ047QURDSTtFQUNFLGNBQUE7QUNDTjtBRENJO0VBQ0UsZ0JBQUE7QUNDTjtBRElBO0VBQ0UsWUFBQTtBQ0RGIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvcGVyc29uYWwtYXJlYS9hZG1pbi10YWIvYWRtaW4uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJ0YWJsZSB7XHJcbiAgd2lkdGg6IDk4JTtcclxuICBtYXJnaW46IDElIDElIDAgMSU7XHJcbiAgZm9udC1mYW1pbHk6ICdUaXRpbGxpdW0gV2ViJywgc2Fucy1zZXJpZjtcclxuICA6Om5nLWRlZXAge1xyXG4gICAgYnV0dG9uLm1hdC1zb3J0LWhlYWRlci1idXR0b24ge1xyXG4gICAgICBjb2xvcjogYmxhY2s7XHJcbiAgICAgIGZvbnQtc2l6ZTogMS41ZW07XHJcbiAgICB9XHJcbiAgICAubWF0LXNvcnQtaGVhZGVyLWFycm93IHtcclxuICAgICAgY29sb3I6ICMwMDRkNDA7XHJcbiAgICB9XHJcbiAgICB0ZCB7XHJcbiAgICAgIGZvbnQtc2l6ZTogMS4yZW07XHJcbiAgICB9XHJcbiAgfVxyXG59XHJcblxyXG50aC5tYXQtc29ydC1oZWFkZXItc29ydGVkIHtcclxuICBjb2xvcjogYmxhY2s7XHJcbn1cclxuIiwidGFibGUge1xuICB3aWR0aDogOTglO1xuICBtYXJnaW46IDElIDElIDAgMSU7XG4gIGZvbnQtZmFtaWx5OiBcIlRpdGlsbGl1bSBXZWJcIiwgc2Fucy1zZXJpZjtcbn1cbnRhYmxlIDo6bmctZGVlcCBidXR0b24ubWF0LXNvcnQtaGVhZGVyLWJ1dHRvbiB7XG4gIGNvbG9yOiBibGFjaztcbiAgZm9udC1zaXplOiAxLjVlbTtcbn1cbnRhYmxlIDo6bmctZGVlcCAubWF0LXNvcnQtaGVhZGVyLWFycm93IHtcbiAgY29sb3I6ICMwMDRkNDA7XG59XG50YWJsZSA6Om5nLWRlZXAgdGQge1xuICBmb250LXNpemU6IDEuMmVtO1xufVxuXG50aC5tYXQtc29ydC1oZWFkZXItc29ydGVkIHtcbiAgY29sb3I6IGJsYWNrO1xufSJdfQ== */"
 
 /***/ }),
 
@@ -1426,7 +1498,7 @@ var AdminComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-admin',
             template: __webpack_require__(/*! raw-loader!./admin.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/personal-area/admin-tab/admin.component.html"),
-            styles: [__webpack_require__(/*! ./admin.component.css */ "./src/app/pages/personal-area/admin-tab/admin.component.css")]
+            styles: [__webpack_require__(/*! ./admin.component.scss */ "./src/app/pages/personal-area/admin-tab/admin.component.scss")]
         })
     ], AdminComponent);
     return AdminComponent;
@@ -1509,6 +1581,236 @@ var AdminRoutes = [
 
 /***/ }),
 
+/***/ "./src/app/pages/personal-area/chat/chat.component.scss":
+/*!**************************************************************!*\
+  !*** ./src/app/pages/personal-area/chat/chat.component.scss ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "@charset \"UTF-8\";\n*, *:before, *:after {\n  box-sizing: border-box;\n}\n:root {\n  --white: #fff;\n  --black: #000;\n  --bg: #f8f8f8;\n  --grey: #999;\n  --dark: #1a1a1a;\n  --light: #e6e6e6;\n  --wrapper: 1000px;\n  --blue: #00b0ff;\n}\n.wrapper {\n  background-color: #f8f8f8;\n  position: relative;\n  left: 40%;\n  width: 100%;\n  -webkit-transform: translate(-50%, 0);\n          transform: translate(-50%, 0);\n}\n.container {\n  position: relative;\n  top: 50%;\n  left: 50%;\n  width: 80%;\n  height: 75%;\n  background-color: #eeeeee;\n  -webkit-transform: translate(-50%, -50%);\n          transform: translate(-50%, -50%);\n}\n.container .left {\n  float: left;\n  width: 37.6%;\n  height: 100%;\n  border: 1px solid #e6e6e6;\n  background-color: #eeeeee;\n}\n.container .left .people {\n  margin-left: -1px;\n  border-right: 1px solid #e6e6e6;\n  border-left: 1px solid #e6e6e6;\n  width: calc(100% + 2px);\n  list-style-type: none;\n  padding-left: 0;\n}\n.container .left .people .person {\n  position: relative;\n  width: 100%;\n  padding: 12px 10% 16px;\n  cursor: pointer;\n  background-color: #eeeeee;\n}\n.container .left .people .person:after {\n  position: absolute;\n  bottom: 0;\n  left: 50%;\n  display: block;\n  width: 80%;\n  height: 1px;\n  content: \"\";\n  background-color: #e6e6e6;\n  -webkit-transform: translate(-50%, 0);\n          transform: translate(-50%, 0);\n}\n.container .left .people .person img {\n  float: left;\n  width: 40px;\n  height: 40px;\n  margin-right: 12px;\n  border-radius: 50%;\n}\n.container .left .people .person .name {\n  font-size: 14px;\n  line-height: 22px;\n  color: #1a1a1a;\n  font-family: \"Source Sans Pro\", sans-serif;\n  font-weight: 600;\n}\n.container .left .people .person .time {\n  font-size: 14px;\n  position: absolute;\n  top: 16px;\n  right: 10%;\n  padding: 0 0 5px 5px;\n  color: #999;\n  background-color: #eeeeee;\n}\n.container .left .people .person .preview {\n  font-size: 14px;\n  display: inline-block;\n  overflow: hidden !important;\n  width: 70%;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  color: #999;\n}\n.container .left .people .person.active, .container .left .people .person:hover {\n  margin-top: -1px;\n  margin-left: -1px;\n  border: 0;\n  background-color: #44A08D;\n  width: calc(100% + 2px);\n  padding-left: calc(10% + 1px);\n}\n.container .left .people .person.active span, .container .left .people .person:hover span {\n  color: #eeeeee;\n  background: transparent;\n}\n.container .left .people .person.active:after, .container .left .people .person:hover:after {\n  display: none;\n}\n.container .right {\n  position: relative;\n  float: left;\n  width: 62.4%;\n  height: 100%;\n}\n.container .right .chat {\n  position: relative;\n  overflow: hidden;\n  padding: 0 35px 92px;\n  border-width: 1px 1px 1px 0;\n  border-style: solid;\n  border-color: #e6e6e6;\n  height: calc(100% - 48px);\n  -webkit-box-pack: end;\n          justify-content: flex-end;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n}\n.container .right .chat.active-chat {\n  display: block;\n  display: -webkit-box;\n  display: flex;\n}\n.container .right .chat.active-chat .bubble {\n  -webkit-transition-timing-function: cubic-bezier(0.4, -0.04, 1, 1);\n          transition-timing-function: cubic-bezier(0.4, -0.04, 1, 1);\n}\n.container .right .chat.active-chat .bubble:nth-of-type(1) {\n  -webkit-animation-duration: 0.15s;\n          animation-duration: 0.15s;\n}\n.container .right .chat.active-chat .bubble:nth-of-type(2) {\n  -webkit-animation-duration: 0.3s;\n          animation-duration: 0.3s;\n}\n.container .right .chat.active-chat .bubble:nth-of-type(3) {\n  -webkit-animation-duration: 0.45s;\n          animation-duration: 0.45s;\n}\n.container .right .chat.active-chat .bubble:nth-of-type(4) {\n  -webkit-animation-duration: 0.6s;\n          animation-duration: 0.6s;\n}\n.container .right .chat.active-chat .bubble:nth-of-type(5) {\n  -webkit-animation-duration: 0.75s;\n          animation-duration: 0.75s;\n}\n.container .right .chat.active-chat .bubble:nth-of-type(6) {\n  -webkit-animation-duration: 0.9s;\n          animation-duration: 0.9s;\n}\n.container .right .chat.active-chat .bubble:nth-of-type(7) {\n  -webkit-animation-duration: 1.05s;\n          animation-duration: 1.05s;\n}\n.container .right .chat.active-chat .bubble:nth-of-type(8) {\n  -webkit-animation-duration: 1.2s;\n          animation-duration: 1.2s;\n}\n.container .right .chat.active-chat .bubble:nth-of-type(9) {\n  -webkit-animation-duration: 1.35s;\n          animation-duration: 1.35s;\n}\n.container .right .chat.active-chat .bubble:nth-of-type(10) {\n  -webkit-animation-duration: 1.5s;\n          animation-duration: 1.5s;\n}\n.container .right .write {\n  position: relative;\n  bottom: 20%;\n  left: 20%;\n  height: 100%;\n  border: 1px solid #e6e6e6;\n  background-color: #fff;\n  width: 100%;\n  border-radius: 0.5rem;\n  padding-left: 1%;\n  padding-right: 1%;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n}\n.container .right .write .write-input {\n  font-size: 20px;\n  float: left;\n  width: 100%;\n  height: 100%;\n  color: #1a1a1a;\n  border: 0;\n  outline: none;\n  background-color: #fff;\n  font-family: \"Source Sans Pro\", sans-serif;\n  font-weight: 400;\n}\n.container .right .write .write-link.send:before {\n  display: inline-block;\n  float: left;\n  width: 2.5rem;\n  height: 100%;\n  content: \"\";\n  background-image: url(\"https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/send.png\");\n  background-repeat: no-repeat;\n  background-position: center;\n}\n.container .right .bubble {\n  font-size: 16px;\n  position: relative;\n  display: inline-block;\n  clear: both;\n  margin-bottom: 8px;\n  padding: 13px 14px;\n  vertical-align: top;\n  border-radius: 5px;\n}\n.container .right .bubble:before {\n  position: absolute;\n  top: 19px;\n  display: block;\n  width: 8px;\n  height: 6px;\n  content: \" \";\n  -webkit-transform: rotate(29deg) skew(-35deg);\n          transform: rotate(29deg) skew(-35deg);\n}\n.container .right .bubble.you {\n  float: left;\n  color: #fff;\n  background-color: #44A08D;\n  align-self: flex-start;\n  -webkit-animation-name: slideFromLeft;\n          animation-name: slideFromLeft;\n}\n.container .right .bubble.you:before {\n  left: -3px;\n  background-color: #44A08D;\n}\n.container .right .bubble.me {\n  float: right;\n  color: #1a1a1a;\n  background-color: #fff;\n  align-self: flex-end;\n  -webkit-animation-name: slideFromRight;\n          animation-name: slideFromRight;\n}\n.container .right .bubble.me:before {\n  right: -3px;\n  background-color: #fff;\n}\n.container .right .bubble .notification {\n  color: red;\n}\n.container .right .conversation-start {\n  position: relative;\n  width: 100%;\n  margin-bottom: 27px;\n  text-align: center;\n}\n.container .right .conversation-start span {\n  font-size: 14px;\n  display: inline-block;\n  color: #999;\n}\n.container .right .conversation-start span:before, .container .right .conversation-start span:after {\n  position: absolute;\n  top: 10px;\n  display: inline-block;\n  width: 30%;\n  height: 1px;\n  content: \"\";\n  background-color: #e6e6e6;\n}\n.container .right .conversation-start span:before {\n  left: 0;\n}\n.container .right .conversation-start span:after {\n  right: 0;\n}\n@keyframes slideFromLeft {\n  0% {\n    margin-left: -200px;\n    opacity: 0;\n  }\n  100% {\n    margin-left: 0;\n    opacity: 1;\n  }\n}\n@-webkit-keyframes slideFromLeft {\n  0% {\n    margin-left: -200px;\n    opacity: 0;\n  }\n  100% {\n    margin-left: 0;\n    opacity: 1;\n  }\n}\n@keyframes slideFromRight {\n  0% {\n    margin-right: -200px;\n    opacity: 0;\n  }\n  100% {\n    margin-right: 0;\n    opacity: 1;\n  }\n}\n@-webkit-keyframes slideFromRight {\n  0% {\n    margin-right: -200px;\n    opacity: 0;\n  }\n  100% {\n    margin-right: 0;\n    opacity: 1;\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvcGVyc29uYWwtYXJlYS9jaGF0L2NoYXQuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3BhZ2VzL3BlcnNvbmFsLWFyZWEvY2hhdC9EOlxcV2lsbENhclxcV2lsbENhclxcR1VJL3NyY1xcYXBwXFxwYWdlc1xccGVyc29uYWwtYXJlYVxcY2hhdFxcY2hhdC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxnQkFBZ0I7QUN1QmhCO0VBQ0Usc0JBQUE7QURyQkY7QUN3QkE7RUFDRSxhQUFBO0VBQ0EsYUFBQTtFQUNBLGFBQUE7RUFDQSxZQUFBO0VBQ0EsZUFBQTtFQUNBLGdCQUFBO0VBQ0EsaUJBQUE7RUFDQSxlQUFBO0FEckJGO0FDdUJBO0VBQ0UseUJBQUE7RUFDQSxrQkFBQTtFQUNBLFNBQUE7RUFDQSxXQUFBO0VBQ0EscUNBQUE7VUFBQSw2QkFBQTtBRHBCRjtBQ3NCQTtFQUNFLGtCQUFBO0VBQ0EsUUFBQTtFQUNBLFNBQUE7RUFDQSxVQUFBO0VBQ0EsV0FBQTtFQUNBLHlCQUFBO0VBQ0Esd0NBQUE7VUFBQSxnQ0FBQTtBRG5CRjtBQ3FCRTtFQUNFLFdBQUE7RUFDQSxZQUFBO0VBQ0EsWUFBQTtFQUNBLHlCQUFBO0VBQ0EseUJBQUE7QURuQko7QUNxQkk7RUFDRSxpQkFBQTtFQUNBLCtCQUFBO0VBQ0EsOEJBQUE7RUFDQSx1QkFBQTtFQUNBLHFCQUFBO0VBQ0EsZUFBQTtBRG5CTjtBQ3FCSTtFQUNFLGtCQUFBO0VBQ0EsV0FBQTtFQUNBLHNCQUFBO0VBQ0EsZUFBQTtFQUNBLHlCQUFBO0FEbkJOO0FDcUJNO0VBQ0Usa0JBQUE7RUFDQSxTQUFBO0VBQ0EsU0FBQTtFQUNBLGNBQUE7RUFDQSxVQUFBO0VBQ0EsV0FBQTtFQUNBLFdBQUE7RUFDQSx5QkFBQTtFQUNBLHFDQUFBO1VBQUEsNkJBQUE7QURuQlI7QUNzQk07RUFDRSxXQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSxrQkFBQTtFQUNBLGtCQUFBO0FEcEJSO0FDdUJNO0VBQ0UsZUFBQTtFQUNBLGlCQUFBO0VBQ0EsY0FBQTtFQWpHTiwwQ0FBQTtFQUNBLGdCQUFBO0FENkVGO0FDdUJNO0VBQ0UsZUFBQTtFQUNBLGtCQUFBO0VBQ0EsU0FBQTtFQUNBLFVBQUE7RUFDQSxvQkFBQTtFQUNBLFdBQUE7RUFDQSx5QkFBQTtBRHJCUjtBQ3dCTTtFQUNFLGVBQUE7RUFDQSxxQkFBQTtFQUNBLDJCQUFBO0VBQ0EsVUFBQTtFQUNBLG1CQUFBO0VBQ0EsdUJBQUE7RUFDQSxXQUFBO0FEdEJSO0FDeUJNO0VBQ0UsZ0JBQUE7RUFDQSxpQkFBQTtFQUNBLFNBQUE7RUFDQSx5QkFBQTtFQUNBLHVCQUFBO0VBQ0EsNkJBQUE7QUR2QlI7QUN5QlE7RUFDRSxjQUFBO0VBQ0EsdUJBQUE7QUR2QlY7QUMwQlE7RUFDRSxhQUFBO0FEeEJWO0FDOEJBO0VBQ0Usa0JBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtFQUNBLFlBQUE7QUQ1QkY7QUM2QkE7RUFDRSxrQkFBQTtFQUNBLGdCQUFBO0VBQ0Esb0JBQUE7RUFDQSwyQkFBQTtFQUNBLG1CQUFBO0VBQ0EscUJBQUE7RUFDQSx5QkFBQTtFQUNBLHFCQUFBO1VBQUEseUJBQUE7RUFDQSw0QkFBQTtFQUFBLDZCQUFBO1VBQUEsc0JBQUE7QUQzQkY7QUM0QkE7RUFDRyxjQUFBO0VBQ0Esb0JBQUE7RUFBQSxhQUFBO0FEMUJIO0FDMkJBO0VBQ0Usa0VBQUE7VUFBQSwwREFBQTtBRHpCRjtBQzJCQTtFQUNFLGlDQUFBO1VBQUEseUJBQUE7QUR6QkY7QUN3QkE7RUFDRSxnQ0FBQTtVQUFBLHdCQUFBO0FEdEJGO0FDcUJBO0VBQ0UsaUNBQUE7VUFBQSx5QkFBQTtBRG5CRjtBQ2tCQTtFQUNFLGdDQUFBO1VBQUEsd0JBQUE7QURoQkY7QUNlQTtFQUNFLGlDQUFBO1VBQUEseUJBQUE7QURiRjtBQ1lBO0VBQ0UsZ0NBQUE7VUFBQSx3QkFBQTtBRFZGO0FDU0E7RUFDRSxpQ0FBQTtVQUFBLHlCQUFBO0FEUEY7QUNNQTtFQUNFLGdDQUFBO1VBQUEsd0JBQUE7QURKRjtBQ0dBO0VBQ0UsaUNBQUE7VUFBQSx5QkFBQTtBRERGO0FDQUE7RUFDRSxnQ0FBQTtVQUFBLHdCQUFBO0FERUY7QUNJQTtFQUNFLGtCQUFBO0VBQ0EsV0FBQTtFQUNBLFNBQUE7RUFDQSxZQUFBO0VBQ0EseUJBQUE7RUFDQSxzQkFBQTtFQUNBLFdBQUE7RUFDQSxxQkFBQTtFQUNBLGdCQUFBO0VBQ0EsaUJBQUE7RUFDQSxvQkFBQTtFQUFBLGFBQUE7RUFDQSw4QkFBQTtFQUFBLDZCQUFBO1VBQUEsbUJBQUE7QURGRjtBQ0lFO0VBQ0EsZUFBQTtFQUNBLFdBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtFQUNBLGNBQUE7RUFDQSxTQUFBO0VBQ0EsYUFBQTtFQUNBLHNCQUFBO0VBM0xBLDBDQUFBO0VBQ0EsZ0JBQUE7QUQwTEY7QUNLQTtFQUNHLHFCQUFBO0VBQ0EsV0FBQTtFQUNBLGFBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLHFGQUFBO0VBQ0EsNEJBQUE7RUFDQSwyQkFBQTtBREhIO0FDUUE7RUFDRSxlQUFBO0VBQ0Esa0JBQUE7RUFDQSxxQkFBQTtFQUNBLFdBQUE7RUFDQSxrQkFBQTtFQUNBLGtCQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtBRE5GO0FDT0E7RUFDRyxrQkFBQTtFQUNBLFNBQUE7RUFDQSxjQUFBO0VBQ0EsVUFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0EsNkNBQUE7VUFBQSxxQ0FBQTtBRExIO0FDT0E7RUFDRyxXQUFBO0VBQ0EsV0FBQTtFQUNBLHlCQUFBO0VBQ0Esc0JBQUE7RUFDQSxxQ0FBQTtVQUFBLDZCQUFBO0FETEg7QUNNQTtFQUNHLFVBQUE7RUFDQSx5QkFBQTtBREpIO0FDT0E7RUFDRyxZQUFBO0VBQ0EsY0FBQTtFQUNBLHNCQUFBO0VBQ0Esb0JBQUE7RUFDQSxzQ0FBQTtVQUFBLDhCQUFBO0FETEg7QUNNQTtFQUNHLFdBQUE7RUFDQSxzQkFBQTtBREpIO0FDT0U7RUFDRSxVQUFBO0FETEo7QUNRQTtFQUNFLGtCQUFBO0VBQ0EsV0FBQTtFQUNBLG1CQUFBO0VBQ0Esa0JBQUE7QURORjtBQ09BO0VBQ0UsZUFBQTtFQUNBLHFCQUFBO0VBQ0EsV0FBQTtBRExGO0FDTUE7RUFDWSxrQkFBQTtFQUNBLFNBQUE7RUFDQSxxQkFBQTtFQUNBLFVBQUE7RUFDQSxXQUFBO0VBQ0EsV0FBQTtFQUNBLHlCQUFBO0FESlo7QUNNQTtFQUNHLE9BQUE7QURKSDtBQ01BO0VBQ0csUUFBQTtBREpIO0FDVUE7RUFDRTtJQUNFLG1CQUFBO0lBQ0EsVUFBQTtFRFBGO0VDU0E7SUFDRSxjQUFBO0lBQ0EsVUFBQTtFRFBGO0FBQ0Y7QUNTQTtFQUNFO0lBQ0UsbUJBQUE7SUFDQSxVQUFBO0VEUEY7RUNTQTtJQUNFLGNBQUE7SUFDQSxVQUFBO0VEUEY7QUFDRjtBQ1NBO0VBQ0U7SUFDRSxvQkFBQTtJQUNBLFVBQUE7RURQRjtFQ1NBO0lBQ0UsZUFBQTtJQUNBLFVBQUE7RURQRjtBQUNGO0FDU0E7RUFDRTtJQUNFLG9CQUFBO0lBQ0EsVUFBQTtFRFBGO0VDU0E7SUFDRSxlQUFBO0lBQ0EsVUFBQTtFRFBGO0FBQ0YiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9wZXJzb25hbC1hcmVhL2NoYXQvY2hhdC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIkBjaGFyc2V0IFwiVVRGLThcIjtcbiosICo6YmVmb3JlLCAqOmFmdGVyIHtcbiAgYm94LXNpemluZzogYm9yZGVyLWJveDtcbn1cblxuOnJvb3Qge1xuICAtLXdoaXRlOiAjZmZmO1xuICAtLWJsYWNrOiAjMDAwO1xuICAtLWJnOiAjZjhmOGY4O1xuICAtLWdyZXk6ICM5OTk7XG4gIC0tZGFyazogIzFhMWExYTtcbiAgLS1saWdodDogI2U2ZTZlNjtcbiAgLS13cmFwcGVyOiAxMDAwcHg7XG4gIC0tYmx1ZTogIzAwYjBmZjtcbn1cblxuLndyYXBwZXIge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjhmOGY4O1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIGxlZnQ6IDQwJTtcbiAgd2lkdGg6IDEwMCU7XG4gIHRyYW5zZm9ybTogdHJhbnNsYXRlKC01MCUsIDApO1xufVxuXG4uY29udGFpbmVyIHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICB0b3A6IDUwJTtcbiAgbGVmdDogNTAlO1xuICB3aWR0aDogODAlO1xuICBoZWlnaHQ6IDc1JTtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2VlZWVlZTtcbiAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoLTUwJSwgLTUwJSk7XG59XG4uY29udGFpbmVyIC5sZWZ0IHtcbiAgZmxvYXQ6IGxlZnQ7XG4gIHdpZHRoOiAzNy42JTtcbiAgaGVpZ2h0OiAxMDAlO1xuICBib3JkZXI6IDFweCBzb2xpZCAjZTZlNmU2O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZWVlZWVlO1xufVxuLmNvbnRhaW5lciAubGVmdCAucGVvcGxlIHtcbiAgbWFyZ2luLWxlZnQ6IC0xcHg7XG4gIGJvcmRlci1yaWdodDogMXB4IHNvbGlkICNlNmU2ZTY7XG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgI2U2ZTZlNjtcbiAgd2lkdGg6IGNhbGMoMTAwJSArIDJweCk7XG4gIGxpc3Qtc3R5bGUtdHlwZTogbm9uZTtcbiAgcGFkZGluZy1sZWZ0OiAwO1xufVxuLmNvbnRhaW5lciAubGVmdCAucGVvcGxlIC5wZXJzb24ge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIHdpZHRoOiAxMDAlO1xuICBwYWRkaW5nOiAxMnB4IDEwJSAxNnB4O1xuICBjdXJzb3I6IHBvaW50ZXI7XG4gIGJhY2tncm91bmQtY29sb3I6ICNlZWVlZWU7XG59XG4uY29udGFpbmVyIC5sZWZ0IC5wZW9wbGUgLnBlcnNvbjphZnRlciB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgYm90dG9tOiAwO1xuICBsZWZ0OiA1MCU7XG4gIGRpc3BsYXk6IGJsb2NrO1xuICB3aWR0aDogODAlO1xuICBoZWlnaHQ6IDFweDtcbiAgY29udGVudDogXCJcIjtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2U2ZTZlNjtcbiAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoLTUwJSwgMCk7XG59XG4uY29udGFpbmVyIC5sZWZ0IC5wZW9wbGUgLnBlcnNvbiBpbWcge1xuICBmbG9hdDogbGVmdDtcbiAgd2lkdGg6IDQwcHg7XG4gIGhlaWdodDogNDBweDtcbiAgbWFyZ2luLXJpZ2h0OiAxMnB4O1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG59XG4uY29udGFpbmVyIC5sZWZ0IC5wZW9wbGUgLnBlcnNvbiAubmFtZSB7XG4gIGZvbnQtc2l6ZTogMTRweDtcbiAgbGluZS1oZWlnaHQ6IDIycHg7XG4gIGNvbG9yOiAjMWExYTFhO1xuICBmb250LWZhbWlseTogXCJTb3VyY2UgU2FucyBQcm9cIiwgc2Fucy1zZXJpZjtcbiAgZm9udC13ZWlnaHQ6IDYwMDtcbn1cbi5jb250YWluZXIgLmxlZnQgLnBlb3BsZSAucGVyc29uIC50aW1lIHtcbiAgZm9udC1zaXplOiAxNHB4O1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogMTZweDtcbiAgcmlnaHQ6IDEwJTtcbiAgcGFkZGluZzogMCAwIDVweCA1cHg7XG4gIGNvbG9yOiAjOTk5O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZWVlZWVlO1xufVxuLmNvbnRhaW5lciAubGVmdCAucGVvcGxlIC5wZXJzb24gLnByZXZpZXcge1xuICBmb250LXNpemU6IDE0cHg7XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgb3ZlcmZsb3c6IGhpZGRlbiAhaW1wb3J0YW50O1xuICB3aWR0aDogNzAlO1xuICB3aGl0ZS1zcGFjZTogbm93cmFwO1xuICB0ZXh0LW92ZXJmbG93OiBlbGxpcHNpcztcbiAgY29sb3I6ICM5OTk7XG59XG4uY29udGFpbmVyIC5sZWZ0IC5wZW9wbGUgLnBlcnNvbi5hY3RpdmUsIC5jb250YWluZXIgLmxlZnQgLnBlb3BsZSAucGVyc29uOmhvdmVyIHtcbiAgbWFyZ2luLXRvcDogLTFweDtcbiAgbWFyZ2luLWxlZnQ6IC0xcHg7XG4gIGJvcmRlcjogMDtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzQ0QTA4RDtcbiAgd2lkdGg6IGNhbGMoMTAwJSArIDJweCk7XG4gIHBhZGRpbmctbGVmdDogY2FsYygxMCUgKyAxcHgpO1xufVxuLmNvbnRhaW5lciAubGVmdCAucGVvcGxlIC5wZXJzb24uYWN0aXZlIHNwYW4sIC5jb250YWluZXIgLmxlZnQgLnBlb3BsZSAucGVyc29uOmhvdmVyIHNwYW4ge1xuICBjb2xvcjogI2VlZWVlZTtcbiAgYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XG59XG4uY29udGFpbmVyIC5sZWZ0IC5wZW9wbGUgLnBlcnNvbi5hY3RpdmU6YWZ0ZXIsIC5jb250YWluZXIgLmxlZnQgLnBlb3BsZSAucGVyc29uOmhvdmVyOmFmdGVyIHtcbiAgZGlzcGxheTogbm9uZTtcbn1cbi5jb250YWluZXIgLnJpZ2h0IHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICBmbG9hdDogbGVmdDtcbiAgd2lkdGg6IDYyLjQlO1xuICBoZWlnaHQ6IDEwMCU7XG59XG4uY29udGFpbmVyIC5yaWdodCAuY2hhdCB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgcGFkZGluZzogMCAzNXB4IDkycHg7XG4gIGJvcmRlci13aWR0aDogMXB4IDFweCAxcHggMDtcbiAgYm9yZGVyLXN0eWxlOiBzb2xpZDtcbiAgYm9yZGVyLWNvbG9yOiAjZTZlNmU2O1xuICBoZWlnaHQ6IGNhbGMoMTAwJSAtIDQ4cHgpO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGZsZXgtZW5kO1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xufVxuLmNvbnRhaW5lciAucmlnaHQgLmNoYXQuYWN0aXZlLWNoYXQge1xuICBkaXNwbGF5OiBibG9jaztcbiAgZGlzcGxheTogZmxleDtcbn1cbi5jb250YWluZXIgLnJpZ2h0IC5jaGF0LmFjdGl2ZS1jaGF0IC5idWJibGUge1xuICB0cmFuc2l0aW9uLXRpbWluZy1mdW5jdGlvbjogY3ViaWMtYmV6aWVyKDAuNCwgLTAuMDQsIDEsIDEpO1xufVxuLmNvbnRhaW5lciAucmlnaHQgLmNoYXQuYWN0aXZlLWNoYXQgLmJ1YmJsZTpudGgtb2YtdHlwZSgxKSB7XG4gIGFuaW1hdGlvbi1kdXJhdGlvbjogMC4xNXM7XG59XG4uY29udGFpbmVyIC5yaWdodCAuY2hhdC5hY3RpdmUtY2hhdCAuYnViYmxlOm50aC1vZi10eXBlKDIpIHtcbiAgYW5pbWF0aW9uLWR1cmF0aW9uOiAwLjNzO1xufVxuLmNvbnRhaW5lciAucmlnaHQgLmNoYXQuYWN0aXZlLWNoYXQgLmJ1YmJsZTpudGgtb2YtdHlwZSgzKSB7XG4gIGFuaW1hdGlvbi1kdXJhdGlvbjogMC40NXM7XG59XG4uY29udGFpbmVyIC5yaWdodCAuY2hhdC5hY3RpdmUtY2hhdCAuYnViYmxlOm50aC1vZi10eXBlKDQpIHtcbiAgYW5pbWF0aW9uLWR1cmF0aW9uOiAwLjZzO1xufVxuLmNvbnRhaW5lciAucmlnaHQgLmNoYXQuYWN0aXZlLWNoYXQgLmJ1YmJsZTpudGgtb2YtdHlwZSg1KSB7XG4gIGFuaW1hdGlvbi1kdXJhdGlvbjogMC43NXM7XG59XG4uY29udGFpbmVyIC5yaWdodCAuY2hhdC5hY3RpdmUtY2hhdCAuYnViYmxlOm50aC1vZi10eXBlKDYpIHtcbiAgYW5pbWF0aW9uLWR1cmF0aW9uOiAwLjlzO1xufVxuLmNvbnRhaW5lciAucmlnaHQgLmNoYXQuYWN0aXZlLWNoYXQgLmJ1YmJsZTpudGgtb2YtdHlwZSg3KSB7XG4gIGFuaW1hdGlvbi1kdXJhdGlvbjogMS4wNXM7XG59XG4uY29udGFpbmVyIC5yaWdodCAuY2hhdC5hY3RpdmUtY2hhdCAuYnViYmxlOm50aC1vZi10eXBlKDgpIHtcbiAgYW5pbWF0aW9uLWR1cmF0aW9uOiAxLjJzO1xufVxuLmNvbnRhaW5lciAucmlnaHQgLmNoYXQuYWN0aXZlLWNoYXQgLmJ1YmJsZTpudGgtb2YtdHlwZSg5KSB7XG4gIGFuaW1hdGlvbi1kdXJhdGlvbjogMS4zNXM7XG59XG4uY29udGFpbmVyIC5yaWdodCAuY2hhdC5hY3RpdmUtY2hhdCAuYnViYmxlOm50aC1vZi10eXBlKDEwKSB7XG4gIGFuaW1hdGlvbi1kdXJhdGlvbjogMS41cztcbn1cbi5jb250YWluZXIgLnJpZ2h0IC53cml0ZSB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgYm90dG9tOiAyMCU7XG4gIGxlZnQ6IDIwJTtcbiAgaGVpZ2h0OiAxMDAlO1xuICBib3JkZXI6IDFweCBzb2xpZCAjZTZlNmU2O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmO1xuICB3aWR0aDogMTAwJTtcbiAgYm9yZGVyLXJhZGl1czogMC41cmVtO1xuICBwYWRkaW5nLWxlZnQ6IDElO1xuICBwYWRkaW5nLXJpZ2h0OiAxJTtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IHJvdztcbn1cbi5jb250YWluZXIgLnJpZ2h0IC53cml0ZSAud3JpdGUtaW5wdXQge1xuICBmb250LXNpemU6IDIwcHg7XG4gIGZsb2F0OiBsZWZ0O1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xuICBjb2xvcjogIzFhMWExYTtcbiAgYm9yZGVyOiAwO1xuICBvdXRsaW5lOiBub25lO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmO1xuICBmb250LWZhbWlseTogXCJTb3VyY2UgU2FucyBQcm9cIiwgc2Fucy1zZXJpZjtcbiAgZm9udC13ZWlnaHQ6IDQwMDtcbn1cbi5jb250YWluZXIgLnJpZ2h0IC53cml0ZSAud3JpdGUtbGluay5zZW5kOmJlZm9yZSB7XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgZmxvYXQ6IGxlZnQ7XG4gIHdpZHRoOiAyLjVyZW07XG4gIGhlaWdodDogMTAwJTtcbiAgY29udGVudDogXCJcIjtcbiAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiaHR0cHM6Ly9zMy11cy13ZXN0LTIuYW1hem9uYXdzLmNvbS9zLmNkcG4uaW8vMzgyOTk0L3NlbmQucG5nXCIpO1xuICBiYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0O1xuICBiYWNrZ3JvdW5kLXBvc2l0aW9uOiBjZW50ZXI7XG59XG4uY29udGFpbmVyIC5yaWdodCAuYnViYmxlIHtcbiAgZm9udC1zaXplOiAxNnB4O1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgY2xlYXI6IGJvdGg7XG4gIG1hcmdpbi1ib3R0b206IDhweDtcbiAgcGFkZGluZzogMTNweCAxNHB4O1xuICB2ZXJ0aWNhbC1hbGlnbjogdG9wO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG59XG4uY29udGFpbmVyIC5yaWdodCAuYnViYmxlOmJlZm9yZSB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgdG9wOiAxOXB4O1xuICBkaXNwbGF5OiBibG9jaztcbiAgd2lkdGg6IDhweDtcbiAgaGVpZ2h0OiA2cHg7XG4gIGNvbnRlbnQ6IFwiwqBcIjtcbiAgdHJhbnNmb3JtOiByb3RhdGUoMjlkZWcpIHNrZXcoLTM1ZGVnKTtcbn1cbi5jb250YWluZXIgLnJpZ2h0IC5idWJibGUueW91IHtcbiAgZmxvYXQ6IGxlZnQ7XG4gIGNvbG9yOiAjZmZmO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjNDRBMDhEO1xuICBhbGlnbi1zZWxmOiBmbGV4LXN0YXJ0O1xuICBhbmltYXRpb24tbmFtZTogc2xpZGVGcm9tTGVmdDtcbn1cbi5jb250YWluZXIgLnJpZ2h0IC5idWJibGUueW91OmJlZm9yZSB7XG4gIGxlZnQ6IC0zcHg7XG4gIGJhY2tncm91bmQtY29sb3I6ICM0NEEwOEQ7XG59XG4uY29udGFpbmVyIC5yaWdodCAuYnViYmxlLm1lIHtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBjb2xvcjogIzFhMWExYTtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZmZjtcbiAgYWxpZ24tc2VsZjogZmxleC1lbmQ7XG4gIGFuaW1hdGlvbi1uYW1lOiBzbGlkZUZyb21SaWdodDtcbn1cbi5jb250YWluZXIgLnJpZ2h0IC5idWJibGUubWU6YmVmb3JlIHtcbiAgcmlnaHQ6IC0zcHg7XG4gIGJhY2tncm91bmQtY29sb3I6ICNmZmY7XG59XG4uY29udGFpbmVyIC5yaWdodCAuYnViYmxlIC5ub3RpZmljYXRpb24ge1xuICBjb2xvcjogcmVkO1xufVxuLmNvbnRhaW5lciAucmlnaHQgLmNvbnZlcnNhdGlvbi1zdGFydCB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgd2lkdGg6IDEwMCU7XG4gIG1hcmdpbi1ib3R0b206IDI3cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cbi5jb250YWluZXIgLnJpZ2h0IC5jb252ZXJzYXRpb24tc3RhcnQgc3BhbiB7XG4gIGZvbnQtc2l6ZTogMTRweDtcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICBjb2xvcjogIzk5OTtcbn1cbi5jb250YWluZXIgLnJpZ2h0IC5jb252ZXJzYXRpb24tc3RhcnQgc3BhbjpiZWZvcmUsIC5jb250YWluZXIgLnJpZ2h0IC5jb252ZXJzYXRpb24tc3RhcnQgc3BhbjphZnRlciB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgdG9wOiAxMHB4O1xuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIHdpZHRoOiAzMCU7XG4gIGhlaWdodDogMXB4O1xuICBjb250ZW50OiBcIlwiO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZTZlNmU2O1xufVxuLmNvbnRhaW5lciAucmlnaHQgLmNvbnZlcnNhdGlvbi1zdGFydCBzcGFuOmJlZm9yZSB7XG4gIGxlZnQ6IDA7XG59XG4uY29udGFpbmVyIC5yaWdodCAuY29udmVyc2F0aW9uLXN0YXJ0IHNwYW46YWZ0ZXIge1xuICByaWdodDogMDtcbn1cblxuQGtleWZyYW1lcyBzbGlkZUZyb21MZWZ0IHtcbiAgMCUge1xuICAgIG1hcmdpbi1sZWZ0OiAtMjAwcHg7XG4gICAgb3BhY2l0eTogMDtcbiAgfVxuICAxMDAlIHtcbiAgICBtYXJnaW4tbGVmdDogMDtcbiAgICBvcGFjaXR5OiAxO1xuICB9XG59XG5ALXdlYmtpdC1rZXlmcmFtZXMgc2xpZGVGcm9tTGVmdCB7XG4gIDAlIHtcbiAgICBtYXJnaW4tbGVmdDogLTIwMHB4O1xuICAgIG9wYWNpdHk6IDA7XG4gIH1cbiAgMTAwJSB7XG4gICAgbWFyZ2luLWxlZnQ6IDA7XG4gICAgb3BhY2l0eTogMTtcbiAgfVxufVxuQGtleWZyYW1lcyBzbGlkZUZyb21SaWdodCB7XG4gIDAlIHtcbiAgICBtYXJnaW4tcmlnaHQ6IC0yMDBweDtcbiAgICBvcGFjaXR5OiAwO1xuICB9XG4gIDEwMCUge1xuICAgIG1hcmdpbi1yaWdodDogMDtcbiAgICBvcGFjaXR5OiAxO1xuICB9XG59XG5ALXdlYmtpdC1rZXlmcmFtZXMgc2xpZGVGcm9tUmlnaHQge1xuICAwJSB7XG4gICAgbWFyZ2luLXJpZ2h0OiAtMjAwcHg7XG4gICAgb3BhY2l0eTogMDtcbiAgfVxuICAxMDAlIHtcbiAgICBtYXJnaW4tcmlnaHQ6IDA7XG4gICAgb3BhY2l0eTogMTtcbiAgfVxufSIsIkBtaXhpbiBmb250LWJvbGQge1xyXG4gIGZvbnQtZmFtaWx5OiAnU291cmNlIFNhbnMgUHJvJywgc2Fucy1zZXJpZjtcclxuICBmb250LXdlaWdodDogNjAwO1xyXG59XHJcbkBtaXhpbiBmb250IHtcclxuICBmb250LWZhbWlseTogJ1NvdXJjZSBTYW5zIFBybycsIHNhbnMtc2VyaWY7XHJcbiAgZm9udC13ZWlnaHQ6IDQwMDtcclxufVxyXG5AbWl4aW4gcGxhY2Vob2xkZXIge1xyXG4mOjotd2Via2l0LWlucHV0LXBsYWNlaG9sZGVyIHtcclxuQGNvbnRlbnQ7XHJcbn1cclxuJjotbW96LXBsYWNlaG9sZGVyIHtcclxuIEBjb250ZW50O1xyXG4gfVxyXG4mOjotbW96LXBsYWNlaG9sZGVyIHtcclxuIEBjb250ZW50O1xyXG4gfVxyXG4mOi1tcy1pbnB1dC1wbGFjZWhvbGRlciB7XHJcbiBAY29udGVudDtcclxuIH1cclxufVxyXG5cclxuKiwgKjpiZWZvcmUsICo6YWZ0ZXIge1xyXG4gIGJveC1zaXppbmc6IGJvcmRlci1ib3g7XHJcbn1cclxuXHJcbjpyb290IHtcclxuICAtLXdoaXRlOiAjZmZmO1xyXG4gIC0tYmxhY2s6ICMwMDA7XHJcbiAgLS1iZzogI2Y4ZjhmODtcclxuICAtLWdyZXk6ICM5OTk7XHJcbiAgLS1kYXJrOiAjMWExYTFhO1xyXG4gIC0tbGlnaHQ6ICNlNmU2ZTY7XHJcbiAgLS13cmFwcGVyOiAxMDAwcHg7XHJcbiAgLS1ibHVlOiAjMDBiMGZmO1xyXG59XHJcbi53cmFwcGVyIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjhmOGY4O1xyXG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuICBsZWZ0OiA0MCU7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoLTUwJSwgMCk7XHJcbn1cclxuLmNvbnRhaW5lciB7XHJcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gIHRvcDogNTAlO1xyXG4gIGxlZnQ6IDUwJTtcclxuICB3aWR0aDogODAlO1xyXG4gIGhlaWdodDogNzUlO1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICNlZWVlZWU7XHJcbiAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoLTUwJSwgLTUwJSk7XHJcblxyXG4gIC5sZWZ0IHtcclxuICAgIGZsb2F0OiBsZWZ0O1xyXG4gICAgd2lkdGg6IDM3LjYlO1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgYm9yZGVyOiAxcHggc29saWQgI2U2ZTZlNjtcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICNlZWVlZWU7XHJcblxyXG4gICAgLnBlb3BsZSB7XHJcbiAgICAgIG1hcmdpbi1sZWZ0OiAtMXB4O1xyXG4gICAgICBib3JkZXItcmlnaHQ6IDFweCBzb2xpZCAjZTZlNmU2O1xyXG4gICAgICBib3JkZXItbGVmdDogMXB4IHNvbGlkICNlNmU2ZTY7XHJcbiAgICAgIHdpZHRoOiBjYWxjKDEwMCUgKyAycHgpO1xyXG4gICAgICBsaXN0LXN0eWxlLXR5cGU6IG5vbmU7XHJcbiAgICAgIHBhZGRpbmctbGVmdDogMDtcclxuXHJcbiAgICAucGVyc29uIHtcclxuICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gICAgICB3aWR0aDogMTAwJTtcclxuICAgICAgcGFkZGluZzogMTJweCAxMCUgMTZweDtcclxuICAgICAgY3Vyc29yOiBwb2ludGVyO1xyXG4gICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZWVlZWVlO1xyXG5cclxuICAgICAgJjphZnRlciB7XHJcbiAgICAgICAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gICAgICAgIGJvdHRvbTogMDtcclxuICAgICAgICBsZWZ0OiA1MCU7XHJcbiAgICAgICAgZGlzcGxheTogYmxvY2s7XHJcbiAgICAgICAgd2lkdGg6IDgwJTtcclxuICAgICAgICBoZWlnaHQ6IDFweDtcclxuICAgICAgICBjb250ZW50OiAnJztcclxuICAgICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZTZlNmU2O1xyXG4gICAgICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKC01MCUsIDApO1xyXG4gICAgICB9XHJcblxyXG4gICAgICBpbWcge1xyXG4gICAgICAgIGZsb2F0OiBsZWZ0O1xyXG4gICAgICAgIHdpZHRoOiA0MHB4O1xyXG4gICAgICAgIGhlaWdodDogNDBweDtcclxuICAgICAgICBtYXJnaW4tcmlnaHQ6IDEycHg7XHJcbiAgICAgICAgYm9yZGVyLXJhZGl1czogNTAlO1xyXG4gICAgICB9XHJcblxyXG4gICAgICAubmFtZSB7XHJcbiAgICAgICAgZm9udC1zaXplOiAxNHB4O1xyXG4gICAgICAgIGxpbmUtaGVpZ2h0OiAyMnB4O1xyXG4gICAgICAgIGNvbG9yOiAjMWExYTFhO1xyXG4gICAgICAgIEBpbmNsdWRlIGZvbnQtYm9sZDtcclxuICAgICAgfVxyXG5cclxuICAgICAgLnRpbWUge1xyXG4gICAgICAgIGZvbnQtc2l6ZTogMTRweDtcclxuICAgICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICAgICAgdG9wOiAxNnB4O1xyXG4gICAgICAgIHJpZ2h0OiAxMCU7XHJcbiAgICAgICAgcGFkZGluZzogMCAwIDVweCA1cHg7XHJcbiAgICAgICAgY29sb3I6ICM5OTk7XHJcbiAgICAgICAgYmFja2dyb3VuZC1jb2xvcjogI2VlZWVlZTtcclxuICAgICAgfVxyXG5cclxuICAgICAgLnByZXZpZXcge1xyXG4gICAgICAgIGZvbnQtc2l6ZTogMTRweDtcclxuICAgICAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XHJcbiAgICAgICAgb3ZlcmZsb3c6IGhpZGRlbiAhaW1wb3J0YW50O1xyXG4gICAgICAgIHdpZHRoOiA3MCU7XHJcbiAgICAgICAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcclxuICAgICAgICB0ZXh0LW92ZXJmbG93OiBlbGxpcHNpcztcclxuICAgICAgICBjb2xvcjogIzk5OTtcclxuICAgICAgfVxyXG5cclxuICAgICAgJi5hY3RpdmUsICY6aG92ZXIge1xyXG4gICAgICAgIG1hcmdpbi10b3A6IC0xcHg7XHJcbiAgICAgICAgbWFyZ2luLWxlZnQ6IC0xcHg7XHJcbiAgICAgICAgYm9yZGVyOiAwO1xyXG4gICAgICAgIGJhY2tncm91bmQtY29sb3I6ICM0NEEwOEQ7XHJcbiAgICAgICAgd2lkdGg6IGNhbGMoMTAwJSArIDJweCk7XHJcbiAgICAgICAgcGFkZGluZy1sZWZ0OiBjYWxjKDEwJSArIDFweCk7XHJcblxyXG4gICAgICAgIHNwYW4ge1xyXG4gICAgICAgICAgY29sb3I6ICNlZWVlZWU7XHJcbiAgICAgICAgICBiYWNrZ3JvdW5kOiB0cmFuc3BhcmVudDtcclxuICAgICAgICB9XHJcblxyXG4gICAgICAgICY6YWZ0ZXIge1xyXG4gICAgICAgICAgZGlzcGxheTogbm9uZTtcclxuICAgICAgICB9XHJcbiAgICAgIH1cclxuICAgIH1cclxuICB9XHJcbn1cclxuLnJpZ2h0IHtcclxuICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgZmxvYXQ6IGxlZnQ7XHJcbiAgd2lkdGg6IDYyLjQlO1xyXG4gIGhlaWdodDogMTAwJTtcclxuLmNoYXQge1xyXG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuICBvdmVyZmxvdzogaGlkZGVuO1xyXG4gIHBhZGRpbmc6IDAgMzVweCA5MnB4O1xyXG4gIGJvcmRlci13aWR0aDogMXB4IDFweCAxcHggMDtcclxuICBib3JkZXItc3R5bGU6IHNvbGlkO1xyXG4gIGJvcmRlci1jb2xvcjogI2U2ZTZlNjtcclxuICBoZWlnaHQ6IGNhbGMoMTAwJSAtIDQ4cHgpO1xyXG4gIGp1c3RpZnktY29udGVudDogZmxleC1lbmQ7XHJcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuJi5hY3RpdmUtY2hhdCB7XHJcbiAgIGRpc3BsYXk6IGJsb2NrO1xyXG4gICBkaXNwbGF5OiBmbGV4O1xyXG4uYnViYmxlIHtcclxuICB0cmFuc2l0aW9uLXRpbWluZy1mdW5jdGlvbjogY3ViaWMtYmV6aWVyKC40LC0uMDQsIDEsIDEpO1xyXG5AZm9yICRpIGZyb20gMSB0aHJvdWdoIDEwIHtcclxuJjpudGgtb2YtdHlwZSgjeyRpfSkge1xyXG4gIGFuaW1hdGlvbi1kdXJhdGlvbjogLjE1cyAqICRpO1xyXG59XHJcbn1cclxufVxyXG59XHJcbn1cclxuLndyaXRlIHtcclxuICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgYm90dG9tOiAyMCU7XHJcbiAgbGVmdDogMjAlO1xyXG4gIGhlaWdodDogMTAwJTtcclxuICBib3JkZXI6IDFweCBzb2xpZCAjZTZlNmU2O1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICNmZmY7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgYm9yZGVyLXJhZGl1czogMC41cmVtO1xyXG4gIHBhZGRpbmctbGVmdDogMSU7XHJcbiAgcGFkZGluZy1yaWdodDogMSU7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG5cclxuICAud3JpdGUtaW5wdXQge1xyXG4gIGZvbnQtc2l6ZTogMjBweDtcclxuICBmbG9hdDogbGVmdDtcclxuICB3aWR0aDogMTAwJTtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgY29sb3I6ICMxYTFhMWE7XHJcbiAgYm9yZGVyOiAwO1xyXG4gIG91dGxpbmU6IG5vbmU7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZmZjtcclxuQGluY2x1ZGUgZm9udDtcclxufVxyXG4ud3JpdGUtbGluayB7XHJcbiYuc2VuZCB7XHJcbiY6YmVmb3JlIHtcclxuICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xyXG4gICBmbG9hdDogbGVmdDtcclxuICAgd2lkdGg6IDIuNXJlbTtcclxuICAgaGVpZ2h0OiAxMDAlO1xyXG4gICBjb250ZW50OiAnJztcclxuICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKCdodHRwczovL3MzLXVzLXdlc3QtMi5hbWF6b25hd3MuY29tL3MuY2Rwbi5pby8zODI5OTQvc2VuZC5wbmcnKTtcclxuICAgYmFja2dyb3VuZC1yZXBlYXQ6IG5vLXJlcGVhdDtcclxuICAgYmFja2dyb3VuZC1wb3NpdGlvbjogY2VudGVyO1xyXG4gfVxyXG59XHJcbn1cclxufVxyXG4uYnViYmxlIHtcclxuICBmb250LXNpemU6IDE2cHg7XHJcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxuICBjbGVhcjogYm90aDtcclxuICBtYXJnaW4tYm90dG9tOiA4cHg7XHJcbiAgcGFkZGluZzogMTNweCAxNHB4O1xyXG4gIHZlcnRpY2FsLWFsaWduOiB0b3A7XHJcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xyXG4mOmJlZm9yZSB7XHJcbiAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgdG9wOiAxOXB4O1xyXG4gICBkaXNwbGF5OiBibG9jaztcclxuICAgd2lkdGg6IDhweDtcclxuICAgaGVpZ2h0OiA2cHg7XHJcbiAgIGNvbnRlbnQ6ICdcXDAwYTAnO1xyXG4gICB0cmFuc2Zvcm06IHJvdGF0ZSgyOWRlZykgc2tldygtMzVkZWcpO1xyXG4gfVxyXG4mLnlvdSB7XHJcbiAgIGZsb2F0OiBsZWZ0O1xyXG4gICBjb2xvcjogI2ZmZjtcclxuICAgYmFja2dyb3VuZC1jb2xvcjogIzQ0QTA4RDtcclxuICAgYWxpZ24tc2VsZjogZmxleC1zdGFydDtcclxuICAgYW5pbWF0aW9uLW5hbWU6IHNsaWRlRnJvbUxlZnQ7XHJcbiY6YmVmb3JlIHtcclxuICAgbGVmdDogLTNweDtcclxuICAgYmFja2dyb3VuZC1jb2xvcjogIzQ0QTA4RDtcclxuIH1cclxufVxyXG4mLm1lIHtcclxuICAgZmxvYXQ6IHJpZ2h0O1xyXG4gICBjb2xvcjogIzFhMWExYTtcclxuICAgYmFja2dyb3VuZC1jb2xvcjogI2ZmZjtcclxuICAgYWxpZ24tc2VsZjogZmxleC1lbmQ7XHJcbiAgIGFuaW1hdGlvbi1uYW1lOiBzbGlkZUZyb21SaWdodDtcclxuJjpiZWZvcmUge1xyXG4gICByaWdodDogLTNweDtcclxuICAgYmFja2dyb3VuZC1jb2xvcjogI2ZmZjtcclxuIH1cclxufVxyXG4gIC5ub3RpZmljYXRpb257XHJcbiAgICBjb2xvcjogcmVkO1xyXG4gIH1cclxufVxyXG4uY29udmVyc2F0aW9uLXN0YXJ0IHtcclxuICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgbWFyZ2luLWJvdHRvbTogMjdweDtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbnNwYW4ge1xyXG4gIGZvbnQtc2l6ZTogMTRweDtcclxuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XHJcbiAgY29sb3I6ICM5OTk7XHJcbiY6YmVmb3JlLCY6YWZ0ZXIge1xyXG4gICAgICAgICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICAgICAgICAgIHRvcDogMTBweDtcclxuICAgICAgICAgICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xyXG4gICAgICAgICAgICB3aWR0aDogMzAlO1xyXG4gICAgICAgICAgICBoZWlnaHQ6IDFweDtcclxuICAgICAgICAgICAgY29udGVudDogJyc7XHJcbiAgICAgICAgICAgIGJhY2tncm91bmQtY29sb3I6ICNlNmU2ZTY7XHJcbiAgICAgICAgICB9XHJcbiY6YmVmb3JlIHtcclxuICAgbGVmdDogMDtcclxuIH1cclxuJjphZnRlciB7XHJcbiAgIHJpZ2h0OiAwO1xyXG4gfVxyXG59XHJcbn1cclxufVxyXG59XHJcbkBrZXlmcmFtZXMgc2xpZGVGcm9tTGVmdCB7XHJcbiAgMCUge1xyXG4gICAgbWFyZ2luLWxlZnQ6IC0yMDBweDtcclxuICAgIG9wYWNpdHk6IDA7XHJcbiAgfVxyXG4gIDEwMCUge1xyXG4gICAgbWFyZ2luLWxlZnQ6IDA7XHJcbiAgICBvcGFjaXR5OiAxO1xyXG4gIH1cclxufVxyXG5ALXdlYmtpdC1rZXlmcmFtZXMgc2xpZGVGcm9tTGVmdCB7XHJcbiAgMCUge1xyXG4gICAgbWFyZ2luLWxlZnQ6IC0yMDBweDtcclxuICAgIG9wYWNpdHk6IDA7XHJcbiAgfVxyXG4gIDEwMCUge1xyXG4gICAgbWFyZ2luLWxlZnQ6IDA7XHJcbiAgICBvcGFjaXR5OiAxO1xyXG4gIH1cclxufVxyXG5Aa2V5ZnJhbWVzIHNsaWRlRnJvbVJpZ2h0IHtcclxuICAwJSB7XHJcbiAgICBtYXJnaW4tcmlnaHQ6IC0yMDBweDtcclxuICAgIG9wYWNpdHk6IDA7XHJcbiAgfVxyXG4gIDEwMCUge1xyXG4gICAgbWFyZ2luLXJpZ2h0OiAwO1xyXG4gICAgb3BhY2l0eTogMTtcclxuICB9XHJcbn1cclxuQC13ZWJraXQta2V5ZnJhbWVzIHNsaWRlRnJvbVJpZ2h0IHtcclxuICAwJSB7XHJcbiAgICBtYXJnaW4tcmlnaHQ6IC0yMDBweDtcclxuICAgIG9wYWNpdHk6IDA7XHJcbiAgfVxyXG4gIDEwMCUge1xyXG4gICAgbWFyZ2luLXJpZ2h0OiAwO1xyXG4gICAgb3BhY2l0eTogMTtcclxuICB9XHJcbn1cclxuXHJcbiJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/pages/personal-area/chat/chat.component.ts":
+/*!************************************************************!*\
+  !*** ./src/app/pages/personal-area/chat/chat.component.ts ***!
+  \************************************************************/
+/*! exports provided: ChatComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChatComponent", function() { return ChatComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var stompjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! stompjs */ "./node_modules/stompjs/index.js");
+/* harmony import */ var stompjs__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(stompjs__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var sockjs_client__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sockjs-client */ "./node_modules/sockjs-client/lib/entry.js");
+/* harmony import */ var sockjs_client__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sockjs_client__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _shared_api_chat_socket_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../shared/api/chat/socket.service */ "./src/app/shared/api/chat/socket.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _shared_components_user_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../shared/components/user/user.service */ "./src/app/shared/components/user/user.service.ts");
+
+
+
+
+
+
+
+
+
+var ChatComponent = /** @class */ (function () {
+    function ChatComponent(socketService, toastr, userService) {
+        var _this = this;
+        this.socketService = socketService;
+        this.toastr = toastr;
+        this.userService = userService;
+        this.serverUrl = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].url + 'socket';
+        this.isLoaded = false;
+        this.isCustomSocketOpened = false;
+        this.user = this.userService.user;
+        this.socketService.getDrives(this.user.id)
+            .subscribe(function (drives) {
+            _this._drives = drives;
+            _this.currentDrive = _this._drives[0];
+            _this.messages = _this.currentDrive.messages;
+        }, function () {
+        }, function () {
+            _this.initializeWebSocketConnection();
+        });
+    }
+    ChatComponent.prototype.ngOnInit = function () {
+        this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
+            message: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required])
+        });
+    };
+    Object.defineProperty(ChatComponent.prototype, "drives", {
+        get: function () {
+            return this._drives;
+        },
+        set: function (drives) {
+            this._drives = drives;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ChatComponent.prototype.sendMessageUsingSocket = function () {
+        var message = {
+            message: this.form.value.message,
+            user: this.user.id.toString(),
+            driveId: this.currentDrive.id.toString(),
+            time: new Date(),
+            notify: false
+        };
+        this.stompClient.send("/socket-subscriber/send/message", {}, JSON.stringify(message));
+    };
+    ChatComponent.prototype.initializeWebSocketConnection = function () {
+        var ws = new sockjs_client__WEBPACK_IMPORTED_MODULE_4__(this.serverUrl);
+        this.stompClient = stompjs__WEBPACK_IMPORTED_MODULE_3__["over"](ws);
+        var that = this;
+        this.stompClient.connect({}, function () {
+            that.isLoaded = true;
+            that.openGlobalSocket();
+            that.openSocket(that.currentDrive.id.toString() + "_" + that.user.id.toString());
+            that.drives.forEach(function (element) {
+                that.openSocket(element.id.toString());
+            });
+            that.currentDrive.isOpenSocket = true;
+        });
+    };
+    ChatComponent.prototype.openGlobalSocket = function () {
+        var _this = this;
+        this.stompClient.subscribe("/socket-publisher", function (message) {
+            _this.handleResult(message);
+        });
+    };
+    ChatComponent.prototype.openSocket = function (id) {
+        var _this = this;
+        if (this.isLoaded) {
+            this.isCustomSocketOpened = true;
+            this.stompClient.subscribe("/socket-publisher/" + id, function (message) {
+                _this.handleResult(message);
+            });
+        }
+    };
+    ChatComponent.prototype.handleResult = function (message) {
+        if (message.body) {
+            var messageResult_1 = JSON.parse(message.body);
+            var temp = this.drives.findIndex(function (element) {
+                return element.id == messageResult_1.driveId;
+            });
+            this.drives[temp].messages.push(messageResult_1);
+            this.form.reset(" ");
+            this.toastr.success("new message recieved", null, {
+                'timeOut': 3000
+            });
+        }
+    };
+    ChatComponent.prototype.chooseDrive = function (drive) {
+        this.messages = drive.messages;
+        this.currentDrive = drive;
+        if (!drive.isOpenSocket) {
+            this.openSocket(this.currentDrive.id.toString() + "_" + this.user.id.toString());
+            drive.isOpenSocket = true;
+            this.form.reset(" ");
+        }
+    };
+    ChatComponent.prototype.isMine = function (message) {
+        var temp = message.user.id == this.user.id && !message.notify;
+        return temp;
+    };
+    ChatComponent.prototype.isNotMine = function (message) {
+        return message.user.id !== this.user.id && !message.notify;
+    };
+    ChatComponent.ctorParameters = function () { return [
+        { type: _shared_api_chat_socket_service__WEBPACK_IMPORTED_MODULE_6__["SocketService"] },
+        { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_7__["ToastrService"] },
+        { type: _shared_components_user_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"] }
+    ]; };
+    ChatComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-chat',
+            template: __webpack_require__(/*! raw-loader!./chat.component.html */ "./node_modules/raw-loader/index.js!./src/app/pages/personal-area/chat/chat.component.html"),
+            styles: [__webpack_require__(/*! ./chat.component.scss */ "./src/app/pages/personal-area/chat/chat.component.scss")]
+        })
+    ], ChatComponent);
+    return ChatComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/pages/personal-area/chat/chat.module.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/pages/personal-area/chat/chat.module.ts ***!
+  \*********************************************************/
+/*! exports provided: ChatModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChatModule", function() { return ChatModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _chat_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./chat.component */ "./src/app/pages/personal-area/chat/chat.component.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _shared_api_chat_socket_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../shared/api/chat/socket.service */ "./src/app/shared/api/chat/socket.service.ts");
+
+
+
+
+
+
+var ChatModule = /** @class */ (function () {
+    function ChatModule() {
+    }
+    ChatModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"]
+            ],
+            providers: [
+                _shared_api_chat_socket_service__WEBPACK_IMPORTED_MODULE_5__["SocketService"]
+            ],
+            declarations: [_chat_component__WEBPACK_IMPORTED_MODULE_3__["ChatComponent"]],
+            exports: [_chat_component__WEBPACK_IMPORTED_MODULE_3__["ChatComponent"]]
+        })
+    ], ChatModule);
+    return ChatModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/pages/personal-area/chat/chat.routes.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/pages/personal-area/chat/chat.routes.ts ***!
+  \*********************************************************/
+/*! exports provided: ChatRoutes */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChatRoutes", function() { return ChatRoutes; });
+/* harmony import */ var _chat_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chat.component */ "./src/app/pages/personal-area/chat/chat.component.ts");
+
+var ChatRoutes = [
+    {
+        path: 'chat',
+        component: _chat_component__WEBPACK_IMPORTED_MODULE_0__["ChatComponent"]
+    }
+];
+
+
+/***/ }),
+
 /***/ "./src/app/pages/personal-area/my-bookings/my-bookings.component.scss":
 /*!****************************************************************************!*\
   !*** ./src/app/pages/personal-area/my-bookings/my-bookings.component.scss ***!
@@ -1533,21 +1835,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _shared_components_trip_trip_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../shared/components/trip/trip.service */ "./src/app/shared/components/trip/trip.service.ts");
+/* harmony import */ var _shared_components_user_user_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../shared/components/user/user.service */ "./src/app/shared/components/user/user.service.ts");
+
 
 
 
 var MyBookingsComponent = /** @class */ (function () {
-    function MyBookingsComponent(tripService) {
+    function MyBookingsComponent(tripService, userService) {
+        var _this = this;
         this.tripService = tripService;
-        this.drives$ = tripService.tripsSubject;
+        this.userService = userService;
+        tripService.getBookedDrives(this.userService.user.id).then(function () {
+            return _this.drives$ = tripService.bookedSubject;
+        });
     }
     MyBookingsComponent.prototype.ngOnInit = function () {
     };
     MyBookingsComponent.prototype.onCancelTrip = function (drive) {
-        this.tripService.cancelTrip(drive);
+        this.tripService.cancelPassengerTrip(drive, this.userService.user.id);
     };
     MyBookingsComponent.ctorParameters = function () { return [
-        { type: _shared_components_trip_trip_service__WEBPACK_IMPORTED_MODULE_2__["TripService"] }
+        { type: _shared_components_trip_trip_service__WEBPACK_IMPORTED_MODULE_2__["TripService"] },
+        { type: _shared_components_user_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"] }
     ]; };
     MyBookingsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1654,21 +1963,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _shared_components_trip_trip_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../shared/components/trip/trip.service */ "./src/app/shared/components/trip/trip.service.ts");
+/* harmony import */ var _shared_components_user_user_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../shared/components/user/user.service */ "./src/app/shared/components/user/user.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
 
 
 
 var MyProposedComponent = /** @class */ (function () {
-    function MyProposedComponent(tripService) {
+    function MyProposedComponent(tripService, userService, router) {
+        var _this = this;
         this.tripService = tripService;
-        this.drives$ = tripService.tripsSubject;
+        this.userService = userService;
+        this.router = router;
+        tripService.getProposedDrives(this.userService.user.id).then(function () {
+            return _this.drives$ = tripService.proposedSubject;
+        });
     }
     MyProposedComponent.prototype.ngOnInit = function () {
     };
     MyProposedComponent.prototype.onCancelTrip = function (drive) {
         this.tripService.cancelTrip(drive);
     };
+    MyProposedComponent.prototype.onEditTrip = function (drive) {
+        //this.tripService.cancelTrip(drive);
+        this.router.navigate(['/edit']);
+    };
     MyProposedComponent.ctorParameters = function () { return [
-        { type: _shared_components_trip_trip_service__WEBPACK_IMPORTED_MODULE_2__["TripService"] }
+        { type: _shared_components_trip_trip_service__WEBPACK_IMPORTED_MODULE_2__["TripService"] },
+        { type: _shared_components_user_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
     ]; };
     MyProposedComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1758,7 +2082,7 @@ var MyProposedRoutes = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".personal-area-container {\n  position: absolute;\n  top: 16%;\n  bottom: 5%;\n  margin: 1% 15%;\n  width: 70%;\n  background: #eeeeee;\n  overflow-y: scroll;\n}\n\n@media screen and (max-width: 414px) {\n  .personal-area-container {\n    margin: 1% 5%;\n    width: 90%;\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvcGVyc29uYWwtYXJlYS9EOlxcV2lsbENhclxcV2lsbENhclxcR1VJL3NyY1xcYXBwXFxwYWdlc1xccGVyc29uYWwtYXJlYVxccGVyc29uYWwtYXJlYS5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvcGFnZXMvcGVyc29uYWwtYXJlYS9wZXJzb25hbC1hcmVhLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0Usa0JBQUE7RUFDQSxRQUFBO0VBQ0EsVUFBQTtFQUNBLGNBQUE7RUFDQSxVQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtBQ0NGOztBREVBO0VBQ0U7SUFDRSxhQUFBO0lBQ0EsVUFBQTtFQ0NGO0FBQ0YiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9wZXJzb25hbC1hcmVhL3BlcnNvbmFsLWFyZWEuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucGVyc29uYWwtYXJlYS1jb250YWluZXIge1xyXG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICB0b3A6IDE2JTtcclxuICBib3R0b206IDUlO1xyXG4gIG1hcmdpbjogMSUgMTUlO1xyXG4gIHdpZHRoOiA3MCU7XHJcbiAgYmFja2dyb3VuZDogI2VlZWVlZTtcclxuICBvdmVyZmxvdy15OiBzY3JvbGw7XHJcbn1cclxuXHJcbkBtZWRpYSBzY3JlZW4gYW5kIChtYXgtd2lkdGg6IDQxNHB4KSB7XHJcbiAgLnBlcnNvbmFsLWFyZWEtY29udGFpbmVyIHtcclxuICAgIG1hcmdpbjogMSUgNSU7XHJcbiAgICB3aWR0aDogOTAlO1xyXG4gIH1cclxufVxyXG4iLCIucGVyc29uYWwtYXJlYS1jb250YWluZXIge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogMTYlO1xuICBib3R0b206IDUlO1xuICBtYXJnaW46IDElIDE1JTtcbiAgd2lkdGg6IDcwJTtcbiAgYmFja2dyb3VuZDogI2VlZWVlZTtcbiAgb3ZlcmZsb3cteTogc2Nyb2xsO1xufVxuXG5AbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiA0MTRweCkge1xuICAucGVyc29uYWwtYXJlYS1jb250YWluZXIge1xuICAgIG1hcmdpbjogMSUgNSU7XG4gICAgd2lkdGg6IDkwJTtcbiAgfVxufSJdfQ== */"
+module.exports = ".personal-area-container {\n  position: absolute;\n  top: 16%;\n  bottom: 5%;\n  margin: 1% 15%;\n  width: 70%;\n  background: #eeeeee;\n  overflow-y: auto;\n}\n\n@media screen and (max-width: 414px) {\n  .personal-area-container {\n    margin: 1% 5%;\n    width: 90%;\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvcGVyc29uYWwtYXJlYS9EOlxcV2lsbENhclxcV2lsbENhclxcR1VJL3NyY1xcYXBwXFxwYWdlc1xccGVyc29uYWwtYXJlYVxccGVyc29uYWwtYXJlYS5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvcGFnZXMvcGVyc29uYWwtYXJlYS9wZXJzb25hbC1hcmVhLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0Usa0JBQUE7RUFDQSxRQUFBO0VBQ0EsVUFBQTtFQUNBLGNBQUE7RUFDQSxVQUFBO0VBQ0EsbUJBQUE7RUFDQSxnQkFBQTtBQ0NGOztBREVBO0VBQ0U7SUFDRSxhQUFBO0lBQ0EsVUFBQTtFQ0NGO0FBQ0YiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9wZXJzb25hbC1hcmVhL3BlcnNvbmFsLWFyZWEuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucGVyc29uYWwtYXJlYS1jb250YWluZXIge1xyXG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICB0b3A6IDE2JTtcclxuICBib3R0b206IDUlO1xyXG4gIG1hcmdpbjogMSUgMTUlO1xyXG4gIHdpZHRoOiA3MCU7XHJcbiAgYmFja2dyb3VuZDogI2VlZWVlZTtcclxuICBvdmVyZmxvdy15OiBhdXRvO1xyXG59XHJcblxyXG5AbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiA0MTRweCkge1xyXG4gIC5wZXJzb25hbC1hcmVhLWNvbnRhaW5lciB7XHJcbiAgICBtYXJnaW46IDElIDUlO1xyXG4gICAgd2lkdGg6IDkwJTtcclxuICB9XHJcbn1cclxuIiwiLnBlcnNvbmFsLWFyZWEtY29udGFpbmVyIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDE2JTtcbiAgYm90dG9tOiA1JTtcbiAgbWFyZ2luOiAxJSAxNSU7XG4gIHdpZHRoOiA3MCU7XG4gIGJhY2tncm91bmQ6ICNlZWVlZWU7XG4gIG92ZXJmbG93LXk6IGF1dG87XG59XG5cbkBtZWRpYSBzY3JlZW4gYW5kIChtYXgtd2lkdGg6IDQxNHB4KSB7XG4gIC5wZXJzb25hbC1hcmVhLWNvbnRhaW5lciB7XG4gICAgbWFyZ2luOiAxJSA1JTtcbiAgICB3aWR0aDogOTAlO1xuICB9XG59Il19 */"
 
 /***/ }),
 
@@ -1814,8 +2138,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _my_bookings_my_bookings_routes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./my-bookings/my-bookings.routes */ "./src/app/pages/personal-area/my-bookings/my-bookings.routes.ts");
 /* harmony import */ var _my_proposed_my_proposed_routes__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./my-proposed/my-proposed.routes */ "./src/app/pages/personal-area/my-proposed/my-proposed.routes.ts");
 /* harmony import */ var _profile_profile_routes__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./profile/profile.routes */ "./src/app/pages/personal-area/profile/profile.routes.ts");
-/* harmony import */ var _admin_tab_admin_routes__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./admin-tab/admin.routes */ "./src/app/pages/personal-area/admin-tab/admin.routes.ts");
-/* harmony import */ var _admin_tab_admin_module__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./admin-tab/admin.module */ "./src/app/pages/personal-area/admin-tab/admin.module.ts");
+/* harmony import */ var _chat_chat_routes__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./chat/chat.routes */ "./src/app/pages/personal-area/chat/chat.routes.ts");
+/* harmony import */ var _chat_chat_module__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./chat/chat.module */ "./src/app/pages/personal-area/chat/chat.module.ts");
+/* harmony import */ var _admin_tab_admin_routes__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./admin-tab/admin.routes */ "./src/app/pages/personal-area/admin-tab/admin.routes.ts");
+/* harmony import */ var _admin_tab_admin_module__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./admin-tab/admin.module */ "./src/app/pages/personal-area/admin-tab/admin.module.ts");
+
+
 
 
 
@@ -1836,7 +2164,7 @@ var personalAreaRotes = [
         children: [
             {
                 path: '',
-                children: tslib__WEBPACK_IMPORTED_MODULE_0__["__spread"](_my_bookings_my_bookings_routes__WEBPACK_IMPORTED_MODULE_8__["MyBookingsRoutes"], _my_proposed_my_proposed_routes__WEBPACK_IMPORTED_MODULE_9__["MyProposedRoutes"], _profile_profile_routes__WEBPACK_IMPORTED_MODULE_10__["ProfileRoutes"], _admin_tab_admin_routes__WEBPACK_IMPORTED_MODULE_11__["AdminRoutes"])
+                children: tslib__WEBPACK_IMPORTED_MODULE_0__["__spread"](_my_bookings_my_bookings_routes__WEBPACK_IMPORTED_MODULE_8__["MyBookingsRoutes"], _my_proposed_my_proposed_routes__WEBPACK_IMPORTED_MODULE_9__["MyProposedRoutes"], _profile_profile_routes__WEBPACK_IMPORTED_MODULE_10__["ProfileRoutes"], _admin_tab_admin_routes__WEBPACK_IMPORTED_MODULE_13__["AdminRoutes"], _chat_chat_routes__WEBPACK_IMPORTED_MODULE_11__["ChatRoutes"])
             }
         ]
     }
@@ -1851,7 +2179,8 @@ var PersonalAreaModule = /** @class */ (function () {
                 _my_proposed_my_proposed_module__WEBPACK_IMPORTED_MODULE_4__["MyProposedModule"],
                 _profile_profile_module__WEBPACK_IMPORTED_MODULE_5__["ProfileModule"],
                 _shared_components_profile_menu_profile_menu_module__WEBPACK_IMPORTED_MODULE_6__["ProfileMenuModule"],
-                _admin_tab_admin_module__WEBPACK_IMPORTED_MODULE_12__["AdminModule"],
+                _admin_tab_admin_module__WEBPACK_IMPORTED_MODULE_14__["AdminModule"],
+                _chat_chat_module__WEBPACK_IMPORTED_MODULE_12__["ChatModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_7__["RouterModule"].forChild(personalAreaRotes)
             ],
             declarations: [
@@ -2025,6 +2354,51 @@ var ProfileRoutes = [
 
 /***/ }),
 
+/***/ "./src/app/shared/api/chat/socket.service.ts":
+/*!***************************************************!*\
+  !*** ./src/app/shared/api/chat/socket.service.ts ***!
+  \***************************************************/
+/*! exports provided: SocketService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SocketService", function() { return SocketService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs_add_operator_map__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/add/operator/map */ "./node_modules/rxjs-compat/_esm5/add/operator/map.js");
+/* harmony import */ var rxjs_add_operator_catch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/add/operator/catch */ "./node_modules/rxjs-compat/_esm5/add/operator/catch.js");
+/* harmony import */ var _services_api_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/api.service */ "./src/app/shared/services/api.service.ts");
+
+
+
+
+
+var SocketService = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](SocketService, _super);
+    function SocketService() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    SocketService_1 = SocketService;
+    SocketService.mapDrive = function (response) {
+        return response;
+    };
+    SocketService.prototype.getDrives = function (id) {
+        var temp = _super.prototype.get.call(this, "api/drive/userId/" + id, SocketService_1.mapDrive);
+        console.log(temp);
+        return temp;
+    };
+    var SocketService_1;
+    SocketService = SocketService_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])()
+    ], SocketService);
+    return SocketService;
+}(_services_api_service__WEBPACK_IMPORTED_MODULE_4__["ApiService"]));
+
+
+
+/***/ }),
+
 /***/ "./src/app/shared/api/map/map.api.service.ts":
 /*!***************************************************!*\
   !*** ./src/app/shared/api/map/map.api.service.ts ***!
@@ -2059,10 +2433,10 @@ var MapApiService = /** @class */ (function (_super) {
         return response;
     };
     MapApiService.prototype.postDrive = function (body) {
-        return _super.prototype.post.call(this, "api/drive", body);
+        return _super.prototype.post.call(this, "api/drive/driver", body);
     };
     MapApiService.prototype.postInfoToSearchDrive = function (body) {
-        return _super.prototype.post.call(this, "api/drive/points", body, MapApiService_1.mapDrives);
+        return _super.prototype.post.call(this, "api/drive/passenger/points", body, MapApiService_1.mapDrives);
     };
     var MapApiService_1;
     MapApiService = MapApiService_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -2162,6 +2536,62 @@ var ProfileApiService = /** @class */ (function (_super) {
 
 /***/ }),
 
+/***/ "./src/app/shared/api/trip/drive.api.service.ts":
+/*!******************************************************!*\
+  !*** ./src/app/shared/api/trip/drive.api.service.ts ***!
+  \******************************************************/
+/*! exports provided: DriveApiService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DriveApiService", function() { return DriveApiService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/api.service */ "./src/app/shared/services/api.service.ts");
+
+
+
+var DriveApiService = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](DriveApiService, _super);
+    function DriveApiService() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    DriveApiService_1 = DriveApiService;
+    DriveApiService.mapDrives = function (response) {
+        return response;
+    };
+    DriveApiService.prototype.postTrip = function (trip) {
+        return _super.prototype.post.call(this, "", trip, DriveApiService_1.simpleResponse);
+    };
+    DriveApiService.prototype.getProposedDrives = function (id) {
+        return _super.prototype.get.call(this, "api/drive/driver/driverId/" + id, DriveApiService_1.mapDrives);
+    };
+    DriveApiService.prototype.getBookedDrives = function (id) {
+        return _super.prototype.get.call(this, "api/drive/passenger/passengerId/" + id, DriveApiService_1.mapDrives);
+    };
+    DriveApiService.prototype.canselDrive = function (id) {
+        return _super.prototype.delete.call(this, "api/drive/driver/" + id, { id: id });
+    };
+    DriveApiService.prototype.canselPassengerDrive = function (driveId, id) {
+        return _super.prototype.delete.call(this, "api/passengerDrive/passenger/" + id + "/driveId/" + driveId, { id: id });
+    };
+    DriveApiService.simpleResponse = function (response) {
+        return response;
+    };
+    var DriveApiService_1;
+    DriveApiService = DriveApiService_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], DriveApiService);
+    return DriveApiService;
+}(_services_api_service__WEBPACK_IMPORTED_MODULE_2__["ApiService"]));
+
+
+
+/***/ }),
+
 /***/ "./src/app/shared/components/booking-confirmation/booking-confirmation.component.scss":
 /*!********************************************************************************************!*\
   !*** ./src/app/shared/components/booking-confirmation/booking-confirmation.component.scss ***!
@@ -2187,10 +2617,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _constants_labels__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../constants/labels */ "./src/app/shared/constants/labels.ts");
-/* harmony import */ var _mocks_user_mocks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../mocks/user.mocks */ "./src/app/shared/mocks/user.mocks.ts");
-/* harmony import */ var _constants_trip__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../constants/trip */ "./src/app/shared/constants/trip.ts");
-/* harmony import */ var _constants_button_labels__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../constants/button-labels */ "./src/app/shared/constants/button-labels.ts");
-
+/* harmony import */ var _constants_button_labels__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../constants/button-labels */ "./src/app/shared/constants/button-labels.ts");
+/* harmony import */ var _user_user_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../user/user.service */ "./src/app/shared/components/user/user.service.ts");
 
 
 
@@ -2198,12 +2626,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var BookingConfirmationComponent = /** @class */ (function () {
-    function BookingConfirmationComponent(router) {
+    function BookingConfirmationComponent(router, userService) {
         this.router = router;
+        this.userService = userService;
         this.label = _constants_labels__WEBPACK_IMPORTED_MODULE_3__["LABELS"];
-        this.driverInfo = _mocks_user_mocks__WEBPACK_IMPORTED_MODULE_4__["USER"];
-        this.tripInfo = _constants_trip__WEBPACK_IMPORTED_MODULE_5__["TEST_TRIP"];
-        this.buttonLabel = _constants_button_labels__WEBPACK_IMPORTED_MODULE_6__["BUTTON_LABELS"];
+        this.driverInfo = this.userService.user;
+        this.buttonLabel = _constants_button_labels__WEBPACK_IMPORTED_MODULE_4__["BUTTON_LABELS"];
     }
     BookingConfirmationComponent.prototype.goToSuccess = function () {
         this.router.navigate(['/success-confirmation']);
@@ -2214,7 +2642,8 @@ var BookingConfirmationComponent = /** @class */ (function () {
     BookingConfirmationComponent.prototype.ngOnInit = function () {
     };
     BookingConfirmationComponent.ctorParameters = function () { return [
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
+        { type: _user_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"] }
     ]; };
     BookingConfirmationComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -2752,6 +3181,9 @@ var MenuComponent = /** @class */ (function () {
     MenuComponent.prototype.goToMyProposed = function () {
         this.router.navigate(['/personalarea/', 'myproposed']);
     };
+    MenuComponent.prototype.goToMyMessages = function () {
+        this.router.navigate(['/personalarea/', 'chat']);
+    };
     MenuComponent.prototype.goToAdminTab = function () {
         this.router.navigate(['/personalarea/', 'admin-tab']);
     };
@@ -2829,6 +3261,9 @@ var ProfileMenuComponent = /** @class */ (function () {
     };
     ProfileMenuComponent.prototype.goToMyProposed = function () {
         this.router.navigate(['/personalarea/', 'myproposed']);
+    };
+    ProfileMenuComponent.prototype.goToMyMessages = function () {
+        this.router.navigate(['/personalarea/', 'chat']);
     };
     ProfileMenuComponent.prototype.goToAdminTab = function () {
         this.router.navigate(['/personalarea/', 'admin-tab']);
@@ -3039,7 +3474,7 @@ var SuccessConfirmationRoutes = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".trips-container {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  -webkit-box-pack: center;\n          justify-content: center;\n  margin-bottom: 2%;\n}\n\n.my-bookings {\n  font-family: \"Titillium Web\", sans-serif;\n  font-size: 2em;\n  color: #376061;\n  margin: 5% 5% 0 5%;\n  padding-bottom: 2%;\n  border-bottom: 1px solid #376061;\n  text-align: center;\n  font-weight: bold;\n}\n\n.label {\n  font-family: \"Titillium Web\", sans-serif;\n  font-size: 1.7em;\n  color: #ff844c;\n  margin: 5% 5% 0 5%;\n  padding-bottom: 2%;\n  text-align: center;\n}\n\n.route-shot {\n  max-width: 300px;\n  margin: 3%;\n  border: 2px solid #ff844c;\n}\n\n.trip {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n  align-self: center;\n  white-space: pre;\n}\n\n.field {\n  font-family: \"Titillium Web\", sans-serif;\n  font-size: 1.3em;\n  color: #376061;\n  display: -webkit-inline-box;\n  display: inline-flex;\n  margin-bottom: 1%;\n}\n\n.field a {\n  color: #376061;\n}\n\n.btn {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  -webkit-box-align: end;\n          align-items: flex-end;\n  -webkit-box-pack: space-evenly;\n          justify-content: space-evenly;\n  margin-top: 5%;\n}\n\n.mat-icon {\n  padding-right: 2%;\n}\n\n.passengers ::ng-deep mat-list-item.mat-list-item {\n  height: 1.5em;\n  font-family: \"Titillium Web\", sans-serif;\n  color: #376061;\n}\n\n.passengers ::ng-deep .mat-list-base {\n  padding: 0;\n}\n\n@media screen and (max-width: 414px) {\n  .route-shot {\n    max-width: 150px;\n    max-height: 100px;\n  }\n\n  .field {\n    font-family: \"Titillium Web\", sans-serif;\n    font-size: 1em;\n    color: #376061;\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2NvbXBvbmVudHMvdHJpcC9EOlxcV2lsbENhclxcV2lsbENhclxcR1VJL3NyY1xcYXBwXFxzaGFyZWRcXGNvbXBvbmVudHNcXHRyaXBcXHRyaXAuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL3NoYXJlZC9jb21wb25lbnRzL3RyaXAvdHJpcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLG9CQUFBO0VBQUEsYUFBQTtFQUNBLDhCQUFBO0VBQUEsNkJBQUE7VUFBQSxtQkFBQTtFQUNBLHdCQUFBO1VBQUEsdUJBQUE7RUFDQSxpQkFBQTtBQ0NGOztBREVBO0VBQ0Usd0NBQUE7RUFDQSxjQUFBO0VBQ0EsY0FBQTtFQUNBLGtCQUFBO0VBQ0Esa0JBQUE7RUFDQSxnQ0FBQTtFQUNBLGtCQUFBO0VBQ0EsaUJBQUE7QUNDRjs7QURFQTtFQUNFLHdDQUFBO0VBQ0EsZ0JBQUE7RUFDQSxjQUFBO0VBQ0Esa0JBQUE7RUFDQSxrQkFBQTtFQUNBLGtCQUFBO0FDQ0Y7O0FERUE7RUFDRSxnQkFBQTtFQUNBLFVBQUE7RUFDQSx5QkFBQTtBQ0NGOztBREVBO0VBQ0Usb0JBQUE7RUFBQSxhQUFBO0VBQ0EsNEJBQUE7RUFBQSw2QkFBQTtVQUFBLHNCQUFBO0VBQ0Esa0JBQUE7RUFDQSxnQkFBQTtBQ0NGOztBREVBO0VBQ0Usd0NBQUE7RUFDQSxnQkFBQTtFQUNBLGNBQUE7RUFDQSwyQkFBQTtFQUFBLG9CQUFBO0VBQ0EsaUJBQUE7QUNDRjs7QURFQTtFQUNFLGNBQUE7QUNDRjs7QURFQTtFQUNFLG9CQUFBO0VBQUEsYUFBQTtFQUNBLDhCQUFBO0VBQUEsNkJBQUE7VUFBQSxtQkFBQTtFQUNBLHNCQUFBO1VBQUEscUJBQUE7RUFDQSw4QkFBQTtVQUFBLDZCQUFBO0VBQ0EsY0FBQTtBQ0NGOztBREVBO0VBQ0UsaUJBQUE7QUNDRjs7QURJSTtFQUNFLGFBQUE7RUFDQSx3Q0FBQTtFQUNBLGNBQUE7QUNETjs7QURHSTtFQUNFLFVBQUE7QUNETjs7QURNQTtFQUNFO0lBQ0UsZ0JBQUE7SUFDQSxpQkFBQTtFQ0hGOztFREtBO0lBQ0Usd0NBQUE7SUFDQSxjQUFBO0lBQ0EsY0FBQTtFQ0ZGO0FBQ0YiLCJmaWxlIjoic3JjL2FwcC9zaGFyZWQvY29tcG9uZW50cy90cmlwL3RyaXAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIudHJpcHMtY29udGFpbmVyIHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGZsZXgtZGlyZWN0aW9uOiByb3c7XHJcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgbWFyZ2luLWJvdHRvbTogMiU7XHJcbn1cclxuXHJcbi5teS1ib29raW5ncyB7XHJcbiAgZm9udC1mYW1pbHk6ICdUaXRpbGxpdW0gV2ViJywgc2Fucy1zZXJpZjtcclxuICBmb250LXNpemU6IDJlbTtcclxuICBjb2xvcjogIzM3NjA2MTtcclxuICBtYXJnaW46IDUlIDUlIDAgNSU7XHJcbiAgcGFkZGluZy1ib3R0b206IDIlO1xyXG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCAjMzc2MDYxO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxufVxyXG5cclxuLmxhYmVsIHtcclxuICBmb250LWZhbWlseTogXCJUaXRpbGxpdW0gV2ViXCIsIHNhbnMtc2VyaWY7XHJcbiAgZm9udC1zaXplOiAxLjdlbTtcclxuICBjb2xvcjogI2ZmODQ0YztcclxuICBtYXJnaW46IDUlIDUlIDAgNSU7XHJcbiAgcGFkZGluZy1ib3R0b206IDIlO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG5cclxuLnJvdXRlLXNob3Qge1xyXG4gIG1heC13aWR0aDogMzAwcHg7XHJcbiAgbWFyZ2luOiAzJTtcclxuICBib3JkZXI6IDJweCBzb2xpZCAjZmY4NDRjO1xyXG59XHJcblxyXG4udHJpcCB7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG4gIGFsaWduLXNlbGY6IGNlbnRlcjtcclxuICB3aGl0ZS1zcGFjZTogcHJlO1xyXG59XHJcblxyXG4uZmllbGQge1xyXG4gIGZvbnQtZmFtaWx5OiBcIlRpdGlsbGl1bSBXZWJcIiwgc2Fucy1zZXJpZjtcclxuICBmb250LXNpemU6IDEuM2VtO1xyXG4gIGNvbG9yOiAjMzc2MDYxO1xyXG4gIGRpc3BsYXk6IGlubGluZS1mbGV4O1xyXG4gIG1hcmdpbi1ib3R0b206IDElO1xyXG59XHJcblxyXG4uZmllbGQgYSB7XHJcbiAgY29sb3I6ICMzNzYwNjE7XHJcbn1cclxuXHJcbi5idG4ge1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAgZmxleC1kaXJlY3Rpb246IHJvdztcclxuICBhbGlnbi1pdGVtczogZmxleC1lbmQ7XHJcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XHJcbiAgbWFyZ2luLXRvcDogNSU7XHJcbn1cclxuXHJcbi5tYXQtaWNvbiB7XHJcbiAgcGFkZGluZy1yaWdodDogMiU7XHJcbn1cclxuXHJcbi5wYXNzZW5nZXJzIHtcclxuICA6Om5nLWRlZXAge1xyXG4gICAgbWF0LWxpc3QtaXRlbS5tYXQtbGlzdC1pdGVte1xyXG4gICAgICBoZWlnaHQ6IDEuNWVtO1xyXG4gICAgICBmb250LWZhbWlseTogXCJUaXRpbGxpdW0gV2ViXCIsIHNhbnMtc2VyaWY7XHJcbiAgICAgIGNvbG9yOiAjMzc2MDYxO1xyXG4gICAgfVxyXG4gICAgLm1hdC1saXN0LWJhc2Uge1xyXG4gICAgICBwYWRkaW5nOiAwO1xyXG4gICAgfVxyXG4gIH1cclxufVxyXG5cclxuQG1lZGlhIHNjcmVlbiBhbmQgKG1heC13aWR0aDogNDE0cHgpIHtcclxuICAucm91dGUtc2hvdCB7XHJcbiAgICBtYXgtd2lkdGg6IDE1MHB4O1xyXG4gICAgbWF4LWhlaWdodDogMTAwcHg7XHJcbiAgfVxyXG4gIC5maWVsZCB7XHJcbiAgICBmb250LWZhbWlseTogJ1RpdGlsbGl1bSBXZWInLCBzYW5zLXNlcmlmO1xyXG4gICAgZm9udC1zaXplOiAxZW07XHJcbiAgICBjb2xvcjogIzM3NjA2MTtcclxuICB9XHJcbn1cclxuXHJcblxyXG4iLCIudHJpcHMtY29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IHJvdztcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIG1hcmdpbi1ib3R0b206IDIlO1xufVxuXG4ubXktYm9va2luZ3Mge1xuICBmb250LWZhbWlseTogXCJUaXRpbGxpdW0gV2ViXCIsIHNhbnMtc2VyaWY7XG4gIGZvbnQtc2l6ZTogMmVtO1xuICBjb2xvcjogIzM3NjA2MTtcbiAgbWFyZ2luOiA1JSA1JSAwIDUlO1xuICBwYWRkaW5nLWJvdHRvbTogMiU7XG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCAjMzc2MDYxO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG4ubGFiZWwge1xuICBmb250LWZhbWlseTogXCJUaXRpbGxpdW0gV2ViXCIsIHNhbnMtc2VyaWY7XG4gIGZvbnQtc2l6ZTogMS43ZW07XG4gIGNvbG9yOiAjZmY4NDRjO1xuICBtYXJnaW46IDUlIDUlIDAgNSU7XG4gIHBhZGRpbmctYm90dG9tOiAyJTtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG4ucm91dGUtc2hvdCB7XG4gIG1heC13aWR0aDogMzAwcHg7XG4gIG1hcmdpbjogMyU7XG4gIGJvcmRlcjogMnB4IHNvbGlkICNmZjg0NGM7XG59XG5cbi50cmlwIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgYWxpZ24tc2VsZjogY2VudGVyO1xuICB3aGl0ZS1zcGFjZTogcHJlO1xufVxuXG4uZmllbGQge1xuICBmb250LWZhbWlseTogXCJUaXRpbGxpdW0gV2ViXCIsIHNhbnMtc2VyaWY7XG4gIGZvbnQtc2l6ZTogMS4zZW07XG4gIGNvbG9yOiAjMzc2MDYxO1xuICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcbiAgbWFyZ2luLWJvdHRvbTogMSU7XG59XG5cbi5maWVsZCBhIHtcbiAgY29sb3I6ICMzNzYwNjE7XG59XG5cbi5idG4ge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogcm93O1xuICBhbGlnbi1pdGVtczogZmxleC1lbmQ7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtZXZlbmx5O1xuICBtYXJnaW4tdG9wOiA1JTtcbn1cblxuLm1hdC1pY29uIHtcbiAgcGFkZGluZy1yaWdodDogMiU7XG59XG5cbi5wYXNzZW5nZXJzIDo6bmctZGVlcCBtYXQtbGlzdC1pdGVtLm1hdC1saXN0LWl0ZW0ge1xuICBoZWlnaHQ6IDEuNWVtO1xuICBmb250LWZhbWlseTogXCJUaXRpbGxpdW0gV2ViXCIsIHNhbnMtc2VyaWY7XG4gIGNvbG9yOiAjMzc2MDYxO1xufVxuLnBhc3NlbmdlcnMgOjpuZy1kZWVwIC5tYXQtbGlzdC1iYXNlIHtcbiAgcGFkZGluZzogMDtcbn1cblxuQG1lZGlhIHNjcmVlbiBhbmQgKG1heC13aWR0aDogNDE0cHgpIHtcbiAgLnJvdXRlLXNob3Qge1xuICAgIG1heC13aWR0aDogMTUwcHg7XG4gICAgbWF4LWhlaWdodDogMTAwcHg7XG4gIH1cblxuICAuZmllbGQge1xuICAgIGZvbnQtZmFtaWx5OiBcIlRpdGlsbGl1bSBXZWJcIiwgc2Fucy1zZXJpZjtcbiAgICBmb250LXNpemU6IDFlbTtcbiAgICBjb2xvcjogIzM3NjA2MTtcbiAgfVxufSJdfQ== */"
+module.exports = "@charset \"UTF-8\";\n.trips-container {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  -webkit-box-pack: center;\n          justify-content: center;\n  margin-bottom: 2%;\n}\n.my-bookings {\n  font-family: \"Titillium Web\", sans-serif;\n  font-size: 2em;\n  color: #376061;\n  margin: 5% 5% 0 5%;\n  padding-bottom: 2%;\n  border-bottom: 1px solid #376061;\n  text-align: center;\n  font-weight: bold;\n}\n.label {\n  font-family: \"Titillium Web\", sans-serif;\n  font-size: 1.7em;\n  color: #ff844c;\n  margin: 5% 5% 0 5%;\n  padding-bottom: 2%;\n  text-align: center;\n}\n.route-shot {\n  max-width: 300px;\n  margin: 3%;\n  border: 2px solid #ff844c;\n}\n.trip {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n  align-self: center;\n  white-space: pre;\n}\n.field {\n  font-family: \"Titillium Web\", sans-serif;\n  font-size: 1.3em;\n  color: #376061;\n  display: -webkit-inline-box;\n  display: inline-flex;\n  margin-bottom: 1%;\n}\n.field a {\n  color: #376061;\n}\n.btn {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  -webkit-box-align: end;\n          align-items: flex-end;\n  -webkit-box-pack: space-evenly;\n          justify-content: space-evenly;\n  margin-top: 5%;\n}\n.mat-icon {\n  padding-right: 2%;\n}\n.passengers ::ng-deep mat-list-item.mat-list-item {\n  height: 1.5em;\n  font-family: \"Titillium Web\", sans-serif;\n  color: #376061;\n}\n.passengers ::ng-deep .mat-list-base {\n  padding: 0;\n}\n.star-rating {\n  font-size: 0;\n}\n.star-rating__wrap {\n  display: inline-block;\n  font-size: 1rem;\n}\n.star-rating__wrap:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n.star-rating__ico {\n  float: right;\n  padding-left: 2px;\n  cursor: pointer;\n  color: #FFB300;\n}\n.star-rating__ico:last-child {\n  padding-left: 0;\n}\n.star-rating__input {\n  display: none;\n}\n.star-rating__ico:hover:before,\n.star-rating__ico:hover ~ .star-rating__ico:before,\n.star-rating__input:checked ~ .star-rating__ico:before {\n  content: \"\";\n}\n@media screen and (max-width: 414px) {\n  .route-shot {\n    max-width: 150px;\n    max-height: 100px;\n  }\n\n  .field {\n    font-family: \"Titillium Web\", sans-serif;\n    font-size: 1em;\n    color: #376061;\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2NvbXBvbmVudHMvdHJpcC90cmlwLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9zaGFyZWQvY29tcG9uZW50cy90cmlwL0Q6XFxXaWxsQ2FyXFxXaWxsQ2FyXFxHVUkvc3JjXFxhcHBcXHNoYXJlZFxcY29tcG9uZW50c1xcdHJpcFxcdHJpcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxnQkFBZ0I7QUNBaEI7RUFDRSxvQkFBQTtFQUFBLGFBQUE7RUFDQSw4QkFBQTtFQUFBLDZCQUFBO1VBQUEsbUJBQUE7RUFDQSx3QkFBQTtVQUFBLHVCQUFBO0VBQ0EsaUJBQUE7QURFRjtBQ0NBO0VBQ0Usd0NBQUE7RUFDQSxjQUFBO0VBQ0EsY0FBQTtFQUNBLGtCQUFBO0VBQ0Esa0JBQUE7RUFDQSxnQ0FBQTtFQUNBLGtCQUFBO0VBQ0EsaUJBQUE7QURFRjtBQ0NBO0VBQ0Usd0NBQUE7RUFDQSxnQkFBQTtFQUNBLGNBQUE7RUFDQSxrQkFBQTtFQUNBLGtCQUFBO0VBQ0Esa0JBQUE7QURFRjtBQ0NBO0VBQ0UsZ0JBQUE7RUFDQSxVQUFBO0VBQ0EseUJBQUE7QURFRjtBQ0NBO0VBQ0Usb0JBQUE7RUFBQSxhQUFBO0VBQ0EsNEJBQUE7RUFBQSw2QkFBQTtVQUFBLHNCQUFBO0VBQ0Esa0JBQUE7RUFDQSxnQkFBQTtBREVGO0FDQ0E7RUFDRSx3Q0FBQTtFQUNBLGdCQUFBO0VBQ0EsY0FBQTtFQUNBLDJCQUFBO0VBQUEsb0JBQUE7RUFDQSxpQkFBQTtBREVGO0FDQ0E7RUFDRSxjQUFBO0FERUY7QUNDQTtFQUNFLG9CQUFBO0VBQUEsYUFBQTtFQUNBLDhCQUFBO0VBQUEsNkJBQUE7VUFBQSxtQkFBQTtFQUNBLHNCQUFBO1VBQUEscUJBQUE7RUFDQSw4QkFBQTtVQUFBLDZCQUFBO0VBQ0EsY0FBQTtBREVGO0FDQ0E7RUFDRSxpQkFBQTtBREVGO0FDR0k7RUFDRSxhQUFBO0VBQ0Esd0NBQUE7RUFDQSxjQUFBO0FEQU47QUNFSTtFQUNFLFVBQUE7QURBTjtBQ0tBO0VBQ0UsWUFBQTtBREZGO0FDSUE7RUFDRSxxQkFBQTtFQUNBLGVBQUE7QURERjtBQ0dBO0VBQ0UsV0FBQTtFQUNBLGNBQUE7RUFDQSxXQUFBO0FEQUY7QUNFQTtFQUNFLFlBQUE7RUFDQSxpQkFBQTtFQUNBLGVBQUE7RUFDQSxjQUFBO0FEQ0Y7QUNDQTtFQUNFLGVBQUE7QURFRjtBQ0FBO0VBQ0UsYUFBQTtBREdGO0FDREE7OztFQUlFLFlBQUE7QURHRjtBQ0FBO0VBQ0U7SUFDRSxnQkFBQTtJQUNBLGlCQUFBO0VER0Y7O0VDREE7SUFDRSx3Q0FBQTtJQUNBLGNBQUE7SUFDQSxjQUFBO0VESUY7QUFDRiIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9jb21wb25lbnRzL3RyaXAvdHJpcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIkBjaGFyc2V0IFwiVVRGLThcIjtcbi50cmlwcy1jb250YWluZXIge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogcm93O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgbWFyZ2luLWJvdHRvbTogMiU7XG59XG5cbi5teS1ib29raW5ncyB7XG4gIGZvbnQtZmFtaWx5OiBcIlRpdGlsbGl1bSBXZWJcIiwgc2Fucy1zZXJpZjtcbiAgZm9udC1zaXplOiAyZW07XG4gIGNvbG9yOiAjMzc2MDYxO1xuICBtYXJnaW46IDUlIDUlIDAgNSU7XG4gIHBhZGRpbmctYm90dG9tOiAyJTtcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkICMzNzYwNjE7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG5cbi5sYWJlbCB7XG4gIGZvbnQtZmFtaWx5OiBcIlRpdGlsbGl1bSBXZWJcIiwgc2Fucy1zZXJpZjtcbiAgZm9udC1zaXplOiAxLjdlbTtcbiAgY29sb3I6ICNmZjg0NGM7XG4gIG1hcmdpbjogNSUgNSUgMCA1JTtcbiAgcGFkZGluZy1ib3R0b206IDIlO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5yb3V0ZS1zaG90IHtcbiAgbWF4LXdpZHRoOiAzMDBweDtcbiAgbWFyZ2luOiAzJTtcbiAgYm9yZGVyOiAycHggc29saWQgI2ZmODQ0Yztcbn1cblxuLnRyaXAge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICBhbGlnbi1zZWxmOiBjZW50ZXI7XG4gIHdoaXRlLXNwYWNlOiBwcmU7XG59XG5cbi5maWVsZCB7XG4gIGZvbnQtZmFtaWx5OiBcIlRpdGlsbGl1bSBXZWJcIiwgc2Fucy1zZXJpZjtcbiAgZm9udC1zaXplOiAxLjNlbTtcbiAgY29sb3I6ICMzNzYwNjE7XG4gIGRpc3BsYXk6IGlubGluZS1mbGV4O1xuICBtYXJnaW4tYm90dG9tOiAxJTtcbn1cblxuLmZpZWxkIGEge1xuICBjb2xvcjogIzM3NjA2MTtcbn1cblxuLmJ0biB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiByb3c7XG4gIGFsaWduLWl0ZW1zOiBmbGV4LWVuZDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XG4gIG1hcmdpbi10b3A6IDUlO1xufVxuXG4ubWF0LWljb24ge1xuICBwYWRkaW5nLXJpZ2h0OiAyJTtcbn1cblxuLnBhc3NlbmdlcnMgOjpuZy1kZWVwIG1hdC1saXN0LWl0ZW0ubWF0LWxpc3QtaXRlbSB7XG4gIGhlaWdodDogMS41ZW07XG4gIGZvbnQtZmFtaWx5OiBcIlRpdGlsbGl1bSBXZWJcIiwgc2Fucy1zZXJpZjtcbiAgY29sb3I6ICMzNzYwNjE7XG59XG4ucGFzc2VuZ2VycyA6Om5nLWRlZXAgLm1hdC1saXN0LWJhc2Uge1xuICBwYWRkaW5nOiAwO1xufVxuXG4uc3Rhci1yYXRpbmcge1xuICBmb250LXNpemU6IDA7XG59XG5cbi5zdGFyLXJhdGluZ19fd3JhcCB7XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgZm9udC1zaXplOiAxcmVtO1xufVxuXG4uc3Rhci1yYXRpbmdfX3dyYXA6YWZ0ZXIge1xuICBjb250ZW50OiBcIlwiO1xuICBkaXNwbGF5OiB0YWJsZTtcbiAgY2xlYXI6IGJvdGg7XG59XG5cbi5zdGFyLXJhdGluZ19faWNvIHtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBwYWRkaW5nLWxlZnQ6IDJweDtcbiAgY3Vyc29yOiBwb2ludGVyO1xuICBjb2xvcjogI0ZGQjMwMDtcbn1cblxuLnN0YXItcmF0aW5nX19pY286bGFzdC1jaGlsZCB7XG4gIHBhZGRpbmctbGVmdDogMDtcbn1cblxuLnN0YXItcmF0aW5nX19pbnB1dCB7XG4gIGRpc3BsYXk6IG5vbmU7XG59XG5cbi5zdGFyLXJhdGluZ19faWNvOmhvdmVyOmJlZm9yZSxcbi5zdGFyLXJhdGluZ19faWNvOmhvdmVyIH4gLnN0YXItcmF0aW5nX19pY286YmVmb3JlLFxuLnN0YXItcmF0aW5nX19pbnB1dDpjaGVja2VkIH4gLnN0YXItcmF0aW5nX19pY286YmVmb3JlIHtcbiAgY29udGVudDogXCLvgIVcIjtcbn1cblxuQG1lZGlhIHNjcmVlbiBhbmQgKG1heC13aWR0aDogNDE0cHgpIHtcbiAgLnJvdXRlLXNob3Qge1xuICAgIG1heC13aWR0aDogMTUwcHg7XG4gICAgbWF4LWhlaWdodDogMTAwcHg7XG4gIH1cblxuICAuZmllbGQge1xuICAgIGZvbnQtZmFtaWx5OiBcIlRpdGlsbGl1bSBXZWJcIiwgc2Fucy1zZXJpZjtcbiAgICBmb250LXNpemU6IDFlbTtcbiAgICBjb2xvcjogIzM3NjA2MTtcbiAgfVxufSIsIi50cmlwcy1jb250YWluZXIge1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAgZmxleC1kaXJlY3Rpb246IHJvdztcclxuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICBtYXJnaW4tYm90dG9tOiAyJTtcclxufVxyXG5cclxuLm15LWJvb2tpbmdzIHtcclxuICBmb250LWZhbWlseTogJ1RpdGlsbGl1bSBXZWInLCBzYW5zLXNlcmlmO1xyXG4gIGZvbnQtc2l6ZTogMmVtO1xyXG4gIGNvbG9yOiAjMzc2MDYxO1xyXG4gIG1hcmdpbjogNSUgNSUgMCA1JTtcclxuICBwYWRkaW5nLWJvdHRvbTogMiU7XHJcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkICMzNzYwNjE7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG59XHJcblxyXG4ubGFiZWwge1xyXG4gIGZvbnQtZmFtaWx5OiBcIlRpdGlsbGl1bSBXZWJcIiwgc2Fucy1zZXJpZjtcclxuICBmb250LXNpemU6IDEuN2VtO1xyXG4gIGNvbG9yOiAjZmY4NDRjO1xyXG4gIG1hcmdpbjogNSUgNSUgMCA1JTtcclxuICBwYWRkaW5nLWJvdHRvbTogMiU7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcblxyXG4ucm91dGUtc2hvdCB7XHJcbiAgbWF4LXdpZHRoOiAzMDBweDtcclxuICBtYXJnaW46IDMlO1xyXG4gIGJvcmRlcjogMnB4IHNvbGlkICNmZjg0NGM7XHJcbn1cclxuXHJcbi50cmlwIHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAgYWxpZ24tc2VsZjogY2VudGVyO1xyXG4gIHdoaXRlLXNwYWNlOiBwcmU7XHJcbn1cclxuXHJcbi5maWVsZCB7XHJcbiAgZm9udC1mYW1pbHk6IFwiVGl0aWxsaXVtIFdlYlwiLCBzYW5zLXNlcmlmO1xyXG4gIGZvbnQtc2l6ZTogMS4zZW07XHJcbiAgY29sb3I6ICMzNzYwNjE7XHJcbiAgZGlzcGxheTogaW5saW5lLWZsZXg7XHJcbiAgbWFyZ2luLWJvdHRvbTogMSU7XHJcbn1cclxuXHJcbi5maWVsZCBhIHtcclxuICBjb2xvcjogIzM3NjA2MTtcclxufVxyXG5cclxuLmJ0biB7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gIGFsaWduLWl0ZW1zOiBmbGV4LWVuZDtcclxuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcclxuICBtYXJnaW4tdG9wOiA1JTtcclxufVxyXG5cclxuLm1hdC1pY29uIHtcclxuICBwYWRkaW5nLXJpZ2h0OiAyJTtcclxufVxyXG5cclxuLnBhc3NlbmdlcnMge1xyXG4gIDo6bmctZGVlcCB7XHJcbiAgICBtYXQtbGlzdC1pdGVtLm1hdC1saXN0LWl0ZW17XHJcbiAgICAgIGhlaWdodDogMS41ZW07XHJcbiAgICAgIGZvbnQtZmFtaWx5OiBcIlRpdGlsbGl1bSBXZWJcIiwgc2Fucy1zZXJpZjtcclxuICAgICAgY29sb3I6ICMzNzYwNjE7XHJcbiAgICB9XHJcbiAgICAubWF0LWxpc3QtYmFzZSB7XHJcbiAgICAgIHBhZGRpbmc6IDA7XHJcbiAgICB9XHJcbiAgfVxyXG59XHJcblxyXG4uc3Rhci1yYXRpbmd7XHJcbiAgZm9udC1zaXplOiAwO1xyXG59XHJcbi5zdGFyLXJhdGluZ19fd3JhcHtcclxuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XHJcbiAgZm9udC1zaXplOiAxcmVtO1xyXG59XHJcbi5zdGFyLXJhdGluZ19fd3JhcDphZnRlcntcclxuICBjb250ZW50OiBcIlwiO1xyXG4gIGRpc3BsYXk6IHRhYmxlO1xyXG4gIGNsZWFyOiBib3RoO1xyXG59XHJcbi5zdGFyLXJhdGluZ19faWNve1xyXG4gIGZsb2F0OiByaWdodDtcclxuICBwYWRkaW5nLWxlZnQ6IDJweDtcclxuICBjdXJzb3I6IHBvaW50ZXI7XHJcbiAgY29sb3I6ICNGRkIzMDA7XHJcbn1cclxuLnN0YXItcmF0aW5nX19pY286bGFzdC1jaGlsZHtcclxuICBwYWRkaW5nLWxlZnQ6IDA7XHJcbn1cclxuLnN0YXItcmF0aW5nX19pbnB1dHtcclxuICBkaXNwbGF5OiBub25lO1xyXG59XHJcbi5zdGFyLXJhdGluZ19faWNvOmhvdmVyOmJlZm9yZSxcclxuLnN0YXItcmF0aW5nX19pY286aG92ZXIgfiAuc3Rhci1yYXRpbmdfX2ljbzpiZWZvcmUsXHJcbi5zdGFyLXJhdGluZ19faW5wdXQ6Y2hlY2tlZCB+IC5zdGFyLXJhdGluZ19faWNvOmJlZm9yZVxyXG57XHJcbiAgY29udGVudDogXCJcXGYwMDVcIjtcclxufVxyXG5cclxuQG1lZGlhIHNjcmVlbiBhbmQgKG1heC13aWR0aDogNDE0cHgpIHtcclxuICAucm91dGUtc2hvdCB7XHJcbiAgICBtYXgtd2lkdGg6IDE1MHB4O1xyXG4gICAgbWF4LWhlaWdodDogMTAwcHg7XHJcbiAgfVxyXG4gIC5maWVsZCB7XHJcbiAgICBmb250LWZhbWlseTogJ1RpdGlsbGl1bSBXZWInLCBzYW5zLXNlcmlmO1xyXG4gICAgZm9udC1zaXplOiAxZW07XHJcbiAgICBjb2xvcjogIzM3NjA2MTtcclxuICB9XHJcbn1cclxuXHJcblxyXG4iXX0= */"
 
 /***/ }),
 
@@ -3055,10 +3490,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TripComponent", function() { return TripComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _constants_trip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../constants/trip */ "./src/app/shared/constants/trip.ts");
-/* harmony import */ var _mocks_user_mocks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mocks/user.mocks */ "./src/app/shared/mocks/user.mocks.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-
+/* harmony import */ var _mocks_user_mocks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../mocks/user.mocks */ "./src/app/shared/mocks/user.mocks.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 
 
 
@@ -3066,27 +3499,30 @@ __webpack_require__.r(__webpack_exports__);
 var TripComponent = /** @class */ (function () {
     function TripComponent(router) {
         this.router = router;
-        this.cancelTrip = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
-        this.testTrip = _constants_trip__WEBPACK_IMPORTED_MODULE_2__["TEST_TRIP"];
-        this.user = _mocks_user_mocks__WEBPACK_IMPORTED_MODULE_3__["USER"];
-        this.car = _mocks_user_mocks__WEBPACK_IMPORTED_MODULE_3__["CAR"];
+        this.cancelDrive = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.editDrive = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.cancelPassengerDrive = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.car = _mocks_user_mocks__WEBPACK_IMPORTED_MODULE_2__["CAR"];
     }
-    TripComponent.prototype.goToEdit = function () {
-        this.router.navigate(['/edit']);
-    };
     TripComponent.prototype.ngOnInit = function () { };
     TripComponent.ctorParameters = function () { return [
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
-    ], TripComponent.prototype, "Drives", void 0);
+    ], TripComponent.prototype, "drives", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
     ], TripComponent.prototype, "ifProposed", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])()
-    ], TripComponent.prototype, "cancelTrip", void 0);
+    ], TripComponent.prototype, "cancelDrive", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])()
+    ], TripComponent.prototype, "editDrive", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])()
+    ], TripComponent.prototype, "cancelPassengerDrive", void 0);
     TripComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-trip',
@@ -3157,48 +3593,92 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _constants_trip__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../constants/trip */ "./src/app/shared/constants/trip.ts");
-/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/index.js");
-
+/* harmony import */ var _api_trip_drive_api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../api/trip/drive.api.service */ "./src/app/shared/api/trip/drive.api.service.ts");
 
 
 
 
 var TripService = /** @class */ (function () {
-    function TripService() {
-        var _this = this;
-        this._tripsSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](null);
-        setTimeout(function () {
-            _this.drives = [_constants_trip__WEBPACK_IMPORTED_MODULE_3__["TEST_TRIP"]];
-        }, 1000);
+    function TripService(driveApiService) {
+        this.driveApiService = driveApiService;
+        this._proposedSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](null);
+        this._bookedSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](null);
     }
-    Object.defineProperty(TripService.prototype, "tripsSubject", {
+    Object.defineProperty(TripService.prototype, "proposedSubject", {
         get: function () {
-            return this._tripsSubject.asObservable();
+            return this._proposedSubject.asObservable();
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(TripService.prototype, "drives", {
+    Object.defineProperty(TripService.prototype, "proposedDrives", {
         get: function () {
-            return this._drives;
+            return this._proposedDrives;
         },
         set: function (drives) {
-            this._drives = drives;
-            this._tripsSubject.next(this.drives);
+            this._proposedDrives = drives;
+            this._proposedSubject.next(this._proposedDrives);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TripService.prototype, "bookedSubject", {
+        get: function () {
+            return this._bookedSubject.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TripService.prototype, "bookedDrives", {
+        get: function () {
+            return this._bookedDrives;
+        },
+        set: function (drives) {
+            this._bookedDrives = drives;
+            this._bookedSubject.next(this._bookedDrives);
         },
         enumerable: true,
         configurable: true
     });
     TripService.prototype.cancelTrip = function (drive) {
-        var index = this.drives.indexOf(drive);
-        var tempTrips = Object(ramda__WEBPACK_IMPORTED_MODULE_4__["clone"])(this.drives);
-        tempTrips.splice(index, 1);
-        this.drives = tempTrips;
+        var _this = this;
+        this.driveApiService.canselDrive(drive.id)
+            .subscribe(function () {
+            var index = _this.proposedDrives.indexOf(drive);
+            _this.proposedDrives[index].archive = true;
+        });
     };
-    TripService.prototype.addTrip = function (drive) {
-        this.drives = this.drives.concat(drive);
+    TripService.prototype.cancelPassengerTrip = function (drive, userId) {
+        var _this = this;
+        this.driveApiService.canselPassengerDrive(drive.id, userId)
+            .subscribe(function () {
+            var index = _this.bookedDrives.indexOf(drive);
+            _this.bookedDrives.splice(index, 1);
+        });
     };
+    TripService.prototype.getProposedDrives = function (id) {
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this.driveApiService.getProposedDrives(id)
+                .subscribe(function (drives) {
+                _this.proposedDrives = drives;
+                resolve(drives);
+            });
+        });
+    };
+    TripService.prototype.getBookedDrives = function (id) {
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this.driveApiService.getBookedDrives(id)
+                .subscribe(function (drives) {
+                _this.bookedDrives = drives;
+                resolve(drives);
+            });
+        });
+    };
+    TripService.ctorParameters = function () { return [
+        { type: _api_trip_drive_api_service__WEBPACK_IMPORTED_MODULE_3__["DriveApiService"] }
+    ]; };
     TripService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])()
     ], TripService);
@@ -3460,7 +3940,7 @@ var ADMIN_LABELS = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BUTTON_LABELS", function() { return BUTTON_LABELS; });
 var BUTTON_LABELS = {
-    leftButton: 'Find a trip',
+    leftButton: 'Find a drive',
     drawRoute: 'Draw route',
     bookButton: 'Book',
     cancelButton: 'Cancel',
@@ -3474,7 +3954,7 @@ var BUTTON_LABELS = {
 /*!********************************************!*\
   !*** ./src/app/shared/constants/common.ts ***!
   \********************************************/
-/*! exports provided: MAX_POSSIBLE_RATING, REG_DATE, IS_ADMIN */
+/*! exports provided: MAX_POSSIBLE_RATING, REG_DATE, IS_ADMIN, START_STRING, END_STRING */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3482,9 +3962,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MAX_POSSIBLE_RATING", function() { return MAX_POSSIBLE_RATING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REG_DATE", function() { return REG_DATE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IS_ADMIN", function() { return IS_ADMIN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "START_STRING", function() { return START_STRING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "END_STRING", function() { return END_STRING; });
 var MAX_POSSIBLE_RATING = 5;
 var REG_DATE = '^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$';
 var IS_ADMIN = true;
+var START_STRING = 'start';
+var END_STRING = 'end';
 
 
 /***/ }),
@@ -3553,62 +4037,35 @@ var PROFILE_FIELD_LABELS = {
 
 /***/ }),
 
-/***/ "./src/app/shared/constants/trip.ts":
-/*!******************************************!*\
-  !*** ./src/app/shared/constants/trip.ts ***!
-  \******************************************/
-/*! exports provided: TEST_TRIP */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TEST_TRIP", function() { return TEST_TRIP; });
-var TEST_TRIP = {
-    id: 1,
-    startTime: '',
-    endTime: '',
-    startPoint: [1, 2],
-    finPoint: [2, 3],
-    name: '',
-    //passengers: [],
-    freePlaceCount: '',
-    //routeUrl: '',
-    //driver: [],
-    //messages: [],
-    path: [],
-    sumOfKm: 1,
-};
-
-
-/***/ }),
-
 /***/ "./src/app/shared/mocks/user.mocks.ts":
 /*!********************************************!*\
   !*** ./src/app/shared/mocks/user.mocks.ts ***!
   \********************************************/
-/*! exports provided: USER, OPTIONS, CAR */
+/*! exports provided: OPTIONS, CAR */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "USER", function() { return USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OPTIONS", function() { return OPTIONS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CAR", function() { return CAR; });
-var USER = {
-    id: 1,
-    name: 'Misha Ivanov',
-    phoneNumber: '+3752911111111',
-    email: 'ivanov27098@gmail.com',
-    prefCommunication: 'Chat',
-    cars: [],
-    driverRating: 5.7,
-    photoUrl: 'http://telegram-downloads.ru/wp-content/uploads/2016/10/2-12.png',
-    //roles: [],
-    passengerRating: 5,
-    //mark: number,
-    points: 58,
-    drives: [],
-};
+//
+// export const USER: User = {
+//   id: 1,
+//   name: 'Misha Ivanov',
+//   phoneNumber: '+3752911111111',
+//   email: 'ivanov27098@gmail.com',
+//   prefCommunication: 'Chat',
+//   cars: [],
+//   driverRating: 5.7,
+//   photoUrl: 'http://telegram-downloads.ru/wp-content/uploads/2016/10/2-12.png',
+//   //roles: [],
+//   passengerRating: 5,
+//   //mark: number,
+//   points: 58,
+//   drives: [],
+//   //pickUpPoint: Point[];
+//   //numOfKm: number;
+// };
 var OPTIONS = [
     'Viber', 'E-mail', 'Telegram', 'Phone', 'Chat'
 ];
@@ -3757,7 +4214,8 @@ __webpack_require__.r(__webpack_exports__);
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 var environment = {
-    production: false
+    production: false,
+    url: "http://localhost:8080/"
 };
 /*
  * For easier debugging in development mode, you can import the following file

@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from '../../services/api.service';
-import {Car, User} from '../../types/common';
 
 @Injectable()
 export class ProfileApiService extends ApiService {
@@ -46,17 +45,9 @@ export class ProfileApiService extends ApiService {
   getCurrentUser() {
     return super.get(`api/users/`, ProfileApiService.mapUser);
   }
-  getUser(id) {
-    return super.get(`api/users/${id}`);
-  }
-  // putUser(id, prefCommunication){
-  //   return super.put(`api/users/${id}`, body);
-  // }
-
   setUserCar(car) {
     return super.post(`api/car`, car, ProfileApiService.simpleResponse);
   }
-
   changeUserOptions(userOptions) {
     return super.put(`api/users`, userOptions);
   }

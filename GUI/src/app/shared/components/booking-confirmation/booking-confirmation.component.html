@@ -6,8 +6,8 @@
       <tr><td class="parameter">Car:</td><td class="value">{{driverInfo.cars}}</td></tr>
       <tr><td class="parameter">Phone:</td><td class="value"><a href="tel:{{driverInfo.telNumber}}">{{driverInfo.telNumber}}</a></td></tr>
       <tr><td class="parameter">Communicate via:</td><td class="value">{{driverInfo.preferredCommunication}}</td></tr>
-      <tr><td class="parameter">Departure time:</td><td class="value">{{tripInfo.date}}</td></tr>
-      <tr><td class="parameter">Your pickup point:</td><td class="value">{{tripInfo.startPoint.toString()}}</td></tr>
+      <tr><td class="parameter">Departure time:</td><td class="value">{{driverInfo.date}}</td></tr>
+      <tr><td class="parameter">Your pickup point:</td><td class="value">{{driverInfo.startPoint.toString()}}</td></tr>
     </table>
     <div class="buttons">
     <button mat-raised-button (click)="goToSuccess()" class="button">{{buttonLabel.bookButton}}</button>

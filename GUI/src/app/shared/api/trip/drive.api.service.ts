@@ -16,19 +16,19 @@ export class DriveApiService extends ApiService{
   }
 
   getProposedDrives(id) {
-    return super.get(`api/drive/driverId/${id}`, DriveApiService.mapDrives);
+    return super.get(`api/drive/driver/driverId/${id}`, DriveApiService.mapDrives);
   }
 
   getBookedDrives(id) {
-    return super.get(`api/drive/passengerId/${id}`, DriveApiService.mapDrives);
+    return super.get(`api/drive/passenger/passengerId/${id}`, DriveApiService.mapDrives);
   }
 
   canselDrive(id) {
-    return super.delete(`api/drive/${id}`, {id});
+    return super.delete(`api/drive/driver/${id}`, {id});
   }
 
   canselPassengerDrive(driveId, id){
-    return super.delete(`api/passenger/${id}/driveId/${driveId}`, {id});
+    return super.delete(`api/passengerDrive/passenger/${id}/driveId/${driveId}`, {id});
   }
 
   private static simpleResponse(response: any) {

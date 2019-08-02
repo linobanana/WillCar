@@ -1,9 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Drive} from '../../types/common';
 import {CAR} from '../../mocks/user.mocks';
-import {TEST_TRIP} from '../../constants/trip';
-import {CAR, USER} from '../../mocks/user.mocks';
-import {Route, Router} from '@angular/router';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-trip',
@@ -19,9 +17,6 @@ export class TripComponent implements OnInit {
  car = CAR;
  constructor(private router: Router) { }
 
- goToEdit() {
-   this.router.navigate(['/edit']);
- }
  ngOnInit() {}
 
 }
