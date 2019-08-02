@@ -1,0 +1,52 @@
+<!--<form [formGroup]="userForm" (submit)="openSocket()" *ngIf="isLoaded">
+  <p>User Information: (if user id(toId) is null the message will be sended to all users) </p>
+  <div style="margin-bottom: 20px;">
+    <input type="text" formControlName="fromId" name="fromId" placeholder="Your id">
+    <input type="submit" [disabled]="userForm.invalid || isCustomSocketOpened" value="open socket to recieve custom messages">
+  </div>
+  <input type="text" formControlName="toId" name="toId" placeholder="User id to send the message to">
+</form>
+<form [formGroup]="form" (submit)="sendMessageUsingSocket()">
+  <p>Message: </p>
+  <input type="text" formControlName="message" name="message" placeholder="Message">
+  <input type="submit" [disabled]="form.invalid || userForm.invalid" value="Send using socket subscription">
+</form>
+<ul>
+  <li *ngFor="let message of messages">From: {{message.fromId}}, To: {{message.toId}}, Message: {{message.message}}</li>
+</ul>-->
+
+<div class="wrapper">
+  <div class="container">
+    <div class="left">
+      <ul class="people" *ngFor="let drive of drives">
+        <li class="person" data-chat="person1" (click)="chooseDrive(drive)" *ngIf="isLoaded">
+          <img src="../../../assets/logo.png" alt="" />
+          <span class="name">{{drive.name}}</span>
+          <span class="preview">{{drive.startTime}} - {{drive.endTime}}</span>
+        </li>
+      </ul>
+    </div>
+ <div class="right">
+   <div class="chat" data-chat="person3">
+     <div *ngFor="let message of messages">
+         <div class="bubble you" *ngIf="isNotMine(message)">
+           {{message.message}}
+         </div>
+         <div class="bubble me" *ngIf="isMine(message)">
+           {{message.message}}
+       </div>
+       <div class="notification" *ngIf="message.notify">
+         {{message.message}}
+       </div>
+     </div>
+   </div>
+   <div class="write">
+      <form [formGroup]="form" (submit)="sendMessageUsingSocket()">
+        <input formControlName="message" name="message" class="write-input" type="text"/>
+        <input type="submit" value="Send using socket subscription">
+      </form>
+    </div>
+
+  </div>
+  </div>
+</div>

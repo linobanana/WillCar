@@ -14,7 +14,7 @@
         face
       </mat-icon>
     </button>
-    <button class="menu-item" mat-menu-item>
+    <button class="menu-item" (click)="goToMyMessages()" mat-menu-item>
       {{menuItems.userMessages}}
       <mat-icon class="menu-icon">
         mail

@@ -17,11 +17,14 @@ import {ProfileModule} from './pages/personal-area/profile/profile.module';
 import {ProfileMenuModule} from './shared/components/profile-menu/profile-menu.module';
 import {PersonalAreaModule} from './pages/personal-area/personal-area.module';
 import {ApiService} from "./shared/services/api.service";
-import {AdminModule} from './pages/personal-area/admin-tab/admin.module';
+import {ChatModule} from "./pages/personal-area/chat/chat.module";
+import {SocketService} from "./shared/api/chat/socket.service";
+import {ToastrModule} from "ngx-toastr";
 import {MobileMenuModule} from "./shared/components/mobile-menu/mobile-menu.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatNativeDateModule, MatSidenavModule} from "@angular/material";
+import {AdminModule} from './pages/personal-area/admin-tab/admin.module';
 
 
 @NgModule({
@@ -49,7 +52,13 @@ import {MatNativeDateModule, MatSidenavModule} from "@angular/material";
     PersonalAreaModule,
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    PersonalAreaModule,
+    ChatModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     ApiService

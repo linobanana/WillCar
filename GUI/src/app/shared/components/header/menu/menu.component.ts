@@ -19,6 +19,9 @@ export class MenuComponent {
   goToMyProposed() {
     this.router.navigate(['/personalarea/', 'myproposed']);
   }
+  goToMyMessages() {
+    this.router.navigate(['/personalarea/', 'chat']);
+  }
   goToAuthirization() {
     this.router.navigate(['/authorization']);
   }

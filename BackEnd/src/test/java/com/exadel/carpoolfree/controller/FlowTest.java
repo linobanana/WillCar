@@ -147,7 +147,7 @@ public class FlowTest {
         String text = "Test_message";
         LocalDateTime time = LocalDateTime.now();
 
-        return new Message(timestamp, text, timestamp, time, user);
+        return new Message(timestamp, text, timestamp, time, user, true);
     }
 
     private Drive getNextDrive() {

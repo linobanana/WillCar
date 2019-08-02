@@ -36,8 +36,11 @@ export class ProfileApiService extends ApiService {
   }
 
   getUser(id) {
-    return super.get(`api/users/${id}`, ProfileApiService.mapUser);
+    return super.get(`api/users/${id}`);
   }
+  // putUser(id, prefCommunication){
+  //   return super.put(`api/users/${id}`, body);
+  // }
 
   setUserCar(car) {
     return super.post(`api/car`, car, ProfileApiService.simpleResponse);

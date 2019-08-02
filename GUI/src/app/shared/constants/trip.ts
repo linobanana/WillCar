@@ -11,7 +11,8 @@ export const TEST_TRIP: Drive = {
   freePlaceCount: 9,
   //routeUrl: '',
   //driver: [],
-  //messages: [],
+  messages: [],
+  isOpenSocket: false,
   path: [],
   sumOfKm: 1,
   //pickUpPoint: []

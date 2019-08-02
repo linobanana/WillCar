@@ -8,6 +8,8 @@ import {RouterModule, Routes} from "@angular/router";
 import {MyBookingsRoutes} from "./my-bookings/my-bookings.routes";
 import {MyProposedRoutes} from "./my-proposed/my-proposed.routes";
 import {ProfileRoutes} from "./profile/profile.routes";
+import {ChatRoutes} from "./chat/chat.routes";
+import {ChatModule} from "./chat/chat.module";
 import { AdminComponent } from './admin-tab/admin.component';
 import {AdminRoutes} from './admin-tab/admin.routes';
 import {AdminModule} from './admin-tab/admin.module';
@@ -23,7 +25,8 @@ const personalAreaRotes: Routes = [
           ...MyBookingsRoutes,
           ...MyProposedRoutes,
           ...ProfileRoutes,
-          ...AdminRoutes
+          ...AdminRoutes,
+          ...ChatRoutes,
         ]
       }
     ]
@@ -36,6 +39,7 @@ const personalAreaRotes: Routes = [
     ProfileModule,
     ProfileMenuModule,
     AdminModule,
+    ChatModule,
     RouterModule.forChild(personalAreaRotes)
   ],
   declarations: [

@@ -59,9 +59,11 @@ public class Drive {
     @Column(name = "pathVO")
     private String path;
 
+    @Column(name = "archive")
+    private boolean archive = false;
+
     @OneToMany()
     private List<Message> messages;
-
 
     public Drive(LocalDateTime startTime, LocalDateTime endTime, int freePlaceCount, User driver, String path, String startPoint, String finPoint) {
         this.startTime = startTime;
