@@ -31,7 +31,7 @@ public class DriveVO {
 
     private String pickUpPoint;
 
-    private boolean isArchieve = false;
+    private boolean archive = false;
 
     private List<Message> messages = new ArrayList<>();
 
@@ -41,7 +41,11 @@ public class DriveVO {
     public DriveVO() {
     }
 
-    public DriveVO(LocalDateTime startTime, LocalDateTime endTime, int freePlaceCount, UserVO driver, String path, String startPoint, String finPoint, List<Message> messages) {
+    public DriveVO(LocalDateTime startTime, LocalDateTime endTime,
+                   int freePlaceCount, UserVO driver, String path,
+                   String startPoint, String finPoint, List<Message> messages,
+                   Double sunOfKm, Double sumOfTime, String name, String pickUpPoint,
+                   boolean archive, List<UserVO> passengers) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.freePlaceCount = freePlaceCount;
@@ -50,6 +54,11 @@ public class DriveVO {
         this.startPoint = startPoint;
         this.finPoint = finPoint;
         this.messages = messages;
+        this.sumOfKm = sunOfKm;
+        this.name = name;
+        this.pickUpPoint = pickUpPoint;
+        this.archive = archive;
+        this.passengers = passengers;
     }
 
     public Long getId() {
@@ -96,10 +105,6 @@ public class DriveVO {
         return sumOfKm;
     }
 
-    public Double getSumOfTime() {
-        return sumOfTime;
-    }
-
     public String getName() {
         return name;
     }
@@ -108,12 +113,12 @@ public class DriveVO {
         return pickUpPoint;
     }
 
-    public boolean isArchieve() {
-        return isArchieve;
+    public boolean isArchive() {
+        return archive;
     }
 
-    public void setArchieve(boolean archieve) {
-        isArchieve = archieve;
+    public void setArchive(boolean archive) {
+        this.archive = archive;
     }
 
     public void setFinPoint(String finPoint) {
