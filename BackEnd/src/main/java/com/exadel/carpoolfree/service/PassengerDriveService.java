@@ -6,6 +6,8 @@ import com.exadel.carpoolfree.model.view.MarkVO;
 import com.exadel.carpoolfree.repository.DriveRepository;
 import com.exadel.carpoolfree.repository.PassengerDriveRepository;
 import com.exadel.carpoolfree.repository.UserRepository;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -57,10 +59,17 @@ public class PassengerDriveService {
 
     public void delete(Long driveId, Long passengerId) {
         PassengerDrive ps = passengerDriveRepository.getByDriveAndPassengerId(driveId, passengerId);
-        int places = ps.getDrive().getFreePlaceCount();
-        places++;
-        ps.getDrive().setFreePlaceCount(places);
-        driveRepository.save(ps.getDrive());
-        passengerDriveRepository.deleteByDriveAndPassengerId(driveId, passengerId);
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        String login = securityContext.getAuthentication().getName();
+        User checkUser = userRepository.findByLogin(login);
+        if (checkUser.getId() == passengerId) {
+            int places = ps.getDrive().getFreePlaceCount();
+            places++;
+            ps.getDrive().setFreePlaceCount(places);
+            driveRepository.save(ps.getDrive());
+            passengerDriveRepository.deleteByDriveAndPassengerId(driveId, passengerId);
+        } else {
+            throw new RuntimeException("Incorrect user");
+        }
     }
 }
