@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {LABELS} from '../../constants/labels';
 import {USER} from '../../mocks/user.mocks';
-import {TEST_TRIP} from '../../constants/trip';
 import {BUTTON_LABELS} from '../../constants/button-labels';
 
 @Component({
@@ -13,7 +12,7 @@ import {BUTTON_LABELS} from '../../constants/button-labels';
 export class BookingConfirmationComponent implements OnInit {
   label = LABELS;
   driverInfo = USER;
-  tripInfo = TEST_TRIP;
+ // tripInfo = TEST_TRIP;
   buttonLabel = BUTTON_LABELS;
 
   constructor(private router: Router) {}

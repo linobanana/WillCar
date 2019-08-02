@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
 import {Drive} from '../../../shared/types/common';
 import {TripService} from '../../../shared/components/trip/trip.service';
+import {UserService} from "../../../shared/components/user/user.service";
 
 @Component({
   selector: 'app-my-bookings',
@@ -10,14 +11,15 @@ import {TripService} from '../../../shared/components/trip/trip.service';
 })
 export class MyBookingsComponent implements OnInit {
   drives$: Observable<Drive[]>;
-  constructor(private tripService: TripService) {
-    this.drives$ = tripService.tripsSubject;
+  constructor(private tripService: TripService, private userService: UserService) {
+    tripService.getBookedDrives(/*this.userService.user.id*/2).then(()=>
+      this.drives$ = tripService.bookedSubject);
   }
 
   ngOnInit() {
   }
 
   onCancelTrip(drive) {
-  this.tripService.cancelTrip(drive);
+  this.tripService.cancelPassengerTrip(drive, /*this.userService.user.id*/2);
   }
 }
