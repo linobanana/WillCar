@@ -96,7 +96,7 @@ public class User {
     @OneToMany(
             mappedBy = "userId",
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
+            fetch = FetchType.EAGER,
             orphanRemoval = true
     )
     private List<Car> cars = new ArrayList<>();
