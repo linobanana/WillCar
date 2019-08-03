@@ -34,10 +34,17 @@ export class Drive {
   //passengers: Passenger[];
   freePlaceCount: number;
   //routeUrl: string;
-  //driver: user;
+  driver: User;
   //messages: Message[];
   path: [];
   sumOfKm: number;
   //pickUpPoint: Point[];
 }
+export const options = {
+  year: 'numeric',
+  month: 'numeric',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric'
+};
 

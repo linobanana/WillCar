@@ -1,4 +1,4 @@
-import {Drive} from '../types/common';
+import {Drive, User} from '../types/common';
 
 export const TEST_TRIP: Drive = {
   id: 1,
@@ -10,7 +10,7 @@ export const TEST_TRIP: Drive = {
   //passengers: [],
   freePlaceCount: 9,
   //routeUrl: '',
-  //driver: [],
+   driver: new User(),
   //messages: [],
   path: [],
   sumOfKm: 1,

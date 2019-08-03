@@ -1,10 +1,11 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {FormGroup} from "@angular/forms";
 
 import {delay, min, take} from "rxjs/operators";
 import {MapApiService} from "../../../shared/api/map/map.api.service";
 import {ApiService} from "../../../shared/services/api.service";
-import {Drive, User} from "../../../shared/types/common";
+import {Drive, options} from "../../../shared/types/common";
+import { User } from "../../../shared/types/common";
 import {stringify} from "querystring";
 import {END_STRING, START_STRING} from "../../../shared/constants/common";
 
@@ -78,6 +79,10 @@ private drives: Drive[] = [];
        });
    }
    }
+   public clearDrives() {
+     // this.drives.length = 0;
+     this.drives.splice(0, this.drives.length);
+   }
    public importInfoRoute(form: FormGroup) {
      this.datestart = new Date(form.get('date').value.toString());
      this.infoToSearchDrive.dateTime = this.formatDateISO8601(form.get('time').value.toString());
@@ -101,11 +106,8 @@ private drives: Drive[] = [];
         resolve('correct');
       });
     });
-    return promise.then(result => {
-      console.log(result);
-    });
-  }
-
+    return promise.then(result => { /*console.log(result);*/ });
+    }
   public exportInfoRoute() {
     const self = this;
     this.infoToSearchDrive.startPoint = JSON.stringify(this.points.start);
@@ -126,11 +128,10 @@ private drives: Drive[] = [];
     });
   }
   private showDrives() {
-      this.drives.forEach((drive) => {
-        this.createRouteWithBalloonForUser(drive);
-      });
+    this.drives.forEach((drive) => {
+      this.createRouteWithBalloonForUser(drive);
+    });
   }
-
   public makeRoute(form: FormGroup) {
     const self = this;
     let multiRoute = new ymaps.multiRouter.MultiRoute({
@@ -150,7 +151,9 @@ private drives: Drive[] = [];
     multiRoute.editor.start({
       // addWayPoints: true,
       removeWayPoints: true,
-      addMidPoints: true
+      removeViaPoints: true,
+      addMidPoints: true,
+      //removeMidPoints: true,
     });
     multiRoute.events
       .add("activeroutechange", self.onActiveRouteChange, self);
@@ -162,6 +165,7 @@ private drives: Drive[] = [];
       let coords = [];
       for (let i = 0; i < pathArray.getLength(); i++) {
         path = pathArray.get(i);
+        // coords = coords.concat(i === 0 || i === pathArray.getLength() - 1 ? path.properties.get('coordinates') :path.properties.get('coordinates').slice(1, -1));
         coords = coords.concat(path.properties.get('coordinates'));
       }
       let startAddress;
@@ -200,6 +204,7 @@ private drives: Drive[] = [];
     this.drive.finPoint = this.points.end;
     console.log('export drive:');
     console.log(this.drive);
+    console.log('-------------');
     this.mapApi.postDrive(this.drive)
       .subscribe((data) => {
         console.log(data);
@@ -217,10 +222,13 @@ private drives: Drive[] = [];
     //console.log(this.drive.starttime);
     // const date  = new Date(this.drive.date.toString());
   }
+  private parseToISO8601(date: string): string {
+    date = new Date(date).toLocaleDateString('en-US', options);
+    return date;
+  }
   public initMap() {
     const geolocation = ymaps.geolocation;
     const self = this;
-    if (this.map === undefined) {
       this.map = new ymaps.Map('map', {
         center: [53.9, 27.56],
         zoom: 12,
@@ -235,7 +243,6 @@ private drives: Drive[] = [];
         result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
         self.map.geoObjects.add(result.geoObjects);
       });
-    }
   }
   public destroyMap() {
     this.map.destroy();
@@ -248,8 +255,9 @@ private drives: Drive[] = [];
         let coords = [];
         for (let i = 0; i < pathArray.getLength(); i++) {
           path = pathArray.get(i);
-      coords = coords.concat(path.properties.get('coordinates'));
+          coords = coords.concat(path.properties.get('coordinates'));
     }
+        this.drive.path = JSON.stringify(coords);
   }
   private generateColor(ranges) {
     if (!ranges) {
@@ -265,38 +273,39 @@ private drives: Drive[] = [];
     };
     return "rgb(" + g() + "," + g() + "," + g() +")";
   }
-  private createRouteWithBalloonForUser(drive) {
+  private createRouteWithBalloonForUser(drive: Drive) {
+    let color = this.generateColor(null);
     let coordinates = drive.path;
     let driverName = drive.driver.name;
     let driveStartTime = drive.startTime;
     let freePlaceCount = drive.freePlaceCount;
-
     let temp = 0;
     const amount = drive.path.length / 70;
     for (let j = 0; j < amount ; j++) {
       let tempCoordinates = [];
-      if (j !== amount - 1) {
-        tempCoordinates = drive.path.slice(temp, temp + 71);
+      if ( j !== amount - 1) {
+         tempCoordinates = drive.path.slice(temp, temp + 71);
       } else {
-        tempCoordinates = drive.path.slice(temp);
+         tempCoordinates = drive.path.slice(temp);
       }
-      let viaIndex = [];
-      for (let k = 0; k < tempCoordinates.length - 2; k++) {
-        viaIndex.push(k + 1);
-      }
-      var multiRoute = new ymaps.multiRouter.MultiRoute({
-          referencePoints: tempCoordinates,
-          params: {
-            viaIndexes: viaIndex,
-            results: 1
-          }
-        },
-        {
-          wayPointVisible: false,
-          viaPointVisible: false,
-          boundsAutoApply: true,
-        });
-      const self = this;
+        let viaIndex = [];
+        for (let k = 1; k < tempCoordinates.length - 1; k++) {
+          viaIndex.push(k);
+        }
+        var multiRoute = new ymaps.multiRouter.MultiRoute({
+            referencePoints: tempCoordinates,
+            params: {
+              viaIndexes: viaIndex,
+              results: 1
+            }
+          },
+          {
+            wayPointVisible: false,
+            viaPointVisible: false,
+            boundsAutoApply: true,
+            routeActiveStrokeColor: color
+          });
+        const self = this;
       multiRoute.events.add("click", (event) => {
         let coords = event.get("coords");
         let pickUpPoint;
@@ -325,15 +334,14 @@ private drives: Drive[] = [];
         self.map.geoObjects.add(myPlacemark);
         myPlacemark.balloon.open();
       }, this);
-      this.map.geoObjects.add(multiRoute);
-      temp = temp + 70;
-      }
+        this.map.geoObjects.add(multiRoute);
+        temp = temp + 70;
     }
-
+  }
   public cleanMap() {
     this.map.geoObjects.removeAll();
   }
-  public drawPointsForUser(){
+  public drawPointsForUser() {
     let passengerStartPoint = new ymaps.GeoObject({
       geometry: {
         type: "Point",
@@ -374,7 +382,7 @@ private drives: Drive[] = [];
     this.map.geoObjects.add(myGeoObjects);
     this.map.setBounds(myGeoObjects.getBounds(), {checkZoomRange: false});
   }
-  public getPassengerDrive(){
+  public getPassengerDrive() {
     return this.passengerDrive;
   }
 }
