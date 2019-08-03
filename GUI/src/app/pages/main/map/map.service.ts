@@ -19,8 +19,6 @@ export class MapService {
     start: '',
     end: ''
   };
-//private start: string;
-//private end: string;
 private datestart: Date;
 private map;
 private drive = {
@@ -96,9 +94,9 @@ private drives: Drive[] = [];
       ymaps.geocode(adress, {results: 1}).then(function (res) {
         const firstGeoObject = res.geoObjects.get(0);
         if (mode === START_STRING) {
-          points.start =  JSON.stringify(firstGeoObject.geometry.getCoordinates());
+          points.start =  firstGeoObject.geometry.getCoordinates();
         } else {
-          points.end =  JSON.stringify(firstGeoObject.geometry.getCoordinates());
+          points.end = firstGeoObject.geometry.getCoordinates();
         }
         resolve('correct');
       });
@@ -110,8 +108,8 @@ private drives: Drive[] = [];
 
   public exportInfoRoute() {
     const self = this;
-    this.infoToSearchDrive.startPoint = this.points.start;
-    this.infoToSearchDrive.endPoint = this.points.end;
+    this.infoToSearchDrive.startPoint = JSON.stringify(this.points.start);
+    this.infoToSearchDrive.endPoint = JSON.stringify(this.points.end);
     console.log('searching route:', this.infoToSearchDrive);
     const promise = new Promise((resolve, reject) => {
       self.mapApi.postInfoToSearchDrive( self.infoToSearchDrive).subscribe((data) => {
@@ -128,11 +126,11 @@ private drives: Drive[] = [];
     });
   }
   private showDrives() {
-    this.drives.forEach((drive) => {
-      this.createRouteWithBalloonForUser(drive);
-      //this.createRouteWithBalloonForUser(drive.path, 'Shumaxer', drive.startTime, drive.freePlaceCount);
-    });
+      this.drives.forEach((drive) => {
+        this.createRouteWithBalloonForUser(drive);
+      });
   }
+
   public makeRoute(form: FormGroup) {
     const self = this;
     let multiRoute = new ymaps.multiRouter.MultiRoute({
@@ -170,16 +168,14 @@ private drives: Drive[] = [];
       ymaps.geocode(coords[0], {
         results: 1
       }).then(function (res) {
-        let firstGeoObject = res.geoObjects.get(0);
-        startAddress = firstGeoObject.getAddressLine();
+        var startAddress = res.geoObjects.get(0) ? res.geoObjects.get(0).properties.get('name') : 'Не удалось определить адрес.';
         form.get('address').get(START_STRING + 'r').setValue(startAddress);
       });
       let finAddress;
       ymaps.geocode(coords[coords.length - 1], {
         results: 1
       }).then(function (res) {
-        let firstGeoObject = res.geoObjects.get(0);
-        finAddress = firstGeoObject.getAddressLine();
+        var finAddress = res.geoObjects.get(0) ? res.geoObjects.get(0).properties.get('name') : 'Не удалось определить адрес.';
         form.get('address').get(END_STRING + 'r').setValue(finAddress);
       });
       self.drive.startPoint = JSON.stringify(coords[0]);
@@ -336,6 +332,47 @@ private drives: Drive[] = [];
 
   public cleanMap() {
     this.map.geoObjects.removeAll();
+  }
+  public drawPointsForUser(){
+    let passengerStartPoint = new ymaps.GeoObject({
+      geometry: {
+        type: "Point",
+        coordinates: this.points.start
+      },
+      properties: {
+        iconContent: 'точка подсадки',
+        hintContent: 'передвиньте на место, гда вы собираетесь подсесть',
+
+      }
+    }, {
+      preset: 'islands#blueStretchyIcon',
+      draggable: true,
+    });
+    let passengerEndPoint = new ymaps.GeoObject({
+      geometry: {
+        type: "Point",
+        coordinates: this.points.end
+      },
+      properties: {
+        iconContent: 'точка высадки',
+        hintContent: 'передвиньте на место, гда вы собираетесь выйти',
+
+      }
+    }, {
+      preset: 'islands#blueStretchyIcon',
+      draggable: true,
+    });
+
+
+    var myGeoObjects = new ymaps.GeoObjectCollection({}, {
+      preset: "islands#redCircleIcon",
+      strokeWidth: 4,
+      geodesic: true
+    });
+    myGeoObjects.add(passengerStartPoint);
+    myGeoObjects.add(passengerEndPoint);
+    this.map.geoObjects.add(myGeoObjects);
+    this.map.setBounds(myGeoObjects.getBounds(), {checkZoomRange: false});
   }
   public getPassengerDrive(){
     return this.passengerDrive;

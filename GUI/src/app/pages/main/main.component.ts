@@ -19,7 +19,6 @@ export class MainComponent implements OnInit {
   private initDriverState() {
     StateManagementService.getDriverModeObservable().subscribe((state) => {
       this.driverState = state;
-      this.mapService.cleanMap();
     });
   }
 }
