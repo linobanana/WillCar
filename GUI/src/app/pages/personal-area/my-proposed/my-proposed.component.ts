@@ -24,4 +24,8 @@ onCancelTrip(drive: Drive) {
   onEditTrip(drive: Drive) {
     this.tripService.cancelTrip(drive);
   }
+
+  onSetRating(markObject:{driveId:number, mark:number, passengerId:number}){
+    this.tripService.setRatingToPassenger(markObject);
+  }
 }

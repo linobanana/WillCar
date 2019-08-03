@@ -29,7 +29,7 @@ public class UserVO {
 
         private List<Car> cars = new ArrayList<>();
 
-        private Double mark;
+        private int mark = 0;
 
         private String pickUpPoint;
 
@@ -65,7 +65,7 @@ public class UserVO {
                 this.driverRating = driverRating;
         }
 
-        public Double getMark() {
+        public int getMark() {
                 return mark;
         }
 
@@ -89,7 +89,7 @@ public class UserVO {
                 this.id = id;
         }
 
-        public void setMark(Double mark) {
+        public void setMark(int mark) {
                 this.mark = mark;
         }
 

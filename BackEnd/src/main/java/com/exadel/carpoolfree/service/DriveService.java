@@ -88,7 +88,7 @@ public class DriveService {
                 return userVO;
             }).collect(Collectors.toList());
             List<Message> messages = messageRepository.findAllByDriveId(drive.getId());
-            if (drive.getStartTime().isBefore(LocalDateTime.now())) {
+            if (drive.getStartTime().isBefore(LocalDateTime.now())&&!drive.isArchive()) {
                 this.deleteById(drive.getId());
             }
             DriveVO driveVO = convertToVO(drive);
@@ -96,6 +96,7 @@ public class DriveService {
             driveVO.setMessages(messages);
             return driveVO;
         }).collect(Collectors.toList());
+        result.stream().sorted(Comparator.comparing(DriveVO::getStartTime).reversed());
         return result;
     }
 
@@ -103,7 +104,7 @@ public class DriveService {
         List<PassengerDrive> passengerDriveList = passengerDriveRepository.findAllByPassengerId(passengerId);
         List<DriveVO> result = passengerDriveList.stream()
                 .map(temp -> {
-                    if (temp.getDrive().getStartTime().isBefore(LocalDateTime.now())) {
+                    if (temp.getDrive().getStartTime().isBefore(LocalDateTime.now())&& !temp.getDrive().isArchive()) {
                         this.deleteById(temp.getDrive().getId());
                     }
                     UserVO driverVO = modelMapper.map(temp.getDrive().getDriver(), UserVO.class);
@@ -115,7 +116,7 @@ public class DriveService {
                     driveVO.setMessages(messages);
                     return driveVO;
                 }).collect(Collectors.toList());
-
+        result.stream().sorted(Comparator.comparing(DriveVO::getStartTime).reversed());
         return result;
     }
 

@@ -18,7 +18,7 @@ export class User {
   photoUrl: string;
   driverRating: number;
   passengerRating: number;
-  //mark: number;
+  mark: number;
   points: number;
   drives: Drive[];
   //pickUpPoint: Point[];

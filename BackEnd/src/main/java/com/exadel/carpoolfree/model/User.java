@@ -32,9 +32,6 @@ import java.util.Set;
 @Table(name = "user")
 public class User {
 
-    @Column
-    private boolean active;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -56,6 +53,9 @@ public class User {
     @Column
     private String password;
 
+    @Column
+    private boolean active;
+
     @Column(name = "pref_communication")
     private String prefCommunication;
 
@@ -72,19 +72,6 @@ public class User {
 
     public User(Long id){
         this.id = id;
-    }
-
-    public User(String name, String phoneNumber, String email,
-                String login, String password, boolean active, Long driverRating,
-                Long passengerRating) {
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.login = login;
-        this.password = password;
-        this.active = active;
-        this.driverRating = driverRating;
-        this.passengerRating = passengerRating;
     }
 
     @Column(name = "driver_rating")
@@ -109,6 +96,19 @@ public class User {
         this.email = email;
         this.login = login;
         this.password = password;
+    }
+
+    public User(String name, String phoneNumber, String email,
+                String login, String password, boolean active, double driverRating,
+                double passengerRating) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.login = login;
+        this.password = password;
+        this.active = active;
+        this.driverRating = driverRating;
+        this.passengerRating = passengerRating;
     }
 
 }

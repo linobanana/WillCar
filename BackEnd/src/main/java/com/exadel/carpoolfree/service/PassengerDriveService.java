@@ -39,20 +39,22 @@ public class PassengerDriveService {
         }
     }
 
-    public void addMarkDriverToPassenger(MarkVO markVO) {
+    public int addMarkDriverToPassenger(MarkVO markVO) {
         passengerDriveRepository.addMarkDriverToPassenger(markVO.getMark(),
                 markVO.getDriveId(), markVO.getPassengerId());
         User passenger = userRepository.findById(markVO.getPassengerId()).get();
         passenger.setPassengerRating((passenger.getPassengerRating() + markVO.getMark()) / 2);
         userRepository.save(passenger);
+        return markVO.getMark();
     }
 
-    public void addMarkPassengerToDriver(MarkVO markVO) {
+    public int addMarkPassengerToDriver(MarkVO markVO) {
         passengerDriveRepository.addMarkPassengerToDriver(markVO.getMark(),
                 markVO.getDriveId(), markVO.getPassengerId());
         User driver = driveRepository.findById(markVO.getDriveId()).get().getDriver();
         driver.setDriverRating((driver.getDriverRating() + markVO.getMark()) / 2);
         userRepository.save(driver);
+        return markVO.getMark();
     }
 
     public void delete(Long driveId, Long passengerId) {

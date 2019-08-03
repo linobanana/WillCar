@@ -1,4 +1,4 @@
 <app-trip [drives]="drives$|async"
           (cancelPassengerDrive) = onCancelTrip($event)
-          [ifProposed]="false">
+          [ifProposed]="false" (ratingToDriver)="onSetRating($event)">
 </app-trip>

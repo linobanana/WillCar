@@ -13,7 +13,7 @@ export const USER: User = {
   photoUrl: 'http://telegram-downloads.ru/wp-content/uploads/2016/10/2-12.png',
   //roles: [],
   passengerRating: 5,
-  //mark: number,
+  mark: 4,
   points: 58,
   drives: [],
   //pickUpPoint: Point[];

@@ -7,12 +7,12 @@ public class MarkVO {
 
     private Long driveId;
 
-    private Double mark;
+    private int mark;
 
     public MarkVO() {
     }
 
-    public MarkVO(Long passengerId, Long driveId, Double mark) {
+    public MarkVO(Long passengerId, Long driveId, int mark) {
         this.passengerId = passengerId;
         this.driveId = driveId;
         this.mark = mark;
@@ -22,11 +22,11 @@ public class MarkVO {
         return passengerId;
     }
 
-    public Double getMark() {
+    public int getMark() {
         return mark;
     }
 
-    public void setMark(Double mark) {
+    public void setMark(int mark) {
         this.mark = mark;
     }
 

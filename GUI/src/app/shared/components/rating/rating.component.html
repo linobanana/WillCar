@@ -1,0 +1,21 @@
+<div class="star-rating" *ngIf="!isRated()">
+  <div class="star-rating__wrap">
+    <input class="star-rating__input" type="radio" name="rating" value="5">
+    <label class="star-rating__ico fa fa-star-o fa-lg" title="5 out of 5 stars" (click)="onSetRating.emit(5)"></label>
+    <input class="star-rating__input"  type="radio" name="rating" value="4">
+    <label class="star-rating__ico fa fa-star-o fa-lg"  title="4 out of 5 stars" (click)="onSetRating.emit(4)"></label>
+    <input class="star-rating__input" type="radio" name="rating" value="3">
+    <label class="star-rating__ico fa fa-star-o fa-lg" title="3 out of 5 stars" (click)="onSetRating.emit(3)"></label>
+    <input class="star-rating__input" type="radio" name="rating" value="2">
+    <label class="star-rating__ico fa fa-star-o fa-lg" title="2 out of 5 stars" (click)="onSetRating.emit(2)"></label>
+    <input class="star-rating__input" type="radio" name="rating" value="1">
+    <label class="star-rating__ico fa fa-star-o fa-lg"  title="1 out of 5 stars" (click)="onSetRating.emit(1)"></label>
+  </div>
+</div>
+<div class="star-rating">
+  <div class="star-rating__wrap" *ngFor="let number of arrayOfNumbers(rating)">
+    <input class="star-rating__input" type="checkbox" name="rating" value="5" checked>
+    <label class="star-rating__ico fa fa-star-o fa-lg" title="5 out of 5 stars" ></label>
+  </div>
+</div>
+

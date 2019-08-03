@@ -37,8 +37,8 @@ public class PassengerDrive {
     private Double numOfKm;
 
     @Column(name = "passenger_to_driver_mark")
-    private Double passengerToDriverMark;
+    private int passengerToDriverMark;
 
     @Column(name = "driver_to_passenger_mark")
-    private Double driverToPassengerMark;
+    private int driverToPassengerMark;
 }

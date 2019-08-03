@@ -22,4 +22,10 @@ export class MyBookingsComponent implements OnInit {
   onCancelTrip(drive) {
   this.tripService.cancelPassengerTrip(drive, /*this.userService.user.id*/2);
   }
+
+  onSetRating(markObject:{driveId:number, mark:number}){
+    this.tripService.setRatingToDriver({driveId: markObject.driveId,
+      mark: markObject.mark,
+      passengerId: /*this.userService.user.id*/2});
+  }
 }

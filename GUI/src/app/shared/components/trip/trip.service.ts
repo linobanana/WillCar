@@ -72,5 +72,29 @@ export class TripService {
         });
     });
   }
+
+  setRatingToDriver(markObject:{driveId:number, mark:number, passengerId:number}){
+    this.driveApiService.setRatingToDriver(markObject).subscribe((data) => {
+      let index = this.bookedDrives.findIndex((element) => {
+        return element.id == markObject.driveId;
+      });
+      this.bookedDrives[index].driver.mark = data;
+    }, (error) => {
+      console.error(error);
+    });
+  }
+  setRatingToPassenger(markObject:{driveId:number, mark:number, passengerId:number}){
+    this.driveApiService.setRatingToPassenger(markObject).subscribe((data) => {
+      let index = this.proposedDrives.findIndex((element) => {
+        return element.id == markObject.driveId;
+      });
+      let passengerIndex = this.proposedDrives[index].passengers.findIndex((element) => {
+        return element.id == markObject.passengerId;
+      });
+      this.proposedDrives[index].passengers[passengerIndex].mark = data;
+    }, (error) => {
+      console.error(error);
+    });;
+  }
 }
 

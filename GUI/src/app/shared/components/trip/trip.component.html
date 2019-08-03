@@ -65,7 +65,7 @@
       <div class="field" *ngIf="!ifProposed">
         <mat-icon>person_outline</mat-icon>
         {{drive.driver.name}} <a href="tel:{{drive.driver.phoneNumber}}">{{drive.driver.phoneNumber}}</a>
-        <mat-icon>grade</mat-icon><mat-icon>grade</mat-icon><mat-icon>grade</mat-icon><mat-icon>grade</mat-icon><mat-icon>grade</mat-icon>
+        <app-rating (onSetRating)="setRatingBooking($event, drive.id)" [rating]="drive.driver.mark"></app-rating>
       </div>
       <div class="field" *ngIf="ifProposed">
         <mat-icon>accessibility_new</mat-icon>
@@ -73,20 +73,7 @@
       <div *ngIf="ifProposed" class="passengers">
         <mat-list *ngFor="let passenger of drive.passengers">
           <mat-list-item>{{passenger.name}}</mat-list-item>
-            <div class="star-rating">
-              <div class="star-rating__wrap">
-                <input class="star-rating__input" id="star-rating-5" type="radio" name="rating" value="5">
-                <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-5" title="5 out of 5 stars"></label>
-                <input class="star-rating__input" id="star-rating-4" type="radio" name="rating" value="4">
-                <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-4" title="4 out of 5 stars"></label>
-                <input class="star-rating__input" id="star-rating-3" type="radio" name="rating" value="3">
-                <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-3" title="3 out of 5 stars"></label>
-                <input class="star-rating__input" id="star-rating-2" type="radio" name="rating" value="2">
-                <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-2" title="2 out of 5 stars"></label>
-                <input class="star-rating__input" id="star-rating-1" type="radio" name="rating" value="1">
-                <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-1" title="1 out of 5 stars"></label>
-              </div>
-            </div>
+           <app-rating (onSetRating)="setRating($event, passenger.id,drive.id)" [rating]="passenger.mark"></app-rating>
           <mat-divider></mat-divider>
         </mat-list>
       </div>

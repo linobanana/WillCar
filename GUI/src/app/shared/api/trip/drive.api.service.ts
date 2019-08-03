@@ -31,6 +31,14 @@ export class DriveApiService extends ApiService{
     return super.delete(`api/passenger/${id}/driveId/${driveId}`, {id});
   }
 
+  setRatingToDriver(markObject){
+    return super.post(`api/passenger/markToDriver`,markObject,DriveApiService.simpleResponse);
+  }
+
+  setRatingToPassenger(markObject){
+    return super.post(`api/passenger/markToPassenger`, markObject,DriveApiService.simpleResponse);
+  }
+
   private static simpleResponse(response: any) {
     return response;
   }

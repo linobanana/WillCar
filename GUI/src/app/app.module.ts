@@ -18,12 +18,8 @@ import {ProfileMenuModule} from './shared/components/profile-menu/profile-menu.m
 import {PersonalAreaModule} from './pages/personal-area/personal-area.module';
 import {ApiService} from "./shared/services/api.service";
 import {ChatModule} from "./pages/personal-area/chat/chat.module";
-import {SocketService} from "./shared/api/chat/socket.service";
 import {ToastrModule} from "ngx-toastr";
-import {MobileMenuModule} from "./shared/components/mobile-menu/mobile-menu.module";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatNativeDateModule, MatSidenavModule} from "@angular/material";
 import {AdminModule} from './pages/personal-area/admin-tab/admin.module';
 
 

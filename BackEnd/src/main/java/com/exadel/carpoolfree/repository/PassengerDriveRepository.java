@@ -33,13 +33,13 @@ public interface PassengerDriveRepository extends JpaRepository<PassengerDrive, 
     @Transactional
     @Query(value = "UPDATE PassengerDrive set driver_to_passenger_mark = :mark " +
             "where drive_id = :driveId and passenger_id = :passengerId")
-    void addMarkDriverToPassenger(Double mark, Long driveId, Long passengerId);
+    void addMarkDriverToPassenger(int mark, Long driveId, Long passengerId);
 
     @Modifying
     @Transactional
     @Query(value = "UPDATE PassengerDrive set passenger_to_driver_mark = :mark " +
             "where drive_id = :driveId and passenger_id = :passengerId")
-    void addMarkPassengerToDriver(Double mark, Long driveId, Long passengerId);
+    void addMarkPassengerToDriver(int mark, Long driveId, Long passengerId);
 
 
     @Modifying
