@@ -8,7 +8,9 @@ import {StateManagementService} from '../../shared/services/role-toggle.service'
 })
 export class MainComponent implements OnInit {
   public driverState: boolean;
+  constructor() {
 
+  }
   ngOnInit() {
     this.initDriverState();
   }

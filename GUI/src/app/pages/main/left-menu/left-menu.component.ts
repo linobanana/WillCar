@@ -17,7 +17,7 @@ export class LeftMenuComponent implements OnInit {
   buttonLabel = BUTTON_LABELS;
   constructor(private fb: FormBuilder, private router: Router, private mapper: MapService) {
     this.LeftMenuInfo = this.fb.group({
-      date: ['', {
+      date: [new Date(), {
         validators: forbiddenDateValidator(new RegExp(REG_DATE)),
         updateOn: 'blur'
       }],
@@ -33,10 +33,18 @@ export class LeftMenuComponent implements OnInit {
   }
   onSubmit() {}
   onSubmitForm() {
-    // TODO: Use EventEmitter with form value
-    // console.log(this.LeftMenuInfo.value);
     this.mapper.cleanMap();
-    this.mapper.importInfoRoute(this.LeftMenuInfo).then(() => { this.mapper.exportInfoRoute(); });
+    this.mapper.clearDrives();
+    this.mapper.importInfoRoute(this.LeftMenuInfo).then(() => {
+      this.mapper.drawPointsForUser();
+ //     let promise = new Promise(((resolve, reject) => {
+        this.mapper.exportInfoRoute();
+ //       resolve('');
+ //     }));
+  //    promise.then((result) => {
+  //      this.mapper.setZoom();
+ //     });
+    });
   }
 
   get date() {
@@ -48,7 +56,7 @@ export class LeftMenuComponent implements OnInit {
   }
 
   initRelationMwithY() {
-    this.mapper.initRelationMwithY(this.LeftMenuInfo, 'l');
+    this.mapper.initRelationMwithYForLeftMenu(this.LeftMenuInfo);
   }
 }
 

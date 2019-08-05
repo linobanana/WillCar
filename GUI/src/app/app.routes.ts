@@ -6,6 +6,7 @@ import {MyProposedRoutes} from "./pages/personal-area/my-proposed/my-proposed.ro
 import {SuccessConfirmationRoutes} from "./shared/components/success-confirmation/success-confirmation.routes";
 import {BookingConfirmationRoutes} from './shared/components/booking-confirmation/booking-confirmation.routes';
 import {ChatRoutes} from "./pages/personal-area/chat/chat.routes";
+import {DetailsOfRouteRoutes} from "./pages/personal-area/details-of-route/details-of-route.routes";
 
 export const routes: Routes = [
   {
@@ -18,6 +19,8 @@ export const routes: Routes = [
   ...MyBookingsRoutes,
   ...MyProposedRoutes,
   ...SuccessConfirmationRoutes,
+  ...BookingConfirmationRoutes,
+  ...DetailsOfRouteRoutes
   ...BookingConfirmationRoutes,
   ...ChatRoutes
 ];

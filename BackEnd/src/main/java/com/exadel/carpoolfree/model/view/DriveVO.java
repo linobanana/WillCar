@@ -161,12 +161,24 @@ public class DriveVO {
         this.startTime = startTime;
     }
 
+    public Double getSumOfKm() {
+        return sumOfKm;
+    }
+
     public void setSumOfKm(Double sumOfKm) {
         this.sumOfKm = sumOfKm;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPickUpPoint() {
+        return pickUpPoint;
     }
 
     public void setPickUpPoint(String pickUpPoint) {
