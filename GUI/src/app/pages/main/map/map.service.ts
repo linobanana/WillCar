@@ -5,11 +5,10 @@ import {delay, min, take} from "rxjs/operators";
 import {MapApiService} from "../../../shared/api/map/map.api.service";
 import {ApiService} from "../../../shared/services/api.service";
 import {Drive, options} from "../../../shared/types/common";
-import { User } from "../../../shared/types/common";
+import {User} from "../../../shared/types/common";
 import {stringify} from "querystring";
 import {END_STRING, START_STRING} from "../../../shared/constants/common";
 
-declare var ymaps: any;
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +19,7 @@ export class MapService {
   private suggestionForEndInputR;
   private suggestionForStartInputL;
   private suggestionForEndInputL;
-
+private testCoords = [];
   private points = {
     start: '',
     end: ''
@@ -28,6 +27,7 @@ export class MapService {
   private datestart: Date;
   private map;
   private drive = {
+    segmentsCoords: '',
     startPoint: '',
     finPoint: '',
     startTime: '',
@@ -88,6 +88,7 @@ export class MapService {
       });
     }
   }
+
   public initRelationMwithYForLeftMenu(MenuInfo: FormGroup) {
     const menuInfo = MenuInfo;
     const self = this;
@@ -119,6 +120,7 @@ export class MapService {
       });
     }
   }
+
   public clearDrives() {
     // this.drives.length = 0;
     this.drives.splice(0, this.drives.length);
@@ -135,28 +137,31 @@ export class MapService {
       self.getCordinatesFromAdress(self.points.end, self.points, END_STRING));
     return Promise.all(promises);
   }
-  private getCordinatesFromAdress(adress: string, points: {start: string, end: string}, mode: string) {
-    let promise = new Promise(function(resolve, reject) {
+
+  private getCordinatesFromAdress(adress: string, points: { start: string, end: string }, mode: string) {
+    let promise = new Promise(function (resolve, reject) {
       ymaps.geocode(adress, {results: 1}).then(function (res) {
         const firstGeoObject = res.geoObjects.get(0);
         if (mode === START_STRING) {
-          points.start =  firstGeoObject.geometry.getCoordinates();
+          points.start = firstGeoObject.geometry.getCoordinates();
         } else {
           points.end = firstGeoObject.geometry.getCoordinates();
         }
         resolve('correct');
       });
     });
-    return promise.then(result => { /*console.log(result);*/ });
-    }
+    return promise.then(result => { /*console.log(result);*/
+    });
+  }
+
   public exportInfoRoute() {
     const self = this;
     this.infoToSearchDrive.startPoint = JSON.stringify(this.points.start);
     this.infoToSearchDrive.endPoint = JSON.stringify(this.points.end);
     console.log('searching route:', this.infoToSearchDrive);
     const promise = new Promise((resolve, reject) => {
-      self.mapApi.postInfoToSearchDrive( self.infoToSearchDrive).subscribe((data) => {
-        data.forEach(function(element) {
+      self.mapApi.postInfoToSearchDrive(self.infoToSearchDrive).subscribe((data) => {
+        data.forEach(function (element) {
           self.drives.push(element);
         });
         resolve(self.drives);
@@ -165,14 +170,17 @@ export class MapService {
       });
     });
     promise.then((drives) => {
-    this.showDrives();
+      this.showDrives();
     });
   }
+
   private showDrives() {
     this.drives.forEach((drive) => {
       this.createRouteWithBalloonForUser(drive);
     });
   }
+
+
   public makeRoute(form: FormGroup) {
     const self = this;
     let multiRoute = new ymaps.multiRouter.MultiRoute({
@@ -205,10 +213,15 @@ export class MapService {
       let pathArray = route.getPaths();
       let path;
       let coords = [];
+      let segmentCoords = [];
       for (let i = 0; i < pathArray.getLength(); i++) {
         path = pathArray.get(i);
-        // coords = coords.concat(i === 0 || i === pathArray.getLength() - 1 ? path.properties.get('coordinates') :path.properties.get('coordinates').slice(1, -1));
         coords = coords.concat(path.properties.get('coordinates'));
+        var segments = path.getSegments();
+        segments.each(function (segment) {
+          let index = segment.properties.get("lodIndex");
+          segmentCoords.push(coords[index]);
+        });
       }
       let startAddress;
       ymaps.geocode(coords[0], {
@@ -240,10 +253,12 @@ export class MapService {
 
       });
       self.drive.startPoint = JSON.stringify(coords[0]);
-      self.drive.finPoint =  JSON.stringify(coords[coords.length - 1]);
+      self.drive.finPoint = JSON.stringify(coords[coords.length - 1]);
       self.drive.path = JSON.stringify(coords);
+      self.drive.segmentsCoords = JSON.stringify(segmentCoords);
     });
   }
+
   public importDrive(form: FormGroup) {
     this.drive.freePlaceCount = form.get('numberOfSeats').value;
     this.datestart = new Date(form.get('date').value.toString());
@@ -256,6 +271,7 @@ export class MapService {
       self.getCordinatesFromAdress(self.points.end, self.points, END_STRING));
     return Promise.all(promises);
   }
+
   public exportDrive(form: FormGroup) {
     this.drive.startPoint = JSON.stringify(this.points.start);
     this.drive.finPoint = JSON.stringify(this.points.end);
@@ -267,6 +283,7 @@ export class MapService {
         console.log(data);
       });
   }
+
   private formatDateISO8601(time: string): string {
     let hours = parseInt(time.substring(0, 2), 10);
     const minutes = parseInt(time.substring(3, 5), 10);
@@ -279,62 +296,75 @@ export class MapService {
     //console.log(this.drive.starttime);
     // const date  = new Date(this.drive.date.toString());
   }
+
   private parseToISO8601(date: string): string {
     date = new Date(date).toLocaleDateString('en-US', options);
     return date;
   }
+
   public initMap() {
     const geolocation = ymaps.geolocation;
     const self = this;
-      this.map = new ymaps.Map('map', {
-        center: [53.9, 27.56],
-        zoom: 12,
-        controls: ['zoomControl', 'geolocationControl']
-      }, {
-        searchControlProvider: 'yandex#search'
-      });
-      geolocation.get({
-        provider: 'browser',
-        mapStateAutoApply: true
-      }).then(function(result) {
-        result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
-        self.map.geoObjects.add(result.geoObjects);
-      });
+    this.map = new ymaps.Map('map', {
+      center: [53.9, 27.56],
+      zoom: 12,
+      controls: ['zoomControl', 'geolocationControl']
+    }, {
+      searchControlProvider: 'yandex#search'
+    });
+    geolocation.get({
+      provider: 'browser',
+      mapStateAutoApply: true
+    }).then(function (result) {
+      result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
+      self.map.geoObjects.add(result.geoObjects);
+    });
   }
+
   public destroyMap() {
     this.map.destroy();
   }
+
   private onActiveRouteChange(event) {
-        let multiRoute = event.get('target');
-        const route = multiRoute.getActiveRoute();
-        let pathArray = route.getPaths();
-        let path;
-        let coords = [];
-        for (let i = 0; i < pathArray.getLength(); i++) {
-          path = pathArray.get(i);
-          coords = coords.concat(path.properties.get('coordinates'));
+    let multiRoute = event.get('target');
+    const route = multiRoute.getActiveRoute();
+    let pathArray = route.getPaths();
+    let path;
+    let coords = [];
+    let segmentCoords = [];
+    for (let i = 0; i < pathArray.getLength(); i++) {
+      path = pathArray.get(i);
+      coords = coords.concat(path.properties.get('coordinates'));
+      var segments = path.getSegments();
+      segments.each(function (segment) {
+        let index = segment.properties.get("lodIndex");
+        segmentCoords.push(coords[index]);
+      });
     }
     let driveDuration = route.properties.get("duration").value;   //
     console.log(driveDuration);
     this.drive.path = JSON.stringify(coords);
+    this.drive.segmentsCoords = JSON.stringify(segmentCoords);
   }
+
   private generateColor(ranges) {
     if (!ranges) {
       ranges = [
-        [150,256],
+        [150, 256],
         [0, 190],
         [0, 30]
       ];
     }
-    var g = function() {
+    var g = function () {
       var range = ranges.splice(Math.floor(Math.random() * ranges.length), 1)[0];
       return Math.floor(Math.random() * (range[1] - range[0])) + range[0];
     };
-    return "rgb(" + g() + "," + g() + "," + g() +")";
+    return "rgb(" + g() + "," + g() + "," + g() + ")";
   }
+
   public createRouteWithBalloonForUser(drive: Drive) {
     let color = this.generateColor(null);
-    let coordinates = drive.path;
+    let coordinates = drive.segmentsCoords;
     let driverName = drive.driver.name;
     let driveStartTime = this.parseToISO8601(drive.startTime);
     let freePlaceCount = drive.freePlaceCount;
@@ -343,9 +373,9 @@ export class MapService {
     let endCoords = drive.finPoint;
 
     let startPlacemark = new ymaps.Placemark(startCoords, {
-      iconContent: 'B'
+      iconContent: 'A'
     }, {
-      preset: "islands#blueStretchyIcon"
+      preset: "islands#redStretchyIcon"
     });
     let endPlacemark = new ymaps.Placemark(endCoords, {
       iconContent: 'B'
@@ -354,13 +384,13 @@ export class MapService {
     });
     this.map.geoObjects.add(startPlacemark);
 
-    const amount = drive.path.length / 70;
-    for (let j = 0; j < amount ; j++) {
+    const amount = drive.segmentsCoords.length / 70;
+    for (let j = 0; j < amount; j++) {
       let tempCoordinates = [];
-      if ( j !== amount - 1) {
-         tempCoordinates = coordinates.slice(temp, temp + 71);
+      if (j !== amount - 1) {
+        tempCoordinates = coordinates.slice(temp, temp + 71);
       } else {
-         tempCoordinates = coordinates.slice(temp);
+        tempCoordinates = coordinates.slice(temp);
       }
       let viaIndex = [];
       for (let k = 1; k < tempCoordinates.length - 1; k++) {
@@ -410,19 +440,20 @@ export class MapService {
         self.map.geoObjects.add(myPlacemark);
         myPlacemark.balloon.open();
       }, this);
-        this.map.geoObjects.add(multiRoute);
-        temp = temp + 70;
+      this.map.geoObjects.add(multiRoute);
+      temp = temp + 70;
     }
     this.map.geoObjects.add(endPlacemark);
   }
+/////////////////!!!!!!!!!!!!!!!!!!!!!!!!/////////////////////////////////////////
   public createRouteForMoreInformation(drive: Drive) {
     let color = this.generateColor(null);
     let coordinates = drive.path;
     let temp = 0;
     const amount = drive.path.length / 70;
-    for (let j = 0; j < amount ; j++) {
+    for (let j = 0; j < amount; j++) {
       let tempCoordinates = [];
-      if ( j !== amount - 1) {
+      if (j !== amount - 1) {
         tempCoordinates = coordinates.slice(temp, temp + 71);
       } else {
         tempCoordinates = coordinates.slice(temp);
@@ -461,9 +492,11 @@ export class MapService {
       temp = temp + 70;
     }
   }
+
   public cleanMap() {
     this.map.geoObjects.removeAll();
   }
+
   public drawPointsForUser() {
     let passengerStartPoint = new ymaps.GeoObject({
       geometry: {
@@ -505,7 +538,9 @@ export class MapService {
     this.map.geoObjects.add(myGeoObjects);
     this.map.setBounds(myGeoObjects.getBounds(), {checkZoomRange: false});
   }
+
   public getPassengerDrive() {
     return this.passengerDrive;
   }
 }
+declare var ymaps: any;

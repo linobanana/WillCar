@@ -61,6 +61,9 @@ public class Drive {
     @Column(name = "pathVO")
     private String path;
 
+    @Column(name = "segments_coords")
+    private String segmentsCoords;
+
     @OneToMany()
     private List<Message> messages;
 

@@ -52,9 +52,10 @@ onSubmitForm() {
   this.mapper.makeRoute(this.RightMenuInfo);
   this.ifDraw = false;
 }
+
 onCreate() {
-    this.mapper.cleanMap();
-    this.mapper.importDrive(this.RightMenuInfo).then(() => this.mapper.exportDrive(this.RightMenuInfo));
+  this.mapper.cleanMap();
+  this.mapper.importDrive(this.RightMenuInfo).then(() => this.mapper.exportDrive(this.RightMenuInfo));
 
 }
   initRelationMwithY() {
