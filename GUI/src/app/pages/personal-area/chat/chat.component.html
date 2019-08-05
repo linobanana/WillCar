@@ -15,38 +15,37 @@
   <li *ngFor="let message of messages">From: {{message.fromId}}, To: {{message.toId}}, Message: {{message.message}}</li>
 </ul>-->
 
-<div class="wrapper">
   <div class="container">
     <div class="left">
       <ul class="people" *ngFor="let drive of drives">
         <li class="person" data-chat="person1" (click)="chooseDrive(drive)" *ngIf="isLoaded">
-          <img src="../../../assets/logo.png" alt="" />
+          <i class="fas fa-route"></i>
           <span class="name">{{drive.name}}</span>
-          <span class="preview">{{drive.startTime}} - {{drive.endTime}}</span>
+          <span class="preview">{{drive.date}} · {{drive.time}}</span>
         </li>
       </ul>
     </div>
- <div class="right">
-   <div class="chat" data-chat="person3">
-     <div *ngFor="let message of messages">
-         <div class="bubble you" *ngIf="isNotMine(message)">
+    <div class="right">
+     <div class="chat" data-chat="person3">
+       <div *ngFor="let message of messages">
+           <div class="bubble you" *ngIf="isNotMine(message)">
+             <p class="name">{{message.user.name}}</p>
+             {{message.message}}
+           </div>
+           <div class="bubble me" *ngIf="isMine(message)">
+             <p class="name">{{message.user.name}}</p>
+             {{message.message}}
+           </div>
+         <mat-card class="notification" *ngIf="message.notify">
            {{message.message}}
-         </div>
-         <div class="bubble me" *ngIf="isMine(message)">
-           {{message.message}}
-       </div>
-       <div class="notification" *ngIf="message.notify">
-         {{message.message}}
+         </mat-card>
        </div>
      </div>
-   </div>
-   <div class="write">
-      <form [formGroup]="form" (submit)="sendMessageUsingSocket()">
-        <input formControlName="message" name="message" class="write-input" type="text"/>
-        <input type="submit" value="Send using socket subscription">
-      </form>
+     <div class="write">
+       <form [formGroup]="form" (submit)="sendMessageUsingSocket()" class="form">
+         <input formControlName="message" name="message" class="write-input" type="text"/>
+         <button mat-mini-fab color="warn" type="submit" class="submit-btn"><i class="far fa-paper-plane" style="color:white"></i></button>
+       </form>
+     </div>
     </div>
-
   </div>
-  </div>
-</div>

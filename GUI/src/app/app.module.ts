@@ -8,7 +8,6 @@ import {routes} from './app.routes';
 import {MainModule} from './pages/main/main.module';
 import {HeaderModule} from './shared/components/header/header.module';
 import {FooterModule} from './shared/components/footer/footer.module';
-import {AuthorizationPageModule} from './pages/authorization-page/authorization-page.module';
 import {ConfirmationModule} from './shared/components/success-confirmation/success-confirmation.module';
 import {BookingConfirmationModule} from './shared/components/booking-confirmation/booking-confirmation.module';
 import {MyBookingsModule} from './pages/personal-area/my-bookings/my-bookings.module';
@@ -21,11 +20,12 @@ import {ChatModule} from "./pages/personal-area/chat/chat.module";
 import {ToastrModule} from "ngx-toastr";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AdminModule} from './pages/personal-area/admin-tab/admin.module';
+import {MainEditModule} from './pages/main-edit/main-edit.module';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     CommonModule,
@@ -35,7 +35,6 @@ import {AdminModule} from './pages/personal-area/admin-tab/admin.module';
     MainModule,
     HeaderModule,
     FooterModule,
-    AuthorizationPageModule,
     ConfirmationModule,
     BookingConfirmationModule,
     FooterModule,
@@ -47,6 +46,8 @@ import {AdminModule} from './pages/personal-area/admin-tab/admin.module';
     AdminModule,
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
+    MainEditModule,
     ReactiveFormsModule,
     BrowserModule,
     FormsModule,

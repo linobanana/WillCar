@@ -12,7 +12,7 @@ import {UserService} from "../../../shared/components/user/user.service";
 export class MyBookingsComponent implements OnInit {
   drives$: Observable<Drive[]>;
   constructor(private tripService: TripService, private userService: UserService) {
-    tripService.getBookedDrives(/*this.userService.user.id*/2).then(()=>
+    tripService.getBookedDrives(this.userService.user.id).then(()=>
       this.drives$ = tripService.bookedSubject);
   }
 
@@ -20,12 +20,12 @@ export class MyBookingsComponent implements OnInit {
   }
 
   onCancelTrip(drive) {
-  this.tripService.cancelPassengerTrip(drive, /*this.userService.user.id*/2);
+    this.tripService.cancelPassengerTrip(drive, this.userService.user.id);
   }
 
   onSetRating(markObject:{driveId:number, mark:number}){
     this.tripService.setRatingToDriver({driveId: markObject.driveId,
       mark: markObject.mark,
-      passengerId: /*this.userService.user.id*/2});
+      passengerId: this.userService.user.id});
   }
 }

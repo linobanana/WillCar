@@ -15,9 +15,9 @@ drive.finPoint = JSON.parse(drive.finPoint);
     return response;
   }
   postDrive(body: any) {
-    return super.post(`api/drive`, body);
+    return super.post(`api/drive/driver`, body);
   }
   postInfoToSearchDrive(body: any) {
-    return super.post(`api/drive/points`, body, MapApiService.mapDrives);
+    return super.post(`api/drive/passenger/points`, body, MapApiService.mapDrives);
   }
 }

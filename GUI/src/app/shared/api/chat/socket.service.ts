@@ -9,14 +9,12 @@ import {ApiService} from "../../services/api.service";
 @Injectable()
 export class SocketService extends ApiService{
   private static mapDrive(response: any) {
-    return <Drive[]>response
-      /*id: response.id,
-      name: response.name,
-      startDate: response.startTime,
-      endDate: response.endTime,
-      messages: response.messages,
-      passengers: response.passengers*/
-    ;
+    response.forEach((drive) => {
+      drive.date = drive.startTime.slice(8, 10) + drive.startTime.slice(4, 8) + drive.startTime.slice(0, 4);
+      drive.time = drive.startTime.slice(11, 16);
+      return drive
+    });
+    return response;
   }
 
   getDrives(id) {

@@ -3,7 +3,7 @@ export const MENU_ITEMS = {
   userProfile: 'Profile',
   userMessages: 'My messages',
   userBookings: 'My bookings',
-  userProposedTrips: 'Proposed drives',
+  userProposedTrips: 'Proposed trips',
   adminTab: 'Admin',
   menuExit: 'Exit',
 }

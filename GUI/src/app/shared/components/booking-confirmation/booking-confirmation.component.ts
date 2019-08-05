@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {LABELS} from '../../constants/labels';
-import {USER} from '../../mocks/user.mocks';
-import {TEST_TRIP} from '../../constants/trip';
 import {BUTTON_LABELS} from '../../constants/button-labels';
 import {MapService} from "../../../pages/main/map/map.service";
 import {Car, User} from "../../types/common";
-import {TripApiService} from "../../api/trip/trip.api.service";
+import {UserService} from '../user/user.service';
+import {DriveApiService} from '../../api/trip/drive.api.service';
 
 @Component({
   selector: 'app-booking-confirmation',
@@ -15,12 +14,13 @@ import {TripApiService} from "../../api/trip/trip.api.service";
 })
 export class BookingConfirmationComponent implements OnInit {
   label = LABELS;
+  driverInfo = this.userService.user;
   buttonLabel = BUTTON_LABELS;
   driver: User;
   driveDate: string;
   drive: any;
 
-  constructor(private router: Router, mapService: MapService, private tripApiService: TripApiService) {
+  constructor(private router: Router, mapService: MapService, private driveApiService: DriveApiService, private userService: UserService) {
     this.driver = new User();
     this.drive = mapService.getPassengerDrive();
     this.driver = this.drive.driver;
@@ -33,11 +33,11 @@ export class BookingConfirmationComponent implements OnInit {
       drive: {
         id: this.drive.id,
       },
-      passenger: {id: '1'},
+      passenger: {id: this.driverInfo.id},
       startPoint: this.drive.startPoint,
     };
     console.log(drive);
-    this.tripApiService.postPassengerTrip(drive).subscribe(() => {
+    this.driveApiService.postPassengerTrip(drive).subscribe(() => {
     });
     this.router.navigate(['/success-confirmation']);
   }

@@ -21,7 +21,7 @@ export class User {
   mark: number;
   points: number;
   drives: Drive[];
-  pickUpPoint: [number,number];
+  pickUpPoint: any;
   //numOfKm: number;
 }
 export class Drive {
@@ -37,7 +37,7 @@ export class Drive {
   //routeUrl: string;
   driver: User;
   messages: Message[];
-  path:[];
+  path: any;
   sumOfKm: number;
   isOpenSocket = false;
   pickUpPoint: [number, number];

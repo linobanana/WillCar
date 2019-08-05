@@ -5,6 +5,7 @@ import {TripService} from "../../../shared/components/trip/trip.service";
 import {MapService} from "../../main/map/map.service";
 import {promise} from "selenium-webdriver";
 import {Router} from "@angular/router";
+import {MiniMapComponent} from './mini-map/mini-map.component';
 
 @Component({
   selector: 'app-details-of-route',
@@ -15,7 +16,7 @@ export class DetailsOfRouteComponent implements OnInit {
   @Output() drive: Drive;
   public ifProposed: boolean;
 
-  constructor(private tripService: TripService, private mapper: MapService, private router: Router) {
+  constructor(private tripService: TripService, private mapper: MapService, private router: Router, private miniMapComponent: MiniMapComponent) {
   }
 
   ngOnInit() {
@@ -26,19 +27,20 @@ export class DetailsOfRouteComponent implements OnInit {
     });
     promise.then(result => {
       if (!this.ifProposed) {
-      this.mapper.createRouteForMoreInformationBookings(this.drive);
+      this.miniMapComponent.createRouteForMoreInformationBookings(this.drive);
       } else {
-      this.mapper.createRouteForMoreInformationProposed(this.drive);
+      this.miniMapComponent.createRouteForMoreInformationProposed(this.drive);
       }
     });
   }
 
-  public return() {
+  public backToPreviousTab() {
     if (!this.ifProposed) {
       this.router.navigate(['/personalarea/mybookings']);
     } else {
-this.router.navigate(['/personalarea/myproposed']);
+      this.router.navigate(['/personalarea/myproposed']);
     }
   }
+
 
 }

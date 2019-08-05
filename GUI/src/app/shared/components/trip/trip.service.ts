@@ -12,7 +12,28 @@ export class TripService {
   private _bookedDrives: Drive[];
   private _proposedSubject: BehaviorSubject<Drive[]> = new BehaviorSubject(null);
   private _bookedSubject: BehaviorSubject<Drive[]> = new BehaviorSubject(null);
+  private _driveSubject: BehaviorSubject<Drive> = new BehaviorSubject(null);
+  private _ifProposedSubject: BehaviorSubject<boolean> = new BehaviorSubject(null);
+  currentDrive = this.driveSubject;
+  ifProposed = this.ifProposedSubject;
   constructor(private driveApiService: DriveApiService) {
+  }
+
+  get driveSubject(): Observable<Drive> {
+    return this._driveSubject.asObservable();
+  }
+
+  get ifProposedSubject(): Observable<boolean> {
+    return this._ifProposedSubject.asObservable();
+  }
+
+  changeDrive(drive: Drive) {
+    // this._drive = drive;
+    this._driveSubject.next(drive);
+  }
+
+  changeIfProposed(ifProposed: boolean) {
+    this._ifProposedSubject.next(ifProposed);
   }
 
   get proposedSubject(): Observable<Drive[]> {

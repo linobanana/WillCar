@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MENU_ITEMS} from '../../constants/menu-items';
 import {Router} from "@angular/router";
 import {IS_ADMIN} from '../../constants/common';
+import {ProfileApiService} from '../../api/profile/profile.api.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class ProfileMenuComponent implements OnInit {
   profileNavItems = MENU_ITEMS;
   isAdmin = IS_ADMIN;
 
-  constructor(private router: Router ) { }
+  constructor(private router: Router, private profileApiService: ProfileApiService) { }
   goToProfile() {
     this.router.navigate(['/personalarea/', 'profile' ], );
   }
@@ -24,15 +25,20 @@ export class ProfileMenuComponent implements OnInit {
   goToMyProposed() {
     this.router.navigate(['/personalarea/', 'myproposed']);
   }
-  goToAuthirization() {
-    this.router.navigate(['/authorization']);
-  }
   goToMyMessages() {
     this.router.navigate(['/personalarea/', 'chat']);
   }
   goToAdminTab() {
     this.router.navigate(['/personalarea/', 'admin-tab']);
   }
+  // goToAuthorization() {
+  //   this.profileApiService.logOut('')
+  //     .subscribe(() => {
+  //       window.location.href = 'localhost:8080/login';
+  //     }, () => {
+  //       window.location.href = 'localhost:8080/login';
+  //     });
+  // }
   ngOnInit() {
   }
 

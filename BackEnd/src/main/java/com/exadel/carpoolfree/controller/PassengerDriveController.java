@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/passenger")
+@RequestMapping("/api/passengerDrive")
 public class PassengerDriveController {
     private final PassengerDriveService passengerDriveService;
 
@@ -19,22 +19,22 @@ public class PassengerDriveController {
         this.passengerDriveService = passengerDriveService;
     }
 
-    @PostMapping()
+    @PostMapping("/passenger")
     public void addPassenger(@RequestBody PassengerDrive passengerDrive) {
         passengerDriveService.addPassenger(passengerDrive);
     }
 
-    @PostMapping("/markToPassenger")
+    @PostMapping("/driver/markToPassenger")
     public int addMarkDriverToPassenger(@RequestBody MarkVO markVO){
        return passengerDriveService.addMarkDriverToPassenger(markVO);
     }
 
-    @PostMapping("/markToDriver")
+    @PostMapping("/passenger/markToDriver")
     public int addMarkPassengerToDriver(@RequestBody MarkVO markVO){
-        return passengerDriveService.addMarkPassengerToDriver(markVO);
+       return  passengerDriveService.addMarkPassengerToDriver(markVO);
     }
 
-    @DeleteMapping("{passengerId}/driveId/{driveId}")
+    @DeleteMapping("/passenger/{passengerId}/driveId/{driveId}")
     public void delete(final @PathVariable Long driveId, final @PathVariable Long passengerId) {
         passengerDriveService.delete(driveId, passengerId);
     }

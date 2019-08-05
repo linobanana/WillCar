@@ -1,14 +1,30 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-    <head>
-        <title>Hello World!</title>
-    </head>
-    <body>
-        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>GUI</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href = "https://kushagragour.in/lab/hint/hint.min.css" rel = "stylesheet"/>
+  <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+  <script src="https://api-maps.yandex.ru/2.1/?apikey=65d00b77-44ba-406d-b34d-9c8f45024b91&lang=ru_RU" type="text/javascript">
+  </script>
+  <script src="https://kit.fontawesome.com/ea3394bf9a.js"></script>
+</head>
+<body  class="willcar-body mat-typography">
+  <app-root></app-root>
 
-    </body>
+  <div class="app-loading">
+    <div class="semipolar-spinner">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+    </div>
+  </div>
+  <script src="js/runtime-es2015.js" type="module"></script><script src="js/polyfills-es2015.js" type="module"></script><script src="js/runtime-es5.js" nomodule></script><script src="js/polyfills-es5.js" nomodule></script><script src="js/styles-es2015.js" type="module"></script><script src="js/styles-es5.js" nomodule></script><script src="js/vendor-es2015.js" type="module"></script><script src="js/main-es2015.js" type="module"></script><script src="js/vendor-es5.js" nomodule></script><script src="js/main-es5.js" nomodule></script></body>
 </html>
