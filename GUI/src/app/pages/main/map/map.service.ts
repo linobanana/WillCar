@@ -200,8 +200,8 @@ private drives: Drive[] = [];
     return Promise.all(promises);
   }
   public exportDrive(form: FormGroup) {
-    this.drive.startPoint = this.points.start;
-    this.drive.finPoint = this.points.end;
+    this.drive.startPoint = JSON.stringify(this.points.start);
+    this.drive.finPoint = JSON.stringify(this.points.end);
     console.log('export drive:');
     console.log(this.drive);
     console.log('-------------');
@@ -273,7 +273,7 @@ private drives: Drive[] = [];
     };
     return "rgb(" + g() + "," + g() + "," + g() +")";
   }
-  private createRouteWithBalloonForUser(drive: Drive) {
+  public createRouteWithBalloonForUser(drive: Drive) {
     let color = this.generateColor(null);
     let coordinates = drive.path;
     let driverName = drive.driver.name;
@@ -284,9 +284,9 @@ private drives: Drive[] = [];
     for (let j = 0; j < amount ; j++) {
       let tempCoordinates = [];
       if ( j !== amount - 1) {
-         tempCoordinates = drive.path.slice(temp, temp + 71);
+         tempCoordinates = coordinates.slice(temp, temp + 71);
       } else {
-         tempCoordinates = drive.path.slice(temp);
+         tempCoordinates = coordinates.slice(temp);
       }
         let viaIndex = [];
         for (let k = 1; k < tempCoordinates.length - 1; k++) {
@@ -336,6 +336,52 @@ private drives: Drive[] = [];
       }, this);
         this.map.geoObjects.add(multiRoute);
         temp = temp + 70;
+    }
+  }
+  public createRouteForMoreInformation(drive: Drive) {
+    let color = this.generateColor(null);
+    let coordinates = drive.path;
+    let temp = 0;
+    const amount = drive.path.length / 70;
+    for (let j = 0; j < amount ; j++) {
+      let tempCoordinates = [];
+      if ( j !== amount - 1) {
+        tempCoordinates = coordinates.slice(temp, temp + 71);
+      } else {
+        tempCoordinates = coordinates.slice(temp);
+      }
+      let viaIndex = [];
+      for (let k = 1; k < tempCoordinates.length - 1; k++) {
+        viaIndex.push(k);
+      }
+      var multiRoute = new ymaps.multiRouter.MultiRoute({
+          referencePoints: tempCoordinates,
+          params: {
+            viaIndexes: viaIndex,
+            results: 1
+          }
+        },
+        {
+          wayPointVisible: false,
+          viaPointVisible: false,
+          boundsAutoApply: true,
+          routeActiveStrokeColor: color
+        });
+      let passengerStartPoint = new ymaps.GeoObject({
+        geometry: {
+          type: 'Point',
+          coordinates: drive.pickUpPoint
+        },
+        properties: {
+          iconContent: 'Pick up point',
+        }
+      }, {
+        preset: 'islands#redStretchyIcon',
+        draggable: false,
+      });
+      this.map.geoObjects.add(passengerStartPoint);
+      this.map.geoObjects.add(multiRoute);
+      temp = temp + 70;
     }
   }
   public cleanMap() {

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {StateManagementService} from '../../shared/services/role-toggle.service';
-import {MapService} from "./map/map.service";
 
 @Component({
   selector: 'main-component',
@@ -9,7 +8,7 @@ import {MapService} from "./map/map.service";
 })
 export class MainComponent implements OnInit {
   public driverState: boolean;
-  constructor(private mapService:MapService){
+  constructor() {
 
   }
   ngOnInit() {

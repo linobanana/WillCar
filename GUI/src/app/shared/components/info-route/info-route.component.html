@@ -1,0 +1,12 @@
+<div class="trips-container">
+  <div class="trip">
+    <div class="field"><mat-icon>date_range</mat-icon> {{route.startTime}}-{{route.endTime}}</div>
+    <div class="field">{{route.name}}</div>
+     <div>{{route.driver.name}}</div>
+    <div *ngIf="ifProposed" class="passengers">
+      <mat-list>
+        <mat-list-item *ngFor="let passenger of route.passengers"> {{passenger.name}} </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+</div>

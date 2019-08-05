@@ -31,14 +31,14 @@ export class Drive {
   startPoint: [number, number];
   finPoint: [number, number];
   name: string;
-  //passengers: Passenger[];
+  passengers: User[];
   freePlaceCount: number;
   //routeUrl: string;
   driver: User;
   //messages: Message[];
   path: [];
   sumOfKm: number;
-  //pickUpPoint: Point[];
+  pickUpPoint: [number, number];
 }
 export const options = {
   year: 'numeric',

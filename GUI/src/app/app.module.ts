@@ -18,15 +18,13 @@ import {ProfileMenuModule} from './shared/components/profile-menu/profile-menu.m
 import {PersonalAreaModule} from './pages/personal-area/personal-area.module';
 import {ApiService} from "./shared/services/api.service";
 import {AdminModule} from './pages/personal-area/admin-tab/admin.module';
-import {MobileMenuModule} from "./shared/components/mobile-menu/mobile-menu.module";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatNativeDateModule, MatSidenavModule} from "@angular/material";
+
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     CommonModule,
@@ -46,13 +44,14 @@ import {MatNativeDateModule, MatSidenavModule} from "@angular/material";
     MyProposedModule,
     PersonalAreaModule,
     AdminModule,
-    PersonalAreaModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule
   ],
   providers: [
     ApiService
+  ],
+  exports: [
   ],
   bootstrap: [AppComponent]
 })

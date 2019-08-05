@@ -8,6 +8,10 @@ import {clone} from 'ramda';
 export class TripService {
   private _drives: Drive[];
   private _tripsSubject: BehaviorSubject<Drive[]> = new BehaviorSubject(null);
+  private _driveSubject: BehaviorSubject<Drive> = new BehaviorSubject(null);
+  private _ifProposedSubject: BehaviorSubject<boolean> = new BehaviorSubject(null);
+  currentDrive = this.driveSubject;
+  ifProposed = this.ifProposedSubject;
   constructor() {
     setTimeout(() => {
       this.drives = [TEST_TRIP];
@@ -17,7 +21,22 @@ export class TripService {
   get tripsSubject(): Observable<Drive[]> {
     return this._tripsSubject.asObservable();
   }
-
+  get driveSubject(): Observable<Drive> {
+    return this._driveSubject.asObservable();
+  }
+   changeDrive(drive: Drive) {
+    // this._drive = drive;
+    this._driveSubject.next(drive);
+  }
+  get ifProposedSubject(): Observable<boolean> {
+    return this._ifProposedSubject.asObservable();
+  }
+  changeIfProposed(ifProposed: boolean) {
+    this._ifProposedSubject.next(ifProposed);
+  }
+  // get drive(): Drive {
+  //   return this._drive;
+  // }
   get drives(): Drive[] {
     return this._drives;
   }
@@ -28,7 +47,7 @@ export class TripService {
   cancelTrip(drive: Drive): void {
     const index: number = this.drives.indexOf(drive);
     const tempTrips: Drive[] = clone(this.drives);
-    tempTrips.splice(index,1 );
+    tempTrips.splice(index, 1);
     this.drives = tempTrips;
   }
   addTrip(drive: Drive): void {

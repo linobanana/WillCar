@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {StateManagementService} from '../../services/role-toggle.service';
+import {MapService} from "../../../pages/main/map/map.service";
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,7 @@ import {StateManagementService} from '../../services/role-toggle.service';
 })
 export class HeaderComponent implements OnInit {
   public driverState: boolean;
-  constructor(private router: Router ) {}
+  constructor(private router: Router, private mapper: MapService) {}
   goToMain() {
     this.router.navigate(['/main']);
   }
@@ -19,6 +20,8 @@ export class HeaderComponent implements OnInit {
   }
 
   public changeDriverState() {
+    this.mapper.cleanMap();
+    this.mapper.clearDrives();
     StateManagementService.changeDriverMode(!this.driverState);
   }
 
