@@ -37,7 +37,13 @@ export class LeftMenuComponent implements OnInit {
     this.mapper.clearDrives();
     this.mapper.importInfoRoute(this.LeftMenuInfo).then(() => {
       this.mapper.drawPointsForUser();
-      this.mapper.exportInfoRoute();
+ //     let promise = new Promise(((resolve, reject) => {
+        this.mapper.exportInfoRoute();
+ //       resolve('');
+ //     }));
+  //    promise.then((result) => {
+  //      this.mapper.setZoom();
+ //     });
     });
   }
 

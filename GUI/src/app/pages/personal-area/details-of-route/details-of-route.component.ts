@@ -25,7 +25,11 @@ export class DetailsOfRouteComponent implements OnInit {
       resolve(this.drive);
     });
     promise.then(result => {
-      this.mapper.createRouteForMoreInformation(this.drive);
+      if (!this.ifProposed) {
+      this.mapper.createRouteForMoreInformationBookings(this.drive);
+      } else {
+      this.mapper.createRouteForMoreInformationProposed(this.drive);
+      }
     });
   }
 

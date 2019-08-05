@@ -21,7 +21,7 @@ export class User {
   //mark: number;
   points: number;
   drives: Drive[];
-  //pickUpPoint: Point[];
+  pickUpPoint: [number,number];
   //numOfKm: number;
 }
 export class Drive {

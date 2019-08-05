@@ -169,7 +169,7 @@ export class MapService {
     });
   }
   private showDrives() {
-    this.drives.forEach((drive) => {
+      this.drives.forEach((drive) => {
       this.createRouteWithBalloonForUser(drive);
     });
   }
@@ -332,7 +332,7 @@ export class MapService {
     };
     return "rgb(" + g() + "," + g() + "," + g() +")";
   }
-  public createRouteWithBalloonForUser(drive: Drive) {
+  private createRouteWithBalloonForUser(drive: Drive) {
     let color = this.generateColor(null);
     let coordinates = drive.path;
     let driverName = drive.driver.name;
@@ -343,9 +343,9 @@ export class MapService {
     let endCoords = drive.finPoint;
 
     let startPlacemark = new ymaps.Placemark(startCoords, {
-      iconContent: 'B'
+      iconContent: 'A'
     }, {
-      preset: "islands#blueStretchyIcon"
+      preset: "islands#redStretchyIcon"
     });
     let endPlacemark = new ymaps.Placemark(endCoords, {
       iconContent: 'B'
@@ -413,9 +413,8 @@ export class MapService {
         this.map.geoObjects.add(multiRoute);
         temp = temp + 70;
     }
-    this.map.geoObjects.add(endPlacemark);
   }
-  public createRouteForMoreInformation(drive: Drive) {
+  public createRouteForMoreInformationBookings(drive: Drive) {
     let color = this.generateColor(null);
     let coordinates = drive.path;
     let temp = 0;
@@ -444,22 +443,123 @@ export class MapService {
           boundsAutoApply: true,
           routeActiveStrokeColor: color
         });
-      let passengerStartPoint = new ymaps.GeoObject({
+      let PickUpPoint = new ymaps.GeoObject({
         geometry: {
           type: 'Point',
           coordinates: drive.pickUpPoint
         },
         properties: {
-          iconContent: 'Pick up point',
+          iconContent: 'Pick up',
         }
       }, {
         preset: 'islands#redStretchyIcon',
         draggable: false,
       });
-      this.map.geoObjects.add(passengerStartPoint);
+      let StartPoint = new ymaps.GeoObject({
+        geometry: {
+          type: 'Point',
+          coordinates: coordinates[0]
+        },
+        properties: {
+          iconContent: 'Start',
+        }
+      }, {
+        preset: 'islands#blueStretchyIcon',
+        draggable: false,
+      });
+      let FinishPoint = new ymaps.GeoObject({
+        geometry: {
+          type: 'Point',
+          coordinates: coordinates[coordinates.length - 1]
+        },
+        properties: {
+          iconContent: 'Finish',
+        }
+      }, {
+        preset: 'islands#blueStretchyIcon',
+        draggable: false,
+      });
+      this.map.geoObjects.add(PickUpPoint);
+      this.map.geoObjects.add(StartPoint);
+      this.map.geoObjects.add(FinishPoint);
       this.map.geoObjects.add(multiRoute);
       temp = temp + 70;
     }
+  }
+  public createRouteForMoreInformationProposed(drive: Drive) {
+    let color = this.generateColor(null);
+    let coordinates = drive.path;
+    let temp = 0;
+    const amount = drive.path.length / 70;
+    for (let j = 0; j < amount ; j++) {
+      let tempCoordinates = [];
+      if ( j !== amount - 1) {
+        tempCoordinates = coordinates.slice(temp, temp + 71);
+      } else {
+        tempCoordinates = coordinates.slice(temp);
+      }
+      let viaIndex = [];
+      for (let k = 1; k < tempCoordinates.length - 1; k++) {
+        viaIndex.push(k);
+      }
+      var multiRoute = new ymaps.multiRouter.MultiRoute({
+          referencePoints: tempCoordinates,
+          params: {
+            viaIndexes: viaIndex,
+            results: 1
+          }
+        },
+        {
+          wayPointVisible: false,
+          viaPointVisible: false,
+          boundsAutoApply: true,
+          routeActiveStrokeColor: color
+        });
+      drive.passengers.forEach((passenger) => {
+        let PickUpPoint = new ymaps.GeoObject({
+          geometry: {
+            type: 'Point',
+            coordinates: passenger.pickUpPoint
+          },
+          properties: {
+            iconContent: 'Pick up',
+          }
+        }, {
+          preset: 'islands#redStretchyIcon',
+          draggable: false,
+        });
+        this.map.geoObjects.add(PickUpPoint);
+      });
+      let StartPoint = new ymaps.GeoObject({
+        geometry: {
+          type: 'Point',
+          coordinates: coordinates[0]
+        },
+        properties: {
+          iconContent: 'Start',
+        }
+      }, {
+        preset: 'islands#blueStretchyIcon',
+        draggable: false,
+      });
+      let FinishPoint = new ymaps.GeoObject({
+        geometry: {
+          type: 'Point',
+          coordinates: coordinates[coordinates.length - 1]
+        },
+        properties: {
+          iconContent: 'Finish',
+        }
+      }, {
+        preset: 'islands#blueStretchyIcon',
+        draggable: false,
+      });
+      this.map.geoObjects.add(StartPoint);
+      this.map.geoObjects.add(FinishPoint);
+      this.map.geoObjects.add(multiRoute);
+      temp = temp + 70;
+    }
+    //this.setZoom();
   }
   public cleanMap() {
     this.map.geoObjects.removeAll();
@@ -503,7 +603,9 @@ export class MapService {
     myGeoObjects.add(passengerStartPoint);
     myGeoObjects.add(passengerEndPoint);
     this.map.geoObjects.add(myGeoObjects);
-    this.map.setBounds(myGeoObjects.getBounds(), {checkZoomRange: false});
+  }
+  public setZoom() {
+    this.map.setBounds( this.map.geoObjects.getBounds(), {checkZoomRange: true});
   }
   public getPassengerDrive() {
     return this.passengerDrive;

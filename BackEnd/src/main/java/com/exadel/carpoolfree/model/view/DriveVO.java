@@ -28,8 +28,6 @@ public class DriveVO {
 
     private Double sumOfKm;
 
-    private Double sumOfTime;
-
     private String name;
 
     private String pickUpPoint;
@@ -139,14 +137,6 @@ public class DriveVO {
 
     public void setSumOfKm(Double sumOfKm) {
         this.sumOfKm = sumOfKm;
-    }
-
-    public Double getSumOfTime() {
-        return sumOfTime;
-    }
-
-    public void setSumOfTime(Double sumOfTime) {
-        this.sumOfTime = sumOfTime;
     }
 
     public String getName() {
