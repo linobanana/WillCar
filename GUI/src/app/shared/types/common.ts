@@ -36,7 +36,7 @@ export class Drive {
   //routeUrl: string;
   driver: User;
   //messages: Message[];
-  path: [];
+  path: any;
   sumOfKm: number;
   pickUpPoint: [number, number];
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Drive} from '../../../shared/types/common';
 import {TripService} from '../../../shared/components/trip/trip.service';
@@ -10,6 +10,7 @@ import {TripService} from '../../../shared/components/trip/trip.service';
 })
 export class MyBookingsComponent implements OnInit {
   drives$: Observable<Drive[]>;
+
   constructor(private tripService: TripService) {
     this.drives$ = tripService.tripsSubject;
   }
@@ -18,6 +19,6 @@ export class MyBookingsComponent implements OnInit {
   }
 
   onCancelTrip(drive) {
-  this.tripService.cancelTrip(drive);
+    this.tripService.cancelTrip(drive);
   }
 }

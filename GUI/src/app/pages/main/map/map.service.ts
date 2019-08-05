@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {FormGroup} from "@angular/forms";
 
 import {delay, min, take} from "rxjs/operators";
@@ -16,83 +16,124 @@ declare var ymaps: any;
 })
 
 export class MapService {
+  private suggestionForStartInputR;
+  private suggestionForEndInputR;
+  private suggestionForStartInputL;
+  private suggestionForEndInputL;
+
   private points = {
     start: '',
     end: ''
   };
-private datestart: Date;
-private map;
-private drive = {
-  startPoint: '',
-  finPoint: '',
-  startTime: '',
-  endTime: '2019-07-23T15:00:00.000Z',
-  path: '',
-  freePlaceCount: '1',
-  driver: {
-    id: '1'
-  }
-};
+  private datestart: Date;
+  private map;
+  private drive = {
+    startPoint: '',
+    finPoint: '',
+    startTime: '',
+    endTime: '2019-07-23T15:00:00.000Z',
+    path: '',
+    freePlaceCount: '1',
+    driver: {
+      id: '1'
+    }
+  };
   private passengerDrive = {
+    id: 1,
     driver: new User(),
-    startPoint: [],
-    startPointString:'',
+    startPoint: '',
+    startPointString: '',
     numOfKm: '',
     driveDate: ''
   };
-private infoToSearchDrive =
-  {
-    startPoint : '',
-    endPoint : '',
-    dateTime : ''
-  };
-private drives: Drive[] = [];
+  private infoToSearchDrive =
+    {
+      startPoint: '',
+      endPoint: '',
+      dateTime: ''
+    };
+  private drives: Drive[] = [];
 
   constructor(private mapApi: MapApiService) {
   }
-   public initRelationMwithY(MenuInfo: FormGroup, mode: string) {
-     const menuInfo = MenuInfo;
-     const self = this;
-     ymaps.ready(init);
-     function init() {
-       let suggestionForStartInput = new ymaps.SuggestView(START_STRING + mode, {
-         boundedBy: [
-           [50, 60],
-           [25, 30]
-         ]
-       });
-       let suggestionForEndInput = new ymaps.SuggestView(END_STRING + mode, {
-         boundedBy: [
-           [50, 60],
-           [25, 30]
-         ]
-       });
-       suggestionForStartInput.events.add("select", function(e) {
-         let startSuggestion = e.get('item').value;
-         menuInfo.get('address').get(START_STRING + mode).setValue(startSuggestion);
-         self.points.start = startSuggestion;
-       });
-       suggestionForEndInput.events.add("select", function(e) {
-         let endSuggestion = e.get('item').value;
-         menuInfo.get('address').get(END_STRING + mode).setValue(endSuggestion);
-         self.points.end = endSuggestion;
-       });
-   }
-   }
-   public clearDrives() {
-     // this.drives.length = 0;
-     this.drives.splice(0, this.drives.length);
-   }
-   public importInfoRoute(form: FormGroup) {
-     this.datestart = new Date(form.get('date').value.toString());
-     this.infoToSearchDrive.dateTime = this.formatDateISO8601(form.get('time').value.toString());
-     const self = this;
-     const promises = [];
-     promises.push(
-       self.getCordinatesFromAdress(self.points.start, self.points, START_STRING));
-     promises.push(
-        self.getCordinatesFromAdress(self.points.end, self.points, END_STRING));
-     return Promise.all(promises);
+
+  public initRelationMwithYForRightMenu(MenuInfo: FormGroup) {
+    const menuInfo = MenuInfo;
+    const self = this;
+    ymaps.ready(init);
+
+    function init() {
+      self.suggestionForStartInputR = new ymaps.SuggestView(START_STRING + 'r', {
+        boundedBy: [
+          [50, 60],
+          [25, 30]
+        ]
+      });
+      self.suggestionForEndInputR = new ymaps.SuggestView(END_STRING + 'r', {
+        boundedBy: [
+          [50, 60],
+          [25, 30]
+        ]
+      });
+      self.suggestionForStartInputR.events.add("select", function (e) {
+        let startSuggestion = e.get('item').value;
+        menuInfo.get('address').get(START_STRING + 'r').setValue(startSuggestion);
+        self.points.start = startSuggestion;
+
+      });
+      self.suggestionForEndInputR.events.add("select", function (e) {
+        let endSuggestion = e.get('item').value;
+        menuInfo.get('address').get(END_STRING + 'r').setValue(endSuggestion);
+        self.points.end = endSuggestion;
+      });
+    }
+  }
+  public initRelationMwithYForLeftMenu(MenuInfo: FormGroup) {
+    const menuInfo = MenuInfo;
+    const self = this;
+    ymaps.ready(init);
+
+    function init() {
+      self.suggestionForStartInputL = new ymaps.SuggestView(START_STRING + 'l', {
+        boundedBy: [
+          [50, 60],
+          [25, 30]
+        ]
+      });
+      self.suggestionForEndInputL = new ymaps.SuggestView(END_STRING + 'l', {
+        boundedBy: [
+          [50, 60],
+          [25, 30]
+        ]
+      });
+      self.suggestionForStartInputL.events.add("select", function (e) {
+        let startSuggestion = e.get('item').value;
+        menuInfo.get('address').get(START_STRING + 'l').setValue(startSuggestion);
+        self.points.start = startSuggestion;
+
+      });
+      self.suggestionForEndInputL.events.add("select", function (e) {
+        let endSuggestion = e.get('item').value;
+        menuInfo.get('address').get(END_STRING + 'l').setValue(endSuggestion);
+        self.points.end = endSuggestion;
+      });
+    }
+  }
+  public clearDrives() {
+    // this.drives.length = 0;
+    this.drives.splice(0, this.drives.length);
+  }
+
+  public importInfoRoute(form: FormGroup) {
+    this.datestart = new Date(form.get('date').value.toString());
+    this.infoToSearchDrive.dateTime = this.formatDateISO8601(form.get('time').value.toString());
+    const self = this;
+    const promises = [];
+    promises.push(
+      self.getCordinatesFromAdress(self.points.start, self.points, START_STRING));
+    promises.push(
+      self.getCordinatesFromAdress(self.points.end, self.points, END_STRING));
+    return Promise.all(promises);
   }
   private getCordinatesFromAdress(adress: string, points: {start: string, end: string}, mode: string) {
     let promise = new Promise(function(resolve, reject) {
@@ -160,6 +201,7 @@ private drives: Drive[] = [];
     self.map.geoObjects.add(multiRoute);
     multiRoute.events.add('update', function () {
       const route = multiRoute.getActiveRoute();
+      let duration = route.properties.get("duration").value; ///function of calculation end time
       let pathArray = route.getPaths();
       let path;
       let coords = [];
@@ -174,6 +216,13 @@ private drives: Drive[] = [];
       }).then(function (res) {
         var startAddress = res.geoObjects.get(0) ? res.geoObjects.get(0).properties.get('name') : 'Не удалось определить адрес.';
         form.get('address').get(START_STRING + 'r').setValue(startAddress);
+        setTimeout(() => {
+          self.suggestionForStartInputR.state.set({
+            open: false,
+            panelClosed: true,
+            items: []
+          });
+        }, 1000);
       });
       let finAddress;
       ymaps.geocode(coords[coords.length - 1], {
@@ -181,6 +230,14 @@ private drives: Drive[] = [];
       }).then(function (res) {
         var finAddress = res.geoObjects.get(0) ? res.geoObjects.get(0).properties.get('name') : 'Не удалось определить адрес.';
         form.get('address').get(END_STRING + 'r').setValue(finAddress);
+        setTimeout(() => {
+          self.suggestionForEndInputR.state.set({
+            open: false,
+            panelClosed: true,
+            items: []
+          });
+        }, 1000);
+
       });
       self.drive.startPoint = JSON.stringify(coords[0]);
       self.drive.finPoint =  JSON.stringify(coords[coords.length - 1]);
@@ -257,7 +314,9 @@ private drives: Drive[] = [];
           path = pathArray.get(i);
           coords = coords.concat(path.properties.get('coordinates'));
     }
-        this.drive.path = JSON.stringify(coords);
+    let driveDuration = route.properties.get("duration").value;   //
+    console.log(driveDuration);
+    this.drive.path = JSON.stringify(coords);
   }
   private generateColor(ranges) {
     if (!ranges) {
@@ -277,9 +336,24 @@ private drives: Drive[] = [];
     let color = this.generateColor(null);
     let coordinates = drive.path;
     let driverName = drive.driver.name;
-    let driveStartTime = drive.startTime;
+    let driveStartTime = this.parseToISO8601(drive.startTime);
     let freePlaceCount = drive.freePlaceCount;
     let temp = 0;
+    let startCoords = drive.startPoint;
+    let endCoords = drive.finPoint;
+
+    let startPlacemark = new ymaps.Placemark(startCoords, {
+      iconContent: 'B'
+    }, {
+      preset: "islands#blueStretchyIcon"
+    });
+    let endPlacemark = new ymaps.Placemark(endCoords, {
+      iconContent: 'B'
+    }, {
+      preset: "islands#blueStretchyIcon"
+    });
+    this.map.geoObjects.add(startPlacemark);
+
     const amount = drive.path.length / 70;
     for (let j = 0; j < amount ; j++) {
       let tempCoordinates = [];
@@ -288,24 +362,25 @@ private drives: Drive[] = [];
       } else {
          tempCoordinates = coordinates.slice(temp);
       }
-        let viaIndex = [];
-        for (let k = 1; k < tempCoordinates.length - 1; k++) {
-          viaIndex.push(k);
-        }
-        var multiRoute = new ymaps.multiRouter.MultiRoute({
-            referencePoints: tempCoordinates,
-            params: {
-              viaIndexes: viaIndex,
-              results: 1
-            }
-          },
-          {
-            wayPointVisible: false,
-            viaPointVisible: false,
-            boundsAutoApply: true,
-            routeActiveStrokeColor: color
-          });
-        const self = this;
+      let viaIndex = [];
+      for (let k = 1; k < tempCoordinates.length - 1; k++) {
+        viaIndex.push(k);
+      }
+      var multiRoute = new ymaps.multiRouter.MultiRoute({
+          referencePoints: tempCoordinates,
+          params: {
+            viaIndexes: viaIndex,
+            results: 1
+          }
+        },
+        {
+          wayPointVisible: false,
+          viaPointVisible: false,
+          boundsAutoApply: true,
+          routeActiveStrokeColor: color,
+          routeStrokeWidth: 7
+        });
+      const self = this;
       multiRoute.events.add("click", (event) => {
         let coords = event.get("coords");
         let pickUpPoint;
@@ -316,15 +391,16 @@ private drives: Drive[] = [];
           pickUpPoint = firstGeoObject.getAddressLine();
           self.passengerDrive.startPointString = pickUpPoint;
         });
+        self.passengerDrive.id = drive.id;
         self.passengerDrive.driver = drive.driver;
-        self.passengerDrive.startPoint = coords.toString();
+        self.passengerDrive.startPoint = JSON.stringify(coords);
         self.passengerDrive.numOfKm = "100";
         self.passengerDrive.driveDate = driveStartTime;
 
         let myPlacemark = new ymaps.Placemark(coords, {
           balloonContentHeader: '<br>Водитель: ' + driverName,
-          balloonContentBody: 'Время начла поездки: ' + driveStartTime +
-            " количество свободных мест " + freePlaceCount,
+          balloonContentBody: 'Время начла поездки: ' + driveStartTime + ' <br> ' +
+            " Количество свободных мест " + freePlaceCount,
           balloonContentFooter: '<a href="/#/confirmation">Забронировать</a><br>'
         });
         myPlacemark.events.add("balloonclose", (event) => {
@@ -337,6 +413,7 @@ private drives: Drive[] = [];
         this.map.geoObjects.add(multiRoute);
         temp = temp + 70;
     }
+    this.map.geoObjects.add(endPlacemark);
   }
   public createRouteForMoreInformation(drive: Drive) {
     let color = this.generateColor(null);

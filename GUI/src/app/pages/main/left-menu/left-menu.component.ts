@@ -50,7 +50,7 @@ export class LeftMenuComponent implements OnInit {
   }
 
   initRelationMwithY() {
-    this.mapper.initRelationMwithY(this.LeftMenuInfo, 'l');
+    this.mapper.initRelationMwithYForLeftMenu(this.LeftMenuInfo);
   }
 }
 

@@ -58,7 +58,7 @@ onCreate() {
 
 }
   initRelationMwithY() {
-    this.mapper.initRelationMwithY(this.RightMenuInfo, 'r');
+    this.mapper.initRelationMwithYForRightMenu(this.RightMenuInfo);
   }
   get date() {
     return this.RightMenuInfo.get('date');
