@@ -8,8 +8,14 @@ import {Drive} from "../../types/common";
 export class DriveApiService extends ApiService{
 
   private static mapDrives(response: any) {
-    return <Drive[]>response
-  }
+      response.forEach((drive) => {
+        drive.date = drive.startTime.slice(8, 10) + drive.startTime.slice(4, 8) + drive.startTime.slice(0, 4);
+        drive.time = drive.startTime.slice(11, 16);
+        return drive
+      });
+      return response;
+    }
+   /* return <Drive[]>response;*/
 
   postTrip(trip:any ) {
     return super.post(``, trip,DriveApiService.simpleResponse);

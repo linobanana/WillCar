@@ -1,4 +1,4 @@
-<h2 class="my-bookings" *ngIf="!ifProposed">My bookings</h2>
+<!--<h2 class="my-bookings" *ngIf="!ifProposed">My bookings</h2>
 <h2 class="my-bookings" *ngIf="ifProposed">Proposed trips</h2>
 <h3 class="label">Upcoming trips</h3>
 <div *ngFor="let drive of drives">
@@ -77,6 +77,130 @@
           <mat-divider></mat-divider>
         </mat-list>
       </div>
+    </div>
+  </div>
+</div>-->
+<h2 class="my-bookings" *ngIf="!ifProposed">My bookings</h2>
+<h2 class="my-bookings" *ngIf="ifProposed">Proposed trips</h2>
+<h3 class="label">Upcoming trips</h3>
+<div *ngFor="let drive of drives">
+  <div *ngIf="!drive.archive" class="trips-container">
+    <div class="trip">
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>date_range</mat-icon> {{drive.date}}
+              <mat-icon class="time-icon">access_time</mat-icon> {{drive.time}}
+            </mat-panel-title>
+            <mat-panel-description>
+              {{drive.name}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <mat-list role="list">
+            <mat-list-item role="listitem" *ngIf="!ifProposed">
+              <mat-icon>directions_car</mat-icon>
+              {{car.model}} {{car.number}} {{car.color}}
+            </mat-list-item>
+            <mat-list-item role="listitem" *ngIf="!ifProposed">
+              <mat-icon>person_outline</mat-icon>
+              {{drive.driver.name}}
+            </mat-list-item>
+            <mat-list-item role="listitem" *ngIf="!ifProposed">
+              <mat-icon>phone_iphone</mat-icon>
+              {{drive.driver.prefCommunication}}
+              <a href="tel:{{drive.driver.phoneNumber}}">
+                {{drive.driver.phoneNumber}}
+              </a>
+            </mat-list-item>
+            <mat-list-item role="listitem" *ngIf="!ifProposed">
+              <mat-icon>where_to_vote</mat-icon>
+              {{drive.name}}
+            </mat-list-item>
+            <mat-list-item role="listitem" *ngIf="ifProposed">
+              <mat-icon>accessibility_new</mat-icon>
+              {{drive.freePlaceCount}}
+            </mat-list-item>
+            <div class="passengers" *ngIf="ifProposed">
+              <mat-list *ngFor="let passenger of drive.passengers">
+                <mat-list-item>
+                  {{passenger.name}}
+                  <mat-icon>where_to_vote</mat-icon>
+                  <a>Show pick up point</a>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+              </mat-list>
+            </div>
+            <mat-list-item *ngIf="ifProposed" class="all-points">
+              Show all pick up points
+            </mat-list-item>
+          </mat-list>
+
+          <mat-action-row>
+            <button mat-stroked-button color="warn" *ngIf="ifProposed" (click)="editDrive.emit(drive)">Edit</button>
+            <button mat-flat-button color="warn" class="cancel-button" *ngIf="ifProposed"(click)="cancelDrive.emit(drive)">Cancel</button>
+            <button mat-flat-button color="warn" class="cancel-button" *ngIf="!ifProposed"(click)="cancelPassengerDrive.emit(drive)">Cancel</button>
+          </mat-action-row>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+</div>
+<h3 class="label">Archive</h3>
+<div *ngFor="let drive of drives">
+  <div *ngIf="drive.archive" class="trips-container">
+    <div class="trip">
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>date_range</mat-icon> {{drive.date}}
+              <mat-icon class="time-icon">access_time</mat-icon> {{drive.time}}
+            </mat-panel-title>
+            <mat-panel-description>
+              {{drive.name}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-list role="list">
+            <mat-list-item role="listitem" *ngIf="!ifProposed">
+              <mat-icon>directions_car</mat-icon>
+              {{car.model}} {{car.number}} {{car.color}}
+            </mat-list-item>
+            <mat-list-item role="listitem" *ngIf="!ifProposed">
+              <mat-icon>person_outline</mat-icon>
+              {{drive.driver.name}}
+            </mat-list-item>
+            <mat-list-item role="listitem" *ngIf="!ifProposed">
+              <mat-icon>phone_iphone</mat-icon>
+              {{drive.driver.prefCommunication}}
+              <a href="tel:{{drive.driver.phoneNumber}}">
+                {{drive.driver.phoneNumber}}
+              </a>
+            </mat-list-item>
+            <mat-list-item role="listitem" *ngIf="!ifProposed">
+              <mat-icon>where_to_vote</mat-icon>
+              {{drive.name}}
+            </mat-list-item>
+            <mat-list-item role="listitem" *ngIf="!ifProposed">
+              <app-rating (onSetRating)="setRatingBooking($event, drive.id)" [rating]="drive.driver.mark"></app-rating>
+            </mat-list-item>
+            <mat-list-item role="listitem" *ngIf="ifProposed">
+              <mat-icon>accessibility_new</mat-icon>
+              {{drive.freePlaceCount}}
+            </mat-list-item>
+            <div *ngIf="ifProposed" class="passengers-rating">
+              <mat-list *ngFor="let passenger of drive.passengers">
+                <mat-list-item>
+                  {{passenger.name}}
+                </mat-list-item>
+                <app-rating *ngIf="ifProposed" (onSetRating)="setRating($event, passenger.id, drive.id)" [rating]="passenger.mark"></app-rating>
+              </mat-list>
+            </div>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
   </div>
 </div>

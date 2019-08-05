@@ -1,4 +1,4 @@
-.trips-container {
+/*.trips-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -85,6 +85,93 @@
     font-family: 'Titillium Web', sans-serif;
     font-size: 1em;
     color: #376061;
+  }
+}*/
+
+
+.my-bookings {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 2em;
+  color: #376061;
+  margin: 5% 5% 0 5%;
+  padding-bottom: 2%;
+  border-bottom: 1px solid #376061;
+  text-align: center;
+  font-weight: bold;
+}
+
+.label {
+  font-family: "Titillium Web", sans-serif;
+  font-size: 1.7em;
+  color: #ff844c;
+  margin: 5% 5% 0 5%;
+  padding-bottom: 2%;
+  text-align: center;
+}
+.trip {
+  margin: 0.5% 1%;
+}
+
+.time-icon {
+  margin-left: 2%;
+}
+
+.cancel-button {
+  margin-left: 1%;
+}
+
+.passengers-rating {
+  ::ng-deep {
+    mat-list.mat-list.mat-list-base.ng-star-inserted {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    mat-list-item.mat-list-item {
+      width: fit-content;
+    }
+  }
+}
+
+mat-list-item.all-points.mat-list-item.ng-star-inserted {
+  display: flex;
+  justify-content: flex-end;
+}
+
+mat-expansion-panel {
+  ::ng-deep {
+    .mat-expansion-panel-header-description,
+    .mat-expansion-panel-header-title {
+      align-items: center;
+    }
+    .mat-expansion-panel-header .mat-icon {
+      color: #376061;
+    }
+    .mat-icon {
+      margin-right: 1%;
+    }
+    mat-list .mat-icon {
+      color: #a9b1af;
+    }
+    .mat-list-base .mat-list-item,
+    .mat-list-base .mat-list-option {
+      height: 2em;
+      font-family: "Titillium Web", sans-serif;
+    }
+    span.mat-content {
+      font-size: 1.3em;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  mat-expansion-panel {
+    ::ng-deep {
+      span.mat-content {
+        font-size: 1em;
+      }
+    }
   }
 }
 
