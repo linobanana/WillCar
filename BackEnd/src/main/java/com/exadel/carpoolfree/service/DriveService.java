@@ -84,7 +84,7 @@ public class DriveService {
             List<UserVO> passengers = driveListMap.get(drive).stream().map(passengerDrive -> {
                 UserVO userVO = modelMapper.map(passengerDrive.getPassenger(), UserVO.class);
                 userVO.setMark(passengerDrive.getDriverToPassengerMark());
-                userVO.setPickUpPoint(passengerDrive.getStartPoint());
+                userVO.setPickUpPoint(passengerDrive.getPickUpPoint());
                 return userVO;
             }).collect(Collectors.toList());
             List<Message> messages = messageRepository.findAllByDriveId(drive.getId());
@@ -110,7 +110,7 @@ public class DriveService {
                     List<Message> messages = messageRepository.findAllByDriveId(temp.getDrive().getId());
                     DriveVO driveVO = convertToVO(temp.getDrive());
                     driverVO.setMark(temp.getPassengerToDriverMark());
-                    driveVO.setPickUpPoint(temp.getStartPoint());
+                    driveVO.setPickUpPoint(temp.getPickUpPoint());
                     driveVO.setDriver(driverVO);
                     driveVO.setMessages(messages);
                     return driveVO;
@@ -184,7 +184,6 @@ public class DriveService {
         DriveVO driveVO = modelMapper.map(drive, DriveVO.class);
         return driveVO;
     }
-
 
     private boolean isGoodDistanceBetween(Double[] firstPointDegree, Double[] secondPointDegree){
         double[] firstPoint = {Math.toRadians(firstPointDegree[0]), Math.toRadians(firstPointDegree[1])};

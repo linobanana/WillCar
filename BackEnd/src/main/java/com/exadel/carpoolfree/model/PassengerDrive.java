@@ -30,8 +30,8 @@ public class PassengerDrive {
     @JoinColumn(name = "drive_id")
     private Drive drive;
 
-    @Column(name = "start_point")
-    private String startPoint;
+    @Column(name = "pick_up_point")
+    private String pickUpPoint;
 
     @Column(name = "number_of_km")
     private Double numOfKm;
