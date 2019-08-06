@@ -20,8 +20,8 @@ public class PassengerDriveController {
     }
 
     @PostMapping()
-    public void addPassenger(@RequestBody PassengerDrive passengerDrive) {
-        passengerDriveService.addPassenger(passengerDrive);
+    public boolean addPassenger(@RequestBody PassengerDrive passengerDrive) {
+      return  passengerDriveService.addPassenger(passengerDrive);
     }
 
     @PostMapping("/markToPassenger")

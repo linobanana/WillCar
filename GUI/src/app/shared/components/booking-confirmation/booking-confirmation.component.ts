@@ -36,9 +36,11 @@ export class BookingConfirmationComponent implements OnInit {
       startPoint: this.drive.startPoint,
     };
     console.log(drive);
-    this.tripApiService.postPassengerTrip(drive).subscribe(() => {
+    this.tripApiService.postPassengerTrip(drive).subscribe((data) => {
+      if(data){
+        this.router.navigate(['/success-confirmation']);
+      }
     });
-    this.router.navigate(['/success-confirmation']);
   }
 
   goToMain() {

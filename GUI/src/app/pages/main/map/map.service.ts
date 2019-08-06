@@ -523,13 +523,13 @@ export class MapService {
     this.map.geoObjects.add(StartPoint);
     this.map.geoObjects.add(FinishPoint);
   }
-  //////////???????????????????????????//////
+
   public createRouteForMoreInformationProposed(drive: Drive) {
     const self = this;
     let color = this.generateColor(null);
-    let coordinates = drive.path;
+    let coordinates = drive.segmentsCoords;
     let temp = 0;
-    const amount = drive.path.length / 70;
+    const amount = drive.segmentsCoords.length / 70;
     for (let j = 0; j < amount ; j++) {
       let tempCoordinates = [];
       if ( j !== amount - 1) {

@@ -102,7 +102,7 @@
           <mat-list role="list">
             <mat-list-item role="listitem" *ngIf="!ifProposed">
               <mat-icon>directions_car</mat-icon>
-              {{car.model}} {{car.number}} {{car.color}}
+              {{drive.driver.cars[0].model}} {{drive.driver.cars[0].number}} {{drive.driver.cars[0].color}}
             </mat-list-item>
             <mat-list-item role="listitem" *ngIf="!ifProposed">
               <mat-icon>person_outline</mat-icon>

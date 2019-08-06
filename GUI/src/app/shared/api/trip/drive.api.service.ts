@@ -11,7 +11,7 @@ export class DriveApiService extends ApiService{
       response.forEach((drive) => {
         drive.date = drive.startTime.slice(8, 10) + drive.startTime.slice(4, 8) + drive.startTime.slice(0, 4);
         drive.time = drive.startTime.slice(11, 16);
-        drive.path = JSON.parse(drive.path);
+        drive.segmentsCoords = JSON.parse(drive.segmentsCoords);
         drive.startPoint = JSON.parse(drive.startPoint);
         drive.finPoint = JSON.parse(drive.finPoint);
         drive.pickUpPoint = JSON.parse(drive.pickUpPoint);

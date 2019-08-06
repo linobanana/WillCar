@@ -22,7 +22,7 @@ public class PassengerDriveService {
         this.userRepository = userRepository;
     }
 
-    public void addPassenger(PassengerDrive passengerDrive) {
+    public boolean addPassenger(PassengerDrive passengerDrive) {
         PassengerDrive ps1 = passengerDriveRepository.getByDriveAndPassengerId(passengerDrive.getDrive().getId(), passengerDrive.getPassenger().getId());
         if (ps1 == null) {
             PassengerDrive ps = passengerDriveRepository.save(passengerDrive);
@@ -31,12 +31,14 @@ public class PassengerDriveService {
                 places--;
                 ps.getDrive().setFreePlaceCount(places);
                 driveRepository.save(ps.getDrive());
+                return true;
             } else {
                 passengerDriveRepository.deleteByDriveAndPassengerId(ps.getDrive().getId(), ps.getPassenger().getId());
             }
         } else {
             throw new RuntimeException("Passenger already booked this drive");
         }
+        return false;
     }
 
     public int addMarkDriverToPassenger(MarkVO markVO) {
