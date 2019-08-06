@@ -33,7 +33,7 @@ export class MapService {
     startPoint: '',
     finPoint: '',
     startTime: '',
-    endTime: '2019-07-23T15:00:00.000Z',
+    endTime: '',
     path: '',
     freePlaceCount: '1',
     driver: {
@@ -178,8 +178,6 @@ export class MapService {
       this.createRouteWithBalloonForUser(drive);
     });
   }
-
-
   public makeRoute(form: FormGroup) {
     const self = this;
     let multiRoute = new ymaps.multiRouter.MultiRoute({
@@ -285,13 +283,17 @@ export class MapService {
       });
   }
   private getEndTime(startime: string):string {
-    let tempdate = new Date(startime);
-   //console.log(this.duration);
-    console.log(this.duration);
-    tempdate = new Date(tempdate.getTime() + this.duration * 1000);
-    tempdate.setMilliseconds(0);
-    //tempdate.setHours(this.duration);
-    return tempdate.toISOString();
+    if(this.duration !== undefined) {
+      let tempdate = new Date(startime);
+      //console.log(this.duration);
+      console.log(this.duration);
+      tempdate = new Date(tempdate.getTime() + this.duration * 1000);
+      tempdate.setMilliseconds(0);
+      //tempdate.setHours(this.duration);
+      return tempdate.toISOString();
+    } else {
+      return '';
+    }
   }
   private formatDateISO8601(time: string): string {
     let hours = parseInt(time.substring(0, 2), 10);
