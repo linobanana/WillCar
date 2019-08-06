@@ -48,7 +48,6 @@ public class DriveVO {
                    String startPoint, String finPoint, List<Message> messages,
                    Double sunOfKm, String name, String pickUpPoint,
                    boolean archive, List<UserVO> passengers) {
-    public DriveVO(LocalDateTime startTime, LocalDateTime endTime, int freePlaceCount, UserVO driver, String path, String startPoint, String finPoint, String segmentsCoords, List<Message> messages) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.freePlaceCount = freePlaceCount;
@@ -117,6 +116,10 @@ public class DriveVO {
         return pickUpPoint;
     }
 
+    public String getSegmentsCoords() {
+        return segmentsCoords;
+    }
+
     public boolean isArchive() {
         return archive;
     }
@@ -163,14 +166,6 @@ public class DriveVO {
 
     public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
-    }
-
-    public String getSegmentsCoords() {
-        return segmentsCoords;
-    }
-
-    public Double getSumOfKm() {
-        return sumOfKm;
     }
 
     public void setSumOfKm(Double sumOfKm) {

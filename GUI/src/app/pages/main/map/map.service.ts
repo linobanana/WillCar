@@ -41,7 +41,7 @@ export class MapService {
     }
   };
   private passengerDrive = {
-    id: 1,
+    id: 2,
     driver: new User(),
     startPoint: '',
     startPointString: '',
@@ -289,6 +289,7 @@ export class MapService {
    //console.log(this.duration);
     console.log(this.duration);
     tempdate = new Date(tempdate.getTime() + this.duration * 1000);
+    tempdate.setMilliseconds(0);
     //tempdate.setHours(this.duration);
     return tempdate.toISOString();
   }
