@@ -31,7 +31,7 @@ export class MapService {
     startPoint: '',
     finPoint: '',
     startTime: '',
-    endTime: '2019-07-23T15:00:00.000Z',
+    endTime: '',
     path: '',
     freePlaceCount: '1',
     driver: {
@@ -278,6 +278,7 @@ export class MapService {
    //console.log(this.duration);
     console.log(this.duration);
     tempdate = new Date(tempdate.getTime() + this.duration * 1000);
+    tempdate.setMilliseconds(0);
     //tempdate.setHours(this.duration);
     return tempdate.toISOString();
   }
