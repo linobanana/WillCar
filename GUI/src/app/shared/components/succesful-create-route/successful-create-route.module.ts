@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {MatButtonModule, MatIconModule} from '@angular/material';
-import {SuccesfulCreateRouteComponent} from './succesful-create-route.component';
+import {SuccessfulCreateRouteComponent} from './successful-create-route.component';
 
 
 @NgModule({
@@ -9,10 +9,10 @@ import {SuccesfulCreateRouteComponent} from './succesful-create-route.component'
     MatButtonModule
   ],
   declarations: [
-    SuccesfulCreateRouteComponent
+    SuccessfulCreateRouteComponent
   ],
   exports: [
-    SuccesfulCreateRouteComponent
+    SuccessfulCreateRouteComponent
   ]
 })
 

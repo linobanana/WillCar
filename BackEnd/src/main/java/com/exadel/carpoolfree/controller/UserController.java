@@ -7,6 +7,7 @@ import com.exadel.carpoolfree.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/users")
@@ -18,23 +19,16 @@ public class UserController {
         this.userService = userService;
     }
 
-//    public static void main(String[] args) {
-//        String passwd = "password1";
-//       String sss =  BCrypt.gensalt();
-//        String hash1 = BCrypt.hashpw(passwd , sss);
-//        String hash2 = BCrypt.hashpw(passwd , sss);
-//        boolean checkpw = BCrypt.checkpw(passwd, hash1);
-//        boolean checkpw1 = BCrypt.checkpw(passwd, hash2);
-//        boolean checkpw2 = BCrypt.checkpw(hash1, hash2);
-//        boolean checkpw3 = BCrypt.checkpw(hash2, hash1);
-//        System.out.println();
-//    }
-
     @GetMapping("/{id}")
     public UserVO getById(final @PathVariable Long id){
         return userService.findById(id);
     }
 
+    @GetMapping("/admin/startTime/{startTime}/finTime/{finTime}")
+    public Set<UserForAdminVO> getAllUsersByMonth(final @PathVariable String startTime,
+                                                  final @PathVariable String finTime) {
+        return userService.findAllUsersByMonth(startTime, finTime);
+    }
 
     @GetMapping()
     public UserVO getCurrentUser() {

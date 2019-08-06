@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from '../../services/api.service';
-import {HttpHeaders, HttpResponse} from '@angular/common/http';
 
 @Injectable()
 export class ProfileApiService extends ApiService {
@@ -66,6 +65,10 @@ export class ProfileApiService extends ApiService {
 
   getUsers() {
     return super.get(`api/users/admin`, ProfileApiService.mapUsers);
+  }
+
+  getFilteredUsers(startTime, finTime) {
+  return super.get(`api/users/admin/startTime/${startTime}/finTime/${finTime}`, ProfileApiService.mapUsers);
   }
 
   logOut() {

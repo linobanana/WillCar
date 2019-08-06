@@ -1,9 +1,19 @@
 <div class="date-filter">
-  <mat-form-field class="example-full-width">
-    <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker touchUi #picker></mat-datepicker>
-  </mat-form-field>
+  <form class ="filter-form" [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="example-form-field">
+      <input formControlName = "startTime" id="date1" matInput type="text" placeholder="YYYY-MM-DD">
+      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field class="example-form-field">
+      <input formControlName = "finTime" id="date2" matInput type="text" placeholder="YYYY-MM-DD">
+      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-raised-button color="warn" (click)="onSubmitForm(); cleanValues()">Filter</button>
+  </form>
 </div>
 
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">

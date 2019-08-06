@@ -21,6 +21,7 @@ import {ToastrModule} from "ngx-toastr";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AdminModule} from './pages/personal-area/admin-tab/admin.module';
 import {MainEditModule} from './pages/main-edit/main-edit.module';
+import {SuccessfulCreateRouteModule} from './shared/components/succesful-create-route/successful-create-route.module';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import {MainEditModule} from './pages/main-edit/main-edit.module';
     BrowserModule,
     FormsModule,
     ChatModule,
+    SuccessfulCreateRouteModule,
     ToastrModule.forRoot()
   ],
   providers: [

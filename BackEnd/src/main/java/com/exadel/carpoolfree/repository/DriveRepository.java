@@ -21,4 +21,9 @@ public interface DriveRepository extends JpaRepository<Drive, Long> {
             "where d.startTime >= :startTime")
     List<Drive> findAllDriveInFuture(LocalDateTime startTime);
 
+    @Query(value = "SELECT d " +
+            "from Drive d " +
+            "left join fetch d.driver dr  "+
+            "where d.startTime >= :startTime and d.startTime <=:finTime")
+    List<Drive> findAllDriveInDateRange(LocalDateTime startTime, LocalDateTime finTime);
 }

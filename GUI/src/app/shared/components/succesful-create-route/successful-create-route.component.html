@@ -1,0 +1,10 @@
+<div class="confirmation">
+  <div class="container">
+    <p class="confirm-text">{{label.driverLabel}}</p>
+    <button mat-fab disabled><mat-icon class="icon">done</mat-icon></button>
+    <div class="buttons">
+      <button mat-stroked-button class="main-button" color="primary" (click)="goToMain()">{{menuItem.mainMenu}}</button>
+      <button mat-flat-button color="primary" (click)="goToMyProposed()">{{menuItem.userBookings}}</button>
+    </div>
+  </div>
+</div>

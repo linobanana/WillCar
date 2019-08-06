@@ -19,3 +19,11 @@ table {
 th.mat-sort-header-sorted {
   color: black;
 }
+
+.filter-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 1%;
+  align-items: center;
+}
