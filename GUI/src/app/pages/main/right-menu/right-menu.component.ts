@@ -55,9 +55,10 @@ onSubmitForm() {
 onCreate() {
     this.mapper.cleanMap();
     this.mapper.importDrive(this.RightMenuInfo).then(() => this.mapper.exportDrive(this.RightMenuInfo));
+
 }
   initRelationMwithY() {
-    this.mapper.initRelationMwithY(this.RightMenuInfo, 'r');
+    this.mapper.initRelationMwithYForRightMenu(this.RightMenuInfo);
   }
   get date() {
     return this.RightMenuInfo.get('date');

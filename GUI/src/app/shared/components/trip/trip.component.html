@@ -38,6 +38,7 @@
         <button mat-stroked-button color="warn" *ngIf="ifProposed"(click)="cancelDrive.emit(drive)">Cancel</button>
         <button mat-stroked-button color="warn" *ngIf="!ifProposed"(click)="cancelPassengerDrive.emit(drive)">Cancel</button>
       </div>
+      <button (click)="moreInfo(trip)"> more information</button>
     </div>
   </div>
 </div>

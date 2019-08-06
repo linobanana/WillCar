@@ -44,7 +44,7 @@ public class DriveVO {
     public DriveVO(LocalDateTime startTime, LocalDateTime endTime,
                    int freePlaceCount, UserVO driver, String path,
                    String startPoint, String finPoint, List<Message> messages,
-                   Double sunOfKm, Double sumOfTime, String name, String pickUpPoint,
+                   Double sunOfKm, String name, String pickUpPoint,
                    boolean archive, List<UserVO> passengers) {
         this.startTime = startTime;
         this.endTime = endTime;

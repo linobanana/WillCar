@@ -8,7 +8,7 @@ export class Car {
 export class User {
   id: number;
   login: string;
-  password: string;
+  password:string;
   //roles: Role[];
   name: string;
   email: string;
@@ -21,7 +21,7 @@ export class User {
   mark: number;
   points: number;
   drives: Drive[];
-  //pickUpPoint: Point[];
+  pickUpPoint: [number,number];
   //numOfKm: number;
 }
 export class Drive {
@@ -37,10 +37,11 @@ export class Drive {
   //routeUrl: string;
   driver: User;
   messages: Message[];
-  path:[];
+  path: any;
   sumOfKm: number;
   isOpenSocket = false;
   //pickUpPoint: Point[];
+  pickUpPoint: [number, number];
 }
 export class Message {
   message: string;
@@ -49,4 +50,11 @@ export class Message {
   time:Date;
   notify:boolean;
 }
+export const options = {
+  year: 'numeric',
+  month: 'numeric',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric'
+};
 

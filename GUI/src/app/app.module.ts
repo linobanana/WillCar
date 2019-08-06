@@ -25,7 +25,7 @@ import {AdminModule} from './pages/personal-area/admin-tab/admin.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     CommonModule,
@@ -45,7 +45,6 @@ import {AdminModule} from './pages/personal-area/admin-tab/admin.module';
     MyProposedModule,
     PersonalAreaModule,
     AdminModule,
-    PersonalAreaModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
