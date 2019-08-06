@@ -429,7 +429,7 @@ export class MapService {
         });
         self.passengerDrive.id = drive.id;
         self.passengerDrive.driver = drive.driver;
-        self.passengerDrive.startPoint = JSON.stringify(coords);
+        //self.passengerDrive.startPoint = JSON.stringify(coords);
         self.passengerDrive.numOfKm = "100";
         self.passengerDrive.driveDate = driveStartTime;
 
@@ -564,7 +564,7 @@ export class MapService {
           coordinates: passenger.pickUpPoint
         },
         properties: {
-          iconConteninit: 'Pick up',
+          iconContent: 'Pick up',
         }
       }, {
         preset: 'islands#redStretchyIcon',
@@ -604,6 +604,7 @@ export class MapService {
     this.map.geoObjects.removeAll();
   }
   public drawPointsForUser() {
+    const self = this;
     let passengerStartPoint = new ymaps.GeoObject({
       geometry: {
         type: "Point",
@@ -617,6 +618,9 @@ export class MapService {
     }, {
       preset: 'islands#blueStretchyIcon',
       draggable: true,
+    });
+    passengerStartPoint.events.add('dragend', function (e) {
+      self.passengerDrive.startPoint = JSON.stringify(passengerStartPoint.geometry.getCoordinates());
     });
     let passengerEndPoint = new ymaps.GeoObject({
       geometry: {

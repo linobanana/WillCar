@@ -32,7 +32,7 @@ export class BookingConfirmationComponent implements OnInit {
       drive: {
         id: this.drive.id,
       },
-      passenger: {id: '2'},
+      passenger: {id: '3'},
       startPoint: this.drive.startPoint,
     };
     console.log(drive);
