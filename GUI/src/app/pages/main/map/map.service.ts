@@ -52,6 +52,7 @@ export class MapService {
       endPoint: '',
       dateTime: ''
     };
+  private duration: number;
   private drives: Drive[] = [];
 
   constructor(private mapApi: MapApiService) {
@@ -199,9 +200,13 @@ export class MapService {
     multiRoute.events
       .add("activeroutechange", self.onActiveRouteChange, self);
     self.map.geoObjects.add(multiRoute);
-    multiRoute.events.add('update', function () {
+    multiRoute.events.add('update', function() {
       const route = multiRoute.getActiveRoute();
-      let duration = route.properties.get("duration").value; ///function of calculation end time
+      //this.duration = route.properties.get("duration").value; ///function of calculation end time
+      // console.log(new Date());
+      // let date = new Date();
+      // date.setSeconds(this.duration);
+      // console.log(date);
       let pathArray = route.getPaths();
       let path;
       let coords = [];
@@ -239,6 +244,7 @@ export class MapService {
         }, 1000);
 
       });
+      self.duration = route.properties.get("duration").value;
       self.drive.startPoint = JSON.stringify(coords[0]);
       self.drive.finPoint =  JSON.stringify(coords[coords.length - 1]);
       self.drive.path = JSON.stringify(coords);
@@ -247,7 +253,7 @@ export class MapService {
   public importDrive(form: FormGroup) {
     this.drive.freePlaceCount = form.get('numberOfSeats').value;
     this.datestart = new Date(form.get('date').value.toString());
-    this.drive.startTime = this.formatDateISO8601(form.get('time').value.toString());
+    this.drive.startTime = this. formatDateISO8601(form.get('time').value.toString());
     const self = this;
     const promises = [];
     promises.push(
@@ -267,6 +273,14 @@ export class MapService {
         console.log(data);
       });
   }
+  private getEndTime(startime: string):string {
+    let tempdate = new Date(startime);
+   //console.log(this.duration);
+    console.log(this.duration);
+    tempdate = new Date(tempdate.getTime() + this.duration * 1000);
+    //tempdate.setHours(this.duration);
+    return tempdate.toISOString();
+  }
   private formatDateISO8601(time: string): string {
     let hours = parseInt(time.substring(0, 2), 10);
     const minutes = parseInt(time.substring(3, 5), 10);
@@ -275,6 +289,8 @@ export class MapService {
     }
     this.datestart.setHours(hours - (new Date().getTimezoneOffset() / 60));
     this.datestart.setMinutes(minutes);
+    console.log(this.datestart.toString());
+    this.drive.endTime = this.getEndTime(this.datestart.toString());
     return this.datestart.toISOString();
     //console.log(this.drive.starttime);
     // const date  = new Date(this.drive.date.toString());
@@ -313,9 +329,8 @@ export class MapService {
         for (let i = 0; i < pathArray.getLength(); i++) {
           path = pathArray.get(i);
           coords = coords.concat(path.properties.get('coordinates'));
-    }
-    let driveDuration = route.properties.get("duration").value;   //
-    console.log(driveDuration);
+        }
+    this.duration = route.properties.get("duration").value;
     this.drive.path = JSON.stringify(coords);
   }
   private generateColor(ranges) {

@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Drive} from "../../types/common";
+import {TripService} from "../trip/trip.service";
 
 @Component({
   selector: 'app-info-route',
@@ -8,10 +9,11 @@ import {Drive} from "../../types/common";
 })
 export class InfoRouteComponent implements OnInit {
 @Input() route: Drive;
-ifProposed: boolean;
-  constructor() { }
+  public ifProposed: boolean;
+  constructor(private tripService: TripService) { }
 
   ngOnInit() {
+    this.tripService.ifProposed.subscribe(ifProposed => this.ifProposed = ifProposed);
   }
 
 }
