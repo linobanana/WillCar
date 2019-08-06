@@ -27,6 +27,7 @@ private testCoords = [];
   private datestart: Date;
   private map;
   private drive = {
+    name: '',
     segmentsCoords: '',
     startPoint: '',
     finPoint: '',
@@ -195,7 +196,8 @@ private testCoords = [];
       boundsAutoApply: true,
       editorDrawOver: false,
       editorMidPointsType: "via",
-      routeActiveStrokeColor: this.generateColor(null)
+      routeActiveStrokeColor: this.generateColor(null),
+      routeStrokeWidth: 7,
     });
     multiRoute.editor.start({
       // addWayPoints: true,
@@ -263,6 +265,8 @@ private testCoords = [];
     this.drive.freePlaceCount = form.get('numberOfSeats').value;
     this.datestart = new Date(form.get('date').value.toString());
     this.drive.startTime = this.formatDateISO8601(form.get('time').value.toString());
+    this.drive.name = form.get('address').get(START_STRING + 'r').value + ' - ' + form.get('address').get(END_STRING + 'r').value;
+    console.log(this.drive.name);
     const self = this;
     const promises = [];
     promises.push(
@@ -448,9 +452,9 @@ private testCoords = [];
 /////////////////!!!!!!!!!!!!!!!!!!!!!!!!/////////////////////////////////////////
   public createRouteForMoreInformation(drive: Drive) {
     let color = this.generateColor(null);
-    let coordinates = drive.path;
+    let coordinates = drive.segmentsCoords;
     let temp = 0;
-    const amount = drive.path.length / 70;
+    const amount = drive.segmentsCoords.length / 70;
     for (let j = 0; j < amount; j++) {
       let tempCoordinates = [];
       if (j !== amount - 1) {
