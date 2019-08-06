@@ -274,13 +274,17 @@ export class MapService {
       });
   }
   private getEndTime(startime: string):string {
-    let tempdate = new Date(startime);
-   //console.log(this.duration);
-    console.log(this.duration);
-    tempdate = new Date(tempdate.getTime() + this.duration * 1000);
-    tempdate.setMilliseconds(0);
-    //tempdate.setHours(this.duration);
-    return tempdate.toISOString();
+    if(this.duration !== undefined) {
+      let tempdate = new Date(startime);
+      //console.log(this.duration);
+      console.log(this.duration);
+      tempdate = new Date(tempdate.getTime() + this.duration * 1000);
+      tempdate.setMilliseconds(0);
+      //tempdate.setHours(this.duration);
+      return tempdate.toISOString();
+    } else {
+      return '';
+    }
   }
   private formatDateISO8601(time: string): string {
     let hours = parseInt(time.substring(0, 2), 10);

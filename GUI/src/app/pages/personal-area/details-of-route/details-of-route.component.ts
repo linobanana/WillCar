@@ -1,10 +1,11 @@
 import {Component, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Drive} from "../../../shared/types/common";
-import {Observable} from "rxjs";
+import {combineLatest, Observable} from "rxjs";
 import {TripService} from "../../../shared/components/trip/trip.service";
 import {MapService} from "../../main/map/map.service";
 import {promise} from "selenium-webdriver";
 import {Router} from "@angular/router";
+import {take} from "rxjs/operators";
 
 @Component({
   selector: 'app-details-of-route',
@@ -19,10 +20,23 @@ export class DetailsOfRouteComponent implements OnInit {
   }
 
   ngOnInit() {
+    const self = this;
     let promise = new Promise((resolve, reject) => {
-      this.tripService.currentDrive.subscribe(drive => this.drive = drive);
-      this.tripService.ifProposed.subscribe(ifProposed => this.ifProposed = ifProposed);
-      resolve(this.drive);
+      combineLatest(
+        this.tripService.currentDrive,
+        this.tripService.ifProposed
+      )
+        .pipe(take(1))
+      .subscribe(([drive, ifProposed]) => {
+        if (drive === null) {
+          self.router.navigate(['/main']);
+          reject('update more info');
+        } else {
+          this.drive = drive;
+          this.ifProposed = ifProposed;
+          resolve(this.drive);
+        }
+      });
     });
     promise.then(result => {
       if (!this.ifProposed) {
@@ -30,10 +44,13 @@ export class DetailsOfRouteComponent implements OnInit {
       } else {
       this.mapper.createRouteForMoreInformationProposed(this.drive);
       }
-    });
+    },
+    error => {console.log(error); });
   }
 
-  public return() {
+
+
+  public redirectToProposedOrBookings() {
     if (!this.ifProposed) {
       this.router.navigate(['/personalarea/mybookings']);
     } else {

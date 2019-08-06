@@ -1,4 +1,4 @@
 <app-mini-map></app-mini-map>
 <app-info-route [route]="drive"></app-info-route>
-<button *ngIf="ifProposed" (click)="return()">back to Proposed trips</button>
-<button *ngIf="!ifProposed" (click)="return()">back to My bookings</button>
+<button *ngIf="ifProposed" (click)="redirectToProposedOrBookings()">back to Proposed trips</button>
+<button *ngIf="!ifProposed" (click)="redirectToProposedOrBookings()">back to My bookings</button>
