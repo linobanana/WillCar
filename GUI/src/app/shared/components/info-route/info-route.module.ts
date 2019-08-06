@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MatButtonModule, MatIconModule, MatListModule} from '@angular/material';
+import {MatButtonModule, MatDividerModule, MatIconModule, MatListModule} from '@angular/material';
 import {InfoRouteComponent} from "./info-route.component";
 
 @NgModule({
@@ -8,7 +8,8 @@ import {InfoRouteComponent} from "./info-route.component";
     CommonModule,
     MatButtonModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatDividerModule
   ],
   providers: [],
   declarations: [InfoRouteComponent],
