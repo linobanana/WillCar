@@ -46,8 +46,8 @@ const personalAreaRotes: Routes = [
     ProfileMenuModule,
     AdminModule,
     ChatModule,
-    RouterModule.forChild(personalAreaRotes)
     DetailsOfRouteModule,
+    RouterModule.forChild(personalAreaRotes),
   ],
   declarations: [
     PersonalAreaComponent,

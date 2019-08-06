@@ -17,9 +17,6 @@ export class TripService {
   currentDrive = this.driveSubject;
   ifProposed = this.ifProposedSubject;
     constructor(private driveApiService: DriveApiService) {
-    setTimeout(() => {
-      this.drives = [TEST_TRIP];
-    }, 1000);
   }
 
   get proposedSubject(): Observable<Drive[]> {
@@ -38,6 +35,7 @@ export class TripService {
   }
   get bookedDrives(): Drive[] {
     return this._bookedDrives;
+  }
   get driveSubject(): Observable<Drive> {
     return this._driveSubject.asObservable();
   }
@@ -54,9 +52,6 @@ export class TripService {
   // get drive(): Drive {
   //   return this._drive;
   // }
-  get drives(): Drive[] {
-    return this._drives;
-  }
   set bookedDrives(drives: Drive[]) {
     this._bookedDrives = drives;
     this._bookedSubject.next(this._bookedDrives);

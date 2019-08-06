@@ -100,7 +100,7 @@ public class User {
 
     public User(String name, String phoneNumber, String email,
                 String login, String password, boolean active, double driverRating,
-                double passengerRating) {
+                double  passengerRating) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;

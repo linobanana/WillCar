@@ -139,7 +139,7 @@
           </mat-list>
 
           <mat-action-row>
-            <button mat-stroked-button color="warn" *ngIf="ifProposed" (click)="editDrive.emit(drive)">Edit</button>
+            <button mat-stroked-button color="warn" (click)="moreInfo(drive)">Show more information</button>
             <button mat-flat-button color="warn" class="cancel-button" *ngIf="ifProposed"(click)="cancelDrive.emit(drive)">Cancel</button>
             <button mat-flat-button color="warn" class="cancel-button" *ngIf="!ifProposed"(click)="cancelPassengerDrive.emit(drive)">Cancel</button>
           </mat-action-row>

@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Car, Drive} from '../../types/common';
-import {Drive} from '../../types/common';
 import {CAR, USER} from '../../mocks/user.mocks';
 import {Router} from "@angular/router";
 import {TripService} from "./trip.service";

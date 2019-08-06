@@ -20,6 +20,6 @@ export const routes: Routes = [
   ...MyProposedRoutes,
   ...SuccessConfirmationRoutes,
   ...BookingConfirmationRoutes,
-  ...ChatRoutes
+  ...ChatRoutes,
   ...DetailsOfRouteRoutes
 ];

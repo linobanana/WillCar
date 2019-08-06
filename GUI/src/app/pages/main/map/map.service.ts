@@ -502,6 +502,7 @@ export class MapService {
     this.map.geoObjects.add(FinishPoint);
   }
   public createRouteForMoreInformationProposed(drive: Drive) {
+    const self = this;
     let color = this.generateColor(null);
     let coordinates = drive.path;
     let temp = 0;
@@ -540,13 +541,13 @@ export class MapService {
           coordinates: passenger.pickUpPoint
         },
         properties: {
-          iconContent: 'Pick up',
+          iconConteninit: 'Pick up',
         }
       }, {
         preset: 'islands#redStretchyIcon',
         draggable: false,
       });
-      this.map.geoObjects.add(PickUpPoint);
+      self.map.geoObjects.add(PickUpPoint);
     });
     let StartPoint = new ymaps.GeoObject({
       geometry: {
