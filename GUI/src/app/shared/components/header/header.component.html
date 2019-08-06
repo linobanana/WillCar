@@ -4,7 +4,9 @@
       <p class="role-toggle">
         Passenger
       </p>
-      <mat-slide-toggle color="warn" (click)="changeDriverState()">
+      <mat-slide-toggle *ngIf= "!driverState" color="warn" (click)="changeDriverState()">
+      </mat-slide-toggle>
+      <mat-slide-toggle *ngIf= "driverState" color="warn" (click)="changeDriverState()" checked>
       </mat-slide-toggle>
       <p class="role-toggle">
         Driver

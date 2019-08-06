@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from '../../services/api.service';
-import {HttpHeaders} from '@angular/common/http';
+import {HttpHeaders, HttpResponse} from '@angular/common/http';
 
 @Injectable()
 export class ProfileApiService extends ApiService {
@@ -20,8 +20,9 @@ export class ProfileApiService extends ApiService {
       points: response.points,
       drives: response.drives,
       pickUpPoint: response.pickUpPoint,
-      numOfKm: response.numOfKm
-      };
+      numOfKm: response.numOfKm,
+      currentRole: 'PASSENGER'
+    }
   }
 
   private static mapUsers(response: any) {
@@ -50,9 +51,11 @@ export class ProfileApiService extends ApiService {
   getCurrentUser() {
     return super.get(`api/users/`, ProfileApiService.mapUser);
   }
+
   setUserCar(car) {
     return super.post(`api/car`, car, ProfileApiService.simpleResponse);
   }
+
   changeUserOptions(userOptions) {
     return super.put(`api/users`, userOptions);
   }
@@ -65,9 +68,7 @@ export class ProfileApiService extends ApiService {
     return super.get(`api/users/admin`, ProfileApiService.mapUsers);
   }
 
-  // logOut(any) {
-  //   let headers = new HttpHeaders();
-  //   headers = headers.append('Content-Type', 'text/html');
-  //   return super.post(`logout`, any, {headers: headers})
-  // }
+  logOut() {
+    return super.post(`logout`);
+  }
 }

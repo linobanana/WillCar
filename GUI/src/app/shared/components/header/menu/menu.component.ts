@@ -30,14 +30,11 @@ export class MenuComponent {
   goToAdminTab() {
     this.router.navigate(['/personalarea/', 'admin-tab']);
   }
-  // goToAuthorization() {
-  //   this.profileApiService.logOut('')
-  //     .subscribe(() => {
-  //       window.location.href = 'localhost:8080/login';
-  //     }, () => {
-  //       window.location.href = 'localhost:8080/login';
-  //     });
-  // }
+  logOut(): void {
+    this.profileApiService.logOut()
+      .subscribe(data =>
+        console.log(data));
+  }
   isAdmin = IS_ADMIN;
 }
 

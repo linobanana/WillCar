@@ -55,7 +55,7 @@ onSubmitForm() {
 onCreate() {
     this.mapper.cleanMap();
     this.mapper.importDrive(this.RightMenuInfo).then(() => this.mapper.exportDrive(this.RightMenuInfo));
-
+    this.router.navigate(['/success-create']);
 }
   initRelationMwithY() {
     this.mapper.initRelationMwithYForRightMenu(this.RightMenuInfo);
@@ -66,10 +66,6 @@ onCreate() {
 
   get numberOfSeats() {
     return this.RightMenuInfo.get('numberOfSeats');
-  }
-
-  goToMyProposedTrips() {
-    this.router.navigate(['/myproposed']);
   }
 }
 export function forbiddenDateValidator(date: RegExp): ValidatorFn {

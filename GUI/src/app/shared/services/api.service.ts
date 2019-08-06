@@ -34,7 +34,7 @@ export class ApiService {
 
   public post(
     endpointName: string,
-    data: any,
+    data?: any,
     extractData?: (value: HttpResponse<any> | any) => {},
     options?: any
   ) {
