@@ -6,6 +6,7 @@ export class MapApiService extends ApiService {
   private static mapDrives(response: any) {
     response.forEach((drive) => {
 drive.path = JSON.parse(drive.path);
+drive.segmentsCoords = JSON.parse(drive.segmentsCoords);
 drive.startPoint = JSON.parse(drive.startPoint);
 drive.finPoint = JSON.parse(drive.finPoint);
     });

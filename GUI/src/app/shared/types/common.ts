@@ -25,6 +25,7 @@ export class User {
   //numOfKm: number;
 }
 export class Drive {
+  segmentsCoords : any;
   id: number;
   startTime: string;
   endTime: string;

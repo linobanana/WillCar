@@ -62,6 +62,9 @@ public class Drive {
     @Column(name = "archive")
     private boolean archive = false;
 
+    @Column(name = "segments_coords")
+    private String segmentsCoords;
+
     @OneToMany()
     private List<Message> messages;
 

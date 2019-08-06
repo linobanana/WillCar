@@ -5,7 +5,7 @@ import {delay, min, take} from "rxjs/operators";
 import {MapApiService} from "../../../shared/api/map/map.api.service";
 import {ApiService} from "../../../shared/services/api.service";
 import {Drive, options} from "../../../shared/types/common";
-import { User } from "../../../shared/types/common";
+import {User} from "../../../shared/types/common";
 import {stringify} from "querystring";
 import {END_STRING, START_STRING} from "../../../shared/constants/common";
 
@@ -28,6 +28,8 @@ export class MapService {
   private datestart: Date;
   private map;
   private drive = {
+    name: '',
+    segmentsCoords: '',
     startPoint: '',
     finPoint: '',
     startTime: '',
@@ -148,8 +150,10 @@ export class MapService {
         resolve('correct');
       });
     });
-    return promise.then(result => { /*console.log(result);*/ });
-    }
+    return promise.then(result => { /*console.log(result);*/
+    });
+  }
+
   public exportInfoRoute() {
     const self = this;
     this.infoToSearchDrive.startPoint = JSON.stringify(this.points.start);
@@ -166,7 +170,7 @@ export class MapService {
       });
     });
     promise.then((drives) => {
-    this.showDrives();
+      this.showDrives();
     });
   }
   private showDrives() {
@@ -174,6 +178,8 @@ export class MapService {
       this.createRouteWithBalloonForUser(drive);
     });
   }
+
+
   public makeRoute(form: FormGroup) {
     const self = this;
     let multiRoute = new ymaps.multiRouter.MultiRoute({
@@ -188,7 +194,8 @@ export class MapService {
       boundsAutoApply: true,
       editorDrawOver: false,
       editorMidPointsType: "via",
-      routeActiveStrokeColor: this.generateColor(null)
+      routeActiveStrokeColor: this.generateColor(null),
+      routeStrokeWidth: 7,
     });
     multiRoute.editor.start({
       // addWayPoints: true,
@@ -200,20 +207,21 @@ export class MapService {
     multiRoute.events
       .add("activeroutechange", self.onActiveRouteChange, self);
     self.map.geoObjects.add(multiRoute);
-    multiRoute.events.add('update', function() {
+    multiRoute.events.add('update', function () {
       const route = multiRoute.getActiveRoute();
-      //this.duration = route.properties.get("duration").value; ///function of calculation end time
-      // console.log(new Date());
-      // let date = new Date();
-      // date.setSeconds(this.duration);
-      // console.log(date);
       let pathArray = route.getPaths();
       let path;
       let coords = [];
+      let segmentCoords = [];
       for (let i = 0; i < pathArray.getLength(); i++) {
         path = pathArray.get(i);
         // coords = coords.concat(i === 0 || i === pathArray.getLength() - 1 ? path.properties.get('coordinates') :path.properties.get('coordinates').slice(1, -1));
         coords = coords.concat(path.properties.get('coordinates'));
+        var segments = path.getSegments();
+        segments.each(function (segment) {
+          let index = segment.properties.get("lodIndex");
+          segmentCoords.push(coords[index]);
+        });
       }
       let startAddress;
       ymaps.geocode(coords[0], {
@@ -248,12 +256,15 @@ export class MapService {
       self.drive.startPoint = JSON.stringify(coords[0]);
       self.drive.finPoint =  JSON.stringify(coords[coords.length - 1]);
       self.drive.path = JSON.stringify(coords);
+      self.drive.segmentsCoords = JSON.stringify(segmentCoords);
     });
   }
   public importDrive(form: FormGroup) {
     this.drive.freePlaceCount = form.get('numberOfSeats').value;
     this.datestart = new Date(form.get('date').value.toString());
-    this.drive.startTime = this. formatDateISO8601(form.get('time').value.toString());
+    this.drive.startTime = this.formatDateISO8601(form.get('time').value.toString());
+    this.drive.name = form.get('address').get(START_STRING + 'r').value + ' - ' + form.get('address').get(END_STRING + 'r').value;
+    console.log(this.drive.name);
     const self = this;
     const promises = [];
     promises.push(
@@ -321,17 +332,24 @@ export class MapService {
     this.map.destroy();
   }
   private onActiveRouteChange(event) {
-        let multiRoute = event.get('target');
-        const route = multiRoute.getActiveRoute();
-        let pathArray = route.getPaths();
-        let path;
-        let coords = [];
-        for (let i = 0; i < pathArray.getLength(); i++) {
-          path = pathArray.get(i);
-          coords = coords.concat(path.properties.get('coordinates'));
-        }
+    let multiRoute = event.get('target');
+    const route = multiRoute.getActiveRoute();
+    let pathArray = route.getPaths();
+    let path;
+    let coords = [];
+    let segmentCoords = [];
+    for (let i = 0; i < pathArray.getLength(); i++) {
+      path = pathArray.get(i);
+      coords = coords.concat(path.properties.get('coordinates'));
+      var segments = path.getSegments();
+      segments.each(function (segment) {
+        let index = segment.properties.get("lodIndex");
+        segmentCoords.push(coords[index]);
+      });
+    }
     this.duration = route.properties.get("duration").value;
     this.drive.path = JSON.stringify(coords);
+    this.drive.segmentsCoords = JSON.stringify(segmentCoords);
   }
   private generateColor(ranges) {
     if (!ranges) {
@@ -347,9 +365,9 @@ export class MapService {
     };
     return "rgb(" + g() + "," + g() + "," + g() +")";
   }
-  private createRouteWithBalloonForUser(drive: Drive) {
+  public createRouteWithBalloonForUser(drive: Drive) {
     let color = this.generateColor(null);
-    let coordinates = drive.path;
+    let coordinates = drive.segmentsCoords;
     let driverName = drive.driver.name;
     let driveStartTime = this.parseToISO8601(drive.startTime);
     let freePlaceCount = drive.freePlaceCount;
@@ -369,11 +387,11 @@ export class MapService {
     });
     this.map.geoObjects.add(startPlacemark);
 
-    const amount = drive.path.length / 70;
-    for (let j = 0; j < amount ; j++) {
+    const amount = drive.segmentsCoords.length / 70;
+    for (let j = 0; j < amount; j++) {
       let tempCoordinates = [];
-      if ( j !== amount - 1) {
-         tempCoordinates = coordinates.slice(temp, temp + 71);
+      if (j !== amount - 1) {
+        tempCoordinates = coordinates.slice(temp, temp + 71);
       } else {
          tempCoordinates = coordinates.slice(temp);
       }
@@ -428,15 +446,16 @@ export class MapService {
         this.map.geoObjects.add(multiRoute);
         temp = temp + 70;
     }
+    this.map.geoObjects.add(endPlacemark);
   }
   public createRouteForMoreInformationBookings(drive: Drive) {
     let color = this.generateColor(null);
-    let coordinates = drive.path;
+    let coordinates = drive.segmentsCoords;
     let temp = 0;
-    const amount = drive.path.length / 70;
-    for (let j = 0; j < amount ; j++) {
+    const amount = drive.segmentsCoords.length / 70;
+    for (let j = 0; j < amount; j++) {
       let tempCoordinates = [];
-      if ( j !== amount - 1) {
+      if (j !== amount - 1) {
         tempCoordinates = coordinates.slice(temp, temp + 71);
       } else {
         tempCoordinates = coordinates.slice(temp);
@@ -501,6 +520,7 @@ export class MapService {
     this.map.geoObjects.add(StartPoint);
     this.map.geoObjects.add(FinishPoint);
   }
+  //////////???????????????????????????//////
   public createRouteForMoreInformationProposed(drive: Drive) {
     const self = this;
     let color = this.generateColor(null);
