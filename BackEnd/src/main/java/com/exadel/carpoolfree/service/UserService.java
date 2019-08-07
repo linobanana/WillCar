@@ -87,7 +87,7 @@ public class UserService {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         String login = securityContext.getAuthentication().getName();
         User checkUser = userRepository.findByLogin(login);
-        if (user.getId() == checkUser.getId()) {
+        if (checkUser!=null && user.getId() == checkUser.getId()) {
             return userRepository.findById(user.getId())
                     .map(user1 -> {
                         user1.setPrefCommunication(user.getPrefCommunication());

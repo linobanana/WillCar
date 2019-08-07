@@ -1,4 +1,4 @@
-<h2 class="label">Car park:</h2>
+<h2 class="label" *ngIf="this.user.cars[0]">Car park:</h2>
 <div >
   <div class="car" *ngFor="let car of user?.cars">
     <mat-icon class="car-icon">directions_car</mat-icon>

@@ -33,5 +33,14 @@ export class TripComponent implements OnInit {
   setRatingBooking(mark: number, driveId: number){
    this.ratingToDriver.emit({mark, driveId});
   }
+  hasDrives(archieved: boolean) {
+    return this.drives && this.drives.filter((drive) => drive.archive === archieved).length;
+  }
+  emptyDriveList() {
+   return this.drives === null || this.drives.length === 0;
+  }
+  goToMain() {
+   this.router.navigate(['/main']);
+  }
 
 }

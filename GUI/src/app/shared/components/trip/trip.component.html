@@ -1,6 +1,10 @@
 <h2 class="my-bookings" *ngIf="!ifProposed">My bookings</h2>
 <h2 class="my-bookings" *ngIf="ifProposed">Proposed trips</h2>
-<h3 class="label">Upcoming trips</h3>
+<div *ngIf="emptyDriveList()" class="emptyList">
+  <p>You don't have any trips. Create your first route or book a trip.</p>
+  <button mat-flat-button color="warn" (click)="goToMain()">Main</button>
+</div>
+<h3 class="label" *ngIf="hasDrives(false)">Upcoming trips</h3>
 <div *ngFor="let drive of drives">
   <div *ngIf="!drive.archive" class="trips-container">
     <div class="trip">
@@ -63,7 +67,7 @@
     </div>
   </div>
 </div>
-<h3 class="label">Archive</h3>
+<h3 class="label" *ngIf="hasDrives(true)">Archive</h3>
 <div *ngFor="let drive of drives">
   <div *ngIf="drive.archive" class="trips-container">
     <div class="trip">

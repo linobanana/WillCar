@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Router} from '@angular/router';
 import {MENU_ITEMS} from '../../../constants/menu-items';
 import {ProfileApiService} from '../../../api/profile/profile.api.service';
 import {UserService} from '../../user/user.service';
-import {IS_ADMIN} from '../../../constants/common';
+import {User} from '../../../types/common';
 
 @Component({
   selector: 'app-menu',
@@ -11,9 +11,15 @@ import {IS_ADMIN} from '../../../constants/common';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent {
+  @Input() user: User;
   menuItems = MENU_ITEMS;
+  isAdmin = false;
 
   constructor(private router: Router, private profileApiService: ProfileApiService, private userService: UserService) {
+    this.user = this.userService.user;
+    if (this.user.roles.indexOf("ADMIN") != -1) {
+      this.isAdmin = true;
+    }
   }
   goToProfile() {
     this.router.navigate(['/personalarea/', 'profile' ], );
@@ -35,7 +41,6 @@ export class MenuComponent {
       .subscribe(data =>
         console.log(data));
   }
-  isAdmin = IS_ADMIN;
 }
 
 
