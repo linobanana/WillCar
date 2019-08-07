@@ -7,9 +7,14 @@ import com.exadel.carpoolfree.model.view.UserForAdminVO;
 import com.exadel.carpoolfree.model.view.UserVO;
 import com.exadel.carpoolfree.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,19 +43,70 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public Set<UserForAdminVO> findAllUsersByMonth(final String stTime, final String finTime) {
+        List<DriveVO> driveVOList = driveService.findAllByDateRange(stTime, finTime);
+        List<Long> driversId = new ArrayList<>();
+        for (DriveVO id : driveVOList) {
+            driversId.add(id.getDriver().getId());
+        }
+        Set<UserForAdminVO> drivers = new HashSet<>();
+        for (Long usersId : driversId) {
+            drivers.add(convertToAdminVO(userRepository.findById(usersId).get()));
+        }
+        for (UserForAdminVO driver1 : drivers) {
+            List<DriveVO> drives = driveService.findAllByUserId(driver1.getId());
+            driver1.setDrives(drives);
+        }
+
+        return drivers;
+    }
+
+
+
     public UserVO findById(final Long id) {
         return convertToVO(userRepository.findById(id).get());
     }
 
+    public UserVO findCurrentUser() {
+        SecurityContext context = SecurityContextHolder.getContext();
+
+        String login = context.getAuthentication().getName();
+        if (!login.isEmpty()) {
+            return convertToVO(userRepository.findByLogin(login));
+        } else {
+            return convertToVO(userRepository.findByLogin("aliko"));
+        }
+    }
+
+
+    public UserVO findUserByLogin() {
+        SecurityContext context = SecurityContextHolder.getContext();
+        String login = context.getAuthentication().getName();
+        return convertToVO(userRepository.findByLogin(login));
+    }
+
 
     public UserVO updateUser(User user) {
-        return userRepository.findById(user.getId())
-                .map(user1 -> {
-                    user1.setPrefCommunication(user.getPrefCommunication());
-                    return convertToVO(userRepository.save(user1));
-                })
-                .orElseThrow((() -> new RuntimeException("User not found")));
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        String login = securityContext.getAuthentication().getName();
+        User checkUser = userRepository.findByLogin(login);
+        if (user.getId() == checkUser.getId()) {
+            return userRepository.findById(user.getId())
+                    .map(user1 -> {
+                        user1.setPrefCommunication(user.getPrefCommunication());
+                        return convertToVO(userRepository.save(user1));
+                    })
+                    .orElseThrow((() -> new RuntimeException("User not found")));
+        } else {
+            throw new RuntimeException("Incorrect request");
+        }
     }
+
+    public UserVO findUserByLogin(String login) {
+        User user = userRepository.findByLogin(login);
+        return convertToVO(user);
+    }
+
 
     private UserVO convertToVO(User user) {
         UserVO userVO = modelMapper.map(user, UserVO.class);

@@ -3,6 +3,7 @@ package com.exadel.carpoolfree.controller;
 import com.exadel.carpoolfree.model.User;
 import com.exadel.carpoolfree.model.view.UserForAdminVO;
 import com.exadel.carpoolfree.model.view.UserVO;
+import com.exadel.carpoolfree.service.NewDetails;
 import com.exadel.carpoolfree.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/users")
@@ -24,13 +26,26 @@ public class UserController {
     }
 
     @GetMapping()
-    public List<UserForAdminVO> getAllUsers() {
-        return userService.findAllUsers();
+    public UserVO getCurrentUser() {
+        return userService.findCurrentUser();
     }
 
-    @GetMapping("/{id}")
-    public UserVO getById(final @PathVariable Long id) {
-        return userService.findById(id);
+    @GetMapping("/admin/startTime/{startTime}/finTime/{finTime}")
+    public Set<UserForAdminVO> getAllUsersByMonth(final @PathVariable String startTime,
+                                                  final @PathVariable String finTime) {
+        return userService.findAllUsersByMonth(startTime, finTime);
+    }
+
+    @GetMapping("/changeRole/{role}")
+    public boolean updateRole(final @PathVariable String role) {
+        NewDetails newDetails = new NewDetails(userService);
+        newDetails.updateRole(role);
+        return true;
+    }
+
+    @GetMapping("/admin")
+    public List<UserForAdminVO> getAllUsers() {
+        return userService.findAllUsers();
     }
 
     @PutMapping()

@@ -21,6 +21,7 @@ import {ChatModule} from "./pages/personal-area/chat/chat.module";
 import {ToastrModule} from "ngx-toastr";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AdminModule} from './pages/personal-area/admin-tab/admin.module';
+import {MainEditModule} from './pages/main-edit/main-edit.module';
 
 
 @NgModule({
@@ -35,7 +36,6 @@ import {AdminModule} from './pages/personal-area/admin-tab/admin.module';
     MainModule,
     HeaderModule,
     FooterModule,
-    AuthorizationPageModule,
     ConfirmationModule,
     BookingConfirmationModule,
     FooterModule,
@@ -47,6 +47,8 @@ import {AdminModule} from './pages/personal-area/admin-tab/admin.module';
     AdminModule,
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
+    MainEditModule
     ReactiveFormsModule,
     BrowserModule,
     FormsModule,

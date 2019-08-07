@@ -74,6 +74,15 @@ public class DriveService {
                 .collect(Collectors.toList());
     }
 
+    public List<DriveVO> findAllByDateRange(final String stTime, final String finTime) {
+        LocalDateTime startTime = LocalDateTime.parse(stTime, DateTimeFormatter.ISO_DATE_TIME);
+        LocalDateTime finalTime = LocalDateTime.parse(finTime, DateTimeFormatter.ISO_DATE_TIME);
+        List<Drive> drives = driveRepository.findAllDriveInDateRange(startTime, finalTime);
+        return drives.stream()
+                .map(drive -> convertToVO(drive))
+                .collect(Collectors.toList());
+    }
+
     public List<DriveVO> findAllByDriverId(final Long driverId) {
          List<PassengerDrive> passengerDriveList = passengerDriveRepository.findAllByDriverId(driverId);
         Map<Drive, List<PassengerDrive>> driveListMap

@@ -3,14 +3,11 @@ package com.exadel.carpoolfree.controller;
 import com.exadel.carpoolfree.model.Car;
 import com.exadel.carpoolfree.repository.CarRepository;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 
 @RestController
@@ -23,10 +20,10 @@ public class CarController {
         this.carRepository = carRepository;
     }
 
-    @GetMapping("/userId/{userId}")
-    public List<Car> getAllCars(@PathVariable Long userId) {
-        return carRepository.findAllByUserId(userId);
-    }
+//    @GetMapping("/userId/{userId}")
+//    public List<Car> getAllCars(@PathVariable Long userId) {
+//        return carRepository.findAllByUserId(userId);
+//    }
 
     @PostMapping()
     public Car addCar(@RequestBody Car car) {

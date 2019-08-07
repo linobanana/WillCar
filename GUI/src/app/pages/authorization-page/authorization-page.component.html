@@ -1,9 +1,0 @@
-<div class="form-container">
-  <form class="authorization-form" [formGroup]="authorizationForm">
-    <h2 class="form-label">{{authorizationLabels.label}}</h2>
-    <input type="text" id="login-field" placeholder="{{authorizationLabels.userLogin}}" formControlName="login"/>
-    <input type="password" id="password-field" placeholder="{{authorizationLabels.userPassword}}" formControlName="password" />
-    <div class="error" *ngIf="!isAuthorized">The username or password you entered is incorrect</div>
-    <button type="submit" (click)="goToMain(authorizationForm.value)" [disabled]="!authorizationForm.valid" class="submit-button">{{authorizationLabels.enterButton}}</button>
-  </form>
-</div>

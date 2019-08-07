@@ -1,6 +1,8 @@
 package com.exadel.carpoolfree.config;
 
+import com.exadel.carpoolfree.model.view.UserVO;
 import com.exadel.carpoolfree.service.UserDetailsServiceImpl;
+import com.exadel.carpoolfree.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -23,11 +25,17 @@ import java.io.IOException;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    private final UserService userService;
+
+    public WebSecurityConfig(UserService userService) {
+        this.userService = userService;
+    }
 
     @Bean
     public UserDetailsService userDetailsService() {
         return new UserDetailsServiceImpl();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -39,10 +47,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/api/passenger/**").hasAuthority("PASSENGER") //Test Controller
-                .antMatchers("/api/admin/**").hasAuthority("ADMIN") //Test Controller
-                .antMatchers("/api/driver/**").hasAuthority("DRIVER") //Test Controller
+                .antMatchers("/api/users/admin").hasAuthority("ADMIN")
+                .antMatchers("/api/users").authenticated()
+                .antMatchers("/api/drive/userId/{userId}").authenticated()
+                .antMatchers("/api/drive/driver/**").hasAuthority("DRIVER")
+                .antMatchers("/api/drive/passenger/**").hasAuthority("PASSENGER")
+                .antMatchers("/api/socket/**").authenticated()
+                .antMatchers("/api/car/**").authenticated()
+                .antMatchers("/api/passengerDrive/passenger/**").hasAuthority("PASSENGER")
+                .antMatchers("/api/passengerDrive/driver/**").hasAuthority("DRIVER")
                 .antMatchers("/main").authenticated()
                 .anyRequest().permitAll()
                 .and()
@@ -52,10 +65,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
+                .logoutSuccessUrl("/login")
                 .permitAll()
         ;
         http.headers().frameOptions().disable();
     }
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -68,13 +83,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
                                                 HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
 
+
                 SecurityContext context = SecurityContextHolder.getContext();
+
                 httpServletResponse.setStatus(200);
-                //httpServletResponse.sendRedirect("/login");
+
                 httpServletResponse.getWriter().println(context.getAuthentication().getName());
                 httpServletResponse.getWriter().println(context.getAuthentication().getAuthorities());
 
+                String login = context.getAuthentication().getName();
+                UserVO userVO = userService.findUserByLogin(login);
+
+                httpServletResponse.getWriter().println(userVO);
                 httpServletResponse.addHeader(context.getAuthentication().getName(), context.getAuthentication().getAuthorities().toString());
+
+                httpServletResponse.sendRedirect("/main");
             }
         };
     }

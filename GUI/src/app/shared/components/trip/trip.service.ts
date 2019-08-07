@@ -117,5 +117,6 @@ export class TripService {
       console.error(error);
     });;
   }
+
 }
 
