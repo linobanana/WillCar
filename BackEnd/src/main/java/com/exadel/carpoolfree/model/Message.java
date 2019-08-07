@@ -43,6 +43,7 @@ public class Message {
     @Column(name = "is_notify")
     private boolean notify = false;
 
+
     public Message(String message, Long driveId, String time, User user, boolean notify) {
         this.message = message;
         this.driveId = driveId;
@@ -57,5 +58,13 @@ public class Message {
         this.time = time;
         this.user = user;
         this.notify = notify;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
     }
 }

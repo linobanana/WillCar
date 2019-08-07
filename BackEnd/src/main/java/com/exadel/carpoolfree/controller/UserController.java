@@ -25,9 +25,9 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping()
-    public UserVO getCurrentUser() {
-        return userService.findCurrentUser();
+    @GetMapping("/{id}")
+    public UserVO getById(final @PathVariable Long id){
+        return userService.findById(id);
     }
 
     @GetMapping("/admin/startTime/{startTime}/finTime/{finTime}")
@@ -36,11 +36,9 @@ public class UserController {
         return userService.findAllUsersByMonth(startTime, finTime);
     }
 
-    @GetMapping("/changeRole/{role}")
-    public boolean updateRole(final @PathVariable String role) {
-        NewDetails newDetails = new NewDetails(userService);
-        newDetails.updateRole(role);
-        return true;
+    @GetMapping()
+    public UserVO getCurrentUser() {
+        return userService.findCurrentUser();
     }
 
     @GetMapping("/admin")

@@ -85,6 +85,7 @@ VALUES ('1', 'DRIVER'),
        ('5', 'PASSENGER'),
        ('6', 'PASSENGER'),
        ('6', 'ADMIN'),
+       ('6', 'DRIVER'),
        ('7', 'PASSENGER'),
        ('8', 'PASSENGER'),
        ('9', 'PASSENGER');

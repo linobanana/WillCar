@@ -17,11 +17,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -65,12 +68,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
-                .logoutSuccessUrl("/login")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 .permitAll()
         ;
         http.headers().frameOptions().disable();
     }
 
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web
+//                .ignoring()
+//                .antMatchers("/static/**");
+//    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -94,6 +104,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 String login = context.getAuthentication().getName();
                 UserVO userVO = userService.findUserByLogin(login);
 
+                System.out.println(userVO);
                 httpServletResponse.getWriter().println(userVO);
                 httpServletResponse.addHeader(context.getAuthentication().getName(), context.getAuthentication().getAuthorities().toString());
 

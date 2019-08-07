@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MENU_ITEMS} from '../../constants/menu-items';
 import {Router} from "@angular/router";
-import {IS_ADMIN} from '../../constants/common';
 import {ProfileApiService} from '../../api/profile/profile.api.service';
+import {User} from '../../types/common';
+import {UserService} from '../user/user.service';
 
 
 @Component({
@@ -11,11 +12,16 @@ import {ProfileApiService} from '../../api/profile/profile.api.service';
   styleUrls: ['./profile-menu.component.scss']
 })
 export class ProfileMenuComponent implements OnInit {
-
+  @Input() user: User;
   profileNavItems = MENU_ITEMS;
-  isAdmin = IS_ADMIN;
+  isAdmin = false;
 
-  constructor(private router: Router, private profileApiService: ProfileApiService) { }
+  constructor(private router: Router, private profileApiService: ProfileApiService, private userService: UserService) {
+    this.user = this.userService.user;
+    if (this.user.roles.indexOf("ADMIN") != -1) {
+      this.isAdmin = true;
+    }
+  }
   goToProfile() {
     this.router.navigate(['/personalarea/', 'profile' ], );
   }
@@ -40,6 +46,6 @@ export class ProfileMenuComponent implements OnInit {
   //     });
   // }
   ngOnInit() {
-  }
 
+  }
 }

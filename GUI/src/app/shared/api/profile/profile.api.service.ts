@@ -19,8 +19,7 @@ export class ProfileApiService extends ApiService {
       points: response.points,
       drives: response.drives,
       pickUpPoint: response.pickUpPoint,
-      numOfKm: response.numOfKm,
-      currentRole: 'PASSENGER'
+      numOfKm: response.numOfKm
     }
   }
 

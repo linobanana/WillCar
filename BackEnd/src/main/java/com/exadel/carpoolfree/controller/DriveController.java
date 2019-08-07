@@ -45,16 +45,16 @@ public class DriveController {
 
     @GetMapping("/userId/{userId}")
     private List<DriveVO> findAllByUserId(final @PathVariable Long userId) {
-        SecurityContext context = SecurityContextHolder.getContext();
+       /* SecurityContext context = SecurityContextHolder.getContext();
         String login = context.getAuthentication().getName();
-        Long id = userService.findUserByLogin(login).getId();
+        Long id = userService.findUserByLogin(login).getId();*/
 
-        if (userId == id) {
+       /* if (userId == id) {*/
             List<DriveVO> result = driveService.findAllByUserId(userId);
             return result;
-        } else {
+      /*  } else {
             throw new RuntimeException("Incorrect userId");
-        }
+        }*/
     }
 
     @GetMapping("/driver/driverId/{driverId}")
@@ -65,16 +65,16 @@ public class DriveController {
 
     @GetMapping("/passenger/passengerId/{passengerId}")
     private List<DriveVO> findAllByPassengerId(final @PathVariable Long passengerId) {
-        SecurityContext context = SecurityContextHolder.getContext();
+        /*SecurityContext context = SecurityContextHolder.getContext();
         String login = context.getAuthentication().getName();
         Long id = userService.findUserByLogin(login).getId();
-        if (passengerId == id) {
+        if (passengerId == id) {*/
 
             List<DriveVO> result = driveService.findAllByPassengerId(passengerId);
             return result;
-        } else {
+        /*} else {
             throw new RuntimeException("Incorrect userId");
-        }
+        }*/
     }
 
     @PostMapping("/passenger/points")

@@ -151,5 +151,3 @@ public class UserVO {
         this.photoUrl = photoUrl;
     }
 }
-
-

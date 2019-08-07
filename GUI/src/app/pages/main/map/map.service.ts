@@ -8,6 +8,7 @@ import {Drive, options} from "../../../shared/types/common";
 import {User} from "../../../shared/types/common";
 import {stringify} from "querystring";
 import {END_STRING, START_STRING} from "../../../shared/constants/common";
+import {Router} from '@angular/router';
 
 declare var ymaps: any;
 
@@ -57,7 +58,7 @@ export class MapService {
   private duration: number;
   private drives: Drive[] = [];
 
-  constructor(private mapApi: MapApiService) {
+  constructor(private mapApi: MapApiService, private router: Router) {
   }
 
   public initRelationMwithYForRightMenu(MenuInfo: FormGroup) {
@@ -279,7 +280,9 @@ export class MapService {
     console.log('-------------');
     this.mapApi.postDrive(this.drive)
       .subscribe((data) => {
-        console.log(data);
+        if (data!=null) {
+          this.router.navigate(['/success-create']);
+        }
       });
   }
   private getEndTime(startime: string):string {

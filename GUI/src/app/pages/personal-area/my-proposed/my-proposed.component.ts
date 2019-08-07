@@ -12,7 +12,7 @@ import {UserService} from "../../../shared/components/user/user.service";
 export class MyProposedComponent implements OnInit {
   drives$: Observable<Drive[]>;
   constructor(private tripService: TripService, private userService: UserService) {
-    tripService.getProposedDrives(/*this.userService.user.id*/1).then(()=>
+    tripService.getProposedDrives(this.userService.user.id).then(()=>
       this.drives$ = tripService.proposedSubject);
   }
 

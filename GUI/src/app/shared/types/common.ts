@@ -9,7 +9,7 @@ export class User {
   id: number;
   login: string;
   password:string;
-  //roles: Role[];
+  roles: [];
   name: string;
   email: string;
   phoneNumber: string;
@@ -21,7 +21,7 @@ export class User {
   mark: number;
   points: number;
   drives: Drive[];
-  pickUpPoint: [number,number];
+  pickUpPoint: any;
   //numOfKm: number;
 }
 export class Drive {

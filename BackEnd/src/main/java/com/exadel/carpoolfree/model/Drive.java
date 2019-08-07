@@ -77,4 +77,12 @@ public class Drive {
         this.startPoint = startPoint;
         this.finPoint = finPoint;
     }
+
+    public boolean isArchive() {
+        return archive;
+    }
+
+    public void setArchive(boolean archive) {
+        this.archive = archive;
+    }
 }

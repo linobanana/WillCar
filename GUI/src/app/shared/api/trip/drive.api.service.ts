@@ -30,27 +30,27 @@ export class DriveApiService extends ApiService{
   }
 
   getProposedDrives(id) {
-    return super.get(`api/drive/driverId/${id}`, DriveApiService.mapDrives);
+    return super.get(`api/drive/driver/driverId/${id}`, DriveApiService.mapDrives);
   }
 
   getBookedDrives(id) {
-    return super.get(`api/drive/passengerId/${id}`, DriveApiService.mapDrives);
+    return super.get(`api/drive/passenger/passengerId/${id}`, DriveApiService.mapDrives);
   }
 
   canselDrive(id) {
-    return super.delete(`api/drive/${id}`, {id});
+    return super.delete(`api/drive/driver/${id}`, {id});
   }
 
   canselPassengerDrive(driveId, id){
-    return super.delete(`api/passenger/${id}/driveId/${driveId}`, {id});
+    return super.delete(`api/passengerDrive/passenger/${id}/driveId/${driveId}`, {id});
   }
 
   setRatingToDriver(markObject){
-    return super.post(`api/passenger/markToDriver`,markObject,DriveApiService.simpleResponse);
+    return super.post(`api/passengerDrive/passenger/markToDriver`,markObject,DriveApiService.simpleResponse);
   }
 
   setRatingToPassenger(markObject){
-    return super.post(`api/passenger/markToPassenger`, markObject,DriveApiService.simpleResponse);
+    return super.post(`api/passengerDrive/driver/markToPassenger`, markObject,DriveApiService.simpleResponse);
   }
 
   private static simpleResponse(response: any) {

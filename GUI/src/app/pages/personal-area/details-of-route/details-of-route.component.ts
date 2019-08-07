@@ -6,6 +6,7 @@ import {MapService} from "../../main/map/map.service";
 import {promise} from "selenium-webdriver";
 import {Router} from "@angular/router";
 import {take} from "rxjs/operators";
+import {MiniMapComponent} from './mini-map/mini-map.component';
 
 @Component({
   selector: 'app-details-of-route',
@@ -48,14 +49,11 @@ export class DetailsOfRouteComponent implements OnInit {
     error => {console.log(error); });
   }
 
-
-
-  public redirectToProposedOrBookings() {
+  public backToPreviousTab() {
     if (!this.ifProposed) {
       this.router.navigate(['/personalarea/mybookings']);
     } else {
-this.router.navigate(['/personalarea/myproposed']);
+      this.router.navigate(['/personalarea/myproposed']);
     }
   }
-
 }
