@@ -325,7 +325,7 @@ export class MapService {
       });
       geolocation.get({
         provider: 'browser',
-        mapStateAutoApply: true
+        // mapStateAutoApply: true
       }).then(function(result) {
         result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
         self.map.geoObjects.add(result.geoObjects);
