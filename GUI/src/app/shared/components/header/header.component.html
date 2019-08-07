@@ -4,13 +4,22 @@
       <p class="role-toggle">
         Passenger
       </p>
-      <mat-slide-toggle color="warn" (click)="changeDriverState()">
+      <mat-slide-toggle *ngIf= "!driverState" color="warn" (click)="changeDriverState()">
+      </mat-slide-toggle>
+      <mat-slide-toggle *ngIf= "driverState" color="warn" (click)="changeDriverState()" checked>
       </mat-slide-toggle>
       <p class="role-toggle">
         Driver
       </p>
     </div>
-    <img src="../../../assets/logo.png" alt="Logo" class="logo" (click)="goToMain()" />
+    <div *ngIf="!router.url.includes('main')" class="main-btn" (click)="goToMain()">
+        <span class="hint--right hint--error" aria-label="Main">
+          <mat-icon>
+          arrow_back_ios
+          </mat-icon>
+        </span>
+    </div>
+    <img src="../../../../assets/logo.png" alt="Logo" class="logo" (click)="goToMain()" />
     <app-menu class="app-menu" *ngIf="router.url.includes('main')">
     </app-menu>
   </div>

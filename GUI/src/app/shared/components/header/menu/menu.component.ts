@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {Router} from '@angular/router';
 import {MENU_ITEMS} from '../../../constants/menu-items';
+import {ProfileApiService} from '../../../api/profile/profile.api.service';
+import {UserService} from '../../user/user.service';
 import {IS_ADMIN} from '../../../constants/common';
 
 @Component({
@@ -9,7 +11,10 @@ import {IS_ADMIN} from '../../../constants/common';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent {
-  constructor(private router: Router ) {}
+  menuItems = MENU_ITEMS;
+
+  constructor(private router: Router, private profileApiService: ProfileApiService, private userService: UserService) {
+  }
   goToProfile() {
     this.router.navigate(['/personalarea/', 'profile' ], );
   }
@@ -22,14 +27,14 @@ export class MenuComponent {
   goToMyMessages() {
     this.router.navigate(['/personalarea/', 'chat']);
   }
-  goToAuthirization() {
-    this.router.navigate(['/authorization']);
-  }
   goToAdminTab() {
     this.router.navigate(['/personalarea/', 'admin-tab']);
   }
-
-  menuItems = MENU_ITEMS;
+  // logOut(): void {
+  //   this.profileApiService.logOut()
+  //     .subscribe(data =>
+  //       console.log(data));
+  // }
   isAdmin = IS_ADMIN;
 }
 

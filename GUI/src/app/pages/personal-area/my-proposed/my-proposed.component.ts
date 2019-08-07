@@ -18,9 +18,9 @@ export class MyProposedComponent implements OnInit {
 
   ngOnInit() {
   }
-onCancelTrip(drive: Drive) {
-  this.tripService.cancelTrip(drive);
-}
+  onCancelTrip(drive: Drive) {
+    this.tripService.cancelTrip(drive);
+  }
   onEditTrip(drive: Drive) {
     this.tripService.cancelTrip(drive);
   }

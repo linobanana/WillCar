@@ -3,7 +3,13 @@
   <div class="profile-info">
     <div class="photo-container">
       <img class="photo" src="http://telegram-downloads.ru/wp-content/uploads/2016/10/2-12.png">
-      <h2>{{profileLabels.rating}} {{user.driverRating}} <mat-icon>grade</mat-icon></h2>
+      <h2 class="user-rating">
+        {{profileLabels.rating}}
+        <p class="rate">{{user.driverRating}}
+          <span class="hint--bottom hint--info" aria-label="Diver rating"><mat-icon>grade</mat-icon></span></p>
+        <p class="rate">{{user.passengerRating}}
+          <span class="hint--bottom hint--info" aria-label="Passenger rating"><mat-icon>sentiment_very_satisfied</mat-icon></span></p>
+      </h2>
     </div>
     <div class="personal-data">
       <h1>{{user.name}}</h1>

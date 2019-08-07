@@ -10,12 +10,8 @@ import {MyProposedRoutes} from "./my-proposed/my-proposed.routes";
 import {ProfileRoutes} from "./profile/profile.routes";
 import {ChatRoutes} from "./chat/chat.routes";
 import {ChatModule} from "./chat/chat.module";
-import { AdminComponent } from './admin-tab/admin.component';
 import {AdminRoutes} from './admin-tab/admin.routes';
 import {AdminModule} from './admin-tab/admin.module';
-import { DetailsOfRouteComponent } from './details-of-route/details-of-route.component';
-import { MiniMapComponent } from './details-of-route/mini-map/mini-map.component';
-import {AppModule} from "../../app.module";
 import {DetailsOfRouteRoutes} from "./details-of-route/details-of-route.routes";
 import {DetailsOfRouteModule} from "./details-of-route/details-of-route.module";
 
@@ -46,8 +42,8 @@ const personalAreaRotes: Routes = [
     ProfileMenuModule,
     AdminModule,
     ChatModule,
-    DetailsOfRouteModule,
     RouterModule.forChild(personalAreaRotes),
+    DetailsOfRouteModule
   ],
   declarations: [
     PersonalAreaComponent,

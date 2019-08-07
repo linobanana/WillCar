@@ -25,6 +25,7 @@ export class ProfileComponent implements OnInit {
 
   onAddCar(car: Car) {
     this.userService.addCar(car);
+
   }
 
   onDeleteCar(car: Car) {

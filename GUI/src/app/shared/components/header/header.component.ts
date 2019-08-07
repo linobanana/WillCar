@@ -6,7 +6,7 @@ import {MapService} from "../../../pages/main/map/map.service";
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
   public driverState: boolean;
@@ -30,4 +30,5 @@ export class HeaderComponent implements OnInit {
       this.driverState = state;
     });
   }
+  isPassenger
 }

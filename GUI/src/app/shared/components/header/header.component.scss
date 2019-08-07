@@ -36,6 +36,17 @@
   font-size: 1.6em;
 }
 
+.main-btn {
+  margin-left: 7%;
+  cursor: pointer;
+  ::ng-deep {
+    .material-icons {
+      font-size: 3em;
+      color: white;
+    }
+  }
+}
+
 @media screen and (max-width: 414px) {
   .header-container {
     width: 100%;
@@ -46,6 +57,15 @@
   }
   .page-header {
     height: 3rem;
+  }
+  .main-btn {
+    margin-left: 5%;
+    cursor: pointer;
+    ::ng-deep {
+      .material-icons {
+        font-size: 2.5em;
+      }
+    }
   }
 }
 

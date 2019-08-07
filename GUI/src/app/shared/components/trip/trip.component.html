@@ -1,86 +1,3 @@
-<!--<h2 class="my-bookings" *ngIf="!ifProposed">My bookings</h2>
-<h2 class="my-bookings" *ngIf="ifProposed">Proposed trips</h2>
-<h3 class="label">Upcoming trips</h3>
-<div *ngFor="let drive of drives">
-  <div *ngIf="!drive.archive" class="trips-container">
-    <img class="route-shot" src="https://img.tyt.by/n/it/01/9/screenshot_20180221-yandex_transport.jpg"/>
-    <div class="trip">
-      <div class="field">
-        <mat-icon>date_range</mat-icon>
-        {{drive.startTime}}</div>
-      <div class="field">
-        <mat-icon>access_time</mat-icon>
-        {{drive.endTime}}</div>
-      <div class="field">
-        <mat-icon>gesture</mat-icon>
-        {{drive.name}}</div>
-      <div class="field" *ngIf="!ifProposed">
-        <mat-icon>where_to_vote</mat-icon>
-        {{drive.name}}
-      </div>
-      <div class="field" *ngIf="!ifProposed">
-        <mat-icon>directions_car</mat-icon>
-        {{car.model}} {{car.number}} {{car.color}}</div>
-      <div class="field" *ngIf="!ifProposed">
-        <mat-icon>person_outline</mat-icon>
-        {{drive.driver.name}} <a href="tel:{{drive.driver.phoneNumber}}">{{drive.driver.phoneNumber}}</a> {{drive.driver.prefCommunication}}</div>
-      <div class="field" *ngIf="ifProposed">
-        <mat-icon>accessibility_new</mat-icon>
-        {{drive.freePlaceCount}}</div>
-      <div *ngIf="ifProposed" class="passengers">
-        <mat-list *ngFor="let passenger of drive.passengers">
-          <mat-list-item>{{passenger.name}}</mat-list-item>
-          <mat-divider></mat-divider>
-        </mat-list>
-      </div>
-      <div class="btn">
-        <button mat-stroked-button color="warn" *ngIf="ifProposed" (click)="editDrive.emit(drive)">Edit</button>
-        <button mat-stroked-button color="warn" *ngIf="ifProposed"(click)="cancelDrive.emit(drive)">Cancel</button>
-        <button mat-stroked-button color="warn" *ngIf="!ifProposed"(click)="cancelPassengerDrive.emit(drive)">Cancel</button>
-      </div>
-      <button (click)="moreInfo(trip)"> more information</button>
-    </div>
-  </div>
-</div>
-<h3 class="label">Archive</h3>
-<div *ngFor="let drive of drives">
-  <div *ngIf="drive.archive" class="trips-container">
-    <img class="route-shot" src="https://img.tyt.by/n/it/01/9/screenshot_20180221-yandex_transport.jpg"/>
-    <div class="trip">
-      <div class="field">
-        <mat-icon>date_range</mat-icon>
-        {{drive.startTime}}</div>
-      <div class="field">
-        <mat-icon>access_time</mat-icon>
-        {{drive.endTime}}</div>
-      <div class="field">
-        <mat-icon>gesture</mat-icon>
-        {{drive.name}}</div>
-      <div class="field" *ngIf="!ifProposed">
-        <mat-icon>where_to_vote</mat-icon>
-        {{drive.name}}
-      </div>
-      <div class="field" *ngIf="!ifProposed">
-        <mat-icon>directions_car</mat-icon>
-        {{car.model}} {{car.number}} {{car.color}}</div>
-      <div class="field" *ngIf="!ifProposed">
-        <mat-icon>person_outline</mat-icon>
-        {{drive.driver.name}} <a href="tel:{{drive.driver.phoneNumber}}">{{drive.driver.phoneNumber}}</a>
-        <app-rating (onSetRating)="setRatingBooking($event, drive.id)" [rating]="drive.driver.mark"></app-rating>
-      </div>
-      <div class="field" *ngIf="ifProposed">
-        <mat-icon>accessibility_new</mat-icon>
-        {{drive.freePlaceCount}}</div>
-      <div *ngIf="ifProposed" class="passengers">
-        <mat-list *ngFor="let passenger of drive.passengers">
-          <mat-list-item>{{passenger.name}}</mat-list-item>
-           <app-rating (onSetRating)="setRating($event, passenger.id,drive.id)" [rating]="passenger.mark"></app-rating>
-          <mat-divider></mat-divider>
-        </mat-list>
-      </div>
-    </div>
-  </div>
-</div>-->
 <h2 class="my-bookings" *ngIf="!ifProposed">My bookings</h2>
 <h2 class="my-bookings" *ngIf="ifProposed">Proposed trips</h2>
 <h3 class="label">Upcoming trips</h3>
@@ -133,9 +50,6 @@
                 <mat-divider></mat-divider>
               </mat-list>
             </div>
-            <mat-list-item *ngIf="ifProposed" class="all-points">
-              Show all pick up points
-            </mat-list-item>
           </mat-list>
 
           <mat-action-row>

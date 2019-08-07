@@ -5,14 +5,15 @@ import {TripModule} from '../../../shared/components/trip/trip.module';
 import {DetailsOfRouteComponent} from "./details-of-route.component";
 import {InfoRouteModule} from "../../../shared/components/info-route/info-route.module";
 import {MiniMapModule} from "./mini-map/mini-map.module";
-import {MiniMapComponent} from "./mini-map/mini-map.component";
+import {MatButtonModule} from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     TripModule,
     InfoRouteModule,
-    MiniMapModule
+    MiniMapModule,
+    MatButtonModule
   ],
   providers: [
     TripService

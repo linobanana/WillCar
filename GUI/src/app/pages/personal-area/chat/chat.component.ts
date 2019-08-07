@@ -5,8 +5,9 @@ import * as SockJS from 'sockjs-client';
 import { environment } from '../../../../environments/environment';
 import { SocketService } from '../../../shared/api/chat/socket.service';
 import { ToastrService } from 'ngx-toastr';
-import {Car, Message, Drive, User} from "../../../shared/types/common";
-import {USER} from "../../../shared/mocks/user.mocks";
+import { Message, Drive, User} from "../../../shared/types/common";
+import {UserService} from '../../../shared/components/user/user.service';
+import {DriveApiService} from '../../../shared/api/trip/drive.api.service';
 
 
 @Component({
@@ -26,9 +27,9 @@ export class ChatComponent implements OnInit {
   user: User;
   currentDrive: Drive;
 
-  constructor(private socketService: SocketService, private toastr: ToastrService
+  constructor(private socketService: SocketService, private toastr: ToastrService, private userService: UserService, private driveService: DriveApiService
   ) {
-    this.user = USER;
+    this.user = this.userService.user;
     this.socketService.getDrives(this.user.id)
       .subscribe((drives) => {
           this._drives = drives;
@@ -104,6 +105,7 @@ export class ChatComponent implements OnInit {
       let temp = this.drives.findIndex((element) => {
         return element.id == messageResult.driveId;
       });
+      messageResult.user.name = this.userService.user.name;
       this.drives[temp].messages.push(messageResult);
       this.form.reset(" ");
       this.toastr.success("new message recieved", null, {
