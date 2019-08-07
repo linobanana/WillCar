@@ -54,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/drive/driver/**").hasAuthority("DRIVER")
                 .antMatchers("/api/drive/passenger/**").hasAuthority("PASSENGER")
                 .antMatchers("/api/socket/**").authenticated()
-                .antMatchers("/api/car/driver/**").hasAuthority("DRIVER")
+                .antMatchers("/api/car/**").authenticated()
                 .antMatchers("/api/passengerDrive/passenger/**").hasAuthority("PASSENGER")
                 .antMatchers("/api/passengerDrive/driver/**").hasAuthority("DRIVER")
                 .antMatchers("/main").authenticated()
@@ -72,12 +72,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
     }
 
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web
-//                .ignoring()
-//                .antMatchers("/static/**");
-//    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -101,7 +95,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 String login = context.getAuthentication().getName();
                 UserVO userVO = userService.findUserByLogin(login);
 
-                System.out.println(userVO);
                 httpServletResponse.getWriter().println(userVO);
                 httpServletResponse.addHeader(context.getAuthentication().getName(), context.getAuthentication().getAuthorities().toString());
 

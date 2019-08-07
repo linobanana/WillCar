@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api/car/driver")
+@RequestMapping("/api/car")
 public class CarController {
 
     private final CarRepository carRepository;
