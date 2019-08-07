@@ -1,10 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {AdminComponent} from './admin.component';
-import {MatSortModule} from '@angular/material';
+import {
+  MatButtonModule, MatCardModule,
+  MatCheckboxModule, MatDatepickerModule,
+  MatFormFieldModule, MatInputModule, MatNativeDateModule,
+  MatSortModule,
+} from '@angular/material';
 import {MatTableModule} from '@angular/material';
 import {MatIconModule} from '@angular/material';
 import {ProfileApiService} from '../../../shared/api/profile/profile.api.service';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
 
 
 
@@ -14,7 +22,19 @@ import {ProfileApiService} from '../../../shared/api/profile/profile.api.service
     CommonModule,
     MatSortModule,
     MatTableModule,
-    MatIconModule
+    MatIconModule,
+    MatFormFieldModule,
+    CommonModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    ReactiveFormsModule,
+    BrowserModule,
+    MatNativeDateModule,
+    FormsModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatCardModule
   ],
   exports: [
     AdminComponent

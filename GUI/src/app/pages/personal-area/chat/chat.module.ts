@@ -3,14 +3,15 @@ import {CommonModule} from '@angular/common';
 import {ChatComponent} from "./chat.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {SocketService} from "../../../shared/api/chat/socket.service";
-import {MatButtonModule, MatCardModule} from '@angular/material';
+import {MatButtonModule, MatCardModule, MatIconModule} from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatIconModule
   ],
   providers: [
     SocketService
