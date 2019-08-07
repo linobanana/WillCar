@@ -48,8 +48,6 @@
               <mat-list *ngFor="let passenger of drive.passengers">
                 <mat-list-item>
                   {{passenger.name}}
-                  <mat-icon>where_to_vote</mat-icon>
-                  <a>Show pick up point</a>
                 </mat-list-item>
                 <mat-divider></mat-divider>
               </mat-list>
@@ -85,7 +83,7 @@
           <mat-list role="list">
             <mat-list-item role="listitem" *ngIf="!ifProposed">
               <mat-icon>directions_car</mat-icon>
-              {{car.model}} {{car.number}} {{car.color}}
+              {{drive.driver.cars[0].model}} {{drive.driver.cars[0].number}} {{drive.driver.cars[0].color}}
             </mat-list-item>
             <mat-list-item role="listitem" *ngIf="!ifProposed">
               <mat-icon>person_outline</mat-icon>

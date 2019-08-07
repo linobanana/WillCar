@@ -9,6 +9,7 @@ import {User} from "../../../shared/types/common";
 import {stringify} from "querystring";
 import {END_STRING, START_STRING} from "../../../shared/constants/common";
 import {Router} from '@angular/router';
+import {UserService} from '../../../shared/components/user/user.service';
 
 declare var ymaps: any;
 
@@ -38,7 +39,7 @@ export class MapService {
     path: '',
     freePlaceCount: '1',
     driver: {
-      id: '1'
+      id: 1
     }
   };
   private passengerDrive = {
@@ -58,7 +59,7 @@ export class MapService {
   private duration: number;
   private drives: Drive[] = [];
 
-  constructor(private mapApi: MapApiService, private router: Router) {
+  constructor(private mapApi: MapApiService, private router: Router, private userService: UserService) {
   }
 
   public initRelationMwithYForRightMenu(MenuInfo: FormGroup) {
@@ -259,6 +260,7 @@ export class MapService {
     });
   }
   public importDrive(form: FormGroup) {
+    this.drive.driver.id = this.userService.user.id;
     this.drive.freePlaceCount = form.get('numberOfSeats').value;
     this.datestart = new Date(form.get('date').value.toString());
     this.drive.startTime = this.formatDateISO8601(form.get('time').value.toString());
@@ -430,6 +432,7 @@ export class MapService {
           pickUpPoint = firstGeoObject.getAddressLine();
           self.passengerDrive.startPointString = pickUpPoint;
         });
+
         self.passengerDrive.id = drive.id;
         self.passengerDrive.driver = drive.driver;
         //self.passengerDrive.startPoint = JSON.stringify(coords);

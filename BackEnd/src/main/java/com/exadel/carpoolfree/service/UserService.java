@@ -43,24 +43,6 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public Set<UserForAdminVO> findAllUsersByMonth(final String stTime, final String finTime) {
-        List<DriveVO> driveVOList = driveService.findAllByDateRange(stTime, finTime);
-        List<Long> driversId = new ArrayList<>();
-        for (DriveVO id : driveVOList) {
-            driversId.add(id.getDriver().getId());
-        }
-        Set<UserForAdminVO> drivers = new HashSet<>();
-        for (Long usersId : driversId) {
-            drivers.add(convertToAdminVO(userRepository.findById(usersId).get()));
-        }
-        for (UserForAdminVO driver1 : drivers) {
-            List<DriveVO> drives = driveService.findAllByUserId(driver1.getId());
-            driver1.setDrives(drives);
-        }
-
-        return drivers;
-    }
-
 
 
     public UserVO findById(final Long id) {

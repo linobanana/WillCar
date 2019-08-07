@@ -9,7 +9,7 @@ export const USER: User = {
   cars: [],
   driverRating: 5.7,
   photoUrl: 'http://telegram-downloads.ru/wp-content/uploads/2016/10/2-12.png',
-  //roles: [],
+  roles: [],
   passengerRating: 5,
   mark: 4,
   points: 58,

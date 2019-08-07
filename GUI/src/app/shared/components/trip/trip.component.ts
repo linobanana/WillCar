@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Drive} from '../../types/common';
 import {Router} from "@angular/router";
 import {TripService} from "./trip.service";
+import {OPTIONS} from '../../mocks/user.mocks';
 
 @Component({
   selector: 'app-trip',
@@ -16,7 +17,6 @@ export class TripComponent implements OnInit {
  @Output() cancelPassengerDrive: EventEmitter<Drive> = new EventEmitter();
  @Output() ratingToPassenger = new EventEmitter<{mark: number, passengerId: number, driveId: number}>();
  @Output() ratingToDriver = new EventEmitter<{mark: number, driveId: number}>();
- car = CAR;
  constructor(private router: Router, private tripService: TripService) { }
   public moreInfo(drive: Drive) {
    this.tripService.changeDrive(drive);
@@ -35,7 +35,9 @@ export class TripComponent implements OnInit {
     return this.drives && this.drives.filter((drive) => drive.archive === archieved).length;
   }
   emptyDriveList() {
-   return this.drives === null || this.drives.length === 0;
+    setTimeout(() => {
+      return this.drives === null || this.drives.length === 0;
+    }, 0);
   }
   goToMain() {
    this.router.navigate(['/main']);
