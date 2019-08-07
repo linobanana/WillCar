@@ -19,7 +19,7 @@
     <div class="left">
       <ul class="people" *ngFor="let drive of drives">
         <li class="person" data-chat="person1" (click)="chooseDrive(drive)" *ngIf="isLoaded">
-          <i class="fas fa-route"></i>
+          <mat-icon>gesture</mat-icon>
           <span class="name">{{drive.name}}</span>
           <span class="preview">{{drive.date}} · {{drive.time}}</span>
         </li>
@@ -44,7 +44,7 @@
      <div class="write">
        <form [formGroup]="form" (submit)="sendMessageUsingSocket()" class="form">
          <input formControlName="message" name="message" class="write-input" type="text"/>
-         <button mat-mini-fab color="warn" type="submit" class="submit-btn"><i class="far fa-paper-plane" style="color:white"></i></button>
+         <button mat-mini-fab color="warn" type="submit" class="submit-btn"><mat-icon>keyboard_arrow_right</mat-icon></button>
        </form>
      </div>
     </div>

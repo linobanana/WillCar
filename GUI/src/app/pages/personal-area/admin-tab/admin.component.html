@@ -1,3 +1,4 @@
+<mat-card>
 <div class="date-filter">
   <form class ="filter-form" [formGroup]="filterForm" (ngSubmit)="onSubmit()">
     <mat-form-field class="example-form-field">
@@ -15,6 +16,7 @@
     <button mat-raised-button color="warn" (click)="onSubmitForm(); cleanValues()">Filter</button>
   </form>
 </div>
+</mat-card>
 
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 

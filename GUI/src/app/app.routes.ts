@@ -6,6 +6,7 @@ import {SuccessConfirmationRoutes} from "./shared/components/success-confirmatio
 import {BookingConfirmationRoutes} from './shared/components/booking-confirmation/booking-confirmation.routes';
 import {ChatRoutes} from "./pages/personal-area/chat/chat.routes";
 import {DetailsOfRouteRoutes} from "./pages/personal-area/details-of-route/details-of-route.routes";
+import {SuccessfulCreateRouteComponentRoutes} from './shared/components/succesful-create-route/successful-create-route.routes';
 
 export const routes: Routes = [
   {
@@ -20,5 +21,6 @@ export const routes: Routes = [
   ...BookingConfirmationRoutes,
   ...DetailsOfRouteRoutes,
   ...BookingConfirmationRoutes,
-  ...ChatRoutes
+  ...ChatRoutes,
+  ...SuccessfulCreateRouteComponentRoutes
 ];

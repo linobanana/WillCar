@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {AdminComponent} from './admin.component';
 import {
-  MatButtonModule,
+  MatButtonModule, MatCardModule,
   MatCheckboxModule, MatDatepickerModule,
   MatFormFieldModule, MatInputModule, MatNativeDateModule,
   MatSortModule,
@@ -33,7 +33,8 @@ import {BrowserModule} from '@angular/platform-browser';
     MatNativeDateModule,
     FormsModule,
     MatDatepickerModule,
-    MatInputModule
+    MatInputModule,
+    MatCardModule
   ],
   exports: [
     AdminComponent

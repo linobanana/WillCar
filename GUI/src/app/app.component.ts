@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from './shared/types/common';
 import {ProfileApiService} from './shared/api/profile/profile.api.service';
-import {BehaviorSubject, Observable} from 'rxjs';
 import {UserService} from './shared/components/user/user.service';
 
 @Component({

@@ -47,16 +47,16 @@ export class RightMenuComponent implements OnInit {
 
   onSubmit() {
   }
-onSubmitForm() {
-  this.mapper.cleanMap();
-  this.mapper.makeRoute(this.RightMenuInfo);
-  this.ifDraw = false;
-}
-onCreate() {
+  onSubmitForm() {
     this.mapper.cleanMap();
-    this.mapper.importDrive(this.RightMenuInfo).then(() => this.mapper.exportDrive(this.RightMenuInfo));
-    this.router.navigate(['/success-create']);
-}
+    this.mapper.makeRoute(this.RightMenuInfo);
+    this.ifDraw = false;
+  }
+  onCreate() {
+      this.mapper.cleanMap();
+      this.mapper.importDrive(this.RightMenuInfo).then(() => this.mapper.exportDrive(this.RightMenuInfo));
+
+  }
   initRelationMwithY() {
     this.mapper.initRelationMwithYForRightMenu(this.RightMenuInfo);
   }
