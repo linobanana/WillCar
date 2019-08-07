@@ -15,6 +15,8 @@ export const USER: User = {
   points: 58,
   drives: [],
   pickUpPoint: [0, 1],
+  login: "",
+  password:''
   //numOfKm: number;
 };
 export const OPTIONS: string[] = [
