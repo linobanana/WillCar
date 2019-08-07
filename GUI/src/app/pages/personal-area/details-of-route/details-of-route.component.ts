@@ -50,7 +50,7 @@ export class DetailsOfRouteComponent implements OnInit {
 
 
 
-  public redirectToProposedOrBookings() {
+  public backToPreviousTab() {
     if (!this.ifProposed) {
       this.router.navigate(['/personalarea/mybookings']);
     } else {

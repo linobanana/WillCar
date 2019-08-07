@@ -1,11 +1,11 @@
 <div class="trip">
     <div class="field">{{route.name}}</div>
-    <div class="field"><mat-icon>date_range</mat-icon>{{route.date}}</div>
-    <div class="field"><mat-icon>access_time</mat-icon>{{route.time}}</div>
+    <div class="field"><mat-icon>date_range</mat-icon></div>
+    <div class="field"><mat-icon>access_time</mat-icon></div>
     <div *ngIf="!ifProposed">{{route.driver.name}}</div>
     <div class="field" *ngIf="!ifProposed">
       <mat-icon>directions_car</mat-icon>
-      {{car.model}} {{car.number}} {{car.color}}
+      
     </div>
     <div *ngIf="ifProposed" class="passengers">
       <mat-list *ngFor="let passenger of route.passengers">
