@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-successful-create-route',
   templateUrl: './successful-create-route.component.html',
-  styleUrls: ['./successful-create-route.component.css']
+  styleUrls: ['./successful-create-route.component.scss']
 })
 export class SuccessfulCreateRouteComponent implements OnInit {
   label = LABELS;

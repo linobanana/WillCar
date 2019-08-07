@@ -5,7 +5,8 @@ import {USER} from '../../mocks/user.mocks';
 import {BUTTON_LABELS} from '../../constants/button-labels';
 import {MapService} from "../../../pages/main/map/map.service";
 import {Car, User} from "../../types/common";
-import {DriveApiService} from "../../api/trip/drive.api.service";
+import {UserService} from '../user/user.service';
+import {DriveApiService} from '../../api/trip/drive.api.service';
 
 @Component({
   selector: 'app-booking-confirmation',
@@ -36,11 +37,9 @@ export class BookingConfirmationComponent implements OnInit {
       startPoint: this.drive.startPoint,
     };
     console.log(drive);
-    this.tripApiService.postPassengerTrip(drive).subscribe((data) => {
-      if(data){
-        this.router.navigate(['/success-confirmation']);
-      }
+    this.tripApiService.postPassengerTrip(drive).subscribe(() => {
     });
+    this.router.navigate(['/success-confirmation']);
   }
 
   goToMain() {

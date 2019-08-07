@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Drive} from '../../../shared/types/common';
 import {TripService} from '../../../shared/components/trip/trip.service';

@@ -41,7 +41,6 @@ export class Drive {
   path: any;
   sumOfKm: number;
   isOpenSocket = false;
-  //pickUpPoint: Point[];
   pickUpPoint: [number, number];
 }
 export class Message {

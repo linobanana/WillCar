@@ -20,6 +20,10 @@ export class CarFormComponent implements OnInit {
   });
   }
 
+  clearValues() {
+    this.profileForm.reset();
+  }
+
   ngOnInit() {
   }
 

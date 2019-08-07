@@ -1,0 +1,144 @@
+.confirmation {
+  position: absolute;
+  top: 7%;
+  bottom: 5%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.confirm-text {
+  line-height: 1.3;
+}
+
+.container {
+  text-align: center;
+  background-color: #3761620d;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 2.4em;
+  color: #376162;
+  border: 5px dashed #44A08D;
+  width: fit-content;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0 1%;
+}
+
+.buttons {
+  display: flex;
+  width: 90%;
+  justify-content: space-evenly;
+  margin-top: 4%;
+}
+
+.buttons button {
+  font-size: 0.45em;
+}
+
+$circle-length: 151px;
+$check-length: 36px;
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  align-items: center;
+  background-color: #35297B;
+  display: flex;
+  justify-content: center;
+}
+
+@keyframes scaleAnimation {
+  0% {
+    opacity: 0;
+    transform: scale(2.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+
+@keyframes drawCircle {
+  0% {
+    stroke-dashoffset: $circle-length;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes drawCheck {
+  0% {
+    stroke-dashoffset: $check-length;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+#successAnimationCircle {
+  stroke-dasharray: $circle-length $circle-length;
+  stroke: #FFF;
+}
+
+#successAnimationCheck {
+  stroke-dasharray: $check-length $check-length;
+  stroke: #FFF;
+}
+
+#successAnimationResult {
+  fill: #2e786d96;
+  opacity: 0;
+}
+
+#successAnimation.animated {
+  animation: 1s ease-out 0s 1 both scaleAnimation;
+
+  #successAnimationCircle {
+    animation: 1s cubic-bezier(0.77, 0, 0.175, 1) 0s 1 both drawCircle,
+    0.3s linear 0.9s 1 both fadeOut;
+  }
+
+  #successAnimationCheck {
+    animation: 1s cubic-bezier(0.77, 0, 0.175, 1) 0s 1 both drawCheck,
+    0.3s linear 0.9s 1 both fadeOut;
+  }
+
+  #successAnimationResult {
+    animation: 0.3s linear 0.9s both fadeIn;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .container {
+    font-size: 1.3em;
+    width: 86%;
+    height: 52%;
+  }
+}

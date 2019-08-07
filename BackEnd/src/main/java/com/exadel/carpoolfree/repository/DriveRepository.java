@@ -21,4 +21,6 @@ public interface DriveRepository extends JpaRepository<Drive, Long> {
             "where d.startTime >= :startTime")
     List<Drive> findAllDriveInFuture(LocalDateTime startTime);
 
+    List<Drive> findByDriverId(Long driverId);
+
 }
