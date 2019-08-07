@@ -5,7 +5,7 @@ import {Car} from "../../types/common";
 @Component({
   selector: 'app-rating',
   templateUrl: './rating.component.html',
-  styleUrls: ['./rating.component.css']
+  styleUrls: ['./rating.component.scss']
 })
 export class RatingComponent implements OnInit {
 
