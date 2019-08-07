@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class DriveVO {
 
@@ -182,5 +183,18 @@ public class DriveVO {
 
     public void setSegmentsCoords(String segmentsCoords) {
         this.segmentsCoords = segmentsCoords;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DriveVO driveVO = (DriveVO) o;
+        return id.equals(driveVO.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

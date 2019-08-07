@@ -75,7 +75,7 @@ public class DriveService {
     }
 
     public List<DriveVO> findAllByDriverId(final Long driverId) {
-        List<PassengerDrive> passengerDriveList = passengerDriveRepository.findAllByDriverId(driverId);
+         List<PassengerDrive> passengerDriveList = passengerDriveRepository.findAllByDriverId(driverId);
         Map<Drive, List<PassengerDrive>> driveListMap
                 = passengerDriveList.stream()
                 .collect(Collectors.groupingBy(PassengerDrive::getDrive));
@@ -96,8 +96,14 @@ public class DriveService {
             driveVO.setMessages(messages);
             return driveVO;
         }).collect(Collectors.toList());
-        result.stream().sorted(Comparator.comparing(DriveVO::getStartTime).reversed());
-        return result;
+        List<DriveVO> allDrives = driveRepository.findByDriverId(driverId).stream().map(drive -> {
+            DriveVO driveVO = convertToVO(drive);
+            return driveVO;
+        }).collect(Collectors.toList());
+        allDrives.removeAll(result);
+        allDrives.addAll(result);
+        allDrives.stream().sorted(Comparator.comparing(DriveVO::getStartTime).reversed());
+        return allDrives;
     }
 
     public List<DriveVO> findAllByPassengerId(final  Long passengerId) {
