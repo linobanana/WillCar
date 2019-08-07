@@ -26,7 +26,7 @@ export class DriveApiService extends ApiService{
    /* return <Drive[]>response;*/
 
   postPassengerTrip(trip:any ) {
-    return super.post(`api/passenger`, trip,DriveApiService.simpleResponse);
+    return super.post(`api/passengerDrive/passenger`, trip,DriveApiService.simpleResponse);
   }
 
   getProposedDrives(id) {

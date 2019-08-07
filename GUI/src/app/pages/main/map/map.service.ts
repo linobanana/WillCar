@@ -435,7 +435,7 @@ export class MapService {
 
         self.passengerDrive.id = drive.id;
         self.passengerDrive.driver = drive.driver;
-        //self.passengerDrive.startPoint = JSON.stringify(coords);
+        self.passengerDrive.startPoint = JSON.stringify(coords);
         self.passengerDrive.numOfKm = "100";
         self.passengerDrive.driveDate = driveStartTime;
 
