@@ -1,4 +1,5 @@
-<div class="trip">
+<div *ngIf="valid()">
+  <div class="trip">
     <div class="field">{{route.name}}</div>
     <div class="field"><mat-icon>date_range</mat-icon>{{route.date}}</div>
     <div class="field"><mat-icon>access_time</mat-icon>{{route.time}}</div>
@@ -14,4 +15,6 @@
       </mat-list>
       <mat-divider></mat-divider>
     </div>
+  </div>
 </div>
+
