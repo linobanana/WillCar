@@ -31,7 +31,7 @@ import {SuccessfulCreateRouteModule} from './shared/components/succesful-create-
     CommonModule,
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(routes, {useHash: true}),
+    RouterModule.forRoot(routes),
     MainModule,
     HeaderModule,
     FooterModule,

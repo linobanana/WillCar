@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+>
 <head>
   <meta charset="utf-8">
   <title>Log in · WillCar</title>
-  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link href="assets/logo.png" rel="icon" type="image/x-icon">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
-  <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
 </head>
 <body>
 <style>
@@ -69,7 +68,7 @@
     padding-left: 10px;
     font-family: 'Titillium Web', sans-serif;
     width: 90%;
-    margin-bottom: 5%;
+    margin-bottom: 10%;
   }
 
   .submit-button {
@@ -91,10 +90,12 @@
 
   .error {
     width: 90%;
-    padding: 1% 1% 5% 1%;
+    padding: 3% 1%;
     text-align: center;
+    border: 1px solid red;
+    background: #ecb3b37d;
+    color: #1c1f1c;
     font-family: "Titillium Web", sans-serif;
-    color: #f72929;
   }
 
   @media screen and (max-width: 414px) {
@@ -110,8 +111,7 @@
     <input type="text" name="username" placeholder="Login" class="login-field"/>
     <input type="password" name="password" placeholder="Password" class="password-field"/>
     <div th:if="${param.error}" class="error">
-      <i class="fas fa-exclamation-triangle"></i>
-      Invalid username or password. Try again.
+      Invalid username and password.
     </div>
     <div><input type="submit" class="submit-button" value="Log in"/></div>
   </form>

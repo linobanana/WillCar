@@ -30,5 +30,4 @@ export class HeaderComponent implements OnInit {
       this.driverState = state;
     });
   }
-  isPassenger
 }

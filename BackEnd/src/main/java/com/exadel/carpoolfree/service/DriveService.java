@@ -215,7 +215,6 @@ public class DriveService {
         double distance = 2*6371*Math.asin(Math.sqrt(squareLatitude +
                 Math.cos(firstPoint[0])*Math.cos(secondPoint[0])*
                 squareLongitude));
-        System.out.println(distance + " ");
         return distance <= 1;
     }
 }

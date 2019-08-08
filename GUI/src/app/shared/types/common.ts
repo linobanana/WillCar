@@ -22,7 +22,6 @@ export class User {
   points: number;
   drives: Drive[];
   pickUpPoint: any;
-  //numOfKm: number;
 }
 export class Drive {
   segmentsCoords: any;
@@ -35,7 +34,6 @@ export class Drive {
   passengers: User[];
   freePlaceCount: number;
   archive: boolean;
-  //routeUrl: string;
   driver: User;
   messages: Message[];
   path: any;
