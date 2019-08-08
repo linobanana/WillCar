@@ -1,8 +1,8 @@
 <div *ngIf="valid()">
 <div class="trip">
     <div class="field">{{route.name}}</div>
-    <div class="field"><mat-icon>date_range</mat-icon>{{route.startTime}} - {{route.endTime}}</div>
-<!--    <div class="field"><mat-icon>access_time</mat-icon>{{route.time}}</div>-->
+    <div class="field"><mat-icon>date_range</mat-icon>{{route.date}}</div>
+    <div class="field"><mat-icon>access_time</mat-icon>{{route.time}}</div>
     <div *ngIf="!ifProposed">{{route.driver.name}}</div>
     <div class="field" *ngIf="!ifProposed">
       <mat-icon>directions_car</mat-icon>

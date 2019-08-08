@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
       this.isAppReady = true;
     }, 1000);
-    this.profileApiService.getUser(1)
+    this.profileApiService.getUser(2)
     .subscribe((user) => {
         this.user = user;
         this.userService.user = user;

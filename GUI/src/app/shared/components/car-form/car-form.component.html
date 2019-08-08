@@ -5,7 +5,7 @@
     <input type="text" id="number" name="carNumber" class="car-input" placeholder="Car number" formControlName="number" required>
 
     <input type="text" id="color" name="carColor" class="car-input" placeholder="Car color" formControlName="color" required>
-    <button class="add" mat-mini-fab color="warn" (click)="addCar.emit(profileForm.value); clearValues()"><mat-icon>add</mat-icon></button>
+    <button type = "submit" [disabled]="profileForm.invalid" class="add" mat-mini-fab color="warn" (click)="addCar.emit(profileForm.value); clearValues()"><mat-icon>add</mat-icon></button>
   </form>
 </div>
 
