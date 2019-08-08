@@ -435,7 +435,7 @@ export class MapService {
 
         self.passengerDrive.id = drive.id;
         self.passengerDrive.driver = drive.driver;
-        //self.passengerDrive.startPoint = JSON.stringify(coords);
+        self.passengerDrive.startPoint = JSON.stringify(coords);
         self.passengerDrive.numOfKm = "100";
         self.passengerDrive.driveDate = driveStartTime;
 
@@ -617,7 +617,7 @@ export class MapService {
         coordinates: this.points.start
       },
       properties: {
-        iconContent: 'точка подсадки',
+        iconContent: 'Pick up point',
         hintContent: 'передвиньте на место, гда вы собираетесь подсесть',
 
       }
@@ -628,29 +628,12 @@ export class MapService {
     passengerStartPoint.events.add('dragend', function (e) {
       self.passengerDrive.startPoint = JSON.stringify(passengerStartPoint.geometry.getCoordinates());
     });
-    let passengerEndPoint = new ymaps.GeoObject({
-      geometry: {
-        type: "Point",
-        coordinates: this.points.end
-      },
-      properties: {
-        iconContent: 'точка высадки',
-        hintContent: 'передвиньте на место, гда вы собираетесь выйти',
-
-      }
-    }, {
-      preset: 'islands#blueStretchyIcon',
-      draggable: true,
-    });
-
-
     var myGeoObjects = new ymaps.GeoObjectCollection({}, {
       preset: "islands#redCircleIcon",
       strokeWidth: 4,
       geodesic: true
     });
     myGeoObjects.add(passengerStartPoint);
-    myGeoObjects.add(passengerEndPoint);
     this.map.geoObjects.add(myGeoObjects);
   }
   public setZoom() {
