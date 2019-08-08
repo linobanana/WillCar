@@ -49,8 +49,11 @@ public class ChatService {
             if (messageConverted.containsKey(DRIVE_ID_KEY) && messageConverted.get(DRIVE_ID_KEY) != null && !messageConverted.get(DRIVE_ID_KEY).equals("")) {
                 if (!driveRepository.findById(Long.valueOf(messageConverted.get(DRIVE_ID_KEY))).get().isArchive()) {
                     messageRepository.save(messageObject);
-                    this.simpMessagingTemplate.convertAndSend(SOCKET_URL + messageConverted.get(DRIVE_ID_KEY) + "_" + messageConverted.get(USER_KEY),
+                  /*  this.simpMessagingTemplate.convertAndSend(SOCKET_URL + messageConverted.get(DRIVE_ID_KEY) + "_" + messageConverted.get(USER_KEY),
+                            this.generateJSONStringForUIResponce(messageConverted));*/
+                    this.simpMessagingTemplate.convertAndSend(SOCKET_URL + messageConverted.get(DRIVE_ID_KEY),
                             this.generateJSONStringForUIResponce(messageConverted));
+
                 }
             }
         }
