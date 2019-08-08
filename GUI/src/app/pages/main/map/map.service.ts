@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 import {FormGroup} from "@angular/forms";
 
 import {delay, min, take} from "rxjs/operators";
@@ -59,7 +59,7 @@ export class MapService {
   private duration: number;
   private drives: Drive[] = [];
 
-  constructor(private mapApi: MapApiService, private router: Router, private userService: UserService) {
+  constructor(private mapApi: MapApiService, private router: Router, private userService: UserService, private _ngZone: NgZone) {
   }
 
   public initRelationMwithYForRightMenu(MenuInfo: FormGroup) {
@@ -401,7 +401,7 @@ export class MapService {
       if (j !== amount - 1) {
         tempCoordinates = coordinates.slice(temp, temp + 71);
       } else {
-         tempCoordinates = coordinates.slice(temp);
+        tempCoordinates = coordinates.slice(temp);
       }
       let viaIndex = [];
       for (let k = 1; k < tempCoordinates.length - 1; k++) {
@@ -427,7 +427,7 @@ export class MapService {
         let pickUpPoint;
         ymaps.geocode(coords, {
           results: 1
-        }).then(function (res) {
+        }).then(function(res) {
           let firstGeoObject = res.geoObjects.get(0);
           pickUpPoint = firstGeoObject.getAddressLine();
           self.passengerDrive.startPointString = pickUpPoint;
@@ -440,22 +440,32 @@ export class MapService {
         self.passengerDrive.driveDate = driveStartTime;
 
         let myPlacemark = new ymaps.Placemark(coords, {
-          balloonContentHeader: '<br>Водитель: ' + driverName,
-          balloonContentBody: 'Время начла поездки: ' + driveStartTime + ' <br> ' +
+          balloonContentHeader: `<br>Водитель: ` + driverName,
+          balloonContentBody: `Время начла поездки: ` + driveStartTime + ` <br> ` +
             " Количество свободных мест " + freePlaceCount,
-          balloonContentFooter: '<a href="/#/confirmation">Забронировать</a><br>'
+          balloonContentFooter: `<button id="bookButton">Забронировать</button><br>`
         });
         myPlacemark.events.add("balloonclose", (event) => {
           let placeMark = event.get("target");
           self.map.geoObjects.remove(placeMark);
         });
         self.map.geoObjects.add(myPlacemark);
-        myPlacemark.balloon.open();
+        myPlacemark.balloon.open().then(() => {
+          const button = document.getElementById('bookButton');
+          button.addEventListener('click', () => {
+            self._ngZone.run(() => {
+              self.router.navigate(['/confirmation']);
+            });
+          });
+        });
       }, this);
-        this.map.geoObjects.add(multiRoute);
-        temp = temp + 70;
+      this.map.geoObjects.add(multiRoute);
+      temp = temp + 70;
     }
     this.map.geoObjects.add(endPlacemark);
+  }
+  public rotateToBookingsConfirm() {
+    this.router.navigate(['/confirmation']);
   }
   public createRouteForMoreInformationBookings(drive: Drive) {
     let color = this.generateColor(null);
@@ -618,7 +628,7 @@ export class MapService {
       },
       properties: {
         iconContent: 'Pick up point',
-        hintContent: 'передвиньте на место, гда вы собираетесь подсесть',
+        hintContent: 'Drag to your pickup point',
 
       }
     }, {

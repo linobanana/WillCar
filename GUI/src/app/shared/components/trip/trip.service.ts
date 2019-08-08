@@ -14,11 +14,18 @@ export class TripService {
   private _bookedSubject: BehaviorSubject<Drive[]> = new BehaviorSubject(null);
   private _driveSubject: BehaviorSubject<Drive> = new BehaviorSubject(null);
   private _ifProposedSubject: BehaviorSubject<boolean> = new BehaviorSubject(null);
+  private _ifLoadingSubject:BehaviorSubject<boolean> = new BehaviorSubject(null);
+  ifLoading = this.ifLoadingSubject;
   currentDrive = this.driveSubject;
   ifProposed = this.ifProposedSubject;
   constructor(private driveApiService: DriveApiService) {
   }
-
+  changeIfLoading(ifLoading: boolean) {
+    this._ifLoadingSubject.next(ifLoading);
+  }
+  get ifLoadingSubject(): Observable<boolean> {
+    return this._ifLoadingSubject.asObservable();
+  }
   get driveSubject(): Observable<Drive> {
     return this._driveSubject.asObservable();
   }
@@ -75,20 +82,24 @@ export class TripService {
   }
 
   getProposedDrives(id: number){
+    this.changeIfLoading(true);
     return new Promise(resolve=> {
       this.driveApiService.getProposedDrives(id)
         .subscribe((drives) => {
           this.proposedDrives = drives;
+          this.changeIfLoading(false);
           resolve(drives);
         });
     });
   }
 
   getBookedDrives(id: number){
+    this.changeIfLoading(true);
     return new Promise(resolve=> {
       this.driveApiService.getBookedDrives(id)
         .subscribe((drives) => {
           this.bookedDrives = drives;
+          this.changeIfLoading(false);
           resolve(drives);
         });
     });

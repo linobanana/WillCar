@@ -2,7 +2,6 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Drive} from '../../types/common';
 import {Router} from "@angular/router";
 import {TripService} from "./trip.service";
-import {OPTIONS} from '../../mocks/user.mocks';
 
 @Component({
   selector: 'app-trip',
@@ -10,6 +9,7 @@ import {OPTIONS} from '../../mocks/user.mocks';
   styleUrls: ['./trip.component.scss']
 })
 export class TripComponent implements OnInit {
+  private ifLoading: boolean;
  @Input() drives: Drive[];
  @Input() ifProposed: boolean;
  @Output() cancelDrive: EventEmitter<Drive> = new EventEmitter();
@@ -35,9 +35,10 @@ export class TripComponent implements OnInit {
     return this.drives && this.drives.filter((drive) => drive.archive === archieved).length;
   }
   emptyDriveList() {
-    setTimeout(() => {
-      return this.drives === null || this.drives.length === 0;
-    }, 0);
+    this.tripService.ifLoading.subscribe(ifLoading => {
+      this.ifLoading = ifLoading;
+    });
+   return (this.drives === null || this.drives.length === 0)&& (this.ifLoading === false);
   }
   goToMain() {
    this.router.navigate(['/main']);

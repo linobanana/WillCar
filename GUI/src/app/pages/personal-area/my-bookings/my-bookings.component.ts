@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Drive} from '../../../shared/types/common';
 import {TripService} from '../../../shared/components/trip/trip.service';
@@ -12,8 +12,9 @@ import {UserService} from "../../../shared/components/user/user.service";
 export class MyBookingsComponent implements OnInit {
   drives$: Observable<Drive[]>;
   constructor(private tripService: TripService, private userService: UserService) {
-    tripService.getBookedDrives(this.userService.user.id).then(()=>
-      this.drives$ = tripService.bookedSubject);
+    tripService.getBookedDrives(this.userService.user.id).then(()=> {
+      this.drives$ = tripService.bookedSubject;
+    });
   }
 
   ngOnInit() {
