@@ -3862,9 +3862,10 @@ var MenuComponent = /** @class */ (function () {
     MenuComponent.prototype.logOut = function () {
         this.profileApiService.logOut()
             .subscribe(function () {
-            return window.location.href = 'https://willcar.herokuapp.com/login';
+            return window.location.href = 'http://localhost:8080/login';
         });
     };
+    ;
     MenuComponent.ctorParameters = function () { return [
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
         { type: _api_profile_profile_api_service__WEBPACK_IMPORTED_MODULE_4__["ProfileApiService"] },
@@ -4070,9 +4071,10 @@ var ProfileMenuComponent = /** @class */ (function () {
     ProfileMenuComponent.prototype.logOut = function () {
         this.profileApiService.logOut()
             .subscribe(function () {
-            return window.location.href = 'https://willcar.herokuapp.com/login';
+            return window.location.href = 'http://localhost:8080/login';
         });
     };
+    ;
     ProfileMenuComponent.prototype.ngOnInit = function () {
     };
     ProfileMenuComponent.ctorParameters = function () { return [
@@ -5227,7 +5229,7 @@ __webpack_require__.r(__webpack_exports__);
 var ApiService = /** @class */ (function () {
     function ApiService(httpClient) {
         this.httpClient = httpClient;
-        this.url = 'https://willcar.herokuapp.com/';
+        this.url = 'http://localhost:8080/';
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
         headers = headers.append('Content-Type', 'application/json');
         headers = headers.append('Access-Control-Allow-Credentials', 'true');
@@ -5388,7 +5390,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 var environment = {
     production: false,
-    url: "https://willcar.herokuapp.com/"
+    url: "http://localhost:8080/"
 };
 /*
  * For easier debugging in development mode, you can import the following file

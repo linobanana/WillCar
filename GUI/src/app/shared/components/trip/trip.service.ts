@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import {Drive} from "../../types/common";
 import {BehaviorSubject, Observable} from "rxjs";
 import {clone} from 'ramda';
-import {ProfileApiService} from "../../api/profile/profile.api.service";
-import {take} from "rxjs/operators";
 import {DriveApiService} from "../../api/trip/drive.api.service";
 
 @Injectable()
@@ -35,7 +33,6 @@ export class TripService {
   }
 
   changeDrive(drive: Drive) {
-    // this._drive = drive;
     this._driveSubject.next(drive);
   }
 

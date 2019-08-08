@@ -20,11 +20,6 @@ public class CarController {
         this.carRepository = carRepository;
     }
 
-//    @GetMapping("/userId/{userId}")
-//    public List<Car> getAllCars(@PathVariable Long userId) {
-//        return carRepository.findAllByUserId(userId);
-//    }
-
     @PostMapping()
     public Car addCar(@RequestBody Car car) {
         return carRepository.save(car);

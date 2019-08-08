@@ -1,12 +1,9 @@
 import {Injectable, NgZone} from '@angular/core';
 import {FormGroup} from "@angular/forms";
 
-import {delay, min, take} from "rxjs/operators";
 import {MapApiService} from "../../../shared/api/map/map.api.service";
-import {ApiService} from "../../../shared/services/api.service";
 import {Drive, options} from "../../../shared/types/common";
 import {User} from "../../../shared/types/common";
-import {stringify} from "querystring";
 import {END_STRING, START_STRING} from "../../../shared/constants/common";
 import {Router} from '@angular/router';
 import {UserService} from '../../../shared/components/user/user.service';
@@ -198,11 +195,9 @@ export class MapService {
       routeStrokeWidth: 7,
     });
     multiRoute.editor.start({
-      // addWayPoints: true,
       removeWayPoints: true,
       removeViaPoints: true,
       addMidPoints: true,
-      //removeMidPoints: true,
     });
     multiRoute.events
       .add("activeroutechange", self.onActiveRouteChange, self);
@@ -215,7 +210,6 @@ export class MapService {
       let segmentCoords = [];
       for (let i = 0; i < pathArray.getLength(); i++) {
         path = pathArray.get(i);
-        // coords = coords.concat(i === 0 || i === pathArray.getLength() - 1 ? path.properties.get('coordinates') :path.properties.get('coordinates').slice(1, -1));
         coords = coords.concat(path.properties.get('coordinates'));
         var segments = path.getSegments();
         segments.each(function (segment) {
@@ -290,11 +284,9 @@ export class MapService {
   private getEndTime(startime: string):string {
     if(this.duration !== undefined) {
       let tempdate = new Date(startime);
-      //console.log(this.duration);
       console.log(this.duration);
       tempdate = new Date(tempdate.getTime() + this.duration * 1000);
       tempdate.setMilliseconds(0);
-      //tempdate.setHours(this.duration);
       return tempdate.toISOString();
     } else {
       return '';
@@ -311,8 +303,6 @@ export class MapService {
     console.log(this.datestart.toString());
     this.drive.endTime = this.getEndTime(this.datestart.toString());
     return this.datestart.toISOString();
-    //console.log(this.drive.starttime);
-    // const date  = new Date(this.drive.date.toString());
   }
   private parseToISO8601(date: string): string {
     date = new Date(date).toLocaleDateString('en-US', options);
@@ -330,7 +320,6 @@ export class MapService {
       });
       geolocation.get({
         provider: 'browser',
-        // mapStateAutoApply: true
       }).then(function(result) {
         result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
         self.map.geoObjects.add(result.geoObjects);
@@ -435,7 +424,6 @@ export class MapService {
 
         self.passengerDrive.id = drive.id;
         self.passengerDrive.driver = drive.driver;
-      //  self.passengerDrive.startPoint = JSON.stringify(coords);
         self.passengerDrive.numOfKm = "100";
         self.passengerDrive.driveDate = driveStartTime;
 
@@ -614,7 +602,6 @@ export class MapService {
     });
     this.map.geoObjects.add(StartPoint);
     this.map.geoObjects.add(FinishPoint);
-    //this.setZoom();
   }
   public cleanMap() {
     this.map.geoObjects.removeAll();

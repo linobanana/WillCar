@@ -3740,8 +3740,9 @@ let MenuComponent = class MenuComponent {
     }
     logOut() {
         this.profileApiService.logOut()
-            .subscribe(() => window.location.href = 'https://willcar.herokuapp.com/login');
+            .subscribe(() => window.location.href = 'http://localhost:8080/login');
     }
+    ;
 };
 MenuComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
@@ -3940,8 +3941,9 @@ let ProfileMenuComponent = class ProfileMenuComponent {
     }
     logOut() {
         this.profileApiService.logOut()
-            .subscribe(() => window.location.href = 'https://willcar.herokuapp.com/login');
+            .subscribe(() => window.location.href = 'http://localhost:8080/login');
     }
+    ;
     ngOnInit() {
     }
 };
@@ -5026,7 +5028,7 @@ var ApiService_1;
 let ApiService = ApiService_1 = class ApiService {
     constructor(httpClient) {
         this.httpClient = httpClient;
-        this.url = 'https://willcar.herokuapp.com/';
+        this.url = 'http://localhost:8080/';
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
         headers = headers.append('Content-Type', 'application/json');
         headers = headers.append('Access-Control-Allow-Credentials', 'true');
@@ -5166,7 +5168,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
     production: false,
-    url: "https://willcar.herokuapp.com/"
+    url: "http://localhost:8080/"
 };
 /*
  * For easier debugging in development mode, you can import the following file

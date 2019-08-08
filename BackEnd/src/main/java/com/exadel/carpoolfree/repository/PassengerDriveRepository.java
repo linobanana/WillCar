@@ -41,13 +41,6 @@ public interface PassengerDriveRepository extends JpaRepository<PassengerDrive, 
             "where drive_id = :driveId and passenger_id = :passengerId")
     void addMarkPassengerToDriver(int mark, Long driveId, Long passengerId);
 
-
-    @Modifying
-    @Transactional
-    @Query(value = "DELETE FROM PassengerDrive " +
-            "where drive_id = :driveId ")
-    void deleteByDriveId(Long driveId);
-
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM PassengerDrive " +

@@ -31,18 +31,6 @@ public class DriveController {
         this.driveService = driveService;
     }
 
-//    @GetMapping()
-//    public List<DriveVO> findAllDrives()
-//    {
-//        return driveService.findAllDrives();
-//    }
-
-//    @GetMapping("/{id}")
-//    public DriveVO findById(final @PathVariable Long id) {
-//
-//        return driveService.findById(id);
-//    }
-
     @GetMapping("/userId/{userId}")
     private List<DriveVO> findAllByUserId(final @PathVariable Long userId) {
        /* SecurityContext context = SecurityContextHolder.getContext();

@@ -5,7 +5,7 @@ import {mergeDeepRight, clone} from 'ramda';
 
 @Injectable()
 export class ApiService {
-  private url = 'https://willcar.herokuapp.com/';
+  private url = 'http://localhost:8080/';
 
   private defaultOptions: any;
 

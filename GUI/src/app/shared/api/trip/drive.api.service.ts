@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {ApiService} from "../../services/api.service";
-import {Drive} from "../../types/common";
 
 @Injectable({
   providedIn: 'root'

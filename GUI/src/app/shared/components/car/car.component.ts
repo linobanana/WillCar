@@ -1,7 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Car, User} from '../../types/common';
-import {PROFILE_FIELD_LABELS} from '../../constants/profile';
-import {ProfileApiService} from '../../api/profile/profile.api.service';
 
 @Component({
   selector: 'car-component',

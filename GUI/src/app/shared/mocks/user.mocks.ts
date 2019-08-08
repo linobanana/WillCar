@@ -17,7 +17,6 @@ export const USER: User = {
   pickUpPoint: [0, 1],
   login: "",
   password:''
-  //numOfKm: number;
 };
 export const OPTIONS: string[] = [
   'Viber', 'E-mail', 'Telegram', 'Phone', 'Chat'

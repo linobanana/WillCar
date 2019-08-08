@@ -3,10 +3,8 @@ import {Drive} from "../../../shared/types/common";
 import {combineLatest, Observable} from "rxjs";
 import {TripService} from "../../../shared/components/trip/trip.service";
 import {MapService} from "../../main/map/map.service";
-import {promise} from "selenium-webdriver";
 import {Router} from "@angular/router";
 import {take} from "rxjs/operators";
-import {MiniMapComponent} from './mini-map/mini-map.component';
 
 @Component({
   selector: 'app-details-of-route',

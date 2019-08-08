@@ -32,16 +32,6 @@ export class RightMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.RightMenuInfo.setValue({
-    //     date: new Date('01.01.2019'),
-    //     time: '8:00 am',
-    //     address: {
-    //       startr: 'Купревича',
-    //       endr: 'пр-т Победителей',
-    //     },
-    //     numberOfSeats: '1'
-    //   }
-    // );
     this.initRelationMwithY();
   }
 

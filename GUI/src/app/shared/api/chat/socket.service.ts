@@ -23,13 +23,4 @@ export class SocketService extends ApiService{
     return temp;
   }
 
-
-  /*post(data: Message) {
-    return this.http.post<Message>(this.url, data)
-      .map((data: Message) => { return data; })
-      .catch(error => {
-        return new ErrorObservable(error);
-      })
-      ;
-  }*/
 }

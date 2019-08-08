@@ -15,13 +15,8 @@ export class InfoRouteComponent implements OnInit,OnDestroy {
   }
 
   ngOnInit() {
-   // const self = this;
     this.tripService.ifProposed.subscribe(ifProposed => {
-      // if(ifProposed === null) {
-      //   self.ngOnDestroy();
-      // } else {
         this.ifProposed = ifProposed;
-      // }
     });
   }
 public valid() {

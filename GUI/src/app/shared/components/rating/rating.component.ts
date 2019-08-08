@@ -1,6 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {TripService} from "../trip/trip.service";
-import {Car} from "../../types/common";
 
 @Component({
   selector: 'app-rating',

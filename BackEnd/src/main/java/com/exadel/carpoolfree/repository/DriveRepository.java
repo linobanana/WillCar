@@ -11,10 +11,6 @@ import java.util.List;
 
 public interface DriveRepository extends JpaRepository<Drive, Long> {
 
-    List<Drive> findAllByStartTime(LocalDateTime startTime);
-
-    List<Drive> findDrivesByStartPoint(Double startPoint);
-
     @Query(value = "SELECT d " +
             "from Drive d " +
             "left join fetch d.driver dr  "+

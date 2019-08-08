@@ -39,9 +39,8 @@ export class MenuComponent {
   logOut(): void {
     this.profileApiService.logOut()
       .subscribe(() =>
-        window.location.href = 'https://willcar.herokuapp.com/login'
-      );
-  }
+        window.location.href = 'http://localhost:8080/login'
+      )};
 }
 
 
