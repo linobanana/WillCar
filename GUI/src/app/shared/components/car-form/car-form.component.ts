@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Car, User} from '../../types/common';
 
 @Component({
@@ -14,10 +14,14 @@ export class CarFormComponent implements OnInit {
   profileForm: FormGroup;
 
   constructor(private fb: FormBuilder) { this.profileForm = this.fb.group({
-    model: [''],
-    color: [''],
-    number: ['']
+    model: ['', Validators.required],
+    color: ['', Validators.required],
+    number: ['', Validators.required]
   });
+  }
+
+  clearValues() {
+    this.profileForm.reset();
   }
 
   ngOnInit() {

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+>
 <head>
   <meta charset="utf-8">
   <title>Log in · WillCar</title>
-  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link href="assets/logo.png" rel="icon" type="image/x-icon">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
 </head>
@@ -88,10 +88,6 @@
     outline: 0;
   }
 
-  .hidden {
-    display: none;
-  }
-
   .error {
     width: 90%;
     padding: 3% 1%;
@@ -109,14 +105,14 @@
     }
   }
 </style>
-<div th:if="${param.error}">
-  Invalid username and password.
-</div>
 <div class="form-container">
   <form th:action="@{/login}" method="post" class="authorization-form">
     <h2 class="form-label">User Authorization</h2>
     <input type="text" name="username" placeholder="Login" class="login-field"/>
     <input type="password" name="password" placeholder="Password" class="password-field"/>
+    <div th:if="${param.error}" class="error">
+      Invalid username and password.
+    </div>
     <div><input type="submit" class="submit-button" value="Log in"/></div>
   </form>
 </div>

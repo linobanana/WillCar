@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Router} from '@angular/router';
 import {MENU_ITEMS} from '../../../constants/menu-items';
-import {IS_ADMIN} from '../../../constants/common';
 import {ProfileApiService} from '../../../api/profile/profile.api.service';
+import {UserService} from '../../user/user.service';
+import {User} from '../../../types/common';
 
 @Component({
   selector: 'app-menu',
@@ -10,8 +11,16 @@ import {ProfileApiService} from '../../../api/profile/profile.api.service';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent {
+  @Input() user: User;
   menuItems = MENU_ITEMS;
-  constructor(private router: Router, private profileApiService: ProfileApiService ) {}
+  isAdmin = false;
+
+  constructor(private router: Router, private profileApiService: ProfileApiService, private userService: UserService) {
+    this.user = this.userService.user;
+    if (this.user.roles.indexOf("ADMIN") != -1) {
+      this.isAdmin = true;
+    }
+  }
   goToProfile() {
     this.router.navigate(['/personalarea/', 'profile' ], );
   }
@@ -27,15 +36,11 @@ export class MenuComponent {
   goToAdminTab() {
     this.router.navigate(['/personalarea/', 'admin-tab']);
   }
-  goToAuthorization() {
-    this.profileApiService.logOut('')
-      .subscribe(() => {
-        window.location.href = 'localhost:8080/login';
-      }, () => {
-        window.location.href = 'localhost:8080/login';
-      });
-  }
-  isAdmin = IS_ADMIN;
+  logOut(): void {
+    this.profileApiService.logOut()
+      .subscribe(() =>
+        window.location.href = 'http://localhost:8080/login'
+      )};
 }
 
 

@@ -32,32 +32,23 @@ export class RightMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.RightMenuInfo.setValue({
-    //     date: new Date('01.01.2019'),
-    //     time: '8:00 am',
-    //     address: {
-    //       startr: 'Купревича',
-    //       endr: 'пр-т Победителей',
-    //     },
-    //     numberOfSeats: '1'
-    //   }
-    // );
     this.initRelationMwithY();
   }
 
   onSubmit() {
   }
-onSubmitForm() {
-  this.mapper.cleanMap();
-  this.mapper.makeRoute(this.RightMenuInfo);
-  this.ifDraw = false;
-}
-onCreate() {
+  onSubmitForm() {
     this.mapper.cleanMap();
-    this.mapper.importDrive(this.RightMenuInfo).then(() => this.mapper.exportDrive(this.RightMenuInfo));
-}
+    this.mapper.makeRoute(this.RightMenuInfo);
+    this.ifDraw = false;
+  }
+  onCreate() {
+      this.mapper.cleanMap();
+      this.mapper.importDrive(this.RightMenuInfo).then(() => this.mapper.exportDrive(this.RightMenuInfo));
+
+  }
   initRelationMwithY() {
-    this.mapper.initRelationMwithY(this.RightMenuInfo, 'r');
+    this.mapper.initRelationMwithYForRightMenu(this.RightMenuInfo);
   }
   get date() {
     return this.RightMenuInfo.get('date');
@@ -65,10 +56,6 @@ onCreate() {
 
   get numberOfSeats() {
     return this.RightMenuInfo.get('numberOfSeats');
-  }
-
-  goToMyProposedTrips() {
-    this.router.navigate(['/myproposed']);
   }
 }
 export function forbiddenDateValidator(date: RegExp): ValidatorFn {

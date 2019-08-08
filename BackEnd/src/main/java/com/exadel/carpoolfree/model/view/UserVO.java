@@ -31,7 +31,7 @@ public class UserVO {
 
     private List<Car> cars = new ArrayList<>();
 
-    private Double mark;
+    private int mark = 0;
 
     private String pickUpPoint;
 
@@ -67,9 +67,9 @@ public class UserVO {
         this.driverRating = driverRating;
     }
 
-    public Double getMark() {
-        return mark;
-    }
+        public int getMark() {
+                return mark;
+        }
 
     public Set<Role> getRoles() {
         return roles;
@@ -91,9 +91,9 @@ public class UserVO {
         this.id = id;
     }
 
-    public void setMark(Double mark) {
-        this.mark = mark;
-    }
+        public void setMark(int mark) {
+                this.mark = mark;
+        }
 
     public double getPassengerRating() {
         return passengerRating;
@@ -151,5 +151,3 @@ public class UserVO {
         this.photoUrl = photoUrl;
     }
 }
-
-

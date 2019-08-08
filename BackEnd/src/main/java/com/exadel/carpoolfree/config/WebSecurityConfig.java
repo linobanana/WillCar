@@ -5,7 +5,6 @@ import com.exadel.carpoolfree.service.UserDetailsServiceImpl;
 import com.exadel.carpoolfree.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -54,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/drive/driver/**").hasAuthority("DRIVER")
                 .antMatchers("/api/drive/passenger/**").hasAuthority("PASSENGER")
                 .antMatchers("/api/socket/**").authenticated()
-                .antMatchers("/api/car/driver/**").hasAuthority("DRIVER")
+                .antMatchers("/api/car/**").authenticated()
                 .antMatchers("/api/passengerDrive/passenger/**").hasAuthority("PASSENGER")
                 .antMatchers("/api/passengerDrive/driver/**").hasAuthority("DRIVER")
                 .antMatchers("/main").authenticated()
@@ -66,18 +65,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
-                .logoutSuccessUrl("/login")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 .permitAll()
         ;
         http.headers().frameOptions().disable();
     }
 
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web
-//                .ignoring()
-//                .antMatchers("/static/**");
-//    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -111,15 +105,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /* UNCOMMENT TO DISABLE SPRING SECURITY */
-    @Configuration
-    @Order(1)
-    public static class DisableSecurityConfigurationAdapater extends WebSecurityConfigurerAdapter {
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            http
-                    .csrf().disable()
-                    .antMatcher("/**").authorizeRequests().anyRequest().permitAll();
-            http.headers().frameOptions().disable();
-        }
-    }
+//    @Configuration
+//    @Order(1)
+//    public static class DisableSecurityConfigurationAdapater extends WebSecurityConfigurerAdapter {
+//        @Override
+//        protected void configure(HttpSecurity http) throws Exception {
+//            http
+//                    .csrf().disable()
+//                    .antMatcher("/**").authorizeRequests().anyRequest().permitAll();
+//            http.headers().frameOptions().disable();
+//        }
+//    }
 }

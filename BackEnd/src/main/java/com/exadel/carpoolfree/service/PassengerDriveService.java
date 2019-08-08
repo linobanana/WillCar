@@ -24,7 +24,7 @@ public class PassengerDriveService {
         this.userRepository = userRepository;
     }
 
-    public void addPassenger(PassengerDrive passengerDrive) {
+    public boolean addPassenger(PassengerDrive passengerDrive) {
         PassengerDrive ps1 = passengerDriveRepository.getByDriveAndPassengerId(passengerDrive.getDrive().getId(), passengerDrive.getPassenger().getId());
         if (ps1 == null) {
             PassengerDrive ps = passengerDriveRepository.save(passengerDrive);
@@ -33,28 +33,32 @@ public class PassengerDriveService {
                 places--;
                 ps.getDrive().setFreePlaceCount(places);
                 driveRepository.save(ps.getDrive());
+                return true;
             } else {
                 passengerDriveRepository.deleteByDriveAndPassengerId(ps.getDrive().getId(), ps.getPassenger().getId());
             }
         } else {
             throw new RuntimeException("Passenger already booked this drive");
         }
+        return false;
     }
 
-    public void addMarkDriverToPassenger(MarkVO markVO) {
+    public int addMarkDriverToPassenger(MarkVO markVO) {
         passengerDriveRepository.addMarkDriverToPassenger(markVO.getMark(),
                 markVO.getDriveId(), markVO.getPassengerId());
         User passenger = userRepository.findById(markVO.getPassengerId()).get();
         passenger.setPassengerRating((passenger.getPassengerRating() + markVO.getMark()) / 2);
         userRepository.save(passenger);
+        return markVO.getMark();
     }
 
-    public void addMarkPassengerToDriver(MarkVO markVO) {
+    public int addMarkPassengerToDriver(MarkVO markVO) {
         passengerDriveRepository.addMarkPassengerToDriver(markVO.getMark(),
                 markVO.getDriveId(), markVO.getPassengerId());
         User driver = driveRepository.findById(markVO.getDriveId()).get().getDriver();
         driver.setDriverRating((driver.getDriverRating() + markVO.getMark()) / 2);
         userRepository.save(driver);
+        return markVO.getMark();
     }
 
     public void delete(Long driveId, Long passengerId) {

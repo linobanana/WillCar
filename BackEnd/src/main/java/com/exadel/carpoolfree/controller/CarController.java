@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api/car/driver")
+@RequestMapping("/api/car")
 public class CarController {
 
     private final CarRepository carRepository;
@@ -19,11 +19,6 @@ public class CarController {
     public CarController(CarRepository carRepository) {
         this.carRepository = carRepository;
     }
-
-//    @GetMapping("/userId/{userId}")
-//    public List<Car> getAllCars(@PathVariable Long userId) {
-//        return carRepository.findAllByUserId(userId);
-//    }
 
     @PostMapping()
     public Car addCar(@RequestBody Car car) {

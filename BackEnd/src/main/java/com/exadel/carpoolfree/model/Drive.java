@@ -62,6 +62,9 @@ public class Drive {
     @Column(name = "archive")
     private boolean archive = false;
 
+    @Column(name = "segments_coords")
+    private String segmentsCoords;
+
     @OneToMany()
     private List<Message> messages;
 
@@ -73,5 +76,13 @@ public class Drive {
         this.path = path;
         this.startPoint = startPoint;
         this.finPoint = finPoint;
+    }
+
+    public boolean isArchive() {
+        return archive;
+    }
+
+    public void setArchive(boolean archive) {
+        this.archive = archive;
     }
 }

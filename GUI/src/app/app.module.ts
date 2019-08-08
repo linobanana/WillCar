@@ -8,7 +8,6 @@ import {routes} from './app.routes';
 import {MainModule} from './pages/main/main.module';
 import {HeaderModule} from './shared/components/header/header.module';
 import {FooterModule} from './shared/components/footer/footer.module';
-import {AuthorizationPageModule} from './pages/authorization-page/authorization-page.module';
 import {ConfirmationModule} from './shared/components/success-confirmation/success-confirmation.module';
 import {BookingConfirmationModule} from './shared/components/booking-confirmation/booking-confirmation.module';
 import {MyBookingsModule} from './pages/personal-area/my-bookings/my-bookings.module';
@@ -18,25 +17,21 @@ import {ProfileMenuModule} from './shared/components/profile-menu/profile-menu.m
 import {PersonalAreaModule} from './pages/personal-area/personal-area.module';
 import {ApiService} from "./shared/services/api.service";
 import {ChatModule} from "./pages/personal-area/chat/chat.module";
-import {SocketService} from "./shared/api/chat/socket.service";
 import {ToastrModule} from "ngx-toastr";
-import {MobileMenuModule} from "./shared/components/mobile-menu/mobile-menu.module";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatNativeDateModule, MatSidenavModule} from "@angular/material";
 import {AdminModule} from './pages/personal-area/admin-tab/admin.module';
-import {MainEditModule} from './pages/main-edit/main-edit.module';
+import {SuccessfulCreateRouteModule} from './shared/components/succesful-create-route/successful-create-route.module';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     CommonModule,
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(routes, {useHash: true}),
+    RouterModule.forRoot(routes),
     MainModule,
     HeaderModule,
     FooterModule,
@@ -49,17 +44,13 @@ import {MainEditModule} from './pages/main-edit/main-edit.module';
     MyProposedModule,
     PersonalAreaModule,
     AdminModule,
-    PersonalAreaModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    MainEditModule
-    ReactiveFormsModule,
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule,
-    PersonalAreaModule,
     ChatModule,
+    SuccessfulCreateRouteModule,
     ToastrModule.forRoot()
   ],
   providers: [

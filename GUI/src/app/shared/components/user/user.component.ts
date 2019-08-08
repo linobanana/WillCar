@@ -27,12 +27,7 @@ export class UserComponent implements OnInit {
     this.user.prefCommunication = communicType.value;
     this.profileApiService.changeUserOptions({
       id: this.user.id,
-      name: this.user.name,
-      phoneNumber: this.user.phoneNumber,
-      email: this.user.email,
-      prefCommunication: communicType.value,
-      cars: this.user.cars,
-      driverRating: this.user.driverRating
+      prefCommunication: communicType.value
     }).subscribe((data) => {
       console.log(data);
     }, (error) => {

@@ -1,1 +1,4 @@
-<app-trip [drives]="drives$|async" (cancelDrive) = onCancelTrip($event) (editDrive) = onEditTrip($event) [ifProposed]="true"></app-trip>
+<app-trip [drives]="drives$|async"
+          (cancelDrive) = onCancelTrip($event)
+          (editDrive) = onEditTrip($event)
+          [ifProposed]="true" (ratingToPassenger)="onSetRating($event)"></app-trip>

@@ -21,7 +21,6 @@
           <input matInput formControlName = "endl"  placeholder="End point"  id="endl" >
         </mat-form-field>
       </div>
-        <mat-checkbox formControlName = "near" class="inputs">Nearly search</mat-checkbox>
         <button type="submit"  [disabled]="LeftMenuInfo.invalid" (click)="onSubmitForm()" class="search inputs" mat-button>{{buttonLabel.leftButton}}</button>
     </form>
   </div>

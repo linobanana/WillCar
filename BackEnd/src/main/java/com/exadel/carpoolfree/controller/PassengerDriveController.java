@@ -20,25 +20,24 @@ public class PassengerDriveController {
     }
 
     @PostMapping("/passenger")
-    public void addPassenger(@RequestBody PassengerDrive passengerDrive) {
-        passengerDriveService.addPassenger(passengerDrive);
+    public boolean addPassenger(@RequestBody PassengerDrive passengerDrive) {
+      return  passengerDriveService.addPassenger(passengerDrive);
     }
 
     @PostMapping("/driver/markToPassenger")
-    public void addMarkDriverToPassenger(@RequestBody MarkVO markVO){
-        passengerDriveService.addMarkDriverToPassenger(markVO);
+    public int addMarkDriverToPassenger(@RequestBody MarkVO markVO){
+        return passengerDriveService.addMarkDriverToPassenger(markVO);
     }
 
     @PostMapping("/passenger/markToDriver")
-    public void addMarkPassengerToDriver(@RequestBody MarkVO markVO){
-        passengerDriveService.addMarkPassengerToDriver(markVO);
+    public int addMarkPassengerToDriver(@RequestBody MarkVO markVO){
+       return  passengerDriveService.addMarkPassengerToDriver(markVO);
     }
 
     @DeleteMapping("/passenger/{passengerId}/driveId/{driveId}")
     public void delete(final @PathVariable Long driveId, final @PathVariable Long passengerId) {
         passengerDriveService.delete(driveId, passengerId);
     }
-
 
 }
 

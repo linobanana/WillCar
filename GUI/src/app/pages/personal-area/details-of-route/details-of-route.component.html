@@ -1,0 +1,9 @@
+<div class="info-container">
+  <div class="details">
+    <app-info-route [route]="drive"></app-info-route>
+    <button *ngIf="ifProposed" (click)="backToPreviousTab()" class="goBack" mat-flat-button color="warn">Back</button>
+    <button *ngIf="!ifProposed" (click)="backToPreviousTab()" class="goBack" mat-flat-button color="warn">Back</button>
+  </div>
+  <app-mini-map></app-mini-map>
+</div>
+

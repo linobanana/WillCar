@@ -1,8 +1,28 @@
+<mat-card>
+<div class="date-filter">
+  <form class ="filter-form" [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="example-form-field">
+      <input formControlName = "startTime" id="date1" matInput type="text" placeholder="YYYY-MM-DD">
+      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field class="example-form-field">
+      <input formControlName = "finTime" id="date2" matInput type="text" placeholder="YYYY-MM-DD">
+      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-raised-button color="warn" (click)="onSubmitForm(); cleanValues()">Filter</button>
+  </form>
+</div>
+</mat-card>
+
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> {{adminLabels.name}} </th>
-    <td mat-cell *matCellDef="let user"> {{user.name}} </td>
+    <td mat-cell *matCellDef="let user">{{user.name}}</td>
   </ng-container>
 
   <ng-container matColumnDef="passengerRating">

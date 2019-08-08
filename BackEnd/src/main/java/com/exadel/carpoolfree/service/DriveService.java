@@ -74,8 +74,17 @@ public class DriveService {
                 .collect(Collectors.toList());
     }
 
+    public List<DriveVO> findAllByDateRange(final String stTime, final String finTime) {
+        LocalDateTime startTime = LocalDateTime.parse(stTime, DateTimeFormatter.ISO_DATE_TIME);
+        LocalDateTime finalTime = LocalDateTime.parse(finTime, DateTimeFormatter.ISO_DATE_TIME);
+        List<Drive> drives = driveRepository.findAllDriveInDateRange(startTime, finalTime);
+        return drives.stream()
+                .map(drive -> convertToVO(drive))
+                .collect(Collectors.toList());
+    }
+
     public List<DriveVO> findAllByDriverId(final Long driverId) {
-        List<PassengerDrive> passengerDriveList = passengerDriveRepository.findAllByDriverId(driverId);
+         List<PassengerDrive> passengerDriveList = passengerDriveRepository.findAllByDriverId(driverId);
         Map<Drive, List<PassengerDrive>> driveListMap
                 = passengerDriveList.stream()
                 .collect(Collectors.groupingBy(PassengerDrive::getDrive));
@@ -88,7 +97,7 @@ public class DriveService {
                 return userVO;
             }).collect(Collectors.toList());
             List<Message> messages = messageRepository.findAllByDriveId(drive.getId());
-            if (drive.getStartTime().isBefore(LocalDateTime.now())) {
+            if (drive.getEndTime().isBefore(LocalDateTime.now())&&!drive.isArchive()) {
                 this.deleteById(drive.getId());
             }
             DriveVO driveVO = convertToVO(drive);
@@ -96,14 +105,26 @@ public class DriveService {
             driveVO.setMessages(messages);
             return driveVO;
         }).collect(Collectors.toList());
-        return result;
+        List<DriveVO> allDrives = driveRepository.findByDriverId(driverId).stream().map(drive -> {
+            if (drive.getEndTime().isBefore(LocalDateTime.now())&&!drive.isArchive()) {
+                this.deleteById(drive.getId());
+            }
+            List<Message> messages = messageRepository.findAllByDriveId(drive.getId());
+            DriveVO driveVO = convertToVO(drive);
+            driveVO.setMessages(messages);
+            return driveVO;
+        }).collect(Collectors.toList());
+        allDrives.removeAll(result);
+        allDrives.addAll(result);
+        allDrives.stream().sorted(Comparator.comparing(DriveVO::getStartTime).reversed());
+        return allDrives;
     }
 
     public List<DriveVO> findAllByPassengerId(final  Long passengerId) {
         List<PassengerDrive> passengerDriveList = passengerDriveRepository.findAllByPassengerId(passengerId);
         List<DriveVO> result = passengerDriveList.stream()
                 .map(temp -> {
-                    if (temp.getDrive().getStartTime().isBefore(LocalDateTime.now())) {
+                    if (temp.getDrive().getEndTime().isBefore(LocalDateTime.now())&& !temp.getDrive().isArchive()) {
                         this.deleteById(temp.getDrive().getId());
                     }
                     UserVO driverVO = modelMapper.map(temp.getDrive().getDriver(), UserVO.class);
@@ -115,7 +136,7 @@ public class DriveService {
                     driveVO.setMessages(messages);
                     return driveVO;
                 }).collect(Collectors.toList());
-
+        result.stream().sorted(Comparator.comparing(DriveVO::getStartTime).reversed());
         return result;
     }
 
@@ -194,7 +215,6 @@ public class DriveService {
         double distance = 2*6371*Math.asin(Math.sqrt(squareLatitude +
                 Math.cos(firstPoint[0])*Math.cos(secondPoint[0])*
                 squareLongitude));
-        System.out.println(distance + " ");
         return distance <= 1;
     }
 }

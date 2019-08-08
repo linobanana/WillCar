@@ -2,16 +2,14 @@
   <div class="info">
     <h2 class="title">{{label.confirmLabel}}</h2>
     <table class="list">
-      <tr><td class="parameter">Driver:</td><td class="value">{{driverInfo.name}}</td></tr>
-      <tr><td class="parameter">Car:</td><td class="value">{{driverInfo.cars}}</td></tr>
-      <tr><td class="parameter">Phone:</td><td class="value"><a href="tel:{{driverInfo.telNumber}}">{{driverInfo.telNumber}}</a></td></tr>
-      <tr><td class="parameter">Communicate via:</td><td class="value">{{driverInfo.preferredCommunication}}</td></tr>
-      <tr><td class="parameter">Departure time:</td><td class="value">{{tripInfo.date}}</td></tr>
-      <tr><td class="parameter">Your pickup point:</td><td class="value">{{tripInfo.startPoint.toString()}}</td></tr>
+      <tr><td class="parameter">Driver:</td><td class="value">{{driver.name}}</td></tr>
+      <tr><td class="parameter">Phone:</td><td class="value"><a href="tel:{{driver.phoneNumber}}">{{driver.phoneNumber}}</a></td></tr>
+      <tr><td class="parameter">Communicate via:</td><td class="value">{{driver.prefCommunication || "Phone"}}</td></tr>
+      <tr><td class="parameter">Departure time:</td><td class="value">{{driveDate}}</td></tr>
     </table>
     <div class="buttons">
-    <button mat-raised-button (click)="goToSuccess()" class="button">{{buttonLabel.bookButton}}</button>
-    <button mat-raised-button (click)="goToMain()" class="button cancel-button">{{buttonLabel.cancelButton}}</button>
+      <button mat-raised-button (click)="goToSuccess()" class="button">{{buttonLabel.bookButton}}</button>
+      <button mat-raised-button (click)="goToMain()" class="button cancel-button">{{buttonLabel.cancelButton}}</button>
     </div>
   </div>
 </div>

@@ -6,7 +6,7 @@ import {MENU_ITEMS} from '../../constants/menu-items';
 @Component({
   selector: 'app-success-confirmation',
   templateUrl: './success-confirmation.component.html',
-  styleUrls: ['./success-confirmation.component.css']
+  styleUrls: ['./success-confirmation.component.scss']
 })
 export class SuccessConfirmationComponent implements OnInit {
   label = LABELS;

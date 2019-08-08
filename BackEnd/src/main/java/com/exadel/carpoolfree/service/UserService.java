@@ -11,7 +11,10 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,6 +43,8 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+
+
     public UserVO findById(final Long id) {
         return convertToVO(userRepository.findById(id).get());
     }
@@ -55,6 +60,23 @@ public class UserService {
         }
     }
 
+    public Set<UserForAdminVO> findAllUsersByMonth(final String stTime, final String finTime) {
+        List<DriveVO> driveVOList = driveService.findAllByDateRange(stTime, finTime);
+        List<Long> driversId = new ArrayList<>();
+        for (DriveVO id : driveVOList) {
+            driversId.add(id.getDriver().getId());
+        }
+        Set<UserForAdminVO> drivers = new HashSet<>();
+        for (Long usersId : driversId) {
+            drivers.add(convertToAdminVO(userRepository.findById(usersId).get()));
+        }
+        for (UserForAdminVO driver1 : drivers) {
+            List<DriveVO> drives = driveService.findAllByUserId(driver1.getId());
+            driver1.setDrives(drives);
+        }
+
+        return drivers;
+    }
 
     public UserVO findUserByLogin() {
         SecurityContext context = SecurityContextHolder.getContext();
@@ -67,7 +89,7 @@ public class UserService {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         String login = securityContext.getAuthentication().getName();
         User checkUser = userRepository.findByLogin(login);
-        if (user.getId() == checkUser.getId()) {
+        if (checkUser!=null && user.getId() == checkUser.getId()) {
             return userRepository.findById(user.getId())
                     .map(user1 -> {
                         user1.setPrefCommunication(user.getPrefCommunication());

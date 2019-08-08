@@ -1,10 +1,3 @@
-.trips-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-bottom: 2%;
-}
-
 .my-bookings {
   font-family: 'Titillium Web', sans-serif;
   font-size: 2em;
@@ -24,98 +17,90 @@
   padding-bottom: 2%;
   text-align: center;
 }
-
-.route-shot {
-  max-width: 300px;
-  margin: 3%;
-  border: 2px solid #ff844c;
-}
-
 .trip {
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-  white-space: pre;
+  margin: 0.5% 1%;
 }
 
-.field {
-  font-family: "Titillium Web", sans-serif;
-  font-size: 1.3em;
-  color: #376061;
-  display: inline-flex;
-  margin-bottom: 1%;
+.time-icon {
+  margin-left: 2%;
 }
 
-.field a {
-  color: #376061;
+.cancel-button {
+  margin-left: 1%;
 }
 
-.btn {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: space-evenly;
-  margin-top: 5%;
-}
-
-.mat-icon {
-  padding-right: 2%;
-}
-
-.passengers {
+.passengers-rating {
   ::ng-deep {
-    mat-list-item.mat-list-item{
-      height: 1.5em;
-      font-family: "Titillium Web", sans-serif;
+    mat-list.mat-list.mat-list-base.ng-star-inserted {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    mat-list-item.mat-list-item {
+      width: fit-content;
+    }
+  }
+}
+
+mat-list-item.all-points.mat-list-item.ng-star-inserted {
+  display: flex;
+  justify-content: flex-end;
+}
+
+mat-expansion-panel {
+  ::ng-deep {
+    .mat-expansion-panel-header-description,
+    .mat-expansion-panel-header-title {
+      align-items: center;
+    }
+    .mat-expansion-panel-header .mat-icon {
       color: #376061;
     }
-    .mat-list-base {
-      padding: 0;
+    .mat-icon {
+      margin-right: 1%;
+    }
+    mat-list .mat-icon {
+      color: #a9b1af;
+    }
+    .mat-list-base .mat-list-item,
+    .mat-list-base .mat-list-option {
+      height: 2em;
+      font-family: "Titillium Web", sans-serif;
+    }
+    span.mat-content {
+      font-size: 1.3em;
     }
   }
 }
 
-.star-rating{
-  font-size: 0;
-}
-.star-rating__wrap{
-  display: inline-block;
-  font-size: 1rem;
-}
-.star-rating__wrap:after{
-  content: "";
-  display: table;
-  clear: both;
-}
-.star-rating__ico{
-  float: right;
-  padding-left: 2px;
-  cursor: pointer;
-  color: #FFB300;
-}
-.star-rating__ico:last-child{
-  padding-left: 0;
-}
-.star-rating__input{
-  display: none;
-}
-.star-rating__ico:hover:before,
-.star-rating__ico:hover ~ .star-rating__ico:before,
-.star-rating__input:checked ~ .star-rating__ico:before
-{
-  content: "\f005";
-}
-
-@media screen and (max-width: 414px) {
-  .route-shot {
-    max-width: 150px;
-    max-height: 100px;
-  }
-  .field {
-    font-family: 'Titillium Web', sans-serif;
-    font-size: 1em;
-    color: #376061;
+@media screen and (max-width: 500px) {
+  mat-expansion-panel {
+    ::ng-deep {
+      span.mat-content {
+        font-size: 1em;
+      }
+    }
   }
 }
 
+.emptyList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10% auto;
+  padding: 5%;
+  width: 50%;
+  background: #ffffff6e;
+  box-shadow: 10px 9px 16px -5px rgb(166, 159, 159);
+}
+
+.emptyList p {
+  margin-bottom: 5%;
+  font-family: "Titillium Web", sans-serif;
+  font-size: 1.5em;
+  text-align: center;
+  line-height: 1.5;
+}
 

@@ -20,11 +20,12 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       this.options$.next(clone(OPTIONS));
-    }, 500);
+    }, 200);
   }
 
   onAddCar(car: Car) {
     this.userService.addCar(car);
+
   }
 
   onDeleteCar(car: Car) {

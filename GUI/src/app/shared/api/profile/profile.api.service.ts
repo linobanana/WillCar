@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from '../../services/api.service';
-import {Car, User} from '../../types/common';
 
 @Injectable()
 export class ProfileApiService extends ApiService {
@@ -21,7 +20,7 @@ export class ProfileApiService extends ApiService {
       drives: response.drives,
       pickUpPoint: response.pickUpPoint,
       numOfKm: response.numOfKm
-      };
+    }
   }
 
   private static mapUsers(response: any) {
@@ -43,15 +42,13 @@ export class ProfileApiService extends ApiService {
     return response;
   }
 
+  getUser(id) {
+    return super.get(`api/users/${id}`, ProfileApiService.mapUser);
+  }
+
   getCurrentUser() {
     return super.get(`api/users/`, ProfileApiService.mapUser);
   }
-  getUser(id) {
-    return super.get(`api/users/${id}`);
-  }
-  // putUser(id, prefCommunication){
-  //   return super.put(`api/users/${id}`, body);
-  // }
 
   setUserCar(car) {
     return super.post(`api/car`, car, ProfileApiService.simpleResponse);
@@ -69,7 +66,11 @@ export class ProfileApiService extends ApiService {
     return super.get(`api/users/admin`, ProfileApiService.mapUsers);
   }
 
-  logOut(any) {
-    return super.post(`logout`, any);
+  getFilteredUsers(startTime, finTime) {
+  return super.get(`api/users/admin/startTime/${startTime}/finTime/${finTime}`, ProfileApiService.mapUsers);
+  }
+
+  logOut() {
+    return super.post(`logout`);
   }
 }
