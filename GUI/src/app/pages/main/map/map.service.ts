@@ -380,8 +380,8 @@ export class MapService {
     let driveStartTime = this.parseToISO8601(drive.startTime);
     let freePlaceCount = drive.freePlaceCount;
     let temp = 0;
-    let startCoords = drive.startPoint;
-    let endCoords = drive.finPoint;
+    let startCoords = coordinates[0];
+    let endCoords = coordinates[coordinates.length - 1];
 
     let startPlacemark = new ymaps.Placemark(startCoords, {
       iconContent: 'A'
