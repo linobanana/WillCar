@@ -38,9 +38,9 @@ export class MenuComponent {
   }
   logOut(): void {
     this.profileApiService.logOut()
-      .subscribe(data =>
-        console.log(data));
-  }
+      .subscribe(() =>
+        window.location.href = 'http://localhost:4200/login'
+      )};
 }
 
 

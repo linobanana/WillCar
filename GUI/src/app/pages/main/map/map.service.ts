@@ -443,7 +443,7 @@ export class MapService {
           balloonContentHeader: '<br>Водитель: ' + driverName,
           balloonContentBody: 'Время начла поездки: ' + driveStartTime + ' <br> ' +
             " Количество свободных мест " + freePlaceCount,
-          balloonContentFooter: '<a href="/#/confirmation">Забронировать</a><br>'
+          balloonContentFooter: '<a href="/confirmation">Book</a><br>'
         });
         myPlacemark.events.add("balloonclose", (event) => {
           let placeMark = event.get("target");
@@ -618,7 +618,7 @@ export class MapService {
       },
       properties: {
         iconContent: 'Pick up point',
-        hintContent: 'передвиньте на место, гда вы собираетесь подсесть',
+        hintContent: 'Drag to your pickup point',
 
       }
     }, {

@@ -3,7 +3,7 @@
     <div class="field">{{route.name}}</div>
     <div class="field"><mat-icon>date_range</mat-icon>{{route.date}}</div>
     <div class="field"><mat-icon>access_time</mat-icon>{{route.time}}</div>
-    <div *ngIf="!ifProposed">{{route.driver.name}}</div>
+  <div *ngIf="!ifProposed" class="field"><mat-icon>person</mat-icon>{{route.driver.name}}</div>
     <div class="field" *ngIf="!ifProposed">
       <mat-icon>directions_car</mat-icon>
       {{route.driver.cars[0].model}} {{route.driver.cars[0].number}} {{route.driver.cars[0].color}}
