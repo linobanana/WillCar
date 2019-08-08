@@ -37,14 +37,12 @@ export class ProfileMenuComponent implements OnInit {
   goToAdminTab() {
     this.router.navigate(['/personalarea/', 'admin-tab']);
   }
-  // goToAuthorization() {
-  //   this.profileApiService.logOut('')
-  //     .subscribe(() => {
-  //       window.location.href = 'localhost:8080/login';
-  //     }, () => {
-  //       window.location.href = 'localhost:8080/login';
-  //     });
-  // }
+  logOut(): void {
+    this.profileApiService.logOut()
+      .subscribe(() =>
+        window.location.href = 'https://willcar.herokuapp.com/login'
+      );
+  }
   ngOnInit() {
 
   }

@@ -5,7 +5,7 @@ import {mergeDeepRight, clone} from 'ramda';
 
 @Injectable()
 export class ApiService {
-  private url = 'http://localhost:8080/';
+  private url = 'https://willcar.herokuapp.com/';
 
   private defaultOptions: any;
 
@@ -116,6 +116,5 @@ export class ApiService {
 
   private handleError(error: HttpResponse<any> | any) {
     console.log('error:', error);
-    alert('ups :(');
   }
 }
