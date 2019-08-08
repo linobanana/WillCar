@@ -97,7 +97,7 @@ public class DriveService {
                 return userVO;
             }).collect(Collectors.toList());
             List<Message> messages = messageRepository.findAllByDriveId(drive.getId());
-            if (drive.getStartTime().isBefore(LocalDateTime.now())&&!drive.isArchive()) {
+            if (drive.getEndTime().isBefore(LocalDateTime.now())&&!drive.isArchive()) {
                 this.deleteById(drive.getId());
             }
             DriveVO driveVO = convertToVO(drive);
@@ -106,7 +106,12 @@ public class DriveService {
             return driveVO;
         }).collect(Collectors.toList());
         List<DriveVO> allDrives = driveRepository.findByDriverId(driverId).stream().map(drive -> {
+            if (drive.getEndTime().isBefore(LocalDateTime.now())&&!drive.isArchive()) {
+                this.deleteById(drive.getId());
+            }
+            List<Message> messages = messageRepository.findAllByDriveId(drive.getId());
             DriveVO driveVO = convertToVO(drive);
+            driveVO.setMessages(messages);
             return driveVO;
         }).collect(Collectors.toList());
         allDrives.removeAll(result);
@@ -119,7 +124,7 @@ public class DriveService {
         List<PassengerDrive> passengerDriveList = passengerDriveRepository.findAllByPassengerId(passengerId);
         List<DriveVO> result = passengerDriveList.stream()
                 .map(temp -> {
-                    if (temp.getDrive().getStartTime().isBefore(LocalDateTime.now())&& !temp.getDrive().isArchive()) {
+                    if (temp.getDrive().getEndTime().isBefore(LocalDateTime.now())&& !temp.getDrive().isArchive()) {
                         this.deleteById(temp.getDrive().getId());
                     }
                     UserVO driverVO = modelMapper.map(temp.getDrive().getDriver(), UserVO.class);
